@@ -1,1 +1,3 @@
-console.log('hola');
+export const sayHello = (text) => {
+  return text;
+}

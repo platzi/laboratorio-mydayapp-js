@@ -1,4 +1,5 @@
 import './css/base.css';
 
-console.log('Hello asasa');
-console.log('Hello asasa');
+import { sayHello } from './js/app';
+
+console.log(sayHello('Hello'));
