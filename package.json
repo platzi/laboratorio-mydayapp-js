@@ -8,8 +8,7 @@
     "start": "http-server ./dist -p 8080",
     "dev": "webpack-dev-server --mode development --open",
     "build": "webpack",
-    "e2e": "playwright test",
-    "e2e:report": "playwright show-report"
+    "e2e": "playwright test"
   },
   "keywords": [],
   "author": "",
