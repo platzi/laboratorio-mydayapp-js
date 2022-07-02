@@ -147,20 +147,6 @@ test.describe('Editing', () => {
     await checkNumberOfTodosInLocalStorage(page, 3);
   });
 
-  test('should save edits on blur', async ({ page }) => {
-    const todoItems = page.locator('.todo-list li');
-    await todoItems.nth(1).dblclick();
-    await todoItems.nth(1).locator('.edit').fill('buy some sausages');
-    await todoItems.nth(1).locator('.edit').dispatchEvent('blur');
-
-    await expect(todoItems).toHaveText([
-      TODO_ITEMS[0],
-      'buy some sausages',
-      TODO_ITEMS[2],
-    ]);
-    await checkTodosInLocalStorage(page, 'buy some sausages');
-  });
-
   test('should trim entered text', async ({ page }) => {
     const todoItems = page.locator('.todo-list li');
     await todoItems.nth(1).dblclick();
@@ -173,18 +159,6 @@ test.describe('Editing', () => {
       TODO_ITEMS[2],
     ]);
     await checkTodosInLocalStorage(page, 'buy some sausages');
-  });
-
-  test('should remove the item if an empty text string was entered', async ({ page }) => {
-    const todoItems = page.locator('.todo-list li');
-    await todoItems.nth(1).dblclick();
-    await todoItems.nth(1).locator('.edit').fill('');
-    await todoItems.nth(1).locator('.edit').press('Enter');
-
-    await expect(todoItems).toHaveText([
-      TODO_ITEMS[0],
-      TODO_ITEMS[2],
-    ]);
   });
 
   test('should cancel edits on escape', async ({ page }) => {
@@ -265,10 +239,10 @@ test.describe('Routing', () => {
     await checkTodosInLocalStorage(page, TODO_ITEMS[0]);
   });
 
-  test('should allow me to display active items', async ({ page }) => {
+  test('should allow me to display pending items', async ({ page }) => {
     await page.locator('.todo-list li .toggle').nth(1).check();
     await checkNumberOfCompletedTodosInLocalStorage(page, 1);
-    await page.locator('.filters >> text=Active').click();
+    await page.locator('.filters >> text=Pending').click();
     await expect(page.locator('.todo-list li')).toHaveCount(2);
     await expect(page.locator('.todo-list li')).toHaveText([TODO_ITEMS[0], TODO_ITEMS[2]]);
   });
@@ -283,7 +257,7 @@ test.describe('Routing', () => {
     });
 
     await test.step('Showing active items', async () => {
-      await page.locator('.filters >> text=Active').click();
+      await page.locator('.filters >> text=Pending').click();
     });
 
     await test.step('Showing completed items', async () => {
@@ -307,7 +281,7 @@ test.describe('Routing', () => {
   test('should allow me to display all items', async ({ page }) => {
     await page.locator('.todo-list li .toggle').nth(1).check();
     await checkNumberOfCompletedTodosInLocalStorage(page, 1);
-    await page.locator('.filters >> text=Active').click();
+    await page.locator('.filters >> text=Pending').click();
     await page.locator('.filters >> text=Completed').click();
     await page.locator('.filters >> text=All').click();
     await expect(page.locator('.todo-list li')).toHaveCount(3);
@@ -315,9 +289,9 @@ test.describe('Routing', () => {
 
   test('should highlight the currently applied filter', async ({ page }) => {
     await expect(page.locator('.filters >> text=All')).toHaveClass('selected');
-    await page.locator('.filters >> text=Active').click();
+    await page.locator('.filters >> text=Pending').click();
     // Page change - active items.
-    await expect(page.locator('.filters >> text=Active')).toHaveClass('selected');
+    await expect(page.locator('.filters >> text=Pending')).toHaveClass('selected');
     await page.locator('.filters >> text=Completed').click();
     // Page change - completed items.
     await expect(page.locator('.filters >> text=Completed')).toHaveClass('selected');
@@ -337,7 +311,7 @@ async function createDefaultTodos(page) {
  */
  async function checkNumberOfTodosInLocalStorage(page, expected) {
   return await page.waitForFunction(e => {
-    return JSON.parse(localStorage['react-todos']).length === e;
+    return JSON.parse(localStorage['mydayapp-vanillajs']).length === e;
   }, expected);
 }
 
@@ -347,7 +321,7 @@ async function createDefaultTodos(page) {
  */
  async function checkNumberOfCompletedTodosInLocalStorage(page, expected) {
   return await page.waitForFunction(e => {
-    return JSON.parse(localStorage['react-todos']).filter(i => i.completed).length === e;
+    return JSON.parse(localStorage['mydayapp-vanillajs']).filter(i => i.completed).length === e;
   }, expected);
 }
 
@@ -357,6 +331,10 @@ async function createDefaultTodos(page) {
  */
 async function checkTodosInLocalStorage(page, title) {
   return await page.waitForFunction(t => {
-    return JSON.parse(localStorage['react-todos']).map(i => i.title).includes(t);
+    const data = localStorage.getItem('mydayapp-vanillajs');
+    if (data) {
+      return JSON.parse(data).map(i => i.title).includes(t);
+    }
+    return false;
   }, title);
 }
