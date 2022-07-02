@@ -2,12 +2,12 @@
 
 TodoApp es una aplicación para gestionar tareas de forma sencilla y fácil y en donde pondrás a pruebas tus conocimientos en JS.
 
-- Instalación
-- Configuración
-- Funcionalidades
-- Pruebas
-- Como enviar tu solución
-- Licencia
+- [Instalación](#instalación)
+- [Configuración](#configuración)
+- [Funcionalidades](#funcionalidades)
+- [Pruebas](#pruebas)
+- [Como enviar tu solución](#como-enviar-tu-solución)
+- [Como enviar tu solución](#licencia)
 
 ## Instalación
 
@@ -60,6 +60,7 @@ console.log(sayHello('Hello'));
 Mantén el HTML con el mismo nombre de clases que se está empleando, el cual hacer referencias a  `css/base.css` y el archivo de estilos `base.css` NO se puede editar, si necesitas cambiar en los estilos, cree un nuevo archivo de estilos.
 
 > **Warning**
+
 > Si cambia el nombre de clases o estructura HTML probablemente las pruebas e2e van a fallar, ya que hace referencia específica a esos elementos con esas clases.
 
 
@@ -84,59 +85,62 @@ npm run e2e
 
 ## Funcionalidades
 
-Para crear una aplicación de tareas consistente y útil para los usuarios, la aplicación debe cumplir con la siguiente lista de  9 funcionalidades.
+Para crear una aplicación de tareas consistente y útil para los usuarios, la aplicación debe cumplir con la siguiente lista de  8 funcionalidades.
 
 ### 1. Ocultar main y footer
 
-Cuando no hay tareas, los elementos con id `#main` y `#footer` deberían estar ocultos.
+- Cuando no hay tareas, los elementos con ID `#main` y `#footer` deberían estar ocultos.
+
 ### 2. Crear una nueva tarea.
 
-- Para crear una nueba tarea se debe usar el input principal de la aplicacion.
-- Este input debe enfocarse cuando se cargue la página, preferiblemente usando el atributo de entrada `autofocus`.
-- Presionar la tecla Enter la tarea se crea como pendiente por defecto y se agrega a la lista de tareas y el input debería quedar en limpio.
-- Asegurate de usar métodos como `.trim()` limpiar espacios al inicio o al final y verfique que la tarea no sea un `string` vacio.
+- Para crear una nueva tarea se debe usar el input principal de la aplicación.
+- Este input debe enfocarse cuando se cargue la página, preferiblemente utilizando el atributo de entrada `autofocus`.
+- Al Presionar la tecla Enter la tarea se crea como pendiente por defecto y se agrega a la lista de tareas y el input debería quedar en limpio.
+- Asegúrate de usar métodos como `.trim()` limpiar espacios al inicio o al final y verifique que la tarea no sea un `string` vacío.
 
-### 3. Marcar todas las tareas como completadas.
-
-- Al lado del input hay una fecla que funciona como botón el cual sirve para marcar todas las tareas como completadas.
-- Cuando todas las tareas esten marcadas como completadas este butón debe aparecer como activo.
-- Si al menos una tarea se marca como incompleta el botón debería estar inactivo.
-- Si al menos hay una tarea marcada como completada, debe salir el botón "Clear completed" en el footer el cual permite borrar las tareas ya completadas.
-- Si no hay ninguna tarea el botón no debería mostrarse.
-- Cuando todas las tareas esten completadas este botón se muestra activo.
-
-### 4. Una tarea
+### 3. Una tarea
 
 Una tarea debería tener 3 posibles interacciones:
 
-1. Cuando se haga click en el checkbox la tareas es marcada como **completada** de igual manera si se vuele a hacer click sobre en el checkbox vuelve a su estado de **pendiente**.
-2. Si se hace doble cick en el  `<label>` se activa el modo edición.
+1. Cuando se haga clic en el checkbox las tareas es marcada como **completada,* de igual manera si se vuele a hacer clic sobre en el checkbox vuelve a su estado de **pendiente**.
+2. Si se hace doble clic en el  `<label>` se activa el modo edición.
 3. Si haces la acción `:hover` en una tarea se debería mostrar el botón para eliminar (`.destroy`).
 
-### 5. Editando una tarea
+### 4. Editando una tarea
 
 - Cuando el modo de edición está activado, se deberían ocultar los otros elementos y se mostrará un input que contiene el título de la tarea pendiente, que debe estar enfocado (`.focus()`).
 - La edición debe guardarse cuando se presione la tecla Enter y salir del modo edición.
-- La edición tambien debería guardarse cuando si se edita el campo y luego se sale del input.
-- Asegurate de usar métodos como `.trim()` limpiar espacios al inicio o al final y si la tarea queda como un `string` vacio de considera como un eliminación de la tarea.
+- La edición también debería guardarse cuando si se edita el campo y luego se sale del input.
+- Asegúrate de usar métodos como `.trim()` limpiar espacios al inicio o al final y si la tarea queda como un `string` vacío se considera como una eliminación de la tarea.
 - Si se presiona escape durante la edición, se debe dejar el estado de edición y descartar cualquier cambio.
 
-### 6. Contador
+### 5. Contador
 
-- En el footer se debería mostrar el numero de tareas en estado **pendiente**.
+- En el footer se debería mostrar el número de tareas en estado **pendiente**.
 - Asegúrese de que el número esté envuelto por una etiqueta `<strong>`.
-Displays the number of active todos in a pluralized form. Make sure the number is wrapped by a `<strong>` tag. - También asegúrese de pluralizar la palabra `item` correctamente: `0 items`, `1 item`, `2 items`.
+- También asegúrese de pluralizar la palabra `item` correctamente: `0 items`, `1 item`, `2 items`.
 
-### 7. Clear completed button
+### 6. Botón de limpiar
 
-Removes completed todos when clicked. Should be hidden when there are no completed todos.
+- Debería existir un botón para eliminar todas las tareas que están con estado de **completada**.
 
-### 8. Persistence
+### 7. Persistencia
 
-Your app should dynamically persist the todos to localStorage. If the framework has capabilities for persisting data (e.g. Backbone.sync), use that. Otherwise, use vanilla localStorage. If possible, use the keys `id`, `title`, `completed` for each item. Make sure to use this format for the localStorage name: `todos-[framework]`. Editing mode should not be persisted.
+- Cuando se recargue la aplicación debo obtener las tareas, para esto tu aplicación debería guardar las tareas en localStorage.
+- NO es necesario persistir estados de la interfaz como por ejemplo guardar el modo de edición. Solo se debe guardar las tareas.
 
-### 9. Routing
+### 8. Filtros
 
-Routing is required for all implementations. If supported by the framework, use its built-in capabilities. Otherwise, use the  [Flatiron Director](https://github.com/flatiron/director) routing library located in the `/assets` folder. The following routes should be implemented: `#/` (all - default), `#/active` and `#/completed` (`#!/` is also allowed). When the route changes, the todo list should be filtered on a model level and the `selected` class on the filter links should be toggled. When an item is updated while in a filtered state, it should be updated accordingly. E.g. if the filter is `Active` and the item is checked, it should be hidden. Make sure the active filter is persisted on reload.
+Deben existir tres filtros como parte del footer
+
+- All: Muestra todas las tareas tanto las que están en estado de **completadas** y **pendientes**.
+- Pending: Muestra todas las tareas en estado **pendiente**.
+- Completed: Muestra todas las tareas en estado **completado**.
+
+### 9. Deployment
 
 ## Pruebas
+
+## Como enviar tu solución
+
+## Licencia
