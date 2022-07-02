@@ -1,7 +1,6 @@
 name: CI
 on:
-  pull_request:
-    branches: [ main ]
+  push
 jobs:
   e2e:
     timeout-minutes: 60
