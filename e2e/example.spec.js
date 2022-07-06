@@ -311,7 +311,7 @@ async function createDefaultTodos(page) {
  */
  async function checkNumberOfTodosInLocalStorage(page, expected) {
   return await page.waitForFunction(e => {
-    return JSON.parse(localStorage['mydayapp-vanillajs']).length === e;
+    return JSON.parse(localStorage['mydayapp-js']).length === e;
   }, expected);
 }
 
@@ -321,7 +321,7 @@ async function createDefaultTodos(page) {
  */
  async function checkNumberOfCompletedTodosInLocalStorage(page, expected) {
   return await page.waitForFunction(e => {
-    return JSON.parse(localStorage['mydayapp-vanillajs']).filter(i => i.completed).length === e;
+    return JSON.parse(localStorage['mydayapp-js']).filter(i => i.completed).length === e;
   }, expected);
 }
 
@@ -331,7 +331,7 @@ async function createDefaultTodos(page) {
  */
 async function checkTodosInLocalStorage(page, title) {
   return await page.waitForFunction(t => {
-    const data = localStorage.getItem('mydayapp-vanillajs');
+    const data = localStorage.getItem('mydayapp-js');
     if (data) {
       return JSON.parse(data).map(i => i.title).includes(t);
     }
