@@ -91,7 +91,7 @@ body {
   margin: 0;
 }
 
-.header h1 + p {
+.header h1+p {
   margin: 0;
   color: white;
   padding-bottom: 1.2rem;
