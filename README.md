@@ -10,6 +10,7 @@ MyDayApp es una aplicación para gestionar tareas de forma sencilla, fácil y en
 - [Pruebas](#pruebas)
 - [Como enviar tu solución](#como-enviar-tu-solución)
 - [Licencia](#licencia)
+- [Credits](#credits)
 
 ## Instalación
 
