@@ -2,6 +2,8 @@
 
 MyDayApp es una aplicación para gestionar tareas de forma sencilla y fácil y en donde pondrás a pruebas tus conocimientos en JS.
 
+![preview](https://i.imgur.com/et5mmr7.png)
+
 - [Instalación](#instalación)
 - [Configuración](#configuración)
 - [Funcionalidades](#funcionalidades)
@@ -11,11 +13,21 @@ MyDayApp es una aplicación para gestionar tareas de forma sencilla y fácil y e
 
 ## Instalación
 
-Fork y npm install
+1. Hacer el fork de este proyecto en tu espacio personal
+1. Clonar el repositorio desde tu espacio personal en tu computadora
+1. Instalar dependencias  con `npm install`
+1. Comprobar ambiente te desarrollo con `npm run dev`
+
+---
+### Instalación de entorno para pruebas e2e
+
+1. Instalar requerimientos para pruebas e2e `npm run e2e:install`
+1. Comprobar que se corran pruebas e2e con `npm run e2e`
+
 
 ## Configuración
 
-El proyecto ya viene con una configuración por defecto, el cual ya incluye empaquetado y una organización sencilla de archivos y carpetas para solo empezar a incorporar las funcionalidades.
+El proyecto ya viene con una configuración por defecto, la cual ya incluye empaquetado con *webpack* y una organización sencilla de archivos y carpetas para empezar a incorporar las funcionalidades en JavaScript.
 
 ### Estructura de carpetas
 
@@ -55,13 +67,11 @@ console.log(sayHello("Hello"));
 
 ### HTML Y CSS
 
-Mantén el HTML con el mismo nombre de clases que se está empleando, el cual hacer referencias a `css/base.css` y el archivo de estilos `base.css` NO se puede editar, si necesitas cambiar en los estilos, cree un nuevo archivo de estilos.
+Debes mantener el HTML con el mismo nombre de clases que se está empleando, el cual hace referencia a `css/base.css`. El archivo `base.css` NO se puede editar, si necesitas cambiar los estilos, crea un nuevo archivo de estilos. Aunque no es necesario para este ejercicio.
 
-> **Warning**
+> Si cambia el nombre de clases o estructura HTML probablemente las [pruebas e2e](#pruebas) van a fallar, ya que hace referencia específica a esos elementos con esas clases.
 
-> Si cambia el nombre de clases o estructura HTML probablemente las pruebas e2e van a fallar, ya que hace referencia específica a esos elementos con esas clases.
-
-Inicialmente, el archivo `src/index.html` tiene un ejemplo de como mostrar las tareas usando varios estilos y en varios estados:
+Inicialmente, el archivo `src/index.html` tiene un ejemplo de como mostrar las tareas usando varios estilos de acuerdo a los estados:
 
 ```html
 <ul class="todo-list">
@@ -94,6 +104,8 @@ Inicialmente, el archivo `src/index.html` tiene un ejemplo de como mostrar las t
 </ul>
 ```
 
+![tasks](https://i.imgur.com/GiBhkwl.png)
+
 Sin embargo esto es solo un ejemplo, si para tu implementación manejas el render desde la logica en JavaScript puedes dejar el elemento `ul` en vacio.
 
 ```html
@@ -102,25 +114,15 @@ Sin embargo esto es solo un ejemplo, si para tu implementación manejas el rende
 
 ### Scrips
 
-```
-npm run start
-```
 
-```
-npm run dev
-```
-
-```
-npm run build
-```
-
-```
-npm run e2e
-```
+- El comando `npm run start` inicia un servidor pequeño de la carpeta de `/dist` que es la carpeta en donde quedan los archivos para producción, recuerda antes de correr este comando asegurarte de correr `npm run build`.
+- El comando `npm run dev` genera un servidor en modo desarrollo el cual tiene livereload.
+- El comando `npm run build` corre webpack en modo producción y deja los archivos de producción en la carpeta `/dist`.
+- El comando `npm run e2e` corre las [pruebas e2e](#pruebas) usando playwright.
 
 ## Funcionalidades
 
-Para crear una aplicación de tareas consistente y útil para los usuarios, la aplicación debe cumplir con la siguiente lista de 8 funcionalidades.
+Para crear una aplicación de tareas consistente y útil para los usuarios, la aplicación debe cumplir con la siguiente lista de 9 funcionalidades.
 
 El modelo de datos recomendado para una tarea es:
 
@@ -173,19 +175,28 @@ Una tarea debería tener 3 posibles interacciones:
 
 ### 8. Filtros y rutas
 
-Deben existir tres filtros como parte del footer
+Deben existir tres filtros que funcione desde la URL y funcionan como links en el footer:
 
-- All: Muestra todas las tareas tanto las que están en estado de **completadas** y **pendientes**.
-- Pending: Muestra todas las tareas en estado **pendiente**.
-- Completed: Muestra todas las tareas en estado **completado**.
+- `#/all`: Muestra todas las tareas tanto las que están en estado de **completadas** y **pendientes**.
+- `#/pending`: Muestra todas las tareas en estado **pendiente**.
+- `#/completed`: Muestra todas las tareas en estado **completado**.
 
 ### 9. Deployment
 
+Desplegar la aplicación en alguno de los siguientes servicios: GitHub Pages, Netlify, Vercel.
+
 ## Pruebas
+
+Las pruebas e2e corren bajo playrighth con el comando `npm run e2e` y ya esta incluido como parte de las depencincias del proyecto sin embargo antes de correr el comando asegurate de correr `npm run e2e:install` para instalar los requerimientos de playrighth para correr pruebas.
 
 ## Como enviar tu solución
 
+Debes de hacer un "Fork" de este proyecto, revolver los problemas y crear un Pull Request hacia este repositorio.
+
 ## Licencia
 
+Este proyecto se lanza bajo la licencia [MIT](https://opensource.org/licenses/MIT).
 
 ## Credits
+
+- [TodoMVC Project](https://todomvc.com/).
