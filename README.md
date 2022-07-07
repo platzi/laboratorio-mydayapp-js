@@ -193,7 +193,7 @@ Cuando corras el comando `npm run e2e` por primera vez y antes de crear todas la
 
 ![failed](https://i.imgur.com/w97JOa2.png)
 
-Una vez cumpleas con todas las funcionalidades deberías pasar todas las pruebas así:
+Una vez desarrolles todas las funcionalidades deberías pasar todas las pruebas y se verán así:
 
 ![success](https://i.imgur.com/klT2QvK.png)
 
