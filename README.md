@@ -116,7 +116,7 @@ Sin embargo esto es solo un ejemplo, si para tu implementación manejas el rende
 ### Scripts
 
 
-- El comando `npm run start` inicia un servidor de la carpeta de `/dist` que es la carpeta en donde quedan los archivos para producción, recuerda antes de correr este comando asegurarte de correr `npm run build`.
+- El comando `npm run start` inicia un servidor usando `http-server` con la carpeta de `/dist` que es la carpeta en donde quedan los archivos para producción, recuerda antes de correr este comando asegurarte de correr `npm run build`.
 - El comando `npm run dev` genera un servidor en modo desarrollo el cual tiene livereload.
 - El comando `npm run build` corre webpack en modo producción y deja los archivos de producción en la carpeta `/dist`.
 - El comando `npm run e2e` corre las [pruebas e2e](#pruebas) usando [playwright](https://playwright.dev/).
