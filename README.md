@@ -189,6 +189,16 @@ Desplegar la aplicación en alguno de los siguientes servicios: GitHub Pages, Ne
 
 Las pruebas e2e corren bajo playwright con el comando `npm run e2e` y ya esta incluido como parte de las dependencias del proyecto, sin embargo, antes de correr el comando, asegúrate de correr `npm run e2e:install` para instalar los requerimientos de playwright para correr pruebas.
 
+Cuando corras el comando `npm run e2e` por primera vez y antes de crear todas las [funcionalidades](#funcionalidades), las pruebas van a fallar y se verán así:
+
+![failed](https://i.imgur.com/w97JOa2.png)
+
+Una vez cumpleas con todas las funcionalidades deberías pasar todas las pruebas así:
+
+![success](https://i.imgur.com/klT2QvK.png)
+
+> Puedes ir corriendo el comando `npm run e2e` de las funcionalidades que vayas creando para ir evaluando que vas por buen camino.
+
 ## Como enviar tu solución
 
 Debes de hacer un "Fork" de este proyecto, revolver los problemas y crear un Pull Request hacia este repositorio.
