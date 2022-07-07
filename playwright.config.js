@@ -14,7 +14,6 @@ const config = {
   reporter: "list",
   use: {
     actionTimeout: 0,
-    headless: false,
     baseURL: "http://localhost:8080",
     trace: "on-first-retry",
   },
