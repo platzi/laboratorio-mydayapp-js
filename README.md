@@ -1,4 +1,4 @@
-# MyDayApp
+# MyDayApp - JavaScript
 
 MyDayApp es una aplicación para gestionar tareas de forma sencilla, fácil y en donde pondrás a pruebas tus conocimientos en JS.
 
@@ -116,7 +116,7 @@ Sin embargo esto es solo un ejemplo, si para tu implementación manejas el rende
 ### Scripts
 
 
-- El comando `npm run start` inicia un servidor de la carpeta de `/dist` que es la carpeta en donde quedan los archivos para producción, recuerda antes de correr este comando asegurarte de correr `npm run build`.
+- El comando `npm run start` inicia un servidor usando `http-server` con la carpeta de `/dist` que es la carpeta en donde quedan los archivos para producción, recuerda antes de correr este comando asegurarte de correr `npm run build`.
 - El comando `npm run dev` genera un servidor en modo desarrollo el cual tiene livereload.
 - El comando `npm run build` corre webpack en modo producción y deja los archivos de producción en la carpeta `/dist`.
 - El comando `npm run e2e` corre las [pruebas e2e](#pruebas) usando [playwright](https://playwright.dev/).
@@ -188,6 +188,16 @@ Desplegar la aplicación en alguno de los siguientes servicios: GitHub Pages, Ne
 ## Pruebas
 
 Las pruebas e2e corren bajo playwright con el comando `npm run e2e` y ya esta incluido como parte de las dependencias del proyecto, sin embargo, antes de correr el comando, asegúrate de correr `npm run e2e:install` para instalar los requerimientos de playwright para correr pruebas.
+
+Cuando corras el comando `npm run e2e` por primera vez y antes de crear todas las [funcionalidades](#funcionalidades), las pruebas van a fallar y se verán así:
+
+![failed](https://i.imgur.com/w97JOa2.png)
+
+Una vez desarrolles todas las funcionalidades deberías pasar todas las pruebas y se verán así:
+
+![success](https://i.imgur.com/klT2QvK.png)
+
+> Puedes ir corriendo el comando `npm run e2e` de las funcionalidades que vayas creando para ir evaluando que vas por buen camino.
 
 ## Como enviar tu solución
 
