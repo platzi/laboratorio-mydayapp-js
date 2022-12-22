@@ -1,9 +1,10 @@
 import {
-  currentTodos,
+  filterTodos,
   removeTodo,
   toggleTodoCompleted,
   updateTodo,
 } from "./store.manager";
+import { getCurrentHash } from "./utils";
 
 const todosList = document.querySelector(".todo-list");
 const todosCounter = document.querySelector("span.todo-count strong");
@@ -63,6 +64,7 @@ export const createTodoUI = (todo) => {
   check.addEventListener("click", () => {
     toggleTodoCompleted(id);
     container.classList.toggle("completed");
+    updateUI();
   });
 
   const label = createHTMLElement({ element: "label" });
@@ -81,7 +83,7 @@ export const createTodoUI = (todo) => {
   button.addEventListener("click", () => {
     removeTodo(id);
     container.remove();
-    updateUI(currentTodos);
+    updateUI();
   });
 
   view.appendChild(check);
@@ -114,8 +116,10 @@ export const createTodoUI = (todo) => {
 };
 
 export const updateUI = (todos) => {
+  if (!todos) todos = filterTodos(getCurrentHash());
+
   // Update main and footer items
-  const currentLenght = currentTodos.length;
+  const currentLenght = todos.length;
   mainElement.style.display = currentLenght > 0 ? "block" : "none";
   footerElement.style.display = currentLenght > 0 ? "block" : "none";
 

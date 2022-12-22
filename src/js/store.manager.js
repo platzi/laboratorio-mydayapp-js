@@ -70,16 +70,12 @@ export const filterTodos = (filter) => {
   switch (filter) {
     case "":
     case "all":
-      console.log("Show all");
-      break;
+      return currentTodos;
     case "pending":
-      console.log("Filter by pending");
-      break;
+      return currentTodos.filter((todo) => !todo.completed);
     case "completed":
-      console.log("Filter by completed");
-      break;
+      return currentTodos.filter((todo) => todo.completed);
     default:
-      console.log("Ignore this", filter);
-      break;
+      return currentTodos;
   }
 };

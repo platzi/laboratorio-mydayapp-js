@@ -1,10 +1,11 @@
 import "./css/base.css";
+
 import {
   addTodo,
   clearCompletedTodos,
-  currentTodos,
   filterTodos,
 } from "./js/store.manager.js";
+
 import { createTodoUI, updateUI } from "./js/ui.manager";
 
 const newTodoInput = document.querySelector("input.new-todo");
@@ -29,18 +30,18 @@ newTodoInput.addEventListener("keydown", (eventKey) => {
     if (success) {
       todosList.appendChild(createTodoUI(todo));
       newTodoInput.value = "";
-      updateUI(currentTodos);
+      updateUI();
     }
   }
 });
 
 clearCompletedButton.addEventListener("click", () => {
   clearCompletedTodos();
-  updateUI(currentTodos);
+  updateUI();
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  updateUI(currentTodos);
+  updateUI();
 
   filterButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
@@ -49,7 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
       target.classList.add("selected");
 
       const hash = target.getAttribute("href");
-      filterTodos(hash.split("#/")[1]);
+      const filteredTodos = filterTodos(hash.split("#/")[1]);
+      updateUI(filteredTodos);
     });
   });
 });
