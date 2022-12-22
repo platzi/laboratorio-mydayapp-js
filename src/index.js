@@ -1,6 +1,6 @@
 import "./css/base.css";
 import { currentTodos, addTodo } from "./js/store.manager.js";
-import { createTodoUI } from "./js/ui.manager";
+import { createTodoUI, updateTodosCounter } from "./js/ui.manager";
 
 // ### ### ### ###
 // Selectors
@@ -15,6 +15,8 @@ const showTodos = () => {
   currentTodos.forEach((todo) => {
     todosList.appendChild(createTodoUI(todo));
   });
+
+  updateTodosCounter();
 };
 
 // ### ### ### ###
@@ -29,6 +31,7 @@ newTodoInput.addEventListener("keydown", (key) => {
     if (success) {
       todosList.appendChild(createTodoUI(todo));
       newTodoInput.value = "";
+      updateTodosCounter();
     }
   }
 });

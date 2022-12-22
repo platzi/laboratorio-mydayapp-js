@@ -1,4 +1,5 @@
-import { removeTodo, toggleTodoCompleted } from "./store.manager";
+import { currentTodos, removeTodo, toggleTodoCompleted } from "./store.manager";
+const todosCounter = document.querySelector("span.todo-count strong");
 
 /**
  *
@@ -67,6 +68,7 @@ export const createTodoUI = (todo) => {
     removeTodo(id);
     // Remove the parent element, so, the todo disappears from the UI
     container.remove();
+    updateTodosCounter();
   });
 
   view.appendChild(check);
@@ -80,4 +82,8 @@ export const createTodoUI = (todo) => {
   container.appendChild(input);
 
   return container;
+};
+
+export const updateTodosCounter = () => {
+  todosCounter.textContent = currentTodos.length;
 };
