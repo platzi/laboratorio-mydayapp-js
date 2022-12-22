@@ -11,6 +11,15 @@ const updateLS = () => {
   localStorage.setItem(CONFIG.LS_KEY, JSON.stringify(currentTodos));
 };
 
+/**
+ *
+ * @param {string} inputText
+ * @returns {[
+ * {id: string, title: string, completed: boolean} | null,
+ * boolean
+ * ]} Returns the new todo and true if the todo was successfully added, otherwise,
+ * returns null and false
+ */
 export const addTodo = (inputText) => {
   // Memove trailing or redundant spaces
   const title = inputText.replace(RegExps.redundantSpaces, " ").trim();

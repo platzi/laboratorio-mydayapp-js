@@ -2,7 +2,11 @@ import { toggleTodoCompleted } from "./store.manager";
 
 /**
  *
- * @param {{element: string, classList: number[], attributes: {name: string, value: string}[]}} requirements
+ * @param {{
+ * element: string,
+ * classList: number[],
+ * attributes: {name: string, value: string}[]
+ * }} requirements The object that describes the values for the HTML element.
  * @returns {HTMLElement}
  */
 const createHTMLElement = (requirements) => {
