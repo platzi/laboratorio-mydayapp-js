@@ -16,7 +16,7 @@ export const addTodo = (inputText) => {
   const title = inputText.replace(RegExps.redundantSpaces, " ").trim();
   if (!title) return [null, false];
 
-  const todo = { id: v4(), title, state: "pending" };
+  const todo = { id: v4(), title, completed: false };
   currentTodos = [...currentTodos, todo];
   updateLS();
 
