@@ -7,9 +7,10 @@ import {
 import { getCurrentHash } from "./utils";
 
 const todosList = document.querySelector(".todo-list");
-const todosCounter = document.querySelector("span.todo-count strong");
 const mainElement = document.getElementById("main");
 const footerElement = document.getElementById("footer");
+const todosCounter = document.querySelector("span.todo-count strong");
+const clearCompletedButton = document.querySelector("button.clear-completed");
 
 /**
  *
@@ -130,4 +131,8 @@ export const updateUI = (todos) => {
   });
 
   todosCounter.textContent = todos.length;
+
+  // Hide the "Clear completed" when there are not completed todos
+  clearCompletedButton.style.display =
+    filterTodos("completed").length > 0 ? "block" : "none";
 };
