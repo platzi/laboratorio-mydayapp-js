@@ -65,3 +65,21 @@ export const updateTodo = (id, inputText) => {
   updateLS();
   return [title, true];
 };
+
+export const filterTodos = (filter) => {
+  switch (filter) {
+    case "":
+    case "all":
+      console.log("Show all");
+      break;
+    case "pending":
+      console.log("Filter by pending");
+      break;
+    case "completed":
+      console.log("Filter by completed");
+      break;
+    default:
+      console.log("Ignore this", filter);
+      break;
+  }
+};
