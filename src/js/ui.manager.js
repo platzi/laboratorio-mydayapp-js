@@ -100,6 +100,7 @@ export const createTodoUI = (todo) => {
 
       if (success) {
         label.textContent = title;
+        input.value = title;
       }
     } else if (key === "Escape") {
       container.classList.remove("editing");
