@@ -1,4 +1,4 @@
-import { toggleTodoCompleted } from "./store.manager";
+import { removeTodo, toggleTodoCompleted } from "./store.manager";
 
 /**
  *
@@ -61,6 +61,12 @@ export const createTodoUI = (todo) => {
   const button = createHTMLElement({
     element: "button",
     classList: ["destroy"],
+  });
+
+  button.addEventListener("click", () => {
+    removeTodo(id);
+    // Remove the parent element, so, the todo disappears from the UI
+    container.remove();
   });
 
   view.appendChild(check);

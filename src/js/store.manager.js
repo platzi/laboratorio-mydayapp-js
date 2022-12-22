@@ -40,3 +40,9 @@ export const toggleTodoCompleted = (id) => {
   currentTodos = [...updatedTodos];
   updateLS();
 };
+
+export const removeTodo = (id) => {
+  const updatedTodos = currentTodos.filter((todo) => todo.id !== id);
+  currentTodos = [...updatedTodos];
+  updateLS();
+};
