@@ -1,3 +1,3 @@
-export const sayHello = (text) => {
-  return text;
+export const RegExps = {
+  redundantSpaces: new RegExp(/\s\s+/, "g"),
 };
