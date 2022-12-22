@@ -1,23 +1,9 @@
 import "./css/base.css";
-import { currentTodos, addTodo } from "./js/store.manager.js";
+import { addTodo, currentTodos } from "./js/store.manager.js";
 import { createTodoUI, updateUI } from "./js/ui.manager";
 
-// ### ### ### ###
-// Selectors
 const newTodoInput = document.querySelector("input.new-todo");
 const todosList = document.querySelector(".todo-list");
-
-// ### ### ### ###
-// Functions
-const showTodos = () => {
-  todosList.innerHTML = "";
-
-  currentTodos.forEach((todo) => {
-    todosList.appendChild(createTodoUI(todo));
-  });
-
-  updateUI();
-};
 
 // ### ### ### ###
 // Events
@@ -31,12 +17,11 @@ newTodoInput.addEventListener("keydown", (eventKey) => {
     if (success) {
       todosList.appendChild(createTodoUI(todo));
       newTodoInput.value = "";
-
-      updateUI();
+      updateUI(currentTodos);
     }
   }
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  showTodos();
+  updateUI(currentTodos);
 });

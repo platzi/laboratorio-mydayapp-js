@@ -47,6 +47,12 @@ export const removeTodo = (id) => {
   updateLS();
 };
 
+export const clearCompletedTodos = () => {
+  const updatedTodos = currentTodos.filter((todo) => !todo.completed);
+  currentTodos = [...updatedTodos];
+  updateLS();
+};
+
 export const updateTodo = (id, inputText) => {
   const title = inputText.replace(RegExps.redundantSpaces, " ").trim();
   if (!title) return [null, false];

@@ -5,6 +5,7 @@ import {
   updateTodo,
 } from "./store.manager";
 
+const todosList = document.querySelector(".todo-list");
 const todosCounter = document.querySelector("span.todo-count strong");
 const mainElement = document.getElementById("main");
 const footerElement = document.getElementById("footer");
@@ -79,9 +80,8 @@ export const createTodoUI = (todo) => {
 
   button.addEventListener("click", () => {
     removeTodo(id);
-    // Remove the parent element, so, the todo disappears from the UI
     container.remove();
-    updateUI();
+    updateUI(currentTodos);
   });
 
   view.appendChild(check);
@@ -113,15 +113,17 @@ export const createTodoUI = (todo) => {
   return container;
 };
 
-export const updateTodosCounter = () => {
-  todosCounter.textContent = currentTodos.length;
-};
-
-export const updateUI = () => {
+export const updateUI = (todos) => {
   // Update main and footer items
   const currentLenght = currentTodos.length;
   mainElement.style.display = currentLenght > 0 ? "block" : "none";
   footerElement.style.display = currentLenght > 0 ? "block" : "none";
 
-  updateTodosCounter();
+  // Render each todo
+  todosList.innerHTML = "";
+  todos.forEach((todo) => {
+    todosList.appendChild(createTodoUI(todo));
+  });
+
+  todosCounter.textContent = todos.length;
 };
