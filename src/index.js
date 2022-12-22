@@ -1,11 +1,5 @@
 import "./css/base.css";
-
-import {
-  addTodo,
-  clearCompletedTodos,
-  filterTodos,
-} from "./js/store.manager.js";
-
+import { addTodo, clearCompletedTodos } from "./js/store.manager.js";
 import { createTodoUI, updateUI } from "./js/ui.manager";
 
 const newTodoInput = document.querySelector("input.new-todo");
@@ -48,10 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const { target } = e;
       document.querySelector("a.selected").classList.remove("selected");
       target.classList.add("selected");
-
-      const hash = target.getAttribute("href");
-      const filteredTodos = filterTodos(hash.split("#/")[1]);
-      updateUI(filteredTodos);
     });
   });
 });
+
+window.addEventListener("hashchange", () => updateUI());
