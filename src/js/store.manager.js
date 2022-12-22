@@ -22,3 +22,12 @@ export const addTodo = (inputText) => {
 
   return [todo, true];
 };
+
+export const toggleTodoCompleted = (id) => {
+  const updatedTodos = currentTodos.map((todo) =>
+    todo.id === id ? { ...todo, completed: !todo.completed } : todo
+  );
+
+  currentTodos = [...updatedTodos];
+  updateLS();
+};

@@ -1,3 +1,10 @@
+import { toggleTodoCompleted } from "./store.manager";
+
+/**
+ *
+ * @param {{element: string, classList: number[], attributes: {name: string, value: string}[]}} requirements
+ * @returns {HTMLElement}
+ */
 const createHTMLElement = (requirements) => {
   const element = document.createElement(requirements.element);
 
@@ -16,13 +23,17 @@ const createHTMLElement = (requirements) => {
   return element;
 };
 
+/**
+ *
+ * @param {{id: string, title: string, completed: boolean}} todo
+ * @returns {HTMLLIElement}
+ */
 export const createTodoUI = (todo) => {
-  const { title, completed } = todo;
+  const { id, title, completed } = todo;
 
-  // Possible states for the container are completed and editing
   const container = createHTMLElement({
     element: "li",
-    classList: completed ? [completed] : null,
+    classList: completed ? ["completed"] : null,
   });
 
   const view = createHTMLElement({ element: "div", classList: ["view"] });
@@ -31,6 +42,13 @@ export const createTodoUI = (todo) => {
     element: "input",
     classList: ["toggle"],
     attributes: [{ name: "type", value: "checkbox" }],
+  });
+
+  check.checked = completed;
+
+  check.addEventListener("click", () => {
+    toggleTodoCompleted(id);
+    container.classList.toggle("completed");
   });
 
   const label = createHTMLElement({ element: "label" });
