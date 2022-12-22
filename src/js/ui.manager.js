@@ -4,7 +4,10 @@ import {
   toggleTodoCompleted,
   updateTodo,
 } from "./store.manager";
+
 const todosCounter = document.querySelector("span.todo-count strong");
+const mainElement = document.getElementById("main");
+const footerElement = document.getElementById("footer");
 
 /**
  *
@@ -78,7 +81,7 @@ export const createTodoUI = (todo) => {
     removeTodo(id);
     // Remove the parent element, so, the todo disappears from the UI
     container.remove();
-    updateTodosCounter();
+    updateUI();
   });
 
   view.appendChild(check);
@@ -111,4 +114,13 @@ export const createTodoUI = (todo) => {
 
 export const updateTodosCounter = () => {
   todosCounter.textContent = currentTodos.length;
+};
+
+export const updateUI = () => {
+  // Update main and footer items
+  const currentLenght = currentTodos.length;
+  mainElement.style.display = currentLenght > 0 ? "block" : "none";
+  footerElement.style.display = currentLenght > 0 ? "block" : "none";
+
+  updateTodosCounter();
 };
