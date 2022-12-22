@@ -46,3 +46,16 @@ export const removeTodo = (id) => {
   currentTodos = [...updatedTodos];
   updateLS();
 };
+
+export const updateTodo = (id, inputText) => {
+  const title = inputText.replace(RegExps.redundantSpaces, " ").trim();
+  if (!title) return [null, false];
+
+  const updatedTodos = currentTodos.map((todo) =>
+    todo.id === id ? { ...todo, title } : { ...todo }
+  );
+
+  currentTodos = [...updatedTodos];
+  updateLS();
+  return [title, true];
+};

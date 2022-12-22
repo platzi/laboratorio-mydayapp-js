@@ -21,10 +21,10 @@ const showTodos = () => {
 
 // ### ### ### ###
 // Events
-newTodoInput.addEventListener("keydown", (key) => {
-  const { keyCode } = key;
+newTodoInput.addEventListener("keydown", (eventKey) => {
+  const { key } = eventKey;
 
-  if (keyCode === 13) {
+  if (key === "Enter") {
     const { value } = newTodoInput;
     const [todo, success] = addTodo(value);
 

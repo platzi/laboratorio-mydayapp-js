@@ -1,4 +1,9 @@
-import { currentTodos, removeTodo, toggleTodoCompleted } from "./store.manager";
+import {
+  currentTodos,
+  removeTodo,
+  toggleTodoCompleted,
+  updateTodo,
+} from "./store.manager";
 const todosCounter = document.querySelector("span.todo-count strong");
 
 /**
@@ -59,6 +64,11 @@ export const createTodoUI = (todo) => {
   const label = createHTMLElement({ element: "label" });
   label.textContent = title;
 
+  label.addEventListener("dblclick", () => {
+    container.classList.add("editing");
+    input.focus();
+  });
+
   const button = createHTMLElement({
     element: "button",
     classList: ["destroy"],
@@ -77,6 +87,21 @@ export const createTodoUI = (todo) => {
 
   const input = createHTMLElement({ element: "input", classList: ["edit"] });
   input.value = title;
+
+  input.addEventListener("keydown", (eventKey) => {
+    const { key } = eventKey;
+
+    if (key === "Enter") {
+      const [title, success] = updateTodo(id, input.value);
+      container.classList.remove("editing");
+
+      if (success) {
+        label.textContent = title;
+      }
+    } else if (key === "Escape") {
+      container.classList.remove("editing");
+    }
+  });
 
   container.appendChild(view);
   container.appendChild(input);
