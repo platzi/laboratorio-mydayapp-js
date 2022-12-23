@@ -57,7 +57,13 @@ export const createTodoUI = (todo) => {
   const check = createHTMLElement({
     element: "input",
     classList: ["toggle"],
-    attributes: [{ name: "type", value: "checkbox" }],
+    attributes: [
+      { name: "type", value: "checkbox" },
+      {
+        name: "aria-label",
+        value: `Mark todo as ${completed ? "uncompleted" : "completed"}`,
+      },
+    ],
   });
 
   check.checked = completed;
