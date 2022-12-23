@@ -119,6 +119,17 @@ export const createTodoUI = (todo) => {
 export const updateUI = (todos) => {
   if (!todos) todos = filterTodos(getCurrentHash());
 
+  // If there are not todos with the current filter,
+  // redirect to the /all view, so, when the user add a new todo,
+  // the '#main' HTML element appears.
+  if (todos.length === 0) {
+    alert("There aren't todos to display with the selected filter");
+    window.location.hash = "#/all";
+    document.querySelector("a.selected").classList.remove("selected");
+    document.querySelector("a[href='#/']").classList.add("selected");
+    return;
+  }
+
   // Update main and footer items
   const currentLenght = todos.length;
   mainElement.style.display = currentLenght > 0 ? "block" : "none";
