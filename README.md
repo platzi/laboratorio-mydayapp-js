@@ -20,15 +20,15 @@ MyDayApp es una aplicación para gestionar tareas de forma sencilla, fácil y en
 1. Comprobar ambiente de desarrollo, con el comando `npm run dev`
 
 ---
+
 ### Instalación de ambiente para pruebas e2e
 
-1. Instalar requerimientos para pruebas e2e, con el comando  `npm run e2e:install`
-1. Comprobar que se corran pruebas e2e, con el comando  `npm run e2e`
-
+1. Instalar requerimientos para pruebas e2e, con el comando `npm run e2e:install`
+1. Comprobar que se corran pruebas e2e, con el comando `npm run e2e`
 
 ## Configuración
 
-El proyecto ya viene con una configuración inicial, la cual ya incluye empaquetado con *webpack* y una organización sencilla de archivos y carpetas para empezar a incorporar las funcionalidades en JavaScript.
+El proyecto ya viene con una configuración inicial, la cual ya incluye empaquetado con _webpack_ y una organización sencilla de archivos y carpetas para empezar a incorporar las funcionalidades en JavaScript.
 
 ### Estructura de carpetas
 
@@ -114,7 +114,6 @@ Sin embargo esto es solo un ejemplo, si para tu implementación manejas el rende
 ```
 
 ### Scripts
-
 
 - El comando `npm run start` inicia un servidor usando `http-server` con la carpeta de `/dist` que es la carpeta en donde quedan los archivos para producción, recuerda antes de correr este comando asegurarte de correr `npm run build`.
 - El comando `npm run dev` genera un servidor en modo desarrollo el cual tiene livereload.
