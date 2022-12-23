@@ -326,7 +326,8 @@ body {
   border-radius: 3px;
 }
 
-.filters li a:hover {
+.filters li a:hover,
+.filters li a:focus {
   border-color: #6e49fe;
 }
 
@@ -343,7 +344,8 @@ html .clear-completed:active {
   cursor: pointer;
 }
 
-.clear-completed:hover {
+.clear-completed:hover,
+.clear-completed:focus {
   text-decoration: underline;
 }
 
