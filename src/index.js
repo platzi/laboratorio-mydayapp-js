@@ -1,6 +1,6 @@
 import "./css/base.css";
 
-import { renderAllTasks, updateTasksCounter }  from "./js/uiUtils"
+import { checkTasksCount, renderAllTasks, updateTasksCounter }  from "./js/uiUtils"
 import { checkFilterApplied, initAllTasksEvents, initNewTaskInputListener, initFilterChangeListener } from "./js/utils";
 
 /**
@@ -14,6 +14,9 @@ function init() {
    updateTasksCounter();
    // Checking if any filter should be applied when the application loads
    checkFilterApplied();
+
+   // Checking if there are tasks available in order to show the footer
+   checkTasksCount();
 
    /* ************** starting event listeners ************** */
    initAllTasksEvents();

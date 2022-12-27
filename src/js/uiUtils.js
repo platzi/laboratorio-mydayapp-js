@@ -132,7 +132,7 @@ export function updateTasksCounter() {
  * Checks how many tasks are left, if there is none hides the "main" and "footer" sections
  */
 export function checkTasksCount() {
-   let tasksCount = document.querySelectorAll("task").length;
+   let tasksCount = document.querySelectorAll(".task").length;
 
    if (tasksCount == 0) {
       hideElement(".main");

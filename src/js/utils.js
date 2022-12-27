@@ -1,5 +1,5 @@
 import { addTask, deleteTask, getTasks, updateTask } from "./storage";
-import {changeVisualTaskState, filterTasks, renderAllTasks, renderTask, updateTasksCounter} from "./uiUtils"
+import {changeVisualTaskState, checkTasksCount, filterTasks, renderAllTasks, renderTask, updateTasksCounter} from "./uiUtils"
 
 /**
  * Checks if any filter is applied and hides the corresponding tasks
@@ -80,6 +80,7 @@ export function applyTaskEvents(taskElement) {
       deleteTask(taskId);
       taskElement.remove();
       updateTasksCounter();
+      checkTasksCount();
    }
 
    // Event listeners
@@ -120,6 +121,7 @@ export function initNewTaskInputListener() {
 
          inputElement.value = "";
          updateTasksCounter();
+         checkTasksCount();
       }
    });
 }
