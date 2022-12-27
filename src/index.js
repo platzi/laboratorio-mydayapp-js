@@ -1,7 +1,7 @@
 import "./css/base.css";
 
 import { checkTasksCount, renderAllTasks, updateTasksCounter }  from "./js/uiUtils"
-import { checkFilterApplied, initAllTasksEvents, initNewTaskInputListener, initFilterChangeListener } from "./js/utils";
+import { checkFilterApplied, initAllTasksEvents, initNewTaskInputListener, initFilterChangeListener, initClearCompletedButton } from "./js/utils";
 
 /**
  * Main function which runs all the application logic
@@ -20,10 +20,9 @@ function init() {
 
    /* ************** starting event listeners ************** */
    initAllTasksEvents();
-
    initNewTaskInputListener();
-
    initFilterChangeListener();
+   initClearCompletedButton();
 }
 
 init();

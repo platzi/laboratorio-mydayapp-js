@@ -1,4 +1,4 @@
-import { addTask, deleteTask, getTasks, updateTask } from "./storage";
+import { addTask, deleteAllCompletedTasks, deleteTask, getTasks, updateTask } from "./storage";
 import {changeVisualTaskState, checkTasksCount, filterTasks, renderAllTasks, renderTask, updateTasksCounter} from "./uiUtils"
 
 /**
@@ -133,4 +133,15 @@ export function initFilterChangeListener() {
    window.addEventListener("hashchange", _ => {
       checkFilterApplied();
    });
+}
+
+export function initClearCompletedButton() {
+   const clearCompletedButton = document.querySelector(".clear-completed");
+
+   clearCompletedButton.addEventListener("click", () => {
+      deleteAllCompletedTasks();
+      renderAllTasks();
+      initAllTasksEvents();
+      checkTasksCount();
+   })
 }
