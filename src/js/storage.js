@@ -52,6 +52,14 @@ export function getTasks() {
 }
 
 /**
+ * Adds a new task to the local storage list
+ * @param {Task} task 
+ */
+export function addTask(task) {
+   updateTasksList([...getTasks(), task]);
+}
+
+/**
  * Edits the title of a task
  * @param {string} newTitle 
  * @param {number} editTaskId 
