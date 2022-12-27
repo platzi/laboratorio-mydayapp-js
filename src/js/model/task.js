@@ -25,4 +25,11 @@ export class Task {
   markAsPending() {
     this.#completed = false;
   }
+  toJSON() {
+    return {
+      id: this.#id,
+      title: this.#title,
+      completed: this.#completed,
+    };
+  }
 }

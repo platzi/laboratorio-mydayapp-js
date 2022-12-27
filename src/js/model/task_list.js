@@ -3,7 +3,7 @@ export class TaskList {
   constructor(taskList = []) {
     this.#taskList = taskList;
   }
-  addTask(task) {
+  pushTask(task) {
     this.#taskList.push(task);
   }
   #filterTaskByStatus(completed) {
