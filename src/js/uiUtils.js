@@ -1,5 +1,7 @@
 // This file handles all the ui visual interactions
 
+import { getTasks } from "./storage";
+
 /**
  * Hides an element using its class or id
  * @param {string} elementSelector 
@@ -28,10 +30,12 @@ export function showElement(elementSelector) {
  * @param {("completed" | "pending" | "editing")} newState 
  */
 export function changeVisualTaskState(taskElement, newState) {
-   // Removing any previous state
-   taskElement.classList.remove("completed");
-   taskElement.classList.remove("pending");
-   taskElement.classList.remove("editing");
+   if (newState != "editing") {
+      // Removing any previous state
+      taskElement.classList.remove("completed");
+      taskElement.classList.remove("pending");
+      taskElement.classList.remove("editing");
+   }
 
    // Setting the new one
    taskElement.classList.add(newState);
@@ -39,9 +43,9 @@ export function changeVisualTaskState(taskElement, newState) {
 
 /**
  * Renders the current tasks list
- * @param {import("./storage").Task[]} tasksList
  */
-export function renderTasks(tasksList) {
+export function renderTasks() {
+   const tasksList = getTasks()
    const tasksContainer = document.querySelector(".todo-list");
 
    tasksContainer.innerHTML = "";
