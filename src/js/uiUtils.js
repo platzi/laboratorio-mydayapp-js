@@ -1,6 +1,7 @@
 // This file handles all the ui visual interactions
 
 import { getTasks } from "./storage";
+import { checkFilterApplied } from "./utils";
 
 /**
  * Hides an element using its class or id
@@ -39,6 +40,7 @@ export function changeVisualTaskState(taskElement, newState) {
 
    // Setting the new one
    taskElement.classList.add(newState);
+   checkFilterApplied();
 }
 
 /**
