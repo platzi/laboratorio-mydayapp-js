@@ -97,6 +97,9 @@ export function initAllTasksEvents() {
    taskElements.forEach(taskElement => applyTaskEvents(taskElement));
 }
 
+/**
+ * Executes the main logic to add a new task from the main app input
+ */
 export function initNewTaskInputListener() {
    const inputElement = document.querySelector(".new-todo");
    
@@ -104,7 +107,8 @@ export function initNewTaskInputListener() {
       const trimmedTitle = inputElement.value.trim();
       if (ev.key == "Enter" && trimmedTitle != "") {
          const tasks = getTasks();
-         const newId = tasks[tasks.length -1].id + 1;
+         /* if the list is empty assign 0 as the id, otherwise assign an incremental value */
+         const newId = tasks.length == 0 ? 0 : tasks[tasks.length -1].id + 1;
 
          const newTask = {id: newId, title: trimmedTitle, completed: false};
          addTask(newTask);
@@ -117,5 +121,14 @@ export function initNewTaskInputListener() {
          inputElement.value = "";
          updateTasksCounter();
       }
+   });
+}
+
+/**
+ * Executes the event listener for when a filter url is applied
+*/
+export function initFilterChangeListener() {
+   window.addEventListener("hashchange", _ => {
+      checkFilterApplied();
    });
 }

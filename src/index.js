@@ -1,8 +1,7 @@
 import "./css/base.css";
 
-import { renderAllTasks, updateTasksCounter, changeVisualTaskState }  from "./js/uiUtils"
-import { checkFilterApplied, sayHello, initAllTasksEvents, initNewTaskInputListener } from "./js/utils";
-import { getTasks } from "./js/storage";
+import { renderAllTasks, updateTasksCounter }  from "./js/uiUtils"
+import { checkFilterApplied, initAllTasksEvents, initNewTaskInputListener, initFilterChangeListener } from "./js/utils";
 
 /**
  * Main function which runs all the application logic
@@ -19,7 +18,9 @@ function init() {
    /* ************** starting event listeners ************** */
    initAllTasksEvents();
 
-   initNewTaskInputListener()
+   initNewTaskInputListener();
+
+   initFilterChangeListener();
 }
 
 init();
