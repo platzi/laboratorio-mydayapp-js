@@ -1,5 +1,5 @@
 import { deleteTask, updateTask } from "./storage";
-import {changeVisualTaskState, filterTasks, renderTasks, updateTasksCounter} from "./uiUtils"
+import {changeVisualTaskState, filterTasks, updateTasksCounter} from "./uiUtils"
 
 /**
  * Checks if any filter is applied and hides the corresponding tasks
@@ -46,8 +46,11 @@ export function applyTaskEvents(taskElement) {
       const keyPressed = ev.key;
 
       if (keyPressed == "Enter") {
-         updateTask({title: textInput.value}, taskId);
-         label.innerText = textInput.value;
+         const trimmedTitle = textInput.value.trim();
+
+         updateTask({title: trimmedTitle}, taskId);
+         label.innerText = trimmedTitle;
+         textInput.value = trimmedTitle;
          taskElement.classList.remove("editing");
 
          textInput.removeEventListener("keydown", editKeyPressHandler);
