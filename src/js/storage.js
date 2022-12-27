@@ -71,7 +71,6 @@ export function addTask(task) {
  * @param {number} taskId
  */
 export function updateTask(newTaskInfo, taskId) {
-   debugger
    let tasks = getTasks();
 
    let indexToEdit = tasks.findIndex(task => task.id == taskId);

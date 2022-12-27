@@ -21,6 +21,7 @@ export function initTaskEvents() {
 
       // Sub-elements
       const checkbox = taskElement.querySelector("input.toggle");
+      const label = taskElement. querySelector("label");
 
       checkbox.addEventListener("change", _ => {
          if (checkbox.checked) {
@@ -32,7 +33,11 @@ export function initTaskEvents() {
          }
 
          updateTasksCounter();
-      })
+      });
+
+      label.addEventListener("dblclick", _ => {
+         changeVisualTaskState(taskElement, "editing")
+      });
    });
 }
 
