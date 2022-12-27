@@ -1,7 +1,7 @@
 import "./css/base.css";
 
 import { renderTasks, updateTasksCounter, changeTaskState }  from "./js/uiUtils"
-import { sayHello } from "./js/utils";
+import { checkFilterApplied, sayHello } from "./js/utils";
 import { getTasks } from "./js/storage";
 
 /**
@@ -17,7 +17,8 @@ function init() {
    // Updating the pending tasks counter
    updateTasksCounter();
 
-
+   // Checking if any filter should be applied when the application loads
+   checkFilterApplied()
 }
 
 init();

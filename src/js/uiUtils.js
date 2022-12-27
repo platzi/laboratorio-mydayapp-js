@@ -59,22 +59,31 @@ export function renderTasks(tasksList) {
  * Makes the ui to only show the filtered tasks
  * @param {("all" | "completed" | "pending")} filter 
  */
-function filterTasks(filter) {
+export function filterTasks(filter) {
    const allTaskElements = document.querySelectorAll(".task");
    const completedTaskElements = document.querySelectorAll(".task.completed");
    const pendingTaskElements = document.querySelectorAll(".task.pending");
 
+   const filterButtons = document.querySelectorAll(".filters li a");
+   filterButtons.forEach(button => button.classList.remove("selected"));
+
    switch (filter) {
       case "all":
          allTaskElements.forEach(taskElement => taskElement.classList.remove("hidden"));
+
+         document.querySelector('[href="#/"]').classList.add("selected");
          break;
       case "pending":
          pendingTaskElements.forEach(taskElement => taskElement.classList.remove("hidden"));
          completedTaskElements.forEach(taskElement => taskElement.classList.add("hidden"));
+
+         document.querySelector('[href="#/pending"]').classList.add("selected");
          break;
       case "completed":
          pendingTaskElements.forEach(taskElement => taskElement.classList.add("hidden"));
          completedTaskElements.forEach(taskElement => taskElement.classList.remove("hidden"));
+
+         document.querySelector('[href="#/completed"]').classList.add("selected");
          break;
       default:
          break;
