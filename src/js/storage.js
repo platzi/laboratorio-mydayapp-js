@@ -8,6 +8,12 @@
 */
 
 /**
+ * @typedef {Object} TaskInfo
+ * @property {string} [title]
+ * @property {boolean} [completed]
+*/
+
+/**
  * Updates the entire tasks list in localStorage
  * @param {Array<Task>} updatedTasksList 
  */
@@ -60,15 +66,21 @@ export function addTask(task) {
 }
 
 /**
- * Edits the title of a task
- * @param {string} newTitle 
- * @param {number} editTaskId 
+ * Edits the title and/or state of a task
+ * @param {TaskInfo} newTaskInfo 
+ * @param {number} taskId
  */
-export function updateTaskTitle(newTitle, editTaskId) {
-   let tasks = getTasks()
+export function updateTask(newTaskInfo, taskId) {
+   debugger
+   let tasks = getTasks();
 
-   let indexToEdit = tasks.findIndex(task => task.id == editTaskId);
-   tasks[indexToEdit].title = newTitle;
+   let indexToEdit = tasks.findIndex(task => task.id == taskId);
+   if (typeof newTaskInfo.completed === "boolean") {
+      tasks[indexToEdit].completed = newTaskInfo.completed;
+   }
+   if (newTaskInfo.title) {
+      tasks[indexToEdit].title = newTaskInfo.title;
+   }
 
    updateTasksList(tasks);
 }

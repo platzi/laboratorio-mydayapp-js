@@ -27,7 +27,13 @@ export function showElement(elementSelector) {
  * @param {HTMLLIElement} taskElement 
  * @param {("completed" | "pending" | "editing")} newState 
  */
-export function changeTaskState(taskElement, newState) {
+export function changeVisualTaskState(taskElement, newState) {
+   // Removing any previous state
+   taskElement.classList.remove("completed");
+   taskElement.classList.remove("pending");
+   taskElement.classList.remove("editing");
+
+   // Setting the new one
    taskElement.classList.add(newState);
 }
 
