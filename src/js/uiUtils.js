@@ -56,6 +56,32 @@ export function renderTasks(tasksList) {
 }
 
 /**
+ * Makes the ui to only show the filtered tasks
+ * @param {("all" | "completed" | "pending")} filter 
+ */
+function filterTasks(filter) {
+   const allTaskElements = document.querySelectorAll(".task");
+   const completedTaskElements = document.querySelectorAll(".task.completed");
+   const pendingTaskElements = document.querySelectorAll(".task.pending");
+
+   switch (filter) {
+      case "all":
+         allTaskElements.forEach(taskElement => taskElement.classList.remove("hidden"));
+         break;
+      case "pending":
+         pendingTaskElements.forEach(taskElement => taskElement.classList.remove("hidden"));
+         completedTaskElements.forEach(taskElement => taskElement.classList.add("hidden"));
+         break;
+      case "completed":
+         pendingTaskElements.forEach(taskElement => taskElement.classList.add("hidden"));
+         completedTaskElements.forEach(taskElement => taskElement.classList.remove("hidden"));
+         break;
+      default:
+         break;
+   }
+}
+
+/**
  * Updates the pending tasks counter on the bottom left corner
  */
 export function updateTasksCounter() {
@@ -74,7 +100,7 @@ export function updateTasksCounter() {
 /**
  * Checks how many tasks are left, if there is none hides the "main" and "footer" sections
  */
-export function checkVisibleTasks() {
+export function checkTasksCount() {
    let tasksCount = document.querySelectorAll("task").length;
 
    if (tasksCount == 0) {
