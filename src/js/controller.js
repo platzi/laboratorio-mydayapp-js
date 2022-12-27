@@ -48,6 +48,9 @@ export class Controller {
   getTasks() {
     return this.#taskList.getList();
   }
+  getTaskList() {
+    return this.#taskList;
+  }
   thereAreTasks() {
     return this.#taskList.getList().length > 0;
   }

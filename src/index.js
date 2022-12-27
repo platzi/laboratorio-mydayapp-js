@@ -9,6 +9,7 @@ class View {
     this.elementMain = document.querySelector(".main");
     this.elementMainInput = document.querySelector(".new-todo");
     this.elementTodoList = document.querySelector(".todo-list");
+    this.elementTodoCount = document.querySelector(".todo-count");
   }
   init() {
     this.render();
@@ -106,6 +107,12 @@ class View {
     for (let task of tasksList) {
       this.elementTodoList.innerHTML += this.generateUITask(task);
     }
+    const countPendingTasks = this.#controller
+      .getTaskList()
+      .getPendingTasks().length;
+    this.elementTodoCount.innerHTML = `<strong>${countPendingTasks}</strong> item${
+      countPendingTasks !== 1 ? "s" : ""
+    } left`;
   }
 }
 new View().init();
