@@ -42,15 +42,13 @@ export function changeVisualTaskState(taskElement, newState) {
 }
 
 /**
- * Renders the current tasks list
+ * Renders a single task and adds it to the ui
+ * @param {import("./storage").Task} task 
  */
-export function renderTasks() {
-   const tasksList = getTasks()
+export function renderTask(task) {
    const tasksContainer = document.querySelector(".todo-list");
 
-   tasksContainer.innerHTML = "";
-   tasksList.forEach(task => {
-      let taskHTML = `
+   let taskHTML = `
          <li class="task ${task.completed ? "completed" : "pending"}" data-taskid=${task.id}>
             <div class="view">
                <input class="toggle" type="checkbox" ${task.completed ? "checked" : ""}>
@@ -61,7 +59,19 @@ export function renderTasks() {
          </li>
       `;
 
-      tasksContainer.insertAdjacentHTML("beforeend", taskHTML);
+   tasksContainer.insertAdjacentHTML("beforeend", taskHTML);
+}
+
+/**
+ * Renders the current tasks list
+ */
+export function renderAllTasks() {
+   const tasksList = getTasks()
+   const tasksContainer = document.querySelector(".todo-list");
+
+   tasksContainer.innerHTML = "";
+   tasksList.forEach(task => {
+      renderTask(task)
    });
 }
 

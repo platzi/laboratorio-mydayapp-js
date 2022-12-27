@@ -1,7 +1,7 @@
 import "./css/base.css";
 
-import { renderTasks, updateTasksCounter, changeVisualTaskState }  from "./js/uiUtils"
-import { checkFilterApplied, sayHello, initAllTasksEvents } from "./js/utils";
+import { renderAllTasks, updateTasksCounter, changeVisualTaskState }  from "./js/uiUtils"
+import { checkFilterApplied, sayHello, initAllTasksEvents, initNewTaskInputListener } from "./js/utils";
 import { getTasks } from "./js/storage";
 
 /**
@@ -10,7 +10,7 @@ import { getTasks } from "./js/storage";
 function init() {
    /* ************* Execute on loading ************* */
    // Render the current tasks
-   renderTasks();
+   renderAllTasks();
    // Updating the pending tasks counter
    updateTasksCounter();
    // Checking if any filter should be applied when the application loads
@@ -18,6 +18,8 @@ function init() {
 
    /* ************** starting event listeners ************** */
    initAllTasksEvents();
+
+   initNewTaskInputListener()
 }
 
 init();

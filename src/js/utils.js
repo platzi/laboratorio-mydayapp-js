@@ -1,5 +1,5 @@
-import { deleteTask, updateTask } from "./storage";
-import {changeVisualTaskState, filterTasks, updateTasksCounter} from "./uiUtils"
+import { addTask, deleteTask, getTasks, updateTask } from "./storage";
+import {changeVisualTaskState, filterTasks, renderAllTasks, renderTask, updateTasksCounter} from "./uiUtils"
 
 /**
  * Checks if any filter is applied and hides the corresponding tasks
@@ -97,6 +97,25 @@ export function initAllTasksEvents() {
    taskElements.forEach(taskElement => applyTaskEvents(taskElement));
 }
 
-export const sayHello = (text) => {
-  return text;
-};
+export function initNewTaskInputListener() {
+   const inputElement = document.querySelector(".new-todo");
+   
+   inputElement.addEventListener("keydown", ev => {
+      const trimmedTitle = inputElement.value.trim();
+      if (ev.key == "Enter" && trimmedTitle != "") {
+         const tasks = getTasks();
+         const newId = tasks[tasks.length -1].id + 1;
+
+         const newTask = {id: newId, title: trimmedTitle, completed: false};
+         addTask(newTask);
+
+         renderTask(newTask);
+
+         const newTaskElement = document.querySelector(`[data-taskid="${newId}"]`);
+         applyTaskEvents(newTaskElement);
+
+         inputElement.value = "";
+         updateTasksCounter();
+      }
+   });
+}
