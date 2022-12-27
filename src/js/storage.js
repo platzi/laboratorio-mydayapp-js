@@ -96,3 +96,14 @@ export function deleteTask(deleteTaskId) {
 
    updateTasksList(listWithDeleted);
 }
+
+/**
+ * Deletes all the tasks completed
+ */
+export function deleteAllCompletedTasks() {
+   let tasks = getTasks();
+
+   let pendingTasksList = tasks.filter(task => task.completed != true);
+
+   updateTasksList(pendingTasksList);
+}
