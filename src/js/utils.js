@@ -24,7 +24,8 @@ export function initTaskEvents() {
       const label = taskElement. querySelector("label");
       const textInput = taskElement.querySelector("input.edit");
 
-      checkbox.addEventListener("change", _ => {
+      // Event handlers
+      const checkboxChangeHandler = _ => {
          if (checkbox.checked) {
             changeVisualTaskState(taskElement, "completed");
             updateTask({completed: true}, taskId);
@@ -34,27 +35,36 @@ export function initTaskEvents() {
          }
 
          updateTasksCounter();
-      });
+      }
 
-      label.addEventListener("dblclick", _ => {
+      const editKeyPressHandler = ev => {
+         const keyPressed = ev.key;
+
+         if (keyPressed == "Enter") {
+            updateTask({title: textInput.value}, taskId);
+            label.innerText = textInput.value;
+            taskElement.classList.remove("editing");
+
+            textInput.removeEventListener("keydown", editKeyPressHandler);
+         }
+
+         if (keyPressed == "Escape") {
+            textInput.value = label.innerText;
+            taskElement.classList.remove("editing");
+            textInput.removeEventListener("keydown", editKeyPressHandler);
+         }
+      }
+
+      const labelDblClickHandler = _ => {
          changeVisualTaskState(taskElement, "editing");
 
          textInput.focus();
-         textInput.addEventListener("keydown", ev => {
-            const keyPressed = ev.key;
+         textInput.addEventListener("keydown", editKeyPressHandler);
+      }
 
-            if (keyPressed == "Enter") {
-               updateTask({title: textInput.value}, taskId);
-               label.innerText = textInput.value;
-               taskElement.classList.remove("editing");
-            }
-
-            if (keyPressed == "Escape") {
-               textInput.value = label.innerText;
-               taskElement.classList.remove("editing");
-            }
-         });
-      });
+      // Event listeners
+      checkbox.addEventListener("change", checkboxChangeHandler);
+      label.addEventListener("dblclick", labelDblClickHandler);
    });
 }
 
