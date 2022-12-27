@@ -31,6 +31,52 @@ class View {
       this.value = "";
       that.render();
     });
+
+    //TODO: Make both click and double click events work on the same element.
+    /*this.elementTodoList.addEventListener("dblclick", function (e) {
+      const element = e.target;
+      if (element.tagName !== "LABEL") return;
+      const taskLIElement = element.closest("li");
+      const task = that.#controller.findTaskById(taskLIElement.id);
+      const input = taskLIElement.querySelector(".edit");
+      taskLIElement.classList.add("editing");
+      input.value = task.title;
+      input.setSelectionRange(input.value.length, input.value.length);
+      input.focus();
+    });*/
+
+    this.elementTodoList.addEventListener("click", function (e) {
+      const element = e.target;
+      const idTask = element.closest("li").id;
+      switch (element.className) {
+        case "toggle":
+          that.#controller.toggleStatusTask(idTask);
+          break;
+        case "destroy":
+          console.log(element);
+          break;
+      }
+      that.render();
+    });
+
+    this.elementTodoList.addEventListener("keyup", function (e) {
+      const element = e.target;
+      if (element.tagName !== "INPUT") return;
+
+      const taskLIElement = element.closest("li");
+      if (e.keyCode === 27) {
+        taskLIElement.classList.remove("editing");
+        // that.render();
+        return;
+      }
+
+      const value = element.value.trim();
+      if (e.keyCode !== 13 || !value) return;
+      const idTask = taskLIElement.id;
+      e.preventDefault();
+      that.#controller.updateTitleTask(idTask, value);
+      that.render();
+    });
   }
   showElement(element, visible) {
     if (visible) {

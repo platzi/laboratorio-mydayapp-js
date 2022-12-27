@@ -14,7 +14,7 @@ export class Controller {
       rawData ? JSON.parse(rawData).map(this.#createInstanceTask) : []
     );
   }
-  #persist() {
+  async #persist() {
     localStorage.setItem(
       Controller.KEY_LOCAL_STORAGE,
       JSON.stringify(this.#taskList.getList())
@@ -23,8 +23,26 @@ export class Controller {
   #createInstanceTask(rawTask) {
     return new Task(rawTask.id, rawTask.title, rawTask.completed);
   }
+  findTaskById(idTask) {
+    return this.getTasks().find((t) => t.id === idTask);
+  }
+  findIndexTaskById(idTask) {
+    return this.getTasks().findIndex((t) => t.id === idTask);
+  }
   addTask({ title, completed = true }) {
     this.#taskList.pushTask(new Task(crypto.randomUUID(), title, completed));
+    this.#persist();
+  }
+  updateTitleTask(idTask, title) {
+    let indexTask = this.findIndexTaskById(idTask);
+    let task = this.getTasks()[indexTask];
+    task.title = title;
+    this.getTasks()[indexTask] = task;
+    this.#persist();
+  }
+  toggleStatusTask(idTask) {
+    let task = this.findTaskById(idTask);
+    task.isCompleted() ? task.markAsPending() : task.markAsCompleted();
     this.#persist();
   }
   getTasks() {
