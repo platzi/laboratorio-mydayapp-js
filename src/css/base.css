@@ -397,3 +397,7 @@ html .clear-completed:active {
 :focus {
   outline: 0;
 }
+
+.d-none {
+  display: none;
+}
