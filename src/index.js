@@ -18,7 +18,7 @@ function init() {
    updateTasksCounter();
 
    // Checking if any filter should be applied when the application loads
-   checkFilterApplied()
+   checkFilterApplied();
 }
 
 init();

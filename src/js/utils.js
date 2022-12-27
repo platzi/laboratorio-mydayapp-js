@@ -2,7 +2,8 @@ import {filterTasks} from "./uiUtils"
 
 export function checkFilterApplied() {
    let filter = window.location.hash;
-   if (filter == "#/" || "") {
+   console.log("filter: ", filter);
+   if (filter == "#/" || filter == "") {
       filter = "all"
    } else {
       filter = filter.replace("#/","");
