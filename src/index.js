@@ -39,6 +39,18 @@ class View {
       element.classList.add("hidden");
     }
   }
+  generateUITask(task) {
+    const checked = task.isCompleted() ? "checked" : "";
+    const cssClass = task.isCompleted() ? 'class="completed"' : "";
+    return `<li id="${task.id}" ${cssClass}>
+        <div class="view">
+          <input class="toggle" type="checkbox" ${checked} />
+          <label>${task.title}</label>
+          <button class="destroy"></button>
+        </div>
+        <input class="edit" value="${task.title}" />
+      </li>`;
+  }
   render() {
     const thereAreTasks = this.#controller.thereAreTasks();
     this.showElement(this.elementFooter, thereAreTasks);
@@ -46,18 +58,7 @@ class View {
     const tasksList = this.#controller.getTasks();
     this.elementTodoList.innerHTML = "";
     for (let task of tasksList) {
-      this.elementTodoList.innerHTML += `<li id="${task.id}" ${
-        task.isCompleted() ? 'class="completed"' : ""
-      }>
-        <div class="view">
-          <input class="toggle" type="checkbox" ${
-            task.isCompleted() ? "checked" : ""
-          } />
-          <label>${task.title}</label>
-          <button class="destroy"></button>
-        </div>
-        <input class="edit" value="${task.title}" />
-      </li>`;
+      this.elementTodoList.innerHTML += this.generateUITask(task);
     }
   }
 }
