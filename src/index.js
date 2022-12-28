@@ -3,7 +3,7 @@ import "./css/base.css";
 import { v4 as uuidv4 } from 'uuid';
 
 
-import {ocultMainAndFooter, counterItem} from './js/utils'
+import {ocultMainAndFooter, counterItem, saveItemLocalStorage, readItemsLocalStorage} from './js/utils'
 
 
 
@@ -25,17 +25,26 @@ inputPrincipal.autofocus;
 
 let items=[];
 ocultMainAndFooter(items);
+const dataStorage=readItemsLocalStorage();
+
+if(dataStorage){
+  items.push(...dataStorage);
+}
+
+
 inputPrincipal.addEventListener('change',(ele)=>{
 
     const title=ele.target.value.trim();
     const data={id:uuidv4(), title, completed:false};
     items.push({...data});
     counterItem(items.length); 
-    localStorage.setItem("mydayapp-js",JSON.stringify(items));
+    saveItemLocalStorage(items)
     ocultMainAndFooter(items);  
-   inputPrincipal.value="";
+     inputPrincipal.value="";
 
 });
+
+
 
 
 

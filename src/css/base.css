@@ -4,6 +4,10 @@ body {
   padding: 0;
 }
 
+.ocult{
+  display: none;
+}
+
 button {
   margin: 0;
   padding: 0;

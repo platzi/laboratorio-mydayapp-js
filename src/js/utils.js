@@ -1,13 +1,9 @@
 
-
-
-
 export const listTodo = (items) => {
   const todoList = document.querySelector('.todo-list');
-
   todoList.innerHTML = " ";
-
   items.forEach(ele => {
+
     //Creación de elementos
     const li = document.createElement('li');
 
@@ -21,25 +17,22 @@ export const listTodo = (items) => {
     inputCheckbox.type = "checkbox";
 
 
+    if(ele.completed){
+        li.className+="completed";
+        inputCheckbox.setAttribute('checked', true);
+    }
+
+
     inputCheckbox.addEventListener('change', ()=>{
-
-      inputCheckbox.toggleAttribute('checked');
-      li.classList.toggle("completed")
-
-
-      
-  /*     if(inputCheckbox.checked){
-        li.className+="completed"
-
-      }else{
-        li.classList.remove('completed')
-      }  */
+      ele.completed=ele.completed?false:true;
+      saveItemLocalStorage(items);
+        inputCheckbox.toggleAttribute('checked');
+        li.classList.toggle("completed");
+  
 
     })
 
-   /*  if(inputCheckbox.checked){
-      li.className+=" completed"
-    } */
+  
 
     inputCheckbox.checked=ele.completed;
 
@@ -58,13 +51,31 @@ export const listTodo = (items) => {
   })
 }
 
-
 export const counterItem=(total)=>{
     document.querySelector('strong').innerText=`${total}`
 }
 
 
+export const saveItemLocalStorage=(items)=>{
+  localStorage.setItem("mydayapp-js", JSON.stringify(items));
+}
 
+
+export const readItemsLocalStorage=()=>{
+  const items=JSON.parse(localStorage.getItem('mydayapp-js'));
+
+  if(items){
+    listTodo(items);
+    ocultMainAndFooter(items);
+    counterItem(items.length);
+    
+    return items;
+  }
+
+
+
+
+}
 
 
 
