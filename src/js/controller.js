@@ -4,6 +4,7 @@ import { Task } from "./model/task";
 export class Controller {
   static KEY_LOCAL_STORAGE = "mydayapp-js";
   #taskList;
+  #filter;
   constructor() {
     this.#initTasksList();
     this.#persist();
@@ -55,8 +56,15 @@ export class Controller {
     task.isCompleted() ? task.markAsPending() : task.markAsCompleted();
     this.#persist();
   }
-  getTasks() {
-    return this.#taskList.getList();
+  getTasks(filter = "ALL") {
+    switch (filter){
+      case "ALL":
+        return this.#taskList.getList();
+      case "COMPLETED":
+        return this.#taskList.getCompletedTasks();
+      case "PENDING":
+        return this.#taskList.getPendingTasks();
+    }
   }
   getTaskList() {
     return this.#taskList;

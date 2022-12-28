@@ -3,6 +3,7 @@ import { Controller } from "./js/controller";
 
 class View {
   #controller;
+  #filter;
   constructor() {
     this.#controller = new Controller();
     this.elementFooter = document.querySelector(".footer");
@@ -11,6 +12,8 @@ class View {
     this.elementTodoList = document.querySelector(".todo-list");
     this.elementTodoCount = document.querySelector(".todo-count");
     this.elementClearCompleted = document.querySelector(".clear-completed");
+    this.elementFilters = document.querySelector(".filters");
+    this.catchCurrentFilter();
   }
   init() {
     this.render();
@@ -20,6 +23,10 @@ class View {
     const that = this;
     window.addEventListener("load", function () {
       that.elementMainInput.focus();
+    });
+    window.addEventListener("hashchange", function () {
+      that.catchCurrentFilter();
+      that.render();
     });
 
     this.elementMainInput.addEventListener("keyup", function (e) {
@@ -80,9 +87,18 @@ class View {
       that.render();
     });
 
-    this.elementClearCompleted.addEventListener("click", function (e) {
+    this.elementClearCompleted.addEventListener("click", function () {
       that.#controller.deleteCompletedTasks();
       that.render();
+    });
+
+    this.elementFilters.addEventListener("click", function (e) {
+      const element = e.target;
+      const selectedElement = this.querySelector(".selected");
+      if (element.tagName !== "A" || element.isEqualNode(selectedElement))
+        return;
+      selectedElement.classList.remove("selected");
+      element.classList.add("selected");
     });
   }
   showElement(element, visible) {
@@ -90,6 +106,16 @@ class View {
       element.classList.remove("hidden");
     } else {
       element.classList.add("hidden");
+    }
+  }
+  catchCurrentFilter() {
+    const urlHash = window.location.hash;
+    if (urlHash.includes("pending")) {
+      this.#filter = "PENDING";
+    } else if (urlHash.includes("completed")) {
+      this.#filter = "COMPLETED";
+    } else {
+      this.#filter = "ALL";
     }
   }
   generateUITask(task) {
@@ -108,7 +134,7 @@ class View {
     const thereAreTasks = this.#controller.thereAreTasks();
     this.showElement(this.elementFooter, thereAreTasks);
     this.showElement(this.elementMain, thereAreTasks);
-    const tasksList = this.#controller.getTasks();
+    const tasksList = this.#controller.getTasks(this.#filter);
     this.elementTodoList.innerHTML = "";
     for (let task of tasksList) {
       this.elementTodoList.innerHTML += this.generateUITask(task);
