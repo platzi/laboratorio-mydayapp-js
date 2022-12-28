@@ -51,6 +51,12 @@ export class Controller {
     }
     this.#persist();
   }
+  deleteTaskById(idTask) {
+    const allTasks = this.getTasks();
+    const index = allTasks.findIndex((t) => t.id === idTask);
+    allTasks.splice(index, 1);
+    this.#persist();
+  }
   toggleStatusTask(idTask) {
     let task = this.findTaskById(idTask);
     task.isCompleted() ? task.markAsPending() : task.markAsCompleted();

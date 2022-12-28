@@ -57,7 +57,6 @@ class View {
 
     this.elementTodoList.addEventListener("click", function (e) {
       const element = e.target;
-      // if (!["INPUT", "BUTTON"].includes(element.tagName)) return;
       const idTask = element.closest("li").id;
       switch (element.className) {
         case "toggle":
@@ -65,8 +64,7 @@ class View {
           that.render();
           break;
         case "destroy":
-          //TODO: Add functionality
-          console.log(element);
+          that.#controller.deleteTaskById(idTask);
           that.render();
           break;
       }
