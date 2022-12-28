@@ -1,10 +1,11 @@
 
 import "./css/base.css";
 import { v4 as uuidv4 } from 'uuid';
-import {ocultMainAndFooter, counterItem, saveItemLocalStorage, readItemsLocalStorage, listTodo} from './js/utils'
+import {ocultMainAndFooter, counterItem, saveItemLocalStorage, readItemsLocalStorage, listTodo } from './js/utils'
+import { router } from "./js/router";
 
 
-
+let items=[];
 
 
 
@@ -16,7 +17,7 @@ inputPrincipal.autofocus;
 const buttonClear=document.querySelector('.clear-completed');
 
 
-let items=[];
+
 ocultMainAndFooter(items);
 const dataStorage=readItemsLocalStorage();
 
@@ -25,7 +26,13 @@ if(dataStorage){
 }
 
 
+
+
+
 inputPrincipal.addEventListener('change',(ele)=>{
+  
+
+    items=readItemsLocalStorage();
     const title=ele.target.value.trim();
     const data={id:uuidv4(), title, completed:false};
     items.push({...data});
@@ -33,7 +40,77 @@ inputPrincipal.addEventListener('change',(ele)=>{
     saveItemLocalStorage(items)
     ocultMainAndFooter(items);  
     inputPrincipal.value="";
+    
 });
+
+
+
+
+
+
+
+//completedIsEmpty
+
+
+buttonClear.addEventListener('click',()=>{
+  const todoList = document.querySelector('.todo-list');
+  todoList.innerHTML = "";
+ items=items.filter(ele=>{
+    if(!ele.completed){
+      return ele;
+    }})
+
+  saveItemLocalStorage(items);
+  ocultMainAndFooter(items);
+  counterItem(items.length);
+ 
+})
+
+export function ocultClear(items){
+  
+  const completed=[];
+
+  items.forEach(ele=>{
+    if(ele.completed){
+        completed.push(ele);
+    }
+  })
+
+  if(completed.length<1){
+      buttonClear.className+=" ocult";
+  }else{
+    buttonClear.classList.remove("ocult");
+  }
+}
+
+
+
+window.addEventListener('hashchange', ()=>{
+  router(items);
+})
+
+
+
+
+
+
+
+
+ 
+
+
+
+    
+    
+
+  
+
+
+
+
+
+
+
 
 
 
@@ -80,93 +157,3 @@ inputPrincipal.addEventListener('change',(ele)=>{
   
 } */
 
-
-
-
-buttonClear.addEventListener('click',()=>{
-  const todoList = document.querySelector('.todo-list');
-  todoList.innerHTML = "";
-
- items= items.filter(ele=>{
-    if(!ele.completed){
-      return ele;
-    }})
-
-
-  saveItemLocalStorage(items);
-  ocultMainAndFooter(items);
-  counterItem(items.length);
- 
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{/* <li class="completed">
-<div class="view">
-  <input class="toggle" type="checkbox" checked />
-  <label>Learn JavaScript</label>
-  <button class="destroy"></button>
-</div>
-<input class="edit" value="Learn JavaScript" />
-</li>
-
-
-<li>
-<div class="view">
-  <input class="toggle" type="checkbox" />
-  <label>Buy a unicorn</label>
-  <button class="destroy"></button>
-</div>
-<input class="edit" value="Buy a unicorn" />
-</li>
-
-
-<li class="editing">
-<div class="view">
-  <input class="toggle" type="checkbox" />
-  <label>Make dishes</label>
-  <button class="destroy"></button>
-</div>
-<input class="edit" value="Make dishes" />
-</li> */}

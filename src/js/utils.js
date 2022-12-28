@@ -1,3 +1,7 @@
+import { ocultClear } from "../index";
+import { router } from "./router";
+
+
 
 export const listTodo = (items) => {
   const todoList = document.querySelector('.todo-list');
@@ -61,6 +65,9 @@ export const listTodo = (items) => {
     inputEdit.className += "edit";
     li.append(inputEdit);
   })
+
+
+ 
 }
 
 export const counterItem=(total)=>{
@@ -70,22 +77,21 @@ export const counterItem=(total)=>{
 
 export const saveItemLocalStorage=(items)=>{
   localStorage.setItem("mydayapp-js", JSON.stringify(items));
+  ocultClear(items);
+
 }
+
+
 
 
 export const readItemsLocalStorage=()=>{
   const items=JSON.parse(localStorage.getItem('mydayapp-js'));
-
   if(items){
     listTodo(items);
     ocultMainAndFooter(items);
     counterItem(items.length);
     return items;
   }
-
-
-
-
 }
 
 
@@ -105,6 +111,10 @@ export const ocultMainAndFooter = (items) => {
   }
 
 }
+
+
+
+
 
 
 
