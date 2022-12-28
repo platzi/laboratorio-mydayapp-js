@@ -23,6 +23,7 @@ class View {
     const that = this;
     window.addEventListener("load", function () {
       that.elementMainInput.focus();
+      that.updateSelectedFilter();
     });
     window.addEventListener("hashchange", function () {
       that.catchCurrentFilter();
@@ -42,8 +43,7 @@ class View {
       that.render();
     });
 
-    //TODO: Make both click and double click events work on the same element.
-    /*this.elementTodoList.addEventListener("dblclick", function (e) {
+    this.elementTodoList.addEventListener("dblclick", function (e) {
       const element = e.target;
       if (element.tagName !== "LABEL") return;
       const taskLIElement = element.closest("li");
@@ -53,20 +53,23 @@ class View {
       input.value = task.title;
       input.setSelectionRange(input.value.length, input.value.length);
       input.focus();
-    });*/
+    });
 
     this.elementTodoList.addEventListener("click", function (e) {
       const element = e.target;
+      // if (!["INPUT", "BUTTON"].includes(element.tagName)) return;
       const idTask = element.closest("li").id;
       switch (element.className) {
         case "toggle":
           that.#controller.toggleStatusTask(idTask);
+          that.render();
           break;
         case "destroy":
+          //TODO: Add functionality
           console.log(element);
+          that.render();
           break;
       }
-      that.render();
     });
 
     this.elementTodoList.addEventListener("keyup", function (e) {
@@ -117,10 +120,11 @@ class View {
     }
   }
   updateSelectedFilter() {
-    const element = this.elementFilters.querySelector(
+    let element = this.elementFilters.querySelector(
       `a[href='${window.location.hash}']`
     );
     const selectedElement = this.elementFilters.querySelector(".selected");
+    if (!element) element = selectedElement; //Required for is not specified a hash. Default filter ALL
     if (element.isEqualNode(selectedElement)) return;
     selectedElement.classList.remove("selected");
     element.classList.add("selected");
