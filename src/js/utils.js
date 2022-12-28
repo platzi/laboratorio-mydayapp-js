@@ -24,15 +24,13 @@ export const listTodo = (items) => {
 
 
     inputCheckbox.addEventListener('change', ()=>{
-      ele.completed=ele.completed?false:true;
-      saveItemLocalStorage(items);
-        inputCheckbox.toggleAttribute('checked');
-        li.classList.toggle("completed");
+        ele.completed=ele.completed?false:true;
+        saveItemLocalStorage(items);
+          inputCheckbox.toggleAttribute('checked');
+          li.classList.toggle("completed");
   
 
     })
-
-  
 
     inputCheckbox.checked=ele.completed;
 
@@ -43,6 +41,20 @@ export const listTodo = (items) => {
     buttonDestroy.className += "destroy";
 
     divView.append(inputCheckbox, label, buttonDestroy);
+
+
+    buttonDestroy.addEventListener('click', ()=>{
+      console.log(ele);
+
+      items=items.filter(element=>ele.id!==element.id);
+      saveItemLocalStorage(items);
+      listTodo(items);
+      counterItem(items.length);
+      ocultMainAndFooter(items);
+        
+     
+    })
+
 
     //Creación al momento de click para editar;
     const inputEdit = document.createElement('input');
@@ -68,7 +80,6 @@ export const readItemsLocalStorage=()=>{
     listTodo(items);
     ocultMainAndFooter(items);
     counterItem(items.length);
-    
     return items;
   }
 
@@ -76,6 +87,8 @@ export const readItemsLocalStorage=()=>{
 
 
 }
+
+
 
 
 
