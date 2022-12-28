@@ -26,6 +26,7 @@ class View {
     });
     window.addEventListener("hashchange", function () {
       that.catchCurrentFilter();
+      that.updateSelectedFilter();
       that.render();
     });
 
@@ -93,12 +94,8 @@ class View {
     });
 
     this.elementFilters.addEventListener("click", function (e) {
-      const element = e.target;
-      const selectedElement = this.querySelector(".selected");
-      if (element.tagName !== "A" || element.isEqualNode(selectedElement))
-        return;
-      selectedElement.classList.remove("selected");
-      element.classList.add("selected");
+      if (e.target.tagName !== "A") return;
+      this.updateSelectedFilter();
     });
   }
   showElement(element, visible) {
@@ -108,6 +105,7 @@ class View {
       element.classList.add("hidden");
     }
   }
+
   catchCurrentFilter() {
     const urlHash = window.location.hash;
     if (urlHash.includes("pending")) {
@@ -117,6 +115,15 @@ class View {
     } else {
       this.#filter = "ALL";
     }
+  }
+  updateSelectedFilter() {
+    const element = this.elementFilters.querySelector(
+      `a[href='${window.location.hash}']`
+    );
+    const selectedElement = this.elementFilters.querySelector(".selected");
+    if (element.isEqualNode(selectedElement)) return;
+    selectedElement.classList.remove("selected");
+    element.classList.add("selected");
   }
   generateUITask(task) {
     const checked = task.isCompleted() ? "checked" : "";
