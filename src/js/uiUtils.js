@@ -41,6 +41,7 @@ export function changeVisualTaskState(taskElement, newState) {
    // Setting the new one
    taskElement.classList.add(newState);
    checkFilterApplied();
+   checkCompletedTasksCount();
 }
 
 /**
@@ -140,5 +141,18 @@ export function checkTasksCount() {
    } else {
       showElement(".main");
       showElement(".footer");
+   }
+}
+
+/**
+ * Checks if there are completed tasks in order to show the corresponding button to delete them
+ */
+export function checkCompletedTasksCount() {
+   const completedTasksCount = document.querySelectorAll(".todo-list li.completed").length;
+
+   if (completedTasksCount == 0) {
+      hideElement("button.clear-completed");
+   } else {
+      showElement("button.clear-completed");
    }
 }

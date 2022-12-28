@@ -1,5 +1,5 @@
 import { addTask, deleteAllCompletedTasks, deleteTask, getTasks, updateTask } from "./storage";
-import {changeVisualTaskState, checkTasksCount, filterTasks, renderAllTasks, renderTask, updateTasksCounter} from "./uiUtils"
+import {changeVisualTaskState, checkCompletedTasksCount, checkTasksCount, filterTasks, renderAllTasks, renderTask, updateTasksCounter} from "./uiUtils"
 
 /**
  * Checks if any filter is applied and hides the corresponding tasks
@@ -143,5 +143,6 @@ export function initClearCompletedButton() {
       renderAllTasks();
       initAllTasksEvents();
       checkTasksCount();
+      checkCompletedTasksCount();
    })
 }

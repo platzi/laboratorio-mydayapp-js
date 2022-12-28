@@ -1,6 +1,6 @@
 import "./css/base.css";
 
-import { checkTasksCount, renderAllTasks, updateTasksCounter }  from "./js/uiUtils"
+import { checkCompletedTasksCount, checkTasksCount, renderAllTasks, updateTasksCounter }  from "./js/uiUtils"
 import { checkFilterApplied, initAllTasksEvents, initNewTaskInputListener, initFilterChangeListener, initClearCompletedButton } from "./js/utils";
 
 /**
@@ -14,9 +14,10 @@ function init() {
    updateTasksCounter();
    // Checking if any filter should be applied when the application loads
    checkFilterApplied();
-
    // Checking if there are tasks available in order to show the footer
    checkTasksCount();
+   // Checking if there are completed tasks in order to show the "clear completed" button
+   checkCompletedTasksCount();
 
    /* ************** starting event listeners ************** */
    initAllTasksEvents();
