@@ -10,6 +10,7 @@ class View {
     this.elementMainInput = document.querySelector(".new-todo");
     this.elementTodoList = document.querySelector(".todo-list");
     this.elementTodoCount = document.querySelector(".todo-count");
+    this.elementClearCompleted = document.querySelector(".clear-completed");
   }
   init() {
     this.render();
@@ -76,6 +77,11 @@ class View {
       const idTask = taskLIElement.id;
       e.preventDefault();
       that.#controller.updateTitleTask(idTask, value);
+      that.render();
+    });
+
+    this.elementClearCompleted.addEventListener("click", function (e) {
+      that.#controller.deleteCompletedTasks();
       that.render();
     });
   }

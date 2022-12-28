@@ -40,6 +40,16 @@ export class Controller {
     this.getTasks()[indexTask] = task;
     this.#persist();
   }
+  deleteCompletedTasks() {
+    const allTasks = this.getTasks();
+    for (let i = 0; i < allTasks.length; i++) {
+      if (allTasks[i].isCompleted()) {
+        allTasks.splice(i, 1);
+        i--;
+      }
+    }
+    this.#persist();
+  }
   toggleStatusTask(idTask) {
     let task = this.findTaskById(idTask);
     task.isCompleted() ? task.markAsPending() : task.markAsCompleted();
