@@ -57,7 +57,7 @@ export class Controller {
     this.#persist();
   }
   getTasks(filter = "ALL") {
-    switch (filter){
+    switch (filter) {
       case "ALL":
         return this.#taskList.getList();
       case "COMPLETED":
