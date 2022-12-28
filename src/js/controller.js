@@ -78,4 +78,7 @@ export class Controller {
   thereAreTasks() {
     return this.#taskList.getList().length > 0;
   }
+  thereAreCompletedTasks() {
+    return this.#taskList.getCompletedTasks().length > 0;
+  }
 }

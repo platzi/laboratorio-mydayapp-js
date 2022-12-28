@@ -96,7 +96,7 @@ class View {
 
     this.elementFilters.addEventListener("click", function (e) {
       if (e.target.tagName !== "A") return;
-      this.updateSelectedFilter();
+      that.updateSelectedFilter();
     });
   }
   showElement(element, visible) {
@@ -139,10 +139,15 @@ class View {
         <input class="edit" value="${task.title}" />
       </li>`;
   }
+  //TODO: Optimize rendering
   render() {
     const thereAreTasks = this.#controller.thereAreTasks();
     this.showElement(this.elementFooter, thereAreTasks);
     this.showElement(this.elementMain, thereAreTasks);
+    this.showElement(
+      this.elementClearCompleted,
+      this.#controller.thereAreCompletedTasks()
+    );
     const tasksList = this.#controller.getTasks(this.#filter);
     this.elementTodoList.innerHTML = "";
     for (let task of tasksList) {
