@@ -31,10 +31,10 @@ export function getTasks() {
 
    // Checking if the tasks already exist in localstorage if not creating a new default list
    const stringTasks = localStorage.getItem("mydayapp-js")
-   if (stringTasks) {
+   if (stringTasks != undefined) {
       tasksList = JSON.parse(stringTasks)
    } else {
-      tasksList = [
+/*       tasksList = [
          {
             id: 0,
             title: "Learn JavaScript",
@@ -50,8 +50,9 @@ export function getTasks() {
             title: "Make dishes",
             completed: false
          }
-      ]
-      localStorage.setItem("mydayapp-js", JSON.stringify(tasksList));
+      ] */
+      tasksList = [];
+      localStorage.setItem("mydayapp-js", JSON.stringify([]));
    }
 
    return tasksList;
