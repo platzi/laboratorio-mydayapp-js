@@ -51,7 +51,7 @@ export function renderTask(task) {
    const tasksContainer = document.querySelector(".todo-list");
 
    let taskHTML = `
-         <li class="task ${task.completed ? "completed" : "pending"}" data-taskid=${task.id}>
+         <li class="${task.completed ? "completed" : "pending"}" data-taskid=${task.id}>
             <div class="view">
                <input class="toggle" type="checkbox" ${task.completed ? "checked" : ""}>
                <label>${task.title}</label>
@@ -82,9 +82,9 @@ export function renderAllTasks() {
  * @param {("all" | "completed" | "pending")} filter 
  */
 export function filterTasks(filter) {
-   const allTaskElements = document.querySelectorAll(".task");
-   const completedTaskElements = document.querySelectorAll(".task.completed");
-   const pendingTaskElements = document.querySelectorAll(".task.pending");
+   const allTaskElements = document.querySelectorAll(".todo-list li");
+   const completedTaskElements = document.querySelectorAll(".todo-list li.completed");
+   const pendingTaskElements = document.querySelectorAll(".todo-list li.pending");
 
    const filterButtons = document.querySelectorAll(".filters li a");
    filterButtons.forEach(button => button.classList.remove("selected"));
@@ -132,7 +132,7 @@ export function updateTasksCounter() {
  * Checks how many tasks are left, if there is none hides the "main" and "footer" sections
  */
 export function checkTasksCount() {
-   let tasksCount = document.querySelectorAll(".task").length;
+   let tasksCount = document.querySelectorAll(".todo-list li").length;
 
    if (tasksCount == 0) {
       hideElement(".main");

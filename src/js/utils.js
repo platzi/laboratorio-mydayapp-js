@@ -93,7 +93,7 @@ export function applyTaskEvents(taskElement) {
  * Applies all the corresponing events to all tasks when the aplication loads
  */
 export function initAllTasksEvents() {
-   const taskElements = document.querySelectorAll(".task");
+   const taskElements = document.querySelectorAll(".todo-list li");
 
    taskElements.forEach(taskElement => applyTaskEvents(taskElement));
 }
