@@ -4,7 +4,6 @@ import { Task } from "./model/task";
 export class Controller {
   static KEY_LOCAL_STORAGE = "mydayapp-js";
   #taskList;
-  #filter;
   constructor() {
     this.#initTasksList();
     this.#persist();
