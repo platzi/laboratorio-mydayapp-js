@@ -1,6 +1,10 @@
 import "./css/base.css";
+import { addTodo } from './js/crud.js'
 
 import { sayHello } from "./js/utils";
+
+let TODOS = []
+let inputTodo = document.getElementsByClassName('new-todo')[0]
 
 function updateUI() {
     let todosLength = document.getElementsByClassName('todo-list')[0].childElementCount
@@ -16,5 +20,26 @@ function updateUI() {
         footer.style.display = 'block'
     }
 }
+
+inputTodo.addEventListener('keypress', (event) => {
+    const errorMessage = document.querySelector('.error-message');
+
+    if (event.key === 'Enter')
+    {
+        if (inputTodo.value.length !== 0){
+            event.preventDefault()
+            addTodo({title: inputTodo.value.trim()})
+            inputTodo.value = ''
+            errorMessage.textContent = ''
+        }
+        else {
+            event.target.setCustomValidity('La tarea debe contener al menos un caracter')
+            errorMessage.textContent = event.target.validationMessage;
+        }
+    }
+
+    updateUI()
+})
+
 updateUI()
 console.log(sayHello("Hello"));
