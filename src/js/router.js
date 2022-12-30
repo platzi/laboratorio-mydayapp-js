@@ -7,21 +7,13 @@ import { counterItem, loadData, ocultClear } from "./util";
 
 
 export function router(){
-
   const {hash}=window.location;
   const content=contentRoute(hash);
-
   loadContent(content);
-  
   
   }
   
-
   function contentRoute(hash){
-
-    
-
-
 
     const items=getData();
     let itemsContent;
@@ -43,11 +35,8 @@ export function router(){
           return ele;
         }
       }) 
-      
     }
-
     return itemsContent;
-
   }
 
 

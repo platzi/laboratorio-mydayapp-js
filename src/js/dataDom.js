@@ -6,7 +6,6 @@ export function listTodo(items){
     todoList.innerHTML = " ";
     items.forEach(ele => {
   
-      //Creación de elementos
       const li = document.createElement('li');
       todoList.append(li);
       const divView = document.createElement('div');
@@ -31,7 +30,6 @@ export function listTodo(items){
       divView.append(inputCheckbox, label, buttonDestroy);
 
 
-      //Creación al momento de click para editar;
       const inputEdit = document.createElement('input');
       inputEdit.className += "edit";
       inputEdit.autofocus; 
@@ -58,19 +56,8 @@ export function listTodo(items){
                if(event.key==="Escape"){
                 inputEdit.style="display:none";
                 divView.classList.remove("ocult");
-                
-               
                }
-
-    
-
             })
-
-
-
-           
-          
-
         })
 
 

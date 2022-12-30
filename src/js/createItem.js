@@ -1,6 +1,5 @@
 import { saveItems } from "./methods";
 import { v4 as uuidv4 } from 'uuid'
-import { ocultClear } from "./util";
 import { router } from "./router";
 
 export function dataUser(){
