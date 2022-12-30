@@ -1,5 +1,14 @@
+
 import "./css/base.css";
+import { app } from "./app";
 
-import { sayHello } from "./js/utils";
+app();
 
-console.log(sayHello("Hello"));
+const a=document.querySelectorAll('a');
+a.forEach(el=>{
+  el.addEventListener('click',()=>{
+  const selected=document.querySelector('.selected');
+    selected.classList.remove('selected');
+    el.classList.add('selected');
+  })
+})
