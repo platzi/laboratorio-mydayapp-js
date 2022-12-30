@@ -1,5 +1,6 @@
 import "./css/base.css";
+import { main, footer } from "./js/nodes";
+import { inputValue, verifyTaskLIstArray } from "./js/events";
 
-import { sayHello } from "./js/utils";
+window.addEventListener('load', verifyTaskLIstArray);
 
-console.log(sayHello("Hello"));
