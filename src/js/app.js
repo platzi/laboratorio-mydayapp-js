@@ -78,22 +78,28 @@ function deleteTask(deleteIcon) {
   renderUI();
 }
 
-function editingMode(edit) {
-  const path = edit.path[2]// liContainer para acceder al dataset donde se almaceno el ID
-  const taskId = edit.path[2].dataset.id; 
-  const inputEditValue = e.path[0].value;
-  console.log(e.path[1].nextSibling);
-  e.path[2].classList.toggle("editing");
-  e.path[1].nextSibling.addEventListener("keydown", editingTask);
-}
-
-const editingTask = (e) => {
-  console.log(inputEditValue);
-  if (e.key === "Enter") {
-    const found = taskListArray.findIndex((index) => index.id == taskId);
-  } else if (e.key === "Escape") {
-    e.path[1].classList.toggle("editing");
-  }
+function editingMode(edit) {  
+  const li_Container = edit.path[2] //LiContainer
+  const input = edit.path[1].nextSibling //acceder al input
+  li_Container.classList.toggle("editing"); // se agrega la clase al Contenedor para acceder a al modo editar
+  input.focus();  
+  
+  // se almacenan los valores del ID y del valor por defecto del input
+  const taskId = li_Container.dataset.id; // liContainer para acceder al dataset donde se almaceno el ID
+  const inputEditValue = this.innerText; // se almacena el valor iniciar del input    
+  
+  input.addEventListener("keydown", (eventkey) => {
+    if (eventkey.key === "Enter") {
+      console.log(eventkey.path);
+      const found = taskListArray.findIndex((index) => index.id == taskId)
+      taskListArray[0].title = input.value.trim();
+      setterLocalStorage();
+      renderUI();
+    } else if (eventkey.key === "Escape") {
+      input.value = inputEditValue;
+      li_Container.classList.remove("editing");
+    };
+  });
 };
 
 function checkBox(checkboxToggle) {  
@@ -153,8 +159,6 @@ function template(task) {
   btnDestroy.classList.add("destroy");
   btnDestroy.addEventListener("click", deleteTask);
 
-  inputEdit.autofocus = true;
-  inputEdit.focus();
   inputEdit.classList.add("edit");
   inputEdit.value = task.title;
 
