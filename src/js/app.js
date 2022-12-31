@@ -15,7 +15,7 @@ const getterLocalStorage = JSON.parse(localStorage.getItem('mydayapp-js'));
 
 //compoentes de eventos globales
 //evento que esuchca cuando el hash cambia
-window.addEventListener('hashchange', getTaskFilterd, false);
+window.addEventListener('hashchange', renderUI, false);
 //evento del boton que limpia las tareas completadas
 clearCompleted.addEventListener("click", clearTaskCompleted);
 //Evento del input principal para agregar nuevas tareas
@@ -31,12 +31,13 @@ export function firstLoad() {
   //si hay alguna tarea en el localstorage, se carga los elementos en la variable temporal taskListArray y se realiza el renderizado
   //en la interfaz grafica
   if (getterLocalStorage === null) {
+    setterLocalStorage();
     verifyTaskLIstArray();
-  } else {
-    getTaskFilterd();
-    //taskListArray = [...getterLocalStorage]; 
+  } else {    
+    verifyTaskLIstArray();
+    taskListArray = [...getterLocalStorage];
     renderUI();    
-  };
+  };  
 };
 
 //utils
@@ -58,8 +59,7 @@ function clearInput() {
 };
 
 function setterLocalStorage() {
-  localStorage.setItem("mydayapp-js", JSON.stringify(taskListArray));
-  console.log(taskListArray);
+  localStorage.setItem("mydayapp-js", JSON.stringify(taskListArray));  
 };
 
 //logic add Task
@@ -126,10 +126,9 @@ function checkBox(checkboxToggle) {
   const found = taskListArray.findIndex((index) => index.id == taskId);
   taskListArray[found].completed === false
     ? (taskListArray[found].completed = true)
-    : (taskListArray[found].completed = false);
-    console.log(taskListArray)
+    : (taskListArray[found].completed = false);    
     verifyTaskLIstArray();
-    setterLocalStorage();
+    renderUI();
 }
 
 function clearTaskCompleted() {
@@ -139,10 +138,21 @@ function clearTaskCompleted() {
 }
 
 function renderUI() {
+  let taskIterator = []
   todoListContainer.innerHTML = "";
   verifyTaskLIstArray();
-  const container = [];  
-  taskListArray.forEach((task) => {
+  getTaskFilterd(taskIterator);
+  const container = [];
+  if (location.hash.startsWith('#/pending')) {
+    taskIterator = taskListArray.filter((task) => task.completed !== true);  
+  } else if (location.hash.startsWith('#/completed')) {
+    taskIterator = taskListArray.filter((task) => task.completed !== false);
+  } else if (location.hash.startsWith('#/') || location.hash.startsWith('#/all')) {
+    taskIterator = taskListArray
+  };   
+  
+  //taskListArray.forEach((task) => {    
+  taskIterator.forEach((task) => {
     const liContainer = template(task);
     container.push(liContainer);
   });
@@ -150,24 +160,20 @@ function renderUI() {
   itemLeft();
 }
 
-function getTaskFilterd() {
-  taskListArray = [...getterLocalStorage];
+const getTaskFilterd = () => {  
   if (location.hash.startsWith('#/pending')) {
     filtersAll.classList.remove('selected');
     filtersPending.classList.add('selected');
-    filtersCompleted.classList.remove('selected');
-    taskListArray = taskListArray.filter((task) => task.completed !== true);    
+    filtersCompleted.classList.remove('selected');    
   } else if (location.hash.startsWith('#/completed')) {
     filtersAll.classList.remove('selected');
     filtersPending.classList.remove('selected');
-    filtersCompleted.classList.add('selected');
-    taskListArray = taskListArray.filter((task) => task.completed !== false);
+    filtersCompleted.classList.add('selected');    
   } else if (location.hash.startsWith('#/') || location.hash.startsWith('#/all')) {
     filtersAll.classList.add('selected');
     filtersPending.classList.remove('selected');
-    filtersCompleted.classList.remove('selected');
-  };
-  renderUI();
+    filtersCompleted.classList.remove('selected');    
+  };  
 };
 
 
@@ -208,7 +214,8 @@ function template(task) {
 }
 //Funciones
 function itemLeft() {
-  let item;
-  taskListArray.length > 1 ? (item = "items") : (item = "item");
-  todoCount.innerHTML = `<strong>${taskListArray.length}</strong> ${item} left`;
+  let item;  
+  let items = taskListArray.filter((task) => task.completed !== true);
+  items.length > 1 ? (item = "items") : (item = "item");  
+  todoCount.innerHTML = `<strong>${items.length}</strong> ${item} left`;
 }
