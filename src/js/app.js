@@ -32,7 +32,10 @@ function verifyTaskLIstArray() {
     footer.classList.add("hidden");
   } else {
     main.classList.remove("hidden");
-    footer.classList.remove("hidden");    
+    footer.classList.remove("hidden");
+    const someCompleted = taskListArray.some((task) => task.completed == true);
+    
+    taskListArray.some((task) => task.completed == true) ? clearCompleted.disabled = false : clearCompleted.disabled = true;
   };
 };
 
@@ -111,6 +114,7 @@ function checkBox(checkboxToggle) {
     ? (taskListArray[found].completed = true)
     : (taskListArray[found].completed = false);
     console.log(taskListArray)
+    verifyTaskLIstArray();
     setterLocalStorage();
 }
 
