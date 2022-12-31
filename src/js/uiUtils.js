@@ -32,14 +32,17 @@ export function showElement(elementSelector) {
  */
 export function changeVisualTaskState(taskElement, newState) {
    if (newState != "editing") {
-      // Removing any previous state
+      // Removing the previous class
       taskElement.classList.remove("completed");
-      taskElement.classList.remove("pending");
-      taskElement.classList.remove("editing");
    }
 
+   
    // Setting the new one
-   taskElement.classList.add(newState);
+   // if the new state is pending don't add any new class, just delete the other ones
+   if (newState != "pending") {
+      taskElement.classList.add(newState);
+   }
+   taskElement.dataset.taskState = newState;
    checkFilterApplied();
    checkCompletedTasksCount();
 }
@@ -52,7 +55,9 @@ export function renderTask(task) {
    const tasksContainer = document.querySelector(".todo-list");
 
    let taskHTML = `
-         <li class="${task.completed ? "completed" : "pending"}" data-taskid=${task.id}>
+         <li class="${task.completed ? "completed" : ""}" 
+         data-taskid=${task.id} 
+         data-task-state="${task.completed == false ? "pending" : "completed"}">
             <div class="view">
                <input class="toggle" type="checkbox" ${task.completed ? "checked" : ""}>
                <label>${task.title}</label>
@@ -84,8 +89,8 @@ export function renderAllTasks() {
  */
 export function filterTasks(filter) {
    const allTaskElements = document.querySelectorAll(".todo-list li");
-   const completedTaskElements = document.querySelectorAll(".todo-list li.completed");
-   const pendingTaskElements = document.querySelectorAll(".todo-list li.pending");
+   const completedTaskElements = document.querySelectorAll('[data-task-state="completed"]');
+   const pendingTaskElements = document.querySelectorAll('[data-task-state="pending"]');
 
    const filterButtons = document.querySelectorAll(".filters li a");
    filterButtons.forEach(button => button.classList.remove("selected"));
@@ -117,8 +122,7 @@ export function filterTasks(filter) {
  * Updates the pending tasks counter on the bottom left corner
  */
 export function updateTasksCounter() {
-   const tasksContainer = document.querySelector(".todo-list");
-   let pendingTasksCount = tasksContainer.querySelectorAll(".pending").length;
+   let pendingTasksCount = document.querySelectorAll('[data-task-state="pending"]').length;
 
    const counterElement = document.querySelector(".todo-count");
    counterElement.innerHTML = "";
