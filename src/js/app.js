@@ -33,9 +33,9 @@ function verifyTaskLIstArray() {
   } else {
     main.classList.remove("hidden");
     footer.classList.remove("hidden");
-    const someCompleted = taskListArray.some((task) => task.completed == true);
-    
-    taskListArray.some((task) => task.completed == true) ? clearCompleted.disabled = false : clearCompleted.disabled = true;
+
+    const someCompleted = taskListArray.some((task) => task.completed == true);    
+    someCompleted ? clearCompleted.disabled = false : clearCompleted.disabled = true;
   };
 };
 
@@ -95,7 +95,7 @@ function editingMode(edit) {
     if (eventkey.key === "Enter") {
       console.log(eventkey.path);
       const found = taskListArray.findIndex((index) => index.id == taskId)
-      taskListArray[0].title = input.value.trim();
+      taskListArray[found].title = input.value.trim();
       setterLocalStorage();
       renderUI();
     } else if (eventkey.key === "Escape") {
