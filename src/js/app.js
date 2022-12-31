@@ -4,9 +4,7 @@ const inputNewTodo = document.querySelector(".new-todo");
 const todoListContainer = document.querySelector(".todo-list");
 const todoCount = document.querySelector(".todo-count");
 const clearCompleted = document.querySelector(".clear-completed");
-const filtersAll = document.querySelector(".filtersAll");
-const filtersPending = document.querySelector(".filtersPending");
-const filtersCompleted = document.querySelector(".filtersCompleted");
+const filters = document.querySelector(".filters");
 //se crea un array vacio para el almacenamiento temporal de las tareas
 let taskListArray = [];
 //una variable para guardar un atajo para el llamado de las tareas almacenadas en el localstorage
@@ -70,7 +68,7 @@ const inputValue = () => {
     addTodoList(text);
   } else {
     clearInput();
-  }
+  };
 };
 
 
@@ -93,7 +91,7 @@ function deleteTask(deleteIcon) {
   taskListArray = taskListArray.filter((task) => task.id != taskId);
   setterLocalStorage();
   renderUI();
-}
+};
 
 function editingMode(edit) {  
   const li_Container = edit.path[2] //LiContainer
@@ -107,7 +105,6 @@ function editingMode(edit) {
   
   input.addEventListener("keydown", (eventkey) => {
     if (eventkey.key === "Enter") {
-      console.log(eventkey.path);
       const found = taskListArray.findIndex((index) => index.id == taskId)
       taskListArray[found].title = input.value.trim();
       setterLocalStorage();
@@ -126,16 +123,17 @@ function checkBox(checkboxToggle) {
   const found = taskListArray.findIndex((index) => index.id == taskId);
   taskListArray[found].completed === false
     ? (taskListArray[found].completed = true)
-    : (taskListArray[found].completed = false);    
+    : (taskListArray[found].completed = false);
     verifyTaskLIstArray();
+    setterLocalStorage();
     renderUI();
-}
+};
 
 function clearTaskCompleted() {
   taskListArray = taskListArray.filter((task) => task.completed !== true);
   setterLocalStorage();
   renderUI();
-}
+};
 
 function renderUI() {
   let taskIterator = []
@@ -147,34 +145,44 @@ function renderUI() {
     taskIterator = taskListArray.filter((task) => task.completed !== true);  
   } else if (location.hash.startsWith('#/completed')) {
     taskIterator = taskListArray.filter((task) => task.completed !== false);
-  } else if (location.hash.startsWith('#/') || location.hash.startsWith('#/all')) {
-    taskIterator = taskListArray
-  };   
+  } else {
+    taskIterator = taskListArray;
+  };  
   
-  //taskListArray.forEach((task) => {    
   taskIterator.forEach((task) => {
     const liContainer = template(task);
     container.push(liContainer);
   });
   todoListContainer.append(...container);
   itemLeft();
-}
-
-const getTaskFilterd = () => {  
-  if (location.hash.startsWith('#/pending')) {
-    filtersAll.classList.remove('selected');
-    filtersPending.classList.add('selected');
-    filtersCompleted.classList.remove('selected');    
-  } else if (location.hash.startsWith('#/completed')) {
-    filtersAll.classList.remove('selected');
-    filtersPending.classList.remove('selected');
-    filtersCompleted.classList.add('selected');    
-  } else if (location.hash.startsWith('#/') || location.hash.startsWith('#/all')) {
-    filtersAll.classList.add('selected');
-    filtersPending.classList.remove('selected');
-    filtersCompleted.classList.remove('selected');    
-  };  
 };
+
+const getTaskFilterd = () => {
+  const { hash } = window.location;
+switch (hash) {
+  case "":
+  case "#/":
+  case "#/all":
+      filters.children[0].lastElementChild.classList.add('selected');
+      filters.children[1].lastElementChild.classList.remove('selected');
+      filters.children[2].lastElementChild.classList.remove('selected');
+      break;
+      case "#/pending": 
+      filters.children[0].lastElementChild.classList.remove('selected');
+      filters.children[1].lastElementChild.classList.add('selected');
+      filters.children[2].lastElementChild.classList.remove('selected');
+      break;
+      case "#/completed": 
+      filters.children[0].lastElementChild.classList.remove('selected');
+      filters.children[1].lastElementChild.classList.remove('selected');
+      filters.children[2].lastElementChild.classList.add('selected');
+    break;
+    default:
+      filters.children[0].classList.add('selected');
+      filters.children[1].classList.remove('selected');
+      filters.children[2].classList.remove('selected');
+    };
+  };
 
 
 //template
@@ -197,7 +205,7 @@ function template(task) {
   } else if (task.completed === false) {
     inputCheckBox.checked = false;
     liContainer.classList.remove("completed");
-  }
+  };
 
   labelTask.innerText = task.title;
   labelTask.addEventListener("dblclick", editingMode);
@@ -211,11 +219,11 @@ function template(task) {
   divView.append(inputCheckBox, labelTask, btnDestroy);
   liContainer.append(divView, inputEdit);
   return liContainer;
-}
+};
 //Funciones
 function itemLeft() {
   let item;  
   let items = taskListArray.filter((task) => task.completed !== true);
   items.length > 1 ? (item = "items") : (item = "item");  
   todoCount.innerHTML = `<strong>${items.length}</strong> ${item} left`;
-}
+};
