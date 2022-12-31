@@ -151,7 +151,7 @@ body {
   font-size: 0;
   position: absolute;
   top: -65px;
-  left: -0;
+  left: -0;  
 }
 
 .toggle-all + label:before {
@@ -242,6 +242,7 @@ body {
   transition: color 0.4s;
   font-weight: 400;
   color: #484848;
+  text-transform: capitalize;
 }
 
 .todo-list li.completed label {

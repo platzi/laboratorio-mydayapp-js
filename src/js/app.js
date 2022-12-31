@@ -4,26 +4,50 @@ const inputNewTodo = document.querySelector(".new-todo");
 const todoListContainer = document.querySelector(".todo-list");
 const todoCount = document.querySelector(".todo-count");
 const clearCompleted = document.querySelector(".clear-completed");
+let taskListArray = [];
 
-export function verifyTaskLIstArray() {
-  if (localStorage.length === 0) {
-    main.classList.add("hidden");
-    footer.classList.add("hidden");
-} else {
-    main.classList.remove("hidden");
-    footer.classList.remove("hidden");
-    renderUI();
-}};
+const getterLocalStorage = JSON.parse(localStorage.getItem('mydayapp-js'));
 
+//events
 clearCompleted.addEventListener("click", clearTaskCompleted);
 inputNewTodo.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     inputValue(inputNewTodo);
-  }
+  };
 });
 
+export function firstLoad() {  
+  if (getterLocalStorage === null) {
+    verifyTaskLIstArray();
+  } else {
+    taskListArray = [...getterLocalStorage];    
+    renderUI();    
+  };
+};
+
+//utils
+function verifyTaskLIstArray() {
+  if (taskListArray.length === 0) {
+    main.classList.add("hidden");
+    footer.classList.add("hidden");
+  } else {
+    main.classList.remove("hidden");
+    footer.classList.remove("hidden");    
+  };
+};
+
+function clearInput() {
+  inputNewTodo.value = "";
+};
+
+function setterLocalStorage() {
+  localStorage.setItem("mydayapp-js", JSON.stringify(taskListArray));
+  console.log(taskListArray);
+};
+
+//logic add Task
 const inputValue = () => {
-  const text = inputNewTodo.value.trim();
+  const text = inputNewTodo.value.trim().toLowerCase();
   if (text !== "") {
     clearInput();
     addTodoList(text);
@@ -32,35 +56,31 @@ const inputValue = () => {
   }
 };
 
-function clearInput() {
-  inputNewTodo.value = "";
-}
 
 function addTodoList(text) {
-    let taskListArray = []
-    if (localStorage.length !== 0) {
-        [ taskListArray ] = localStorage.getItem('mydayapp-js')
-    }
-  const id = (localStorage.length + 1).toString();
+  const id = (taskListArray.length + 1).toString();
   let newTask = {
     id: id,
     title: text,
     completed: false,
   };
   taskListArray = [...taskListArray, newTask];
-  localStorage.setItem('mydayapp-js', JSON.stringify(taskListArray))
-  console.log(localStorage.getItem('mydayapp-js'));
+  setterLocalStorage();
   renderUI();
-}
+};
 
-function deleteTask(e) {
-  const taskId = e.path[2].dataset.id;
+//UI interface
+function deleteTask(deleteIcon) {
+  const path = deleteIcon.path[2]; // liContainer para acceder al dataset donde se almaceno el ID  
+  const taskId = path.dataset.id;
   taskListArray = taskListArray.filter((task) => task.id != taskId);
+  setterLocalStorage();
   renderUI();
 }
 
-function editingMode(e) {
-  const taskId = e.path[2].dataset.id;
+function editingMode(edit) {
+  const path = edit.path[2]// liContainer para acceder al dataset donde se almaceno el ID
+  const taskId = edit.path[2].dataset.id; 
   const inputEditValue = e.path[0].value;
   console.log(e.path[1].nextSibling);
   e.path[2].classList.toggle("editing");
@@ -71,22 +91,25 @@ const editingTask = (e) => {
   console.log(inputEditValue);
   if (e.key === "Enter") {
     const found = taskListArray.findIndex((index) => index.id == taskId);
-  } else if (e.ket === "Escape") {
+  } else if (e.key === "Escape") {
     e.path[1].classList.toggle("editing");
   }
 };
 
-function checkBox(e) {
-  const taskId = e.path[2].dataset.id;
-  e.path[2].classList.toggle("completed");
+function checkBox(checkboxToggle) {  
+  const path = checkboxToggle.path[2] // liContainer para acceder al dataset donde se almaceno el ID
+  const taskId = path.dataset.id;
+  path.classList.toggle("completed");
   const found = taskListArray.findIndex((index) => index.id == taskId);
-  taskListArray[found].status === "pending"
-    ? (taskListArray[found].status = "completed")
-    : (taskListArray[found].status = "pending");
+  taskListArray[found].completed === false
+    ? (taskListArray[found].completed = true)
+    : (taskListArray[found].completed = false);
+    console.log(taskListArray)
+    setterLocalStorage();
 }
 
 function clearTaskCompleted() {
-  taskListArray = taskListArray.filter((task) => task.status !== "completed");
+  taskListArray = taskListArray.filter((task) => task.completed !== true);
   renderUI();
 }
 
@@ -94,9 +117,7 @@ function renderUI() {
   todoListContainer.innerHTML = "";
   verifyTaskLIstArray();
   const container = [];
-  const task = JSON.parse(localStorage.getItem('mydayapp-js'))
-  console.log(task);
-  task.forEach((task) => {
+  taskListArray.forEach((task) => {
     const liContainer = template(task);
     container.push(liContainer);
   });
@@ -131,7 +152,7 @@ function template(task) {
 
   btnDestroy.classList.add("destroy");
   btnDestroy.addEventListener("click", deleteTask);
-  
+
   inputEdit.autofocus = true;
   inputEdit.focus();
   inputEdit.classList.add("edit");
