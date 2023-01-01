@@ -7,15 +7,34 @@ function addTodo({title}) {
     }
 
     var todo = document.createElement("li");
-    todo.setAttribute('id', TODO.id)
-    todo.innerHTML = `
-    <div class="view">
-        <input class="toggle" type="checkbox" />
-        <label>${TODO.title}</label>
-        <button class="destroy"></button>
-    </div>
-    <input class="edit" value="${TODO.title}" />
-  `;
+    todo.setAttribute('id', `item_${TODO.id}`)
+
+    var containerDiv = document.createElement('div')
+
+    var checkbox = document.createElement('input')
+    checkbox.setAttribute('class', 'toggle')
+    checkbox.setAttribute('type', 'checkbox')
+    checkbox.setAttribute('value', TODO.id)
+    checkbox.addEventListener('click', () => {
+        let todoItem = todo
+        todoItem.classList.toggle('completed')
+    })
+
+    var label = document.createElement('label')
+    label.innerText = TODO.title
+
+    var button = document.createElement('button')
+    button.setAttribute('class', 'destroy')
+    button.setAttribute('id', TODO.id)
+    button.addEventListener('click', () => {
+        todo.remove()
+    })
+
+
+    containerDiv.appendChild(checkbox)
+    containerDiv.appendChild(label)
+    containerDiv.appendChild(button)
+    todo.appendChild(containerDiv)
     
     let todos = document.querySelector('.todo-list')
     todos.appendChild(todo);
