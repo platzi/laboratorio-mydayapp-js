@@ -1,4 +1,4 @@
-import { checkStorage } from "./store";
+import { checkStorage, updateTodo } from "./store";
 
 const app = {
   footer: document.querySelector(".footer"),
@@ -23,18 +23,22 @@ export const render = () => {
   const list = document.querySelector(".todo-list");
   const liItems = [];
   let itemLeft = 0;
-  storage.map((item) => {
+  storage.map((item, index) => {
     const li = document.createElement("li");
-    if (item.state === "completed") {
-      li.classList.add("completed");
-    } else {
-      itemLeft++;
-    }
     const div = document.createElement("div");
     div.classList.add("view");
     const input = document.createElement("input");
-    input.classList.add("toggle");
+    input.addEventListener("click", (e) => {
+      updateTodo(e.target.classList[1]);
+    });
+    input.classList.add("toggle", index);
     input.setAttribute("type", "checkbox");
+    if (item.state === "completed") {
+      li.classList.add("completed");
+      input.checked = true;
+    } else {
+      itemLeft++;
+    }
     const label = document.createElement("label");
     label.innerHTML = item.todo;
     const button = document.createElement("button");
