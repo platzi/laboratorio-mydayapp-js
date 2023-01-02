@@ -24,34 +24,42 @@ function addTodo({title}) {
     let edit = document.createElement('input')
     edit.setAttribute('type', 'edit')
     edit.setAttribute('class', 'hidden')
-    edit.value = TODO.title
+    edit.value = TODO.title.trim()
+    edit.setAttribute('id', TODO.id)
     edit.addEventListener('keydown', (event) => {
-        if (event.code === 'Enter' || event.code === "Escape"){
+        let originalValue = label.innerText
+        if (event.code === 'Enter'){
+            label.innerText = edit.value
+            
+            event.target.value = event.target.value.trim()
             todo.classList.remove('editing')
             checkbox.classList.toggle('hidden')
             edit.classList.add('hidden')
             edit.classList.remove('edit')
-            label.innerText = edit.value
+            toggleTodos(`item_${event.target.id}`)
+        }
+        else if(event.code === "Escape"){
+            label.innerText = originalValue
+            event.target.value = originalValue
+
+            event.target.value = event.target.value.trim()
+            todo.classList.remove('editing')
+            checkbox.classList.toggle('hidden')
+            edit.classList.add('hidden')
+            edit.classList.remove('edit')
+            toggleTodos(`item_${event.target.id}`)
         }
     })
-    edit.addEventListener('blur', (event) => {
-        console.log(edit.value)
-        todo.classList.remove('editing')
-        checkbox.classList.toggle('hidden')
-        edit.classList.add('hidden')
-        edit.classList.remove('edit')
-        label.innerText = edit.value
-    })
-
-    todo.addEventListener('dblclick', () => {
+    var label = document.createElement('label')
+    label.innerText = TODO.title
+    label.addEventListener('dblclick', (event) => {
+        toggleTodos(event.path[2].id)
         todo.classList.add('editing')
         checkbox.classList.toggle('hidden')
         edit.classList.remove('hidden')
         edit.classList.add('edit')
+        edit.focus()
     })
-
-    var label = document.createElement('label')
-    label.innerText = TODO.title
 
     // Handles remove
     var button = document.createElement('button')
@@ -70,6 +78,13 @@ function addTodo({title}) {
     
     let todos = document.querySelector('.todo-list')
     todos.appendChild(todo);
+}
+
+function toggleTodos (id) {
+    let todos = Array.from(document.querySelectorAll('li'))
+    todos
+        .filter((todo) => todo.id !== id)
+        .map((element) => element.classList.toggle('hidden'))
 }
 
 export {
