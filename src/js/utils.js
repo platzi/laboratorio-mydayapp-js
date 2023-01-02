@@ -1,4 +1,4 @@
-import { checkStorage, updateTodo } from "./store";
+import { checkStorage, updateTodo, deleteTodo } from "./store";
 
 const app = {
   footer: document.querySelector(".footer"),
@@ -15,41 +15,56 @@ export const hiddenTag = () => {
   app.main.style.display = "none";
 };
 
+const createElement = (el, index, data) => {
+  const li = document.createElement("li");
+  const div = document.createElement("div");
+
+  const input = document.createElement("input");
+  input.addEventListener("click", (e) => {
+    updateTodo(e.target.classList[1]);
+  });
+  div.classList.add("view");
+
+  input.classList.add("toggle", index);
+  input.setAttribute("type", "checkbox");
+
+  if (el.state === "completed") {
+    li.classList.add("completed");
+    input.checked = true;
+  } else {
+    data.itemLeft++;
+  }
+  const label = document.createElement("label");
+  const button = document.createElement("button");
+
+  label.innerHTML = el.todo;
+  button.classList.add("destroy", index);
+
+  button.addEventListener("click", (e) => {
+    deleteTodo(e.target.classList[1]);
+  });
+  div.append(input, label, button);
+
+  const inputToEdit = document.createElement("input");
+  inputToEdit.classList.add("edit");
+  inputToEdit.setAttribute("value", el.todo);
+  li.append(div, inputToEdit);
+  return li;
+};
+
 export const render = () => {
   //Limpiamos el DOCM
   showTag();
   document.querySelector(".todo-list").innerHTML = "";
   const storage = checkStorage();
   const list = document.querySelector(".todo-list");
-  const liItems = [];
-  let itemLeft = 0;
+  const data = {
+    itemLeft: 0,
+    liItems: [],
+  };
   storage.map((item, index) => {
-    const li = document.createElement("li");
-    const div = document.createElement("div");
-    div.classList.add("view");
-    const input = document.createElement("input");
-    input.addEventListener("click", (e) => {
-      updateTodo(e.target.classList[1]);
-    });
-    input.classList.add("toggle", index);
-    input.setAttribute("type", "checkbox");
-    if (item.state === "completed") {
-      li.classList.add("completed");
-      input.checked = true;
-    } else {
-      itemLeft++;
-    }
-    const label = document.createElement("label");
-    label.innerHTML = item.todo;
-    const button = document.createElement("button");
-    button.classList.add("destroy");
-    div.append(input, label, button);
-    const inputToEdit = document.createElement("input");
-    inputToEdit.classList.add("edit");
-    inputToEdit.setAttribute("value", item.todo);
-    li.append(div, inputToEdit);
-    liItems.push(li);
+    data.liItems.push(createElement(item, index, data));
   });
-  document.querySelector(".todo-count").children[0].innerHTML = itemLeft;
-  list.append(...liItems);
+  document.querySelector(".todo-count").children[0].innerHTML = data.itemLeft;
+  list.append(...data.liItems);
 };

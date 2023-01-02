@@ -1,6 +1,6 @@
-import { render } from "./utils";
+import { render, hiddenTag } from "./utils";
 
-const keyLocalStorage = "TOO-LIST";
+const keyLocalStorage = "mydayapp-js";
 export const checkStorage = () => {
   const storage = JSON.parse(localStorage.getItem(keyLocalStorage));
 
@@ -25,4 +25,17 @@ export const updateTodo = (index) => {
   } else storage[index].state = "pending";
   localStorage.setItem(keyLocalStorage, JSON.stringify(storage));
   render();
+};
+
+export const deleteTodo = (index) => {
+  const storage = JSON.parse(localStorage.getItem(keyLocalStorage));
+  const newStorage = [];
+
+  delete storage[index];
+  storage.map((item) => newStorage.push(item));
+  localStorage.setItem(keyLocalStorage, JSON.stringify(newStorage));
+
+  if (!newStorage.length) {
+    hiddenTag();
+  } else render();
 };
