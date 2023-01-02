@@ -1,5 +1,5 @@
 import "./css/base.css";
-import { addTodo } from './js/crud.js'
+import { addTodo, updateCounter } from './js/crud.js'
 
 import { sayHello } from "./js/utils";
 
@@ -17,6 +17,7 @@ let observer = new MutationObserver(function(mutations) {
         main.classList.remove('hidden')
         footer.classList.remove('hidden')
       }
+      updateCounter()
     });
   });
 

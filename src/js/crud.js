@@ -18,6 +18,7 @@ function addTodo({title}) {
     checkbox.setAttribute('value', TODO.id)
     checkbox.addEventListener('click', () => {
         todo.classList.toggle('completed')
+        updateCounter()
     })
 
     // Handles edit
@@ -87,6 +88,17 @@ function toggleTodos (id) {
         .map((element) => element.classList.toggle('hidden'))
 }
 
+function updateCounter(pendingTasK){
+    let ul = document.getElementsByClassName('todo-list')[0]
+        let pendingTasks = Array.from(ul.children).filter((task) => !task.classList.contains('completed'))
+
+        let todoCounter = document.getElementsByClassName('todo-count')[0]
+        todoCounter.children[0].innerHTML = pendingTasks.length
+        let itemsText = pendingTasks.length === 1 ? 'item' : 'items'
+        todoCounter.innerHTML = todoCounter.innerHTML.replace(/\bitem(s)?\b/, itemsText)
+}
+
 export {
-    addTodo
+    addTodo,
+    updateCounter
 }
