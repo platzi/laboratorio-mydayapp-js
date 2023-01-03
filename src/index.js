@@ -1,9 +1,10 @@
 import "./css/base.css";
-import { addTodo, updateCounter, getLocalStorage} from './js/crud.js'
+import { addTodo, updateCounter, getLocalStorage, clearCompletedTasks, checkForCompletedTask} from './js/crud.js'
 
 import { sayHello } from "./js/utils";
 
 let inputTodo = document.getElementsByClassName('new-todo')[0]
+let clearCompletedButton = document.getElementsByClassName('clear-completed')[0]
 
 let observer = new MutationObserver(function(mutations) {
     let main = document.getElementsByClassName('main')[0]
@@ -16,6 +17,7 @@ let observer = new MutationObserver(function(mutations) {
         main.classList.remove('hidden')
         footer.classList.remove('hidden')
       }
+      checkForCompletedTask()
       updateCounter()
     });
   });
@@ -49,4 +51,5 @@ inputTodo.addEventListener('keypress', (event) => {
 
 })
 
+clearCompletedButton.addEventListener('click', () => clearCompletedTasks())
 console.log(sayHello("Hello"));

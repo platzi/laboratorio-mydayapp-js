@@ -24,6 +24,7 @@ function addTodo({id, title, completed}) {
         item.completed = event.target.checked
         saveLocalStorage(TODOS)
         updateCounter()
+        checkForCompletedTask()
     })
 
     // Handles edit
@@ -107,6 +108,16 @@ function updateCounter(pendingTasK){
         todoCounter.innerHTML = todoCounter.innerHTML.replace(/\bitem(s)?\b/, itemsText)
 }
 
+function checkForCompletedTask(){
+    let clearCompletedButton = document.getElementsByClassName('clear-completed')[0]
+    let ul = document.getElementsByClassName('todo-list')[0]
+    let pendingTasks = Array.from(ul.children).filter((task) => task.classList.contains('completed'))
+    if (pendingTasks.length >= 1){
+        clearCompletedButton.classList.remove('hidden')
+    }
+    else clearCompletedButton.classList.add('hidden')
+}
+
 function addTask(task){
     let alreadyInTasks = TODOS.some((element) => element.id === task.id)
     if (!alreadyInTasks){
@@ -137,9 +148,21 @@ function getNextID(){
     return highestId + 1
 }
 
+function clearCompletedTasks(){
+    let completedTasks = document.querySelectorAll('li.completed')
+    completedTasks = Array.from(completedTasks)
+    console.log(completedTasks);
+    completedTasks.forEach(task => task.remove())
+    TODOS = TODOS.filter(task => !task.completed)
+    saveLocalStorage(TODOS)
+
+}
+
 export {
     addTodo,
     updateCounter,
     addTask,
-    getLocalStorage
+    getLocalStorage,
+    clearCompletedTasks,
+    checkForCompletedTask,
 }
