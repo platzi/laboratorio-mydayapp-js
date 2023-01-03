@@ -24,7 +24,11 @@ export const updateTodoState = (index) => {
     storage[index].state = "completed";
   } else storage[index].state = "pending";
   localStorage.setItem(keyLocalStorage, JSON.stringify(storage));
-  render();
+  if (window.location.hash.startsWith("#/pending")) {
+    render("pending");
+  } else if (window.location.hash.startsWith("#/completed")) {
+    render("completed");
+  } else render();
 };
 
 export const updateTodo = (index, value) => {
@@ -42,6 +46,15 @@ export const deleteTodo = (index) => {
   storage.map((item) => newStorage.push(item));
   localStorage.setItem(keyLocalStorage, JSON.stringify(newStorage));
 
+  if (!newStorage.length) {
+    hiddenTag();
+  } else render();
+};
+
+export const deleteAll = () => {
+  const storage = JSON.parse(localStorage.getItem(keyLocalStorage));
+  const newStorage = storage.filter((item) => item.state === "pending");
+  localStorage.setItem(keyLocalStorage, JSON.stringify(newStorage));
   if (!newStorage.length) {
     hiddenTag();
   } else render();

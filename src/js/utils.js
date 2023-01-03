@@ -52,7 +52,7 @@ const createElement = (el, index, data) => {
 
   inputToEdit.addEventListener("keyup", (e) => {
     if (e.key === "Enter" && !!e.target.value.trim().length) {
-      updateTodo(index, e.target.value);
+      updateTodo(index, e.target.value.trim());
     }
   });
   inputToEdit.classList.add("edit");
@@ -61,7 +61,7 @@ const createElement = (el, index, data) => {
   return li;
 };
 
-export const render = () => {
+export const render = (type = "all") => {
   //Limpiamos el DOCM
   showTag();
   document.querySelector(".todo-list").innerHTML = "";
@@ -71,9 +71,21 @@ export const render = () => {
     itemLeft: 0,
     liItems: [],
   };
-  storage.map((item, index) => {
-    data.liItems.push(createElement(item, index, data));
-  });
+  if (type === "all") {
+    storage.map((item, index) => {
+      data.liItems.push(createElement(item, index, data));
+    });
+  } else if (type === "pending") {
+    storage.map((item, index) => {
+      if (item.state === "pending")
+        data.liItems.push(createElement(item, index, data));
+    });
+  } else {
+    storage.map((item, index) => {
+      if (item.state === "completed")
+        data.liItems.push(createElement(item, index, data));
+    });
+  }
   document.querySelector(".todo-count").children[0].innerHTML = data.itemLeft;
   list.append(...data.liItems);
 };
