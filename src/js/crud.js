@@ -37,7 +37,7 @@ function addTodo({id, title, completed}) {
         if (event.code === 'Enter'){
             label.innerText = edit.value
             let todoIndex = TODOS.findIndex(todo => todo.id === Number(event.target.id))
-            TODOS[todoIndex].title = edit.value
+            TODOS[todoIndex].title = edit.value.trim()
             saveLocalStorage(TODOS)
             event.target.value = event.target.value.trim()
             todo.classList.remove('editing')
