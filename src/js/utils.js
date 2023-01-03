@@ -1,4 +1,4 @@
-import { checkStorage, updateTodo, deleteTodo } from "./store";
+import { checkStorage, updateTodoState, deleteTodo, updateTodo } from "./store";
 
 const app = {
   footer: document.querySelector(".footer"),
@@ -20,12 +20,12 @@ const createElement = (el, index, data) => {
   const div = document.createElement("div");
 
   const input = document.createElement("input");
-  input.addEventListener("click", (e) => {
-    updateTodo(e.target.classList[1]);
+  input.addEventListener("click", () => {
+    updateTodoState(index);
   });
   div.classList.add("view");
 
-  input.classList.add("toggle", index);
+  input.classList.add("toggle");
   input.setAttribute("type", "checkbox");
 
   if (el.state === "completed") {
@@ -37,15 +37,24 @@ const createElement = (el, index, data) => {
   const label = document.createElement("label");
   const button = document.createElement("button");
 
+  label.addEventListener("dblclick", () => {
+    li.classList.add("editing");
+  });
   label.innerHTML = el.todo;
-  button.classList.add("destroy", index);
+  button.classList.add("destroy");
 
-  button.addEventListener("click", (e) => {
-    deleteTodo(e.target.classList[1]);
+  button.addEventListener("click", () => {
+    deleteTodo(index);
   });
   div.append(input, label, button);
 
   const inputToEdit = document.createElement("input");
+
+  inputToEdit.addEventListener("keyup", (e) => {
+    if (e.key === "Enter" && !!e.target.value.trim().length) {
+      updateTodo(index, e.target.value);
+    }
+  });
   inputToEdit.classList.add("edit");
   inputToEdit.setAttribute("value", el.todo);
   li.append(div, inputToEdit);

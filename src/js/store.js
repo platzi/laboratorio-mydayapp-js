@@ -18,11 +18,18 @@ export const addNewTodo = (todo) => {
   localStorage.setItem(keyLocalStorage, JSON.stringify(storage));
 };
 
-export const updateTodo = (index) => {
+export const updateTodoState = (index) => {
   const storage = JSON.parse(localStorage.getItem(keyLocalStorage));
   if (storage[index].state === "pending") {
     storage[index].state = "completed";
   } else storage[index].state = "pending";
+  localStorage.setItem(keyLocalStorage, JSON.stringify(storage));
+  render();
+};
+
+export const updateTodo = (index, value) => {
+  const storage = JSON.parse(localStorage.getItem(keyLocalStorage));
+  storage[index].todo = value;
   localStorage.setItem(keyLocalStorage, JSON.stringify(storage));
   render();
 };
