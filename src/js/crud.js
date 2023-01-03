@@ -1,11 +1,11 @@
-function addTodo({title}) {
-    let todosLength = document.getElementsByClassName('todo-list')[0].childElementCount
-    let TODO = {
-        id: todosLength ? todosLength + 1 : 1,
-        title: title,
-        completed: false,
-    }
+let TODOS = getLocalStorage()
 
+function addTodo({id, title, completed}) {
+    let TODO = {
+        id: id ? id : getNextID(),
+        title: title,
+        completed: completed ? completed : false,
+    }
     var todo = document.createElement("li");
     todo.setAttribute('id', `item_${TODO.id}`)
 
@@ -16,8 +16,13 @@ function addTodo({title}) {
     checkbox.setAttribute('class', 'toggle')
     checkbox.setAttribute('type', 'checkbox')
     checkbox.setAttribute('value', TODO.id)
-    checkbox.addEventListener('click', () => {
+    checkbox.checked = TODO.completed
+    if(checkbox.checked ) todo.classList.toggle('completed')
+    checkbox.addEventListener('click', (event) => {
         todo.classList.toggle('completed')
+        let item = TODOS.find(el => el.id === Number(TODO.id))
+        item.completed = event.target.checked
+        saveLocalStorage(TODOS)
         updateCounter()
     })
 
@@ -31,7 +36,9 @@ function addTodo({title}) {
         let originalValue = label.innerText
         if (event.code === 'Enter'){
             label.innerText = edit.value
-            
+            let todoIndex = TODOS.findIndex(todo => todo.id === Number(event.target.id))
+            TODOS[todoIndex].title = edit.value
+            saveLocalStorage(TODOS)
             event.target.value = event.target.value.trim()
             todo.classList.remove('editing')
             checkbox.classList.toggle('hidden')
@@ -68,6 +75,7 @@ function addTodo({title}) {
     button.setAttribute('id', TODO.id)
     button.addEventListener('click', () => {
         todo.remove()
+        removeFromLocalStorage(button.id)
     })
 
 
@@ -79,6 +87,7 @@ function addTodo({title}) {
     
     let todos = document.querySelector('.todo-list')
     todos.appendChild(todo);
+    addTask(TODO)
 }
 
 function toggleTodos (id) {
@@ -98,7 +107,39 @@ function updateCounter(pendingTasK){
         todoCounter.innerHTML = todoCounter.innerHTML.replace(/\bitem(s)?\b/, itemsText)
 }
 
+function addTask(task){
+    let alreadyInTasks = TODOS.some((element) => element.id === task.id)
+    if (!alreadyInTasks){
+        TODOS.push(task)
+        saveLocalStorage(TODOS)
+    }
+}
+
+function saveLocalStorage(TODOS){
+    localStorage.setItem('mydayapp-js', JSON.stringify(TODOS))
+}
+
+function getLocalStorage(){
+    let todos = JSON.parse(localStorage.getItem('mydayapp-js'))
+    return todos !== null ? todos : []
+}
+
+function removeFromLocalStorage(taskID){
+    TODOS = TODOS.filter(todo => todo.id !== Number(taskID))
+    localStorage.setItem('mydayapp-js', JSON.stringify(TODOS))
+
+}
+
+function getNextID(){
+    let highestId = TODOS.reduce((max, object) => {
+        return object.id > max ? object.id : max;
+      }, 0);
+    return highestId + 1
+}
+
 export {
     addTodo,
-    updateCounter
+    updateCounter,
+    addTask,
+    getLocalStorage
 }

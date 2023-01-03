@@ -1,9 +1,8 @@
 import "./css/base.css";
-import { addTodo, updateCounter } from './js/crud.js'
+import { addTodo, updateCounter, getLocalStorage} from './js/crud.js'
 
 import { sayHello } from "./js/utils";
 
-let TODOS = []
 let inputTodo = document.getElementsByClassName('new-todo')[0]
 
 let observer = new MutationObserver(function(mutations) {
@@ -24,6 +23,12 @@ let observer = new MutationObserver(function(mutations) {
   observer.observe(document.getElementsByClassName("todo-list")[0], {
     childList: true
   });
+
+let TODOS = getLocalStorage()
+TODOS = Array.from(TODOS)
+TODOS.forEach(element => {
+    addTodo(element)
+});
 
 inputTodo.addEventListener('keypress', (event) => {
     const errorMessage = document.querySelector('.error-message');
