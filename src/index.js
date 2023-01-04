@@ -1,5 +1,10 @@
 import "./css/base.css";
-import { checkStorage, addNewTodo, deleteAll } from "./js/store";
+import {
+  checkStorage,
+  addNewTodo,
+  deleteAll,
+  checkIfThereAreTaskCompleted,
+} from "./js/store";
 import { render, hiddenTag } from "./js/utils";
 
 const selectorAll = document.querySelector('footer ul li a[href="#/"]');
@@ -9,15 +14,25 @@ const selectorPending = document.querySelector(
 const selectorCompleted = document.querySelector(
   'footer ul li a[href="#/completed"]'
 );
+const buttonClean = document.querySelector(".clear-completed");
 const storageData = checkStorage();
 const data = {
   totalTodos: storageData.length,
   todos: storageData,
 };
 
+document.querySelector(".clear-completed").addEventListener("click", () => {
+  deleteAll();
+});
+
 if (!data.totalTodos) {
   hiddenTag();
 } else {
+  if (checkIfThereAreTaskCompleted()) {
+    buttonClean.style.visibility = "visible";
+  } else {
+    buttonClean.style.visibility = "hidden";
+  }
   if (window.location.hash.startsWith("#/pending")) {
     selectorPending.classList.add("selected");
     selectorAll.classList.remove("selected");
@@ -36,20 +51,20 @@ if (!data.totalTodos) {
   }
 }
 
+//TODO: cambiar la propiedad 'state' por 'completed' y que sea un booleano.
+
 document.querySelector(".new-todo").addEventListener("keyup", (e) => {
   if (e.key === "Enter" && e.target.value.trim().length > 0) {
     const newTodo = {
-      todo: e.target.value.trim(),
-      state: "pending",
+      title: e.target.value.trim(),
+      completed: false,
     };
     e.target.value = "";
     addNewTodo(newTodo);
-    render(window.location.hash.match(/[a-zA-z]+/)[0]);
+    const path = window.location.hash.match(/[a-zA-z]+/);
+    if (!path) render();
+    else render(path[0]);
   }
-});
-
-document.querySelector(".clear-completed").addEventListener("click", () => {
-  deleteAll();
 });
 
 window.addEventListener("hashchange", () => {

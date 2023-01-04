@@ -28,7 +28,7 @@ const createElement = (el, index, data) => {
   input.classList.add("toggle");
   input.setAttribute("type", "checkbox");
 
-  if (el.state === "completed") {
+  if (el.completed) {
     li.classList.add("completed");
     input.checked = true;
   } else {
@@ -40,7 +40,7 @@ const createElement = (el, index, data) => {
   label.addEventListener("dblclick", () => {
     li.classList.add("editing");
   });
-  label.innerHTML = el.todo;
+  label.innerHTML = el.title;
   button.classList.add("destroy");
 
   button.addEventListener("click", () => {
@@ -56,7 +56,7 @@ const createElement = (el, index, data) => {
     }
   });
   inputToEdit.classList.add("edit");
-  inputToEdit.setAttribute("value", el.todo);
+  inputToEdit.setAttribute("value", el.title);
   li.append(div, inputToEdit);
   return li;
 };
@@ -77,13 +77,12 @@ export const render = (type = "all") => {
     });
   } else if (type === "pending") {
     storage.map((item, index) => {
-      if (item.state === "pending")
-        data.liItems.push(createElement(item, index, data));
+      if (!item.completed) data.liItems.push(createElement(item, index, data));
     });
   } else {
     storage.map((item, index) => {
-      if (item.state === "completed")
-        data.liItems.push(createElement(item, index, data));
+      if (item.completed) data.liItems.push(createElement(item, index, data));
+      else data.itemLeft++;
     });
   }
   document.querySelector(".todo-count").children[0].innerHTML = data.itemLeft;
