@@ -5,7 +5,7 @@ import { sayHello } from "./js/utils";
 
 let inputTodo = document.getElementsByClassName('new-todo')[0]
 let clearCompletedButton = document.getElementsByClassName('clear-completed')[0]
-let filterButtons = document.getElementsByClassName('filters')
+let filterButtons = document.getElementsByClassName('filters')[0].querySelectorAll('li a')
 
 let observer = new MutationObserver(function(mutations) {
     let main = document.getElementsByClassName('main')[0]
@@ -34,11 +34,15 @@ TODOS.forEach(element => {
     addTodo(element)
 });
 
-Array.from(filterButtons).forEach((anchor) => 
-    anchor.addEventListener('click', (event) => {
-       filterTODOSByRoute(event.target.href)
-    }
-))
+filterButtons.forEach((button) =>
+{
+    button.addEventListener('click', (event) => {
+        filterButtons.forEach(element => element.classList.remove('selected'))
+        button.classList.add('selected')
+        filterTODOSByRoute(event.target.href)
+    })
+}
+)
 
 inputTodo.addEventListener('keypress', (event) => {
     const errorMessage = document.querySelector('.error-message');
