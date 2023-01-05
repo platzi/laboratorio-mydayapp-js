@@ -1,4 +1,6 @@
 import { todoList } from "..";
+import { counter } from "./counter";
+
 export function newItem(text) {
 
   let newTodo = document.querySelector(".new-todo");
@@ -40,7 +42,7 @@ export function newItem(text) {
     tarea: newText,
     completed: false,
   });
-  console.log(todoList)
+  //console.log(todoList)
 
   //validación de contenido vacio
   if (newText.length != 0) {
@@ -87,5 +89,5 @@ export function newItem(text) {
     alert("Write something")
   }
 
-
+  counter()
 }

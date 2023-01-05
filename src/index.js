@@ -11,7 +11,4 @@ export let todoList = [];
 newTodo.addEventListener("keydown", (e) => {
   if (e.code === "Enter")
     newItem(newTodo.value);
-
-
 });
-
