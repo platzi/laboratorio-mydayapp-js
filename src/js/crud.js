@@ -130,8 +130,11 @@ function saveLocalStorage(TODOS){
     localStorage.setItem('mydayapp-js', JSON.stringify(TODOS))
 }
 
-function getLocalStorage(){
+function getLocalStorage(route = ''){
+    let filter = route !== '' ? route : getFilterByRoute()
+    let filterPredicate = (task) => task.completed === (filter === 'completed')
     let todos = JSON.parse(localStorage.getItem('mydayapp-js'))
+    if(filter !== '' && filter !== 'all') todos = todos.filter(filterPredicate)
     return todos !== null ? todos : []
 }
 
@@ -158,6 +161,27 @@ function clearCompletedTasks(){
 
 }
 
+function getFilterByRoute(){
+    let filter = ''
+    let hash = window.location.hash
+    
+    if(hash.includes('pending')) return 'pending'
+    else if(hash.includes('completed')) return 'completed'
+    else filter = 'all'
+    return filter
+}
+
+function filterTODOSByRoute(route){
+    let ul = document.getElementsByClassName('todo-list')[0]
+    Array.from(ul.childNodes).forEach(child => child.remove())
+
+    route = route.includes('pending') ? 'pending':
+            route.includes('completed') ? 'completed':
+            'all'
+    let filteredTask = getLocalStorage(route)
+    filteredTask.forEach((task) => addTodo(task))
+}
+
 export {
     addTodo,
     updateCounter,
@@ -165,4 +189,6 @@ export {
     getLocalStorage,
     clearCompletedTasks,
     checkForCompletedTask,
+    getFilterByRoute,
+    filterTODOSByRoute,
 }

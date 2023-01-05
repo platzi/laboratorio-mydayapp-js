@@ -1,10 +1,11 @@
 import "./css/base.css";
-import { addTodo, updateCounter, getLocalStorage, clearCompletedTasks, checkForCompletedTask} from './js/crud.js'
+import { addTodo, updateCounter, getLocalStorage, clearCompletedTasks, checkForCompletedTask, getFilterByRoute, filterTODOSByRoute} from './js/crud.js'
 
 import { sayHello } from "./js/utils";
 
 let inputTodo = document.getElementsByClassName('new-todo')[0]
 let clearCompletedButton = document.getElementsByClassName('clear-completed')[0]
+let filterButtons = document.getElementsByClassName('filters')
 
 let observer = new MutationObserver(function(mutations) {
     let main = document.getElementsByClassName('main')[0]
@@ -26,11 +27,18 @@ let observer = new MutationObserver(function(mutations) {
     childList: true
   });
 
-let TODOS = getLocalStorage()
+let filter = getFilterByRoute()
+let TODOS = getLocalStorage(filter)
 TODOS = Array.from(TODOS)
 TODOS.forEach(element => {
     addTodo(element)
 });
+
+Array.from(filterButtons).forEach((anchor) => 
+    anchor.addEventListener('click', (event) => {
+       filterTODOSByRoute(event.target.href)
+    }
+))
 
 inputTodo.addEventListener('keypress', (event) => {
     const errorMessage = document.querySelector('.error-message');
