@@ -1,5 +1,29 @@
 import "./css/base.css";
+import { addTodo, getFilterByRoute } from "./js/crud.js";
 
-import { sayHello } from "./js/utils";
+import { getLocalStorage } from "./js/store.js";
+import { observeTaskList } from "./js/observers.js";
+import {
+  addListenerToClearTask,
+  addListenerToNavigationHistory,
+  addListenerToCreateTask,
+  addListenerToFilterButtons,
+} from "./js/listeners.js";
 
-console.log(sayHello("Hello"));
+function init() {
+  observeTaskList();
+  let filter = getFilterByRoute();
+  let TODOS = getLocalStorage(filter);
+  TODOS = Array.from(TODOS);
+  TODOS.forEach((element) => {
+    addTodo(element);
+  });
+
+  // Creates listeners
+  addListenerToClearTask();
+  addListenerToCreateTask();
+  addListenerToFilterButtons();
+  addListenerToNavigationHistory();
+}
+
+init();
