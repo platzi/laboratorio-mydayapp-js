@@ -1,3 +1,9 @@
+import {
+  getLocalStorage,
+  saveLocalStorage,
+  removeFromLocalStorage,
+} from "./store";
+
 let TODOS = getLocalStorage();
 
 function addTodo({ id, title, completed }) {
@@ -133,23 +139,6 @@ function addTask(task) {
   }
 }
 
-function saveLocalStorage(TODOS) {
-  localStorage.setItem("mydayapp-js", JSON.stringify(TODOS));
-}
-
-function getLocalStorage(route = "") {
-  let filter = route !== "" ? route : getFilterByRoute();
-  let filterPredicate = (task) => task.completed === (filter === "completed");
-  let todos = JSON.parse(localStorage.getItem("mydayapp-js"));
-  if (filter !== "" && filter !== "all") todos = todos.filter(filterPredicate);
-  return todos !== null ? todos : [];
-}
-
-function removeFromLocalStorage(taskID) {
-  TODOS = TODOS.filter((todo) => todo.id !== Number(taskID));
-  localStorage.setItem("mydayapp-js", JSON.stringify(TODOS));
-}
-
 function getNextID() {
   let highestId = TODOS.reduce((max, object) => {
     return object.id > max ? object.id : max;
@@ -193,7 +182,6 @@ export {
   addTodo,
   updateCounter,
   addTask,
-  getLocalStorage,
   clearCompletedTasks,
   checkForCompletedTask,
   getFilterByRoute,
