@@ -59,5 +59,9 @@ inputTodo.addEventListener('keypress', (event) => {
 
 })
 
+window.addEventListener('popstate', function(event) {
+    filterTODOSByRoute(event.target.location.href)
+});
+
 clearCompletedButton.addEventListener('click', () => clearCompletedTasks())
 console.log(sayHello("Hello"));
