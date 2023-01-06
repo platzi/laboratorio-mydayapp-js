@@ -1,11 +1,10 @@
 import { todoList } from "..";
 import { counter } from "./counter";
 
-export function newItem() {
+export function newItem(arrTodos, isCheked) {
 
   const ul = document.querySelector(".todo-list");
   ul.innerHTML = "";
-  console.log('inicio', todoList);
   let newTodo = document.querySelector(".new-todo");
   newTodo.value = "";
   // const newText = text.trim();
@@ -16,8 +15,8 @@ export function newItem() {
   main.classList.remove("hidden");
   footer.classList.remove("hidden");
 
-  todoList.forEach(item => {
-    // todoList.push({
+  arrTodos.forEach(item => {
+    // arrTodos.push({
     //   tarea: newText,
     //   completed: false,
     // });
@@ -32,7 +31,7 @@ export function newItem() {
     //implementacición del editor de inputs
     input2.classList.add("edit");
     input2.value = item.tarea;
-    console.log(item)
+
     input2.addEventListener("keydown", (e) => {
       if (e.code === "Enter") {
         input2.value = input2.value;
@@ -53,12 +52,24 @@ export function newItem() {
     input.classList.add("toggle");
     input.setAttribute("type", "checkbox");
 
+    if (isCheked == true) {
+      input.checked = true
+      li.classList.add("completed");
+      item.completed = true;
+
+
+    }
+
     //Escuchar eventos  de doble click y cambio de estado en el checkbox
     input.onchange = function () {
       if (this.checked) {
         li.classList.add("completed");
+        item.completed = true;
+        console.log(arrTodos);
       } else {
         li.classList.remove("completed");
+        item.completed = false;
+        console.log(arrTodos);
       }
     }
     label.ondblclick = function () {
@@ -89,7 +100,7 @@ export function newItem() {
     // } else {
     //   alert("Write something")
     // }
-    console.log(todoList);
+    console.log(arrTodos);
   })
 
 
