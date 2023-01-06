@@ -9,6 +9,16 @@ export let todoList = [];
 // console.log(inputList)
 
 newTodo.addEventListener("keydown", (e) => {
-  if (e.code === "Enter")
-    newItem(newTodo.value);
+  if (e.code === "Enter") {
+    if (newTodo.value != 0) {
+      todoList.push({
+        tarea: newTodo.value,
+        completed: false,
+      });
+      newItem()
+    } else {
+      alert("Write something")
+    }
+  }
+
 });

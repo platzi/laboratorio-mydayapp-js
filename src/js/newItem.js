@@ -1,10 +1,14 @@
 import { todoList } from "..";
 import { counter } from "./counter";
 
-export function newItem(text) {
+export function newItem() {
 
+  const ul = document.querySelector(".todo-list");
+  ul.innerHTML = "";
+  console.log('inicio', todoList);
   let newTodo = document.querySelector(".new-todo");
   newTodo.value = "";
+  // const newText = text.trim();
 
   //ocular main y footer hasta agregar un archivo
   const main = document.querySelector(".main");
@@ -12,40 +16,37 @@ export function newItem(text) {
   main.classList.remove("hidden");
   footer.classList.remove("hidden");
 
-  //creación de elementos HTML
-  const ul = document.querySelector(".todo-list");
-  const li = document.createElement("li");
-  const div = document.createElement("div");
-  const input = document.createElement("input");
-  let input2 = document.createElement("input");
-  const label = document.createElement("label");
-  const btn = document.createElement("button");
-  const newText = text.trim();
+  todoList.forEach(item => {
+    // todoList.push({
+    //   tarea: newText,
+    //   completed: false,
+    // });
+    //creación de elementos HTML
+    const li = document.createElement("li");
+    const div = document.createElement("div");
+    const input = document.createElement("input");
+    let input2 = document.createElement("input");
+    const label = document.createElement("label");
+    const btn = document.createElement("button");
 
-  //implementacición del editor de inputs
-  input2.classList.add("edit");
-  input2.value = newText;
-  input2.addEventListener("keydown", (e) => {
-    if (e.code === "Enter") {
-      input2.value = input2.value;
-      input2.parentNode.classList.remove('editing');
-      label.innerHTML = "";
-      label.append(input2.value.trim())
-    } else if (e.code === "Escape") {
-      input2.value = newText;
-      input2.parentNode.classList.remove('editing');
-    }
-  });
+    //implementacición del editor de inputs
+    input2.classList.add("edit");
+    input2.value = item.tarea;
+    console.log(item)
+    input2.addEventListener("keydown", (e) => {
+      if (e.code === "Enter") {
+        input2.value = input2.value;
+        input2.parentNode.classList.remove('editing');
+        label.innerHTML = "";
+        label.append(input2.value.trim())
+      } else if (e.code === "Escape") {
+        input2.value = item.tarea;
+        input2.parentNode.classList.remove('editing');
+      }
+    });
 
-
-  todoList.push({
-    tarea: newText,
-    completed: false,
-  });
-  //console.log(todoList)
-
-  //validación de contenido vacio
-  if (newText.length != 0) {
+    //validación de contenido vacio
+    // if (newText.length != 0) {
 
     //agregando atributos a los inputs
     div.classList.add("view");
@@ -85,9 +86,18 @@ export function newItem(text) {
     div.appendChild(input);
     div.appendChild(label);
     div.appendChild(btn);
-  } else {
-    alert("Write something")
-  }
+    // } else {
+    //   alert("Write something")
+    // }
+    console.log(todoList);
+  })
+
+
+
+
+
+
+
 
   counter()
 }
