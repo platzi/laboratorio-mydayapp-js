@@ -1,16 +1,18 @@
-import { todoList } from "..";
 export function counter() {
+  //localStorage
+  let localArr = JSON.parse(localStorage.getItem('mydayapp-js'))
+
   const span = document.querySelector(".todo-count")
   const strong = document.querySelector("strong")
 
-  if (todoList.length === 0) {
+  if (localArr.length === 0) {
     return
   }
-  else if (todoList.length != 1) {
+  else if (localArr.length != 1) {
     span.innerHTML = ""
-    span.append(`${todoList.length} items`);
+    span.append(`${localArr.length} items`);
   } else {
     span.innerHTML = "";
-    span.append(`${todoList.length} item`);
+    span.append(`${localArr.length} item`);
   };
 }

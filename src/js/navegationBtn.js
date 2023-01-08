@@ -4,38 +4,33 @@ import { pendingTodos } from "..";
 import { newItem } from "./newItem";
 
 export function navegation() {
-  completedTodos.splice(0, completedTodos.length)
-  pendingTodos.splice(0, pendingTodos.length)
+  // completedTodos.splice(0, completedTodos.length)
+  // pendingTodos.splice(0, pendingTodos.length)
+
+  //localStorage
+  const localArr = JSON.parse(localStorage.getItem('mydayapp-js'));
+
+  //completedTodos
+  const completedArr = localArr.filter(item => item.completed === true);
+  localStorage.setItem("mydayapp-js-completed", JSON.stringify(completedArr));
+
+  //pendingTodos
+  const fiterPendingArr = localArr.filter(item => item.completed === false);
+  localStorage.setItem("mydayapp-js-pending", JSON.stringify(fiterPendingArr));
 
 
   if (location.hash.startsWith('#/completed')) {
-    completedList()
-    newItem(completedTodos, true);
+    const completedArrGet = JSON.parse(localStorage.getItem('mydayapp-js-completed'));
+    newItem(completedArrGet, true);
 
   } else if (location.hash.startsWith('#/pending')) {
-    pendingList()
-    newItem(pendingTodos);
+    const pendingArr = JSON.parse(localStorage.getItem('mydayapp-js-pending'));
+    newItem(pendingArr, false)
+
   } else if (location.hash.startsWith('#/')) {
-    newItem(todoList)
+
+    newItem(localArr, false)
   }
 
-  function completedList() {
-    console.log("funcion 1");
-    todoList.forEach(item => {
-      if (item.completed === true) {
-        completedTodos.push(item);
-        console.log("TODOS COMPLETADOS", completedTodos);
-      }
-    })
-  }
-  function pendingList() {
-    console.log("funcion 2");
-    todoList.forEach(item => {
-      if (item.completed === false) {
-        pendingTodos.push(item);
-        console.log("TODOS PENDIENTES", pendingTodos);
-
-      }
-    })
-  }
 }
+

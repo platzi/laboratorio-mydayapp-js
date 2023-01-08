@@ -4,6 +4,9 @@ import { sayHello } from "./js/utils";
 import { newItem } from "./js/newItem";
 import { navegation } from "./js/navegationBtn";
 
+const localArrTodo = JSON.parse(localStorage.getItem("mydayapp-js"));
+window.addEventListener('DOMContentLoaded', newItem(localArrTodo, false))
+
 let newTodo = document.querySelector(".new-todo");
 const clearCompleteBtn = document.querySelector(".clear-completed");
 const ul = document.querySelector(".todo-list");
@@ -22,7 +25,11 @@ newTodo.addEventListener("keydown", (e) => {
         tarea: newTodo.value,
         completed: false,
       });
-      newItem(todoList)
+      localStorage.setItem('mydayapp-js', JSON.stringify(todoList));
+      const localArrTodo = JSON.parse(localStorage.getItem("mydayapp-js"));
+
+      console.log('localArr2', localArrTodo);
+      newItem(localArrTodo);
     } else {
       alert("Write something")
     }

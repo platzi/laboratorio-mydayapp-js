@@ -1,7 +1,16 @@
-import { todoList } from "..";
 import { counter } from "./counter";
 
-export function newItem(arrTodos, isCheked) {
+export function newItem(arr, isCheked) {
+  //LocalStorage
+  // if (location.hash.startsWith('#/')) {
+  // }
+
+  //const arr = JSON.parse(localStorage.getItem("mydayapp-js"));
+
+  //pendiente
+  // let itemCompleted = arr.filter(item => item.completed);
+  // console.log("itemCompleted", itemCompleted);
+
 
   const ul = document.querySelector(".todo-list");
   ul.innerHTML = "";
@@ -15,11 +24,8 @@ export function newItem(arrTodos, isCheked) {
   main.classList.remove("hidden");
   footer.classList.remove("hidden");
 
-  arrTodos.forEach(item => {
-    // arrTodos.push({
-    //   tarea: newText,
-    //   completed: false,
-    // });
+  arr.forEach(item => {
+
     //creación de elementos HTML
     const li = document.createElement("li");
     const div = document.createElement("div");
@@ -52,24 +58,25 @@ export function newItem(arrTodos, isCheked) {
     input.classList.add("toggle");
     input.setAttribute("type", "checkbox");
 
-    if (isCheked == true) {
-      input.checked = true
+    if (isCheked === true) {
       li.classList.add("completed");
-      item.completed = true;
-
-
+      input.checked = true;
     }
+
 
     //Escuchar eventos  de doble click y cambio de estado en el checkbox
     input.onchange = function () {
       if (this.checked) {
         li.classList.add("completed");
         item.completed = true;
-        console.log(arrTodos);
+        localStorage.setItem('mydayapp-js', JSON.stringify(arr))
+        console.log("THIS", this);
+        console.log(arr);
       } else {
         li.classList.remove("completed");
         item.completed = false;
-        console.log(arrTodos);
+        localStorage.setItem('mydayapp-js', JSON.stringify(arr))
+        console.log(arr);
       }
     }
     label.ondblclick = function () {
@@ -100,7 +107,7 @@ export function newItem(arrTodos, isCheked) {
     // } else {
     //   alert("Write something")
     // }
-    console.log(arrTodos);
+    //console.log(arr);
   })
 
 
