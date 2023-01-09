@@ -4,8 +4,13 @@ import { sayHello } from "./js/utils";
 import { newItem } from "./js/newItem";
 import { navegation } from "./js/navegationBtn";
 
+
 const localArrTodo = JSON.parse(localStorage.getItem("mydayapp-js"));
-window.addEventListener('DOMContentLoaded', newItem(localArrTodo, false))
+window.addEventListener('DOMContentLoaded', () => {
+  if (JSON.parse(localStorage.getItem("mydayapp-js")).length != 0)
+    console.log('lenght', JSON.parse(localStorage.getItem("mydayapp-js")).length != 0);
+  newItem(localArrTodo, false)
+})
 
 let newTodo = document.querySelector(".new-todo");
 const clearCompleteBtn = document.querySelector(".clear-completed");
@@ -42,11 +47,17 @@ if (todoList.length === 0) {
   location.hash = "#/"
 }
 clearCompleteBtn.addEventListener("click", () => {
-  todoList.filter(item => {
-    if (item.completed == true) {
-      todoList.splice(todoList.indexOf(item), 1)
-    }
-    newItem(todoList)
-  })
+  // todoList.filter(item => {
+  //   if (item.completed == true) {
+  //     todoList.splice(todoList.indexOf(item), 1)
+  //   }
+  //   newItem(todoList)
+  // })
+  //let localArrTodo = JSON.parse(localStorage.getItem("mydayapp-js"));
+  let filterCompleted = localArrTodo.filter(todo => todo.completed === false);
+  localStorage.setItem('mydayapp-js', JSON.stringify(filterCompleted));
+  newItem(localArrTodo);
+
+
 })
 window.addEventListener("hashchange", navegation)
