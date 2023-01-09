@@ -63,22 +63,27 @@ export function newItem(arr, isCheked) {
       input.checked = true;
     }
 
+    if (item.completed === true) {
+      input.checked = true
+      li.classList.add("completed");
+
+    }
+
 
     //Escuchar eventos  de doble click y cambio de estado en el checkbox
-    input.onchange = function () {
-      if (this.checked) {
+    input.addEventListener('click', () => {
+      if (input.checked) {
         li.classList.add("completed");
         item.completed = true;
         localStorage.setItem('mydayapp-js', JSON.stringify(arr))
-        console.log("THIS", this);
-        console.log(arr);
+        console.log('input', item.completed);
       } else {
         li.classList.remove("completed");
         item.completed = false;
         localStorage.setItem('mydayapp-js', JSON.stringify(arr))
-        console.log(arr);
+        console.log('input2', item.completed);
       }
-    }
+    })
     label.ondblclick = function () {
       if (this.checked) {
         li.classList.remove("completed");
@@ -117,5 +122,5 @@ export function newItem(arr, isCheked) {
 
 
 
-  counter()
+  counter(0)
 }
