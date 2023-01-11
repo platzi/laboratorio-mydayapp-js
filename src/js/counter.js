@@ -1,5 +1,5 @@
 import { todoList } from ".."
-export function counter(NumberConfiguration) {
+export function counter() {
   //localStorage
   // let localArr = JSON.parse(localStorage.getItem('mydayapp-js'))
   // let completedArr = JSON.parse(localStorage.getItem('mydayapp-js-completed'))

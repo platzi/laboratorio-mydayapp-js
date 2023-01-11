@@ -3,6 +3,9 @@ import { newItem } from "./newItem";
 import { counter } from "./counter";
 
 export function navegation() {
+  const allBtn = document.querySelector(".allBtn");
+  const completedBtn = document.querySelector(".completedBtn");
+  const pendingBtn = document.querySelector(".pendingBtn");
 
   if (location.hash.startsWith('#/completed')) {
     //const completedArrGet = JSON.parse(localStorage.getItem('mydayapp-js-completed'));
@@ -14,8 +17,11 @@ export function navegation() {
 
       }
     });
+    allBtn.classList.remove("selected");
+    completedBtn.classList.add("selected");
+    pendingBtn.classList.remove("selected");
     newItem(todoList);
-    counter(1)
+    counter()
   } else if (location.hash.startsWith('#/pending')) {
     //const pendingArr = JSON.parse(localStorage.getItem('mydayapp-js-pending'));
     todoList.forEach(element => {
@@ -26,16 +32,22 @@ export function navegation() {
 
       }
     });
+    allBtn.classList.remove("selected");
+    completedBtn.classList.remove("selected");
+    pendingBtn.classList.add("selected");
     newItem(todoList)
-    counter(2)
+    counter()
 
   } else if (location.hash.startsWith('#/')) {
     todoList.forEach(element => {
       element.visible = true
 
     });
+    allBtn.classList.add("selected");
+    completedBtn.classList.remove("selected");
+    pendingBtn.classList.remove("selected");
     newItem(todoList)
-    counter(0)
+    counter()
   }
 
 }
