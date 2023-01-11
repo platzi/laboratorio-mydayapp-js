@@ -1,14 +1,15 @@
 import { counter } from "./counter";
+import { todoList } from "..";
 
-export function newItem(arr, isCheked) {
+export function newItem() {
   //LocalStorage
   // if (location.hash.startsWith('#/')) {
   // }
 
-  //const arr = JSON.parse(localStorage.getItem("mydayapp-js"));
+  //const todoList = JSON.parse(localStorage.getItem("mydayapp-js"));
 
   //pendiente
-  // let itemCompleted = arr.filter(item => item.completed);
+  // let itemCompleted = todoList.filter(item => item.completed);
   // console.log("itemCompleted", itemCompleted);
 
 
@@ -24,7 +25,8 @@ export function newItem(arr, isCheked) {
   main.classList.remove("hidden");
   footer.classList.remove("hidden");
 
-  arr.forEach(item => {
+  todoList.forEach(item => {
+    //console.log("todoListitemmmm", item);
 
     //creación de elementos HTML
     const li = document.createElement("li");
@@ -40,10 +42,13 @@ export function newItem(arr, isCheked) {
 
     input2.addEventListener("keydown", (e) => {
       if (e.code === "Enter") {
-        input2.value = input2.value;
+        //input2.value = input2.value;
+        item.tarea = input2.value.trim()
         input2.parentNode.classList.remove('editing');
         label.innerHTML = "";
         label.append(input2.value.trim())
+
+        localStorage.setItem('mydayapp-js', JSON.stringify(todoList))
       } else if (e.code === "Escape") {
         input2.value = item.tarea;
         input2.parentNode.classList.remove('editing');
@@ -80,12 +85,12 @@ export function newItem(arr, isCheked) {
       if (input.checked) {
         li.classList.add("completed");
         item.completed = true;
-        localStorage.setItem('mydayapp-js', JSON.stringify(arr))
+        localStorage.setItem('mydayapp-js', JSON.stringify(todoList))
         console.log('input', item.completed);
       } else {
         li.classList.remove("completed");
         item.completed = false;
-        localStorage.setItem('mydayapp-js', JSON.stringify(arr))
+        localStorage.setItem('mydayapp-js', JSON.stringify(todoList))
         console.log('input2', item.completed);
       }
     })
@@ -117,7 +122,7 @@ export function newItem(arr, isCheked) {
     // } else {
     //   alert("Write something")
     // }
-    //console.log(arr);
+    //console.log(todoList);
   })
 
 
