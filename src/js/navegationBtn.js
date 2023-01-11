@@ -1,39 +1,40 @@
 import { todoList } from "..";
-import { completedTodos } from "..";
-import { pendingTodos } from "..";
 import { newItem } from "./newItem";
 import { counter } from "./counter";
 
 export function navegation() {
-  // completedTodos.splice(0, completedTodos.length)
-  // pendingTodos.splice(0, pendingTodos.length)
-
-  //localStorage
-  const localArr = JSON.parse(localStorage.getItem('mydayapp-js'));
-
-  //completedTodos
-  const completedArr = localArr.filter(item => item.completed === true);
-  localStorage.setItem("mydayapp-js-completed", JSON.stringify(completedArr));
-
-  //pendingTodos
-  const fiterPendingArr = localArr.filter(item => item.completed === false);
-  localStorage.setItem("mydayapp-js-pending", JSON.stringify(fiterPendingArr));
-
 
   if (location.hash.startsWith('#/completed')) {
-    const completedArrGet = JSON.parse(localStorage.getItem('mydayapp-js-completed'));
-    newItem(completedArrGet, true);
+    //const completedArrGet = JSON.parse(localStorage.getItem('mydayapp-js-completed'));
+    todoList.forEach(element => {
+      if (element.completed === false) {
+        element.visible = false
+      } else {
+        element.visible = true
+
+      }
+    });
+    newItem(todoList);
     counter(1)
-
-
   } else if (location.hash.startsWith('#/pending')) {
-    const pendingArr = JSON.parse(localStorage.getItem('mydayapp-js-pending'));
-    newItem(pendingArr, false)
+    //const pendingArr = JSON.parse(localStorage.getItem('mydayapp-js-pending'));
+    todoList.forEach(element => {
+      if (element.completed === true) {
+        element.visible = false
+      } else {
+        element.visible = true
+
+      }
+    });
+    newItem(todoList)
     counter(2)
 
   } else if (location.hash.startsWith('#/')) {
+    todoList.forEach(element => {
+      element.visible = true
 
-    newItem(localArr, false)
+    });
+    newItem(todoList)
     counter(0)
   }
 

@@ -6,10 +6,12 @@ import { navegation } from "./js/navegationBtn";
 
 
 const localArrTodo = JSON.parse(localStorage.getItem("mydayapp-js"));
+export let todoList = localArrTodo || [];
 window.addEventListener('DOMContentLoaded', () => {
-  if (JSON.parse(localStorage.getItem("mydayapp-js")).length != 0)
-    console.log('lenght', JSON.parse(localStorage.getItem("mydayapp-js")).length != 0);
-  newItem(localArrTodo, false)
+  if (todoList) {
+    newItem(todoList, false)
+    console.log('lenght', todoList);
+  }
 })
 
 let newTodo = document.querySelector(".new-todo");
@@ -17,7 +19,6 @@ const clearCompleteBtn = document.querySelector(".clear-completed");
 const ul = document.querySelector(".todo-list");
 
 
-export let todoList = [];
 export let completedTodos = [];
 export let pendingTodos = [];
 // const inputList = document.querySelectorAll('.toggle')
@@ -29,11 +30,12 @@ newTodo.addEventListener("keydown", (e) => {
       todoList.push({
         tarea: newTodo.value,
         completed: false,
+        visible: true,
       });
       localStorage.setItem('mydayapp-js', JSON.stringify(todoList));
       const localArrTodo = JSON.parse(localStorage.getItem("mydayapp-js"));
 
-      console.log('localArr2', localArrTodo);
+      console.log('todolist', todoList);
       newItem(localArrTodo);
     } else {
       alert("Write something")

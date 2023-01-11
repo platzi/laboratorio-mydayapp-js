@@ -58,15 +58,20 @@ export function newItem(arr, isCheked) {
     input.classList.add("toggle");
     input.setAttribute("type", "checkbox");
 
-    if (isCheked === true) {
-      li.classList.add("completed");
-      input.checked = true;
-    }
+    // if (isCheked === true) {
+    //   li.classList.add("completed");
+    //   input.checked = true;
+    // }
 
     if (item.completed === true) {
       input.checked = true
       li.classList.add("completed");
 
+    }
+    if (item.visible === false) {
+      div.classList.add("hidden");
+    } else if (item.visible === true) {
+      div.classList.remove("hidden");
     }
 
 
