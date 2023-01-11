@@ -36,7 +36,7 @@ newTodo.addEventListener("keydown", (e) => {
       const localArrTodo = JSON.parse(localStorage.getItem("mydayapp-js"));
 
       console.log('todolist', todoList);
-      newItem(localArrTodo);
+      newItem(todoList);
     } else {
       alert("Write something")
     }
@@ -49,16 +49,10 @@ if (todoList.length === 0) {
   location.hash = "#/"
 }
 clearCompleteBtn.addEventListener("click", () => {
-  // todoList.filter(item => {
-  //   if (item.completed == true) {
-  //     todoList.splice(todoList.indexOf(item), 1)
-  //   }
-  //   newItem(todoList)
-  // })
-  //let localArrTodo = JSON.parse(localStorage.getItem("mydayapp-js"));
-  let filterCompleted = localArrTodo.filter(todo => todo.completed === false);
-  localStorage.setItem('mydayapp-js', JSON.stringify(filterCompleted));
-  newItem(localArrTodo);
+  const completedList = todoList.filter(element => element.completed === false)
+  todoList = completedList
+  localStorage.setItem('mydayapp-js', JSON.stringify(todoList));
+  newItem(todoList);
 
 
 })
