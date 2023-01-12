@@ -58,7 +58,7 @@ export function newItem() {
 
         localStorage.setItem('mydayapp-js', JSON.stringify(todoList))
       } else if (e.code === "Escape") {
-        input2.value = item.tarea;
+        input2.value = item.tarea.trim();
         input2.parentNode.classList.remove('editing');
       }
     });
@@ -126,7 +126,7 @@ export function newItem() {
     ul.appendChild(li);
     li.appendChild(div);
     li.appendChild(input2);
-    label.append(input2.value);
+    label.append(input2.value.trim());
     div.appendChild(input);
     div.appendChild(label);
     div.appendChild(btn);

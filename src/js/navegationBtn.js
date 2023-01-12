@@ -38,7 +38,7 @@ export function navegation() {
     newItem(todoList)
     counter()
 
-  } else if (location.hash.startsWith('#/')) {
+  } else if (location.hash.startsWith('#/all')) {
     todoList.forEach(element => {
       element.visible = true
 

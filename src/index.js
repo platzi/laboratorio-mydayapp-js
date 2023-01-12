@@ -8,6 +8,8 @@ import { navegation } from "./js/navegationBtn";
 const localArrTodo = JSON.parse(localStorage.getItem("mydayapp-js"));
 export let todoList = localArrTodo || [];
 window.addEventListener('DOMContentLoaded', () => {
+  location.hash = "#/all"
+  navegation()
   if (todoList) {
     newItem(todoList)
     console.log('lenght', todoList);
@@ -28,7 +30,7 @@ newTodo.addEventListener("keydown", (e) => {
   if (e.code === "Enter") {
     if (newTodo.value != 0) {
       todoList.push({
-        tarea: newTodo.value,
+        tarea: newTodo.value.trim(),
         completed: false,
         visible: true,
       });
@@ -42,10 +44,7 @@ newTodo.addEventListener("keydown", (e) => {
 
 });
 
-//navegacion por Hash
-if (todoList.length === 0) {
-  location.hash = "#/"
-}
+
 export function btnClearCompletedVisible() {
   const completedList = todoList.filter(element => element.completed === true);
 
