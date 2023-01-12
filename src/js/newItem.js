@@ -121,6 +121,13 @@ export function newItem() {
     }
 
     btn.classList.add("destroy");
+    btn.addEventListener('click', () => {
+      const findIndex = todoList.findIndex(element => element === item);
+      todoList.splice(findIndex, 1)
+      localStorage.setItem('mydayapp-js', JSON.stringify(todoList))
+      newItem(todoList)
+      console.log("itemDestroy", findIndex);
+    })
 
     //isercion de los elementos creados en el HTML
     ul.appendChild(li);
