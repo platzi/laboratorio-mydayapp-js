@@ -1,5 +1,6 @@
 import { counter } from "./counter";
 import { todoList } from "..";
+import { btnClearCompletedVisible } from "..";
 
 export function newItem() {
   //LocalStorage
@@ -12,6 +13,7 @@ export function newItem() {
   // let itemCompleted = todoList.filter(item => item.completed);
   // console.log("itemCompleted", itemCompleted);
 
+  btnClearCompletedVisible()
 
   const ul = document.querySelector(".todo-list");
   ul.innerHTML = "";
@@ -22,8 +24,14 @@ export function newItem() {
   //ocular main y footer hasta agregar un archivo
   const main = document.querySelector(".main");
   const footer = document.querySelector(".footer");
-  main.classList.remove("hidden");
-  footer.classList.remove("hidden");
+
+  if (todoList.length != 0) {
+    main.classList.remove("hidden");
+    footer.classList.remove("hidden");
+  } else {
+    main.classList.add("hidden");
+    footer.classList.add("hidden");
+  }
 
   todoList.forEach(item => {
     //console.log("todoListitemmmm", item);
@@ -86,12 +94,15 @@ export function newItem() {
         li.classList.add("completed");
         item.completed = true;
         localStorage.setItem('mydayapp-js', JSON.stringify(todoList))
+        btnClearCompletedVisible()
         console.log('input', item.completed);
       } else {
         li.classList.remove("completed");
         item.completed = false;
         localStorage.setItem('mydayapp-js', JSON.stringify(todoList))
         console.log('input2', item.completed);
+        btnClearCompletedVisible()
+
       }
     })
     label.ondblclick = function () {

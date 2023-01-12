@@ -9,7 +9,7 @@ const localArrTodo = JSON.parse(localStorage.getItem("mydayapp-js"));
 export let todoList = localArrTodo || [];
 window.addEventListener('DOMContentLoaded', () => {
   if (todoList) {
-    newItem(todoList, false)
+    newItem(todoList)
     console.log('lenght', todoList);
   }
 })
@@ -33,9 +33,7 @@ newTodo.addEventListener("keydown", (e) => {
         visible: true,
       });
       localStorage.setItem('mydayapp-js', JSON.stringify(todoList));
-      const localArrTodo = JSON.parse(localStorage.getItem("mydayapp-js"));
 
-      console.log('todolist', todoList);
       newItem(todoList);
     } else {
       alert("Write something")
@@ -47,6 +45,16 @@ newTodo.addEventListener("keydown", (e) => {
 //navegacion por Hash
 if (todoList.length === 0) {
   location.hash = "#/"
+}
+export function btnClearCompletedVisible() {
+  const completedList = todoList.filter(element => element.completed === true);
+
+  if (completedList.length != 0) {
+    clearCompleteBtn.classList.remove("hidden")
+  } else {
+    clearCompleteBtn.classList.add("hidden")
+  }
+
 }
 clearCompleteBtn.addEventListener("click", () => {
   const completedList = todoList.filter(element => element.completed === false)

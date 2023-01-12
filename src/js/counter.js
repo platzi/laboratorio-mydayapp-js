@@ -13,10 +13,10 @@ export function counter() {
 
   if (numberOfItem.length != 1) {
     span.innerHTML = ""
-    span.append(`${numberOfItem.length} items`);
+    span.innerHTML = `<strong>${numberOfItem.length}</strong> items`;
   } else {
     span.innerHTML = "";
-    span.append(`${numberOfItem.length} item`);
+    span.innerHTML = `<strong>${numberOfItem.length}</strong> item`;
   };
 }
 
