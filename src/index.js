@@ -1,31 +1,23 @@
 import "./css/base.css";
-
-import { sayHello } from "./js/utils";
 import { newItem } from "./js/newItem";
 import { navegation } from "./js/navegationBtn";
+import { btnClearCompletedVisible } from "./js/btnClearCompletedVisible";
+
+//Obteniendo elementos del DOM
+let newTodo = document.querySelector(".new-todo");
+const clearCompleteBtn = document.querySelector(".clear-completed");
 
 
+//Get de elementos del LocalStorage
 const localArrTodo = JSON.parse(localStorage.getItem("mydayapp-js"));
 export let todoList = localArrTodo || [];
+//Escuchador de envento cuando cargue al HTML para iniciar el render si es que existen elementos en el Local Storage
 window.addEventListener('DOMContentLoaded', () => {
   location.hash = "#/all"
   navegation()
-  if (todoList) {
-    newItem(todoList)
-    console.log('lenght', todoList);
-  }
+  newItem()
 })
-
-let newTodo = document.querySelector(".new-todo");
-const clearCompleteBtn = document.querySelector(".clear-completed");
-const ul = document.querySelector(".todo-list");
-
-
-export let completedTodos = [];
-export let pendingTodos = [];
-// const inputList = document.querySelectorAll('.toggle')
-// console.log(inputList)
-
+//Escuchador de evento de la tecla enter para capturar el valor del input, guardarlos y hacerle render
 newTodo.addEventListener("keydown", (e) => {
   if (e.code === "Enter") {
     if (newTodo.value != 0) {
@@ -36,31 +28,20 @@ newTodo.addEventListener("keydown", (e) => {
       });
       localStorage.setItem('mydayapp-js', JSON.stringify(todoList));
 
-      newItem(todoList);
+      newItem();
     } else {
       alert("Write something")
     }
   }
 
 });
-
-
-export function btnClearCompletedVisible() {
-  const completedList = todoList.filter(element => element.completed === true);
-
-  if (completedList.length != 0) {
-    clearCompleteBtn.classList.remove("hidden")
-  } else {
-    clearCompleteBtn.classList.add("hidden")
-  }
-
-}
 clearCompleteBtn.addEventListener("click", () => {
   const completedList = todoList.filter(element => element.completed === false)
   todoList = completedList
   localStorage.setItem('mydayapp-js', JSON.stringify(todoList));
-  newItem(todoList);
-
+  newItem();
 
 })
+
+btnClearCompletedVisible()
 window.addEventListener("hashchange", navegation)
