@@ -72,7 +72,7 @@ export function newItem() {
       if (this.checked) {
         li.classList.remove("completed");
         li.classList.add("editing");
-        input2.focus().trim()
+        input2.focus()
       } else if (!this.checked) {
         li.classList.add("editing");
         input2.focus()
@@ -85,10 +85,12 @@ export function newItem() {
     // Escuchador de eventos para guardar y renderizar los cambios realizardos
     input2.addEventListener("keydown", (e) => {
       if (e.code === "Enter") {
-        item.tarea = input2.value
+        item.tarea = input2.value.trim()
+        input2.value.trim()
         input2.parentNode.classList.remove('editing');
         label.innerHTML = "";
-        label.append(input2.value)
+        label.append(input2.value.trim())
+        newItem()
         localStorage.setItem('mydayapp-js', JSON.stringify(todoList))
       } else if (e.code === "Escape") {
         input2.value = item.tarea;

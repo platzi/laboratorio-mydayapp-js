@@ -3,6 +3,8 @@ import { newItem } from "./js/newItem";
 import { navegation } from "./js/navegationBtn";
 import { btnClearCompletedVisible } from "./js/btnClearCompletedVisible";
 
+window.addEventListener("hashchange", navegation);
+
 //Obteniendo elementos del DOM
 let newTodo = document.querySelector(".new-todo");
 const clearCompleteBtn = document.querySelector(".clear-completed");
@@ -14,7 +16,7 @@ export let todoList = localArrTodo || [];
 //Escuchador de envento cuando cargue al HTML para iniciar el render si es que existen elementos en el Local Storage
 window.addEventListener('DOMContentLoaded', () => {
   location.hash = "#/all"
-  navegation()
+  // navegation()
   newItem()
 })
 //Escuchador de evento de la tecla enter para capturar el valor del input, guardarlos y hacerle render
@@ -44,4 +46,3 @@ clearCompleteBtn.addEventListener("click", () => {
 })
 
 btnClearCompletedVisible()
-window.addEventListener("hashchange", navegation)

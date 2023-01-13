@@ -8,7 +8,9 @@ export function navegation() {
   const completedBtn = document.querySelector(".completedBtn");
   const pendingBtn = document.querySelector(".pendingBtn");
   //Verificación del hash para filtar el contenido del render: all, pending y completed
-  if (location.hash === '#/completed') {
+  const hash = window.location.hash;
+  console.log("hash", hash);
+  if (hash === '#/completed') {
     todoList.forEach(element => {
       if (element.completed === false) {
         element.visible = false
@@ -22,7 +24,8 @@ export function navegation() {
     pendingBtn.classList.remove("selected");
     newItem();
     counter()
-  } else if (location.hash === '#/pending') {
+  }
+  if (hash === '#/pending') {
     todoList.forEach(element => {
       if (element.completed === true) {
         element.visible = false
@@ -37,7 +40,8 @@ export function navegation() {
     newItem()
     counter()
 
-  } else if (location.hash === '#/all') {
+  }
+  if (hash === '#/all') {
     todoList.forEach(element => {
       element.visible = true
 
