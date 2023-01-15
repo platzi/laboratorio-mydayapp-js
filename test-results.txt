@@ -1,0 +1,432 @@
+
+> mydayapp-js@1.0.0 e2e
+> npm run build && playwright test
+
+
+> mydayapp-js@1.0.0 build
+> webpack
+
+asset main.bundle.js 12 KiB [compared for emit] [minimized] (name: main)
+asset index.html 11.2 KiB [emitted]
+runtime modules 1.09 KiB 5 modules
+orphan modules 1.2 KiB [orphan] 2 modules
+javascript modules 18.5 KiB
+  modules by path ./node_modules/ 8.66 KiB
+    modules by path ./node_modules/style-loader/dist/runtime/*.js 5.75 KiB 6 modules
+    modules by path ./node_modules/css-loader/dist/runtime/*.js 2.91 KiB
+      ./node_modules/css-loader/dist/runtime/noSourceMaps.js 64 bytes [built] [code generated]
+      + 2 modules
+  modules by path ./src/ 9.82 KiB
+    ./src/index.js + 2 modules 1.29 KiB [built] [code generated]
+    ./node_modules/css-loader/dist/cjs.js!./src/css/base.css 8.53 KiB [built] [code generated]
+asset modules 620 bytes
+  data:image/svg+xml;utf8,%3Csvg%20xmlns%3.. 268 bytes [built] [code generated]
+  data:image/svg+xml;utf8,%3Csvg%20xmlns%3.. 352 bytes [built] [code generated]
+webpack 5.73.0 compiled successfully in 881 ms
+
+Running 20 tests using 1 worker
+
+[31m  ✘  [chromium] › app.spec.js:15:3 › New Todo › should allow me to add todo items[39m[2m (50ms)[22m
+[31m  ✘  [chromium] › app.spec.js:36:3 › New Todo › should clear text input field when an item is added[39m[2m (40ms)[22m
+[31m  ✘  [chromium] › app.spec.js:48:3 › New Todo › should append new items to the bottom of the list[39m[2m (41ms)[22m
+[31m  ✘  [chromium] › app.spec.js:64:3 › New Todo › should show #main and #footer when items added[39m[2m (41ms)[22m
+[31m  ✘  [chromium] › app.spec.js:75:3 › Item › should allow me to mark items as complete[39m[2m (37ms)[22m
+[31m  ✘  [chromium] › app.spec.js:97:3 › Item › should allow me to un-mark items as complete[39m[2m (37ms)[22m
+[31m  ✘  [chromium] › app.spec.js:117:3 › Item › should allow me to edit an item[39m[2m (41ms)[22m
+[31m  ✘  [chromium] › app.spec.js:143:3 › Editing › should hide other controls when editing[39m[2m (41ms)[22m
+[31m  ✘  [chromium] › app.spec.js:151:3 › Editing › should trim entered text[39m[2m (39ms)[22m
+[31m  ✘  [chromium] › app.spec.js:165:3 › Editing › should cancel edits on escape[39m[2m (40ms)[22m
+[31m  ✘  [chromium] › app.spec.js:174:3 › Counter › should display the current number of todo items[39m[2m (40ms)[22m
+[31m  ✘  [chromium] › app.spec.js:192:3 › Clear completed button › should display the correct text[39m[2m (40ms)[22m
+[31m  ✘  [chromium] › app.spec.js:199:3 › Clear completed button › should remove completed items when clicked[39m[2m (39ms)[22m
+[31m  ✘  [chromium] › app.spec.js:207:3 › Clear completed button › should be hidden when there are no items that are completed[39m[2m (40ms)[22m
+[31m  ✘  [chromium] › app.spec.js:217:3 › Persistence › should persist its data[39m[2m (41ms)[22m
+[31m  ✘  [chromium] › app.spec.js:247:3 › Routing › should allow me to display pending items[39m[2m (42ms)[22m
+[31m  ✘  [chromium] › app.spec.js:258:3 › Routing › should respect the back button[39m[2m (40ms)[22m
+[31m  ✘  [chromium] › app.spec.js:282:3 › Routing › should allow me to display completed items[39m[2m (37ms)[22m
+[31m  ✘  [chromium] › app.spec.js:289:3 › Routing › should allow me to display all items[39m[2m (40ms)[22m
+[31m  ✘  [chromium] › app.spec.js:298:3 › Routing › should highlight the currently applied filter[39m[2m (42ms)[22m
+
+
+[31m  1) [chromium] › app.spec.js:15:3 › New Todo › should allow me to add todo items [90m==================[31m[39m
+
+    browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+[31m  2) [chromium] › app.spec.js:36:3 › New Todo › should clear text input field when an item is added [39m
+
+    browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+[31m  3) [chromium] › app.spec.js:48:3 › New Todo › should append new items to the bottom of the list [90m==[31m[39m
+
+    browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+[31m  4) [chromium] › app.spec.js:64:3 › New Todo › should show #main and #footer when items added [90m=====[31m[39m
+
+    browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+[31m  5) [chromium] › app.spec.js:75:3 › Item › should allow me to mark items as complete [90m==============[31m[39m
+
+    browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+[31m  6) [chromium] › app.spec.js:97:3 › Item › should allow me to un-mark items as complete [90m===========[31m[39m
+
+    browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+[31m  7) [chromium] › app.spec.js:117:3 › Item › should allow me to edit an item [90m=======================[31m[39m
+
+    browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+[31m  8) [chromium] › app.spec.js:143:3 › Editing › should hide other controls when editing [90m============[31m[39m
+
+    browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+[31m  9) [chromium] › app.spec.js:151:3 › Editing › should trim entered text [90m===========================[31m[39m
+
+    browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+[31m  10) [chromium] › app.spec.js:165:3 › Editing › should cancel edits on escape [90m=====================[31m[39m
+
+    browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+[31m  11) [chromium] › app.spec.js:174:3 › Counter › should display the current number of todo items [90m===[31m[39m
+
+    browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+[31m  12) [chromium] › app.spec.js:192:3 › Clear completed button › should display the correct text [90m====[31m[39m
+
+    browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+[31m  13) [chromium] › app.spec.js:199:3 › Clear completed button › should remove completed items when clicked [39m
+
+    browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+[31m  14) [chromium] › app.spec.js:207:3 › Clear completed button › should be hidden when there are no items that are completed [39m
+
+    browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+[31m  15) [chromium] › app.spec.js:217:3 › Persistence › should persist its data [90m=======================[31m[39m
+
+    browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+[31m  16) [chromium] › app.spec.js:247:3 › Routing › should allow me to display pending items [90m==========[31m[39m
+
+    browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+[31m  17) [chromium] › app.spec.js:258:3 › Routing › should respect the back button [90m====================[31m[39m
+
+    browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+[31m  18) [chromium] › app.spec.js:282:3 › Routing › should allow me to display completed items [90m========[31m[39m
+
+    browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+[31m  19) [chromium] › app.spec.js:289:3 › Routing › should allow me to display all items [90m==============[31m[39m
+
+    browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+[31m  20) [chromium] › app.spec.js:298:3 › Routing › should highlight the currently applied filter [90m=====[31m[39m
+
+    browserType.launch: 
+    ╔══════════════════════════════════════════════════════╗
+    ║ Host system is missing dependencies to run browsers. ║
+    ║ Please install them with the following command:      ║
+    ║                                                      ║
+    ║     sudo npx playwright install-deps                 ║
+    ║                                                      ║
+    ║ Alternatively, use apt:                              ║
+    ║     sudo apt-get install libgbm1                     ║
+    ║                                                      ║
+    ║ <3 Playwright Team                                   ║
+    ╚══════════════════════════════════════════════════════╝
+
+
+
+
+
+[31m  20 failed[39m
+[31m    [chromium] › app.spec.js:15:3 › New Todo › should allow me to add todo items [90m===================[31m[39m
+[31m    [chromium] › app.spec.js:36:3 › New Todo › should clear text input field when an item is added [90m=[31m[39m
+[31m    [chromium] › app.spec.js:48:3 › New Todo › should append new items to the bottom of the list [90m===[31m[39m
+[31m    [chromium] › app.spec.js:64:3 › New Todo › should show #main and #footer when items added [90m======[31m[39m
+[31m    [chromium] › app.spec.js:75:3 › Item › should allow me to mark items as complete [90m===============[31m[39m
+[31m    [chromium] › app.spec.js:97:3 › Item › should allow me to un-mark items as complete [90m============[31m[39m
+[31m    [chromium] › app.spec.js:117:3 › Item › should allow me to edit an item [90m========================[31m[39m
+[31m    [chromium] › app.spec.js:143:3 › Editing › should hide other controls when editing [90m=============[31m[39m
+[31m    [chromium] › app.spec.js:151:3 › Editing › should trim entered text [90m============================[31m[39m
+[31m    [chromium] › app.spec.js:165:3 › Editing › should cancel edits on escape [90m=======================[31m[39m
+[31m    [chromium] › app.spec.js:174:3 › Counter › should display the current number of todo items [90m=====[31m[39m
+[31m    [chromium] › app.spec.js:192:3 › Clear completed button › should display the correct text [90m======[31m[39m
+[31m    [chromium] › app.spec.js:199:3 › Clear completed button › should remove completed items when clicked [39m
+[31m    [chromium] › app.spec.js:207:3 › Clear completed button › should be hidden when there are no items that are completed [39m
+[31m    [chromium] › app.spec.js:217:3 › Persistence › should persist its data [90m=========================[31m[39m
+[31m    [chromium] › app.spec.js:247:3 › Routing › should allow me to display pending items [90m============[31m[39m
+[31m    [chromium] › app.spec.js:258:3 › Routing › should respect the back button [90m======================[31m[39m
+[31m    [chromium] › app.spec.js:282:3 › Routing › should allow me to display completed items [90m==========[31m[39m
+[31m    [chromium] › app.spec.js:289:3 › Routing › should allow me to display all items [90m================[31m[39m
+[31m    [chromium] › app.spec.js:298:3 › Routing › should highlight the currently applied filter [90m=======[31m[39m
