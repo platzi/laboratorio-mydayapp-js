@@ -1,4 +1,4 @@
-export default class RegisterStorage {
+export default class Storage {
   constructor() {}
 
   init() {}
@@ -28,5 +28,12 @@ export default class RegisterStorage {
     storage.push(newItem);
     let itemToStorage = JSON.stringify(storage);
     localStorage.setItem(key, itemToStorage);
+  }
+
+  getItemLeft(key) {
+    let itemsLeft = this.getStorage(key);
+    if (!itemsLeft) return 0;
+    itemsLeft = JSON.parse(itemsLeft);
+    return itemsLeft.length;
   }
 }

@@ -1,8 +1,10 @@
 import ToDo from "./addToDom";
-import RegisterStorage from "./registerStorage";
+import Storage from "./Storage";
+import Accounts from "./accounts";
 
 let toDo = new ToDo();
-let registerStorage = new RegisterStorage();
+let storage = new Storage();
+let accounts = new Accounts();
 export default class Events {
   constructor() {}
 
@@ -20,8 +22,9 @@ export default class Events {
   keyDownEvent(event) {
     if (event.which === 13) {
       toDo.addToDoToDom(event.srcElement.value);
-      registerStorage.registerTask("mydayapp-js", event.srcElement.value);
+      storage.registerTask("mydayapp-js", event.srcElement.value);
       toDo.clearInput(event.srcElement);
+      accounts.refreshAccounts("mydayapp-js");
     }
   }
 }
