@@ -21,8 +21,8 @@ export default class Events {
 
   keyDownEvent(event) {
     if (event.which === 13) {
-      toDo.addToDoToDom(event.srcElement.value);
-      storage.registerTask("mydayapp-js", event.srcElement.value);
+      let id = storage.registerTask("mydayapp-js", event.srcElement.value);
+      toDo.addToDoToDom(event.srcElement.value, id);
       toDo.clearInput(event.srcElement);
       accounts.refreshAccounts("mydayapp-js");
     }

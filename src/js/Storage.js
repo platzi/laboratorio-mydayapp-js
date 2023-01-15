@@ -7,10 +7,12 @@ export default class Storage {
     let storage = this.getStorage(key);
     let newIndex = this.getNewIndex(storage);
     this.addNewItem(storage, newIndex, text, key);
+    return newIndex;
   }
 
   getNewIndex(value) {
-    if (value === undefined || value === null) return 1;
+    if (value === undefined || value === null) return 0;
+    return JSON.parse(value).length;
   }
 
   getStorage(key) {
@@ -35,5 +37,15 @@ export default class Storage {
     if (!itemsLeft) return 0;
     itemsLeft = JSON.parse(itemsLeft);
     return itemsLeft.length;
+  }
+
+  updateStateItem(key, id, state) {
+    let storage = this.getStorage(key);
+    let clearValue = JSON.parse(storage);
+    clearValue.forEach((element) => {
+      if (element.id == id) element.completed = state;
+    });
+    let itemToStorage = JSON.stringify(clearValue);
+    localStorage.setItem(key, itemToStorage);
   }
 }
