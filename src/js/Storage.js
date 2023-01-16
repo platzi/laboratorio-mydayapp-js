@@ -51,7 +51,13 @@ export default class Storage {
   getItemLeft(key) {
     let itemsLeft = this.getStorage(key);
     if (!itemsLeft) return 0;
-    return itemsLeft.length;
+    return itemsLeft.filter((item) => item.completed == false).length;
+  }
+
+  getItemCompleted(key) {
+    let itemsLeft = this.getStorage(key);
+    if (!itemsLeft) return 0;
+    return itemsLeft.filter((item) => item.completed == true).length;
   }
 
   updateStateItem(key, id, state, text) {

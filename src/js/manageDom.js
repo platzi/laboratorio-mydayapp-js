@@ -7,6 +7,7 @@ let lu = document.querySelector(".todo-list");
 const allList = document.querySelector(".filters li:nth-child(1n) a");
 const pendingList = document.querySelector(".filters li:nth-child(2n) a");
 const completedList = document.querySelector(".filters li:nth-child(3n) a");
+const clearCompleted = document.querySelector(".clear-completed");
 
 const addToDoToDom = (text, index, completed) => {
   if (!lu) return;
@@ -64,6 +65,9 @@ const checkboxEvent = (event) => {
     event.srcElement.checked,
     undefined
   );
+  accounts.refreshAccounts("mydayapp-js");
+  getNewPart(window.location.href);
+  controlToClearCompleted();
 };
 
 const labelEvent = (event) => {
@@ -102,6 +106,7 @@ const getKey = (separator, value) => {
 
 function keyDownEvent(event) {
   if (event.which === 13) {
+    if (event.srcElement.value.trim() == "") return;
     let id = storage.registerTask("mydayapp-js", event.srcElement.value);
     addToDoToDom(event.srcElement.value, id, false);
     clearInput(event.srcElement);
@@ -109,12 +114,11 @@ function keyDownEvent(event) {
   }
 }
 
-function clearCompletedEvent(event) {
+function clearCompletedEvent() {
   clearClasses();
   if (!lu) return;
   storage.removeCompletedItems("mydayapp-js");
   loadToDoList();
-  event.srcElement.setAttribute("style", "display:none");
 }
 
 function loadToDoList() {
@@ -125,6 +129,7 @@ function loadToDoList() {
     addToDoToDom(item.title, item.id, item.completed);
   });
   accounts.refreshAccounts("mydayapp-js");
+  controlToClearCompleted();
 }
 
 function loadPendingList() {
@@ -156,7 +161,6 @@ function urlControl(event) {
 }
 
 function getNewPart(url) {
-  //http://localhost:3000/#/pending
   let splitValue = url.split("#/");
   if (splitValue.length === 1) return;
   switch (splitValue[1]) {
@@ -172,6 +176,12 @@ function getNewPart(url) {
     default:
       return;
   }
+}
+
+function controlToClearCompleted() {
+  if (storage.getItemCompleted("mydayapp-js") > 0)
+    clearCompleted.setAttribute("style", "");
+  else clearCompleted.setAttribute("style", "display:none");
 }
 
 export { keyDownEvent, clearCompletedEvent, loadToDoList, urlControl };
