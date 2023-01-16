@@ -1,12 +1,8 @@
 import "./css/base.css";
 
-import { sayHello } from "./js/utils";
-import { header, newTodoInput, todoListContainer } from "./js/domElements";
+import { newTodoInput, todoListContainer } from "./js/domElements";
 
-// console.log(sayHello("Hello"));
-// console.log(header);
-// console.log(newTodoInput);
-
+// testing list
 const todoList = [
   { id: 'Una tarea', title: 'Una tarea', completed: false },
   { id: 'Otra tarea', title: 'Otra tarea', completed: false },
@@ -15,19 +11,10 @@ const todoList = [
 
 const newTodoList = [];
 
-const toggleCompletedState = (checkedElement, elementToChange, elementId) => {
-  const elementIndex = todoList.findIndex(item => item.id === elementId);
-
-  if (checkedElement.checked) {
-    todoList[elementIndex].completed = true;
-    elementToChange.classList.add('completed');
-  } else {
-    todoList[elementIndex].completed = false;
-    elementToChange.classList.remove('completed');
-  }
-}
-
 const renderNewList = (array) => {
+
+  todoListContainer.replaceChildren('');
+
   array.forEach(item => {
     const todoContainer = document.createElement('li');
     
@@ -51,6 +38,8 @@ const renderNewList = (array) => {
     const deleteTodoButton = document.createElement('button');
     deleteTodoButton.type = 'button';
     deleteTodoButton.classList.add('destroy');
+
+    deleteTodoButton.addEventListener('click', () => eliminateTask(item.id));
   
     todoDivContainer.append(checkBox, todoLabel, deleteTodoButton);
   
@@ -71,6 +60,28 @@ const getInputValue = (input) => {
   return input.target.value;
 }
 
+const toggleCompletedState = (checkedElement, elementToChange, elementId) => {
+  const elementIndex = todoList.findIndex(item => item.id === elementId);
+
+  if (checkedElement.checked) {
+    todoList[elementIndex].completed = true;
+    elementToChange.classList.add('completed');
+  } else {
+    todoList[elementIndex].completed = false;
+    elementToChange.classList.remove('completed');
+  }
+}
+
+const eliminateTask = (elementId) => {
+  todoList.splice(todoList.findIndex(item => item.id === elementId), 1);
+  renderNewList(todoList);
+}
+
+const addNewTask = (newTask) => {
+  todoList.push(newTask);
+  renderNewList(todoList);
+}
+
 newTodoInput.addEventListener('keydown', e => {
   if (e.key === 'Enter' && e.target.value.length > 1 && e.target.value.trim()){
     const newTodo = {
@@ -78,9 +89,7 @@ newTodoInput.addEventListener('keydown', e => {
       title: getInputValue(e).trim(),
       completed: false
     }
-    todoListContainer.replaceChildren('');
-    todoList.unshift(newTodo);
-    renderNewList(todoList);
+    addNewTask(newTodo);
     e.target.value = '';
   }
 });
