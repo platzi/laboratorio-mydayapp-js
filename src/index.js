@@ -1,6 +1,6 @@
 import "./css/base.css";
 
-import { newTodoInput, todoListContainer } from "./js/domElements";
+import { newTodoInput, todoListContainer, footer } from "./js/domElements";
 
 // testing list
 const todoList = [
@@ -73,6 +73,7 @@ const toggleCompletedState = (checkedElement, elementToChange, elementId) => {
 const eliminateTask = (elementId) => {
   todoList.splice(todoList.findIndex(item => item.id === elementId), 1);
   renderNewList(todoList);
+  hideFooter();
 }
 
 const addNewTask = (newTask) => {
@@ -130,3 +131,13 @@ newTodoInput.addEventListener('keydown', e => {
     e.target.value = '';
   }
 });
+
+const hideFooter = () => {
+  if(todoList.length < 1) {
+    footer.classList.add('hidden');
+  } else {
+    footer.classList.remove('hidden');
+  }
+}
+
+hideFooter();
