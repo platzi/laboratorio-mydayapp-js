@@ -11,12 +11,18 @@ export default class Storage {
   }
 
   getNewIndex(value) {
-    if (value === undefined || value === null) return 0;
-    return JSON.parse(value).length;
+    if (value === undefined || value === null) return 1;
+    if (value.length == 0) return 1;
+    value.sort((a, b) => {
+      return a.id - b.id;
+    });
+    return value[value.length - 1].id + 1;
   }
 
   getStorage(key) {
-    return localStorage.getItem(key);
+    let array = localStorage.getItem(key);
+    if (array === undefined || array === null) return [];
+    return JSON.parse(localStorage.getItem(key));
   }
 
   addNewItem(storage, index, value, key) {
@@ -25,8 +31,6 @@ export default class Storage {
       title: value.trim(),
       completed: false,
     };
-    if (storage === null) storage = [];
-    else storage = JSON.parse(storage);
     storage.push(newItem);
     let itemToStorage = JSON.stringify(storage);
     localStorage.setItem(key, itemToStorage);
@@ -35,20 +39,27 @@ export default class Storage {
   getItemLeft(key) {
     let itemsLeft = this.getStorage(key);
     if (!itemsLeft) return 0;
-    itemsLeft = JSON.parse(itemsLeft);
     return itemsLeft.length;
   }
 
   updateStateItem(key, id, state, text) {
     let storage = this.getStorage(key);
-    let clearValue = JSON.parse(storage);
-    clearValue.forEach((element) => {
+    storage.forEach((element) => {
       if (element.id == id) {
         element.completed = state === undefined ? element.completed : state;
         element.title = text === undefined ? element.title : text.trim();
       }
     });
-    let itemToStorage = JSON.stringify(clearValue);
+    let itemToStorage = JSON.stringify(storage);
+    localStorage.setItem(key, itemToStorage);
+  }
+
+  removeCompletedItems(key) {
+    let storage = this.getStorage(key);
+    let filterArray = storage.filter((item) => {
+      return item.completed != true;
+    });
+    let itemToStorage = JSON.stringify(filterArray);
     localStorage.setItem(key, itemToStorage);
   }
 }
