@@ -1,4 +1,8 @@
-import { keyDownEvent, clearCompletedEvent } from "./manageDom.js";
+import {
+  keyDownEvent,
+  clearCompletedEvent,
+  loadToDoList,
+} from "./manageDom.js";
 export default class Start {
   constructor() {}
 
@@ -9,7 +13,7 @@ export default class Start {
   }
 
   updateTask() {
-    this.toDoList.innerHTML = "";
+    loadToDoList();
   }
 
   registerMainEvent() {

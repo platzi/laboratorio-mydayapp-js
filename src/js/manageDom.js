@@ -9,7 +9,7 @@ const addToDoToDom = (text, index, completed) => {
   if (!lu) return;
   const liItem = document.createElement("li");
   liItem.setAttribute("id", `li_${index}`);
-  let className = completed === true ? "completed" : "";
+  let className = completed == true ? "completed" : "";
   liItem.setAttribute("class", className);
 
   const divItem = document.createElement("div");
@@ -19,6 +19,7 @@ const addToDoToDom = (text, index, completed) => {
   inputItem.setAttribute("class", "toggle");
   inputItem.setAttribute("type", "checkbox");
   inputItem.setAttribute("id", `checkbox_${index}`);
+  if (completed == true) inputItem.checked = true;
   inputItem.addEventListener("click", checkboxEvent);
 
   const labelItem = document.createElement("label");
@@ -107,12 +108,16 @@ function keyDownEvent(event) {
 
 function clearCompletedEvent(event) {
   if (!lu) return;
-  lu.innerHTML = "";
   storage.removeCompletedItems("mydayapp-js");
-  storage.getStorage("mydayapp-js").forEach((item) => {
-    addToDoToDom(item.title, item.id, item.state);
-  });
+  loadToDoList();
   event.srcElement.setAttribute("style", "display:none");
 }
 
-export { keyDownEvent, clearCompletedEvent };
+function loadToDoList() {
+  lu.innerHTML = "";
+  storage.getStorage("mydayapp-js").forEach((item) => {
+    addToDoToDom(item.title, item.id, item.completed);
+  });
+}
+
+export { keyDownEvent, clearCompletedEvent, loadToDoList };
