@@ -27,7 +27,6 @@ const renderNewList = (array) => {
 
   array.forEach(item => {
     const todoContainer = document.createElement('li');
-    todoContainer.classList.add('todo-container');
     
     const todoDivContainer = document.createElement('div');
     todoDivContainer.classList.add('view');
@@ -92,7 +91,7 @@ const eliminateTask = (elementId) => {
 
 const toggleHiddenContent = addHidden => {
   todoList.forEach(() => {
-    const nodeList = document.getElementsByClassName('todo-container');
+    const nodeList = todoListContainer.children;
     if(addHidden) {
       [...nodeList].forEach(item => {
         if(!item.classList.contains('editing')) {

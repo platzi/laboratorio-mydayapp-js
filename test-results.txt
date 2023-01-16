@@ -6,105 +6,49 @@
 > mydayapp-js@1.0.0 build
 > webpack
 
-asset main.bundle.js 14.8 KiB [emitted] [minimized] (name: main)
+asset main.bundle.js 15.1 KiB [compared for emit] [minimized] (name: main)
 asset index.html 10.7 KiB [emitted]
 runtime modules 1.09 KiB 5 modules
-orphan modules 1.52 KiB [orphan] 2 modules
-javascript modules 24.3 KiB
+orphan modules 1.57 KiB [orphan] 2 modules
+javascript modules 24.8 KiB
   modules by path ./node_modules/ 8.66 KiB
     modules by path ./node_modules/style-loader/dist/runtime/*.js 5.75 KiB 6 modules
     modules by path ./node_modules/css-loader/dist/runtime/*.js 2.91 KiB
       ./node_modules/css-loader/dist/runtime/noSourceMaps.js 64 bytes [built] [code generated]
       + 2 modules
-  modules by path ./src/ 15.7 KiB
-    ./src/index.js + 2 modules 7.13 KiB [built] [code generated]
+  modules by path ./src/ 16.2 KiB
+    ./src/index.js + 2 modules 7.62 KiB [built] [code generated]
     ./node_modules/css-loader/dist/cjs.js!./src/css/base.css 8.53 KiB [built] [code generated]
 asset modules 620 bytes
   data:image/svg+xml;utf8,%3Csvg%20xmlns%3.. 268 bytes [built] [code generated]
   data:image/svg+xml;utf8,%3Csvg%20xmlns%3.. 352 bytes [built] [code generated]
-webpack 5.73.0 compiled successfully in 1069 ms
+webpack 5.73.0 compiled successfully in 1050 ms
 
 Running 20 tests using 1 worker
 
-[31m  ✘  [chromium] › app.spec.js:15:3 › New Todo › should allow me to add todo items[39m[2m (613ms)[22m
-[31m  ✘  [chromium] › app.spec.js:36:3 › New Todo › should clear text input field when an item is added[39m[2m (559ms)[22m
-[31m  ✘  [chromium] › app.spec.js:48:3 › New Todo › should append new items to the bottom of the list[39m[2m (6s)[22m
-[31m  ✘  [chromium] › app.spec.js:64:3 › New Todo › should show #main and #footer when items added[39m[2m (6s)[22m
-[31m  ✘  [chromium] › app.spec.js:75:3 › Item › should allow me to mark items as complete[39m[2m (6s)[22m
-[31m  ✘  [chromium] › app.spec.js:97:3 › Item › should allow me to un-mark items as complete[39m[2m (6s)[22m
-[31m  ✘  [chromium] › app.spec.js:117:3 › Item › should allow me to edit an item[39m[2m (30s)[22m
-[31m  ✘  [chromium] › app.spec.js:143:3 › Editing › should hide other controls when editing[39m[2m (558ms)[22m
-[31m  ✘  [chromium] › app.spec.js:151:3 › Editing › should trim entered text[39m[2m (541ms)[22m
-[31m  ✘  [chromium] › app.spec.js:165:3 › Editing › should cancel edits on escape[39m[2m (522ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:15:3 › New Todo › should allow me to add todo items[39m[2m (547ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:36:3 › New Todo › should clear text input field when an item is added[39m[2m (296ms)[22m
+[31m  ✘  [chromium] › app.spec.js:48:3 › New Todo › should append new items to the bottom of the list[39m[2m (5s)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:64:3 › New Todo › should show #main and #footer when items added[39m[2m (607ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:75:3 › Item › should allow me to mark items as complete[39m[2m (456ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:97:3 › Item › should allow me to un-mark items as complete[39m[2m (419ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:117:3 › Item › should allow me to edit an item[39m[2m (396ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:143:3 › Editing › should hide other controls when editing[39m[2m (374ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:151:3 › Editing › should trim entered text[39m[2m (380ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:165:3 › Editing › should cancel edits on escape[39m[2m (366ms)[22m
 [31m  ✘  [chromium] › app.spec.js:174:3 › Counter › should display the current number of todo items[39m[2m (6s)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:192:3 › Clear completed button › should display the correct text[39m[2m (528ms)[22m
-[31m  ✘  [chromium] › app.spec.js:199:3 › Clear completed button › should remove completed items when clicked[39m[2m (30s)[22m
-[31m  ✘  [chromium] › app.spec.js:207:3 › Clear completed button › should be hidden when there are no items that are completed[39m[2m (30s)[22m
-[31m  ✘  [chromium] › app.spec.js:217:3 › Persistence › should persist its data[39m[2m (6s)[22m
-[31m  ✘  [chromium] › app.spec.js:247:3 › Routing › should allow me to display pending items[39m[2m (30s)[22m
-[31m  ✘  [chromium] › app.spec.js:258:3 › Routing › should respect the back button[39m[2m (30s)[22m
-[31m  ✘  [chromium] › app.spec.js:282:3 › Routing › should allow me to display completed items[39m[2m (30s)[22m
-[31m  ✘  [chromium] › app.spec.js:289:3 › Routing › should allow me to display all items[39m[2m (30s)[22m
-[31m  ✘  [chromium] › app.spec.js:298:3 › Routing › should highlight the currently applied filter[39m[2m (30s)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:192:3 › Clear completed button › should display the correct text[39m[2m (551ms)[22m
+[31m  ✘  [chromium] › app.spec.js:199:3 › Clear completed button › should remove completed items when clicked[39m[2m (5s)[22m
+[31m  ✘  [chromium] › app.spec.js:207:3 › Clear completed button › should be hidden when there are no items that are completed[39m[2m (6s)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:217:3 › Persistence › should persist its data[39m[2m (573ms)[22m
+[31m  ✘  [chromium] › app.spec.js:247:3 › Routing › should allow me to display pending items[39m[2m (5s)[22m
+[31m  ✘  [chromium] › app.spec.js:258:3 › Routing › should respect the back button[39m[2m (6s)[22m
+[31m  ✘  [chromium] › app.spec.js:282:3 › Routing › should allow me to display completed items[39m[2m (6s)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:289:3 › Routing › should allow me to display all items[39m[2m (727ms)[22m
+[31m  ✘  [chromium] › app.spec.js:298:3 › Routing › should highlight the currently applied filter[39m[2m (5s)[22m
 
 
-[31m  1) [chromium] › app.spec.js:15:3 › New Todo › should allow me to add todo items [90m==================[31m[39m
-
-    page.waitForFunction: SyntaxError: "undefined" is not valid JSON
-
-      323 |  */
-      324 | async function checkNumberOfTodosInLocalStorage(page, expected) {
-    > 325 |   return await page.waitForFunction((e) => {
-          |                     ^
-      326 |     return JSON.parse(localStorage["mydayapp-js"]).length === e;
-      327 |   }, expected);
-      328 | }
-
-    [2m    at JSON.parse (<anonymous>)[22m
-    [2m    at eval (eval at predicate (eval at evaluate (:178:30)), <anonymous>:2:17)[22m
-    [2m    at predicate (eval at evaluate (:178:30), <anonymous>:11:20)[22m
-    [2m    at eval (eval at evaluate (:178:30), <anonymous>:22:82)[22m
-    [2m    at next (<anonymous>:4032:27)[22m
-    [2m    at <anonymous>:4042:7[22m
-    [2m    at Object.run (<anonymous>:4086:22)[22m
-    [2m    at eval (eval at evaluate (:178:30), <anonymous>:1:14)[22m
-    [2m    at UtilityScript.evaluate (<anonymous>:180:17)[22m
-    [2m    at UtilityScript.<anonymous> (<anonymous>:1:44)[22m
-    [2m=========================== logs ===========================[22m
-    [2m  "undefined" is not valid JSON[22m
-    [2m============================================================[22m
-    [2m    at checkNumberOfTodosInLocalStorage (/home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:325:21)[22m
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:33:11[22m
-
-[31m  2) [chromium] › app.spec.js:36:3 › New Todo › should clear text input field when an item is added [39m
-
-    page.waitForFunction: SyntaxError: "undefined" is not valid JSON
-
-      323 |  */
-      324 | async function checkNumberOfTodosInLocalStorage(page, expected) {
-    > 325 |   return await page.waitForFunction((e) => {
-          |                     ^
-      326 |     return JSON.parse(localStorage["mydayapp-js"]).length === e;
-      327 |   }, expected);
-      328 | }
-
-    [2m    at JSON.parse (<anonymous>)[22m
-    [2m    at eval (eval at predicate (eval at evaluate (:178:30)), <anonymous>:2:17)[22m
-    [2m    at predicate (eval at evaluate (:178:30), <anonymous>:11:20)[22m
-    [2m    at eval (eval at evaluate (:178:30), <anonymous>:22:82)[22m
-    [2m    at next (<anonymous>:4032:27)[22m
-    [2m    at <anonymous>:4042:7[22m
-    [2m    at Object.run (<anonymous>:4086:22)[22m
-    [2m    at eval (eval at evaluate (:178:30), <anonymous>:1:14)[22m
-    [2m    at UtilityScript.evaluate (<anonymous>:180:17)[22m
-    [2m    at UtilityScript.<anonymous> (<anonymous>:1:44)[22m
-    [2m=========================== logs ===========================[22m
-    [2m  "undefined" is not valid JSON[22m
-    [2m============================================================[22m
-    [2m    at checkNumberOfTodosInLocalStorage (/home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:325:21)[22m
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:45:11[22m
-
-[31m  3) [chromium] › app.spec.js:48:3 › New Todo › should append new items to the bottom of the list [90m==[31m[39m
+[31m  1) [chromium] › app.spec.js:48:3 › New Todo › should append new items to the bottom of the list [90m==[31m[39m
 
     Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoHaveText[2m([22m[32mexpected[39m[2m)[22m
 
@@ -141,220 +85,7 @@ Running 20 tests using 1 worker
 
     [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:55:47[22m
 
-[31m  4) [chromium] › app.spec.js:64:3 › New Todo › should show #main and #footer when items added [90m=====[31m[39m
-
-    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeVisible[2m()[22m
-    Call log:
-      [2m- expect.toBeVisible with timeout 5000ms[22m
-    [2m  - waiting for selector ".footer"[22m
-    [2m  -   selector resolved to <footer class="footer hidden">…</footer>[22m
-    [2m  -   unexpected value "false"[22m
-    [2m  -   selector resolved to <footer class="footer hidden">…</footer>[22m
-    [2m  -   unexpected value "false"[22m
-    [2m  -   selector resolved to <footer class="footer hidden">…</footer>[22m
-    [2m  -   unexpected value "false"[22m
-    [2m  -   selector resolved to <footer class="footer hidden">…</footer>[22m
-    [2m  -   unexpected value "false"[22m
-    [2m  -   selector resolved to <footer class="footer hidden">…</footer>[22m
-    [2m  -   unexpected value "false"[22m
-    [2m  -   selector resolved to <footer class="footer hidden">…</footer>[22m
-    [2m  -   unexpected value "false"[22m
-    [2m  -   selector resolved to <footer class="footer hidden">…</footer>[22m
-    [2m  -   unexpected value "false"[22m
-    [2m  -   selector resolved to <footer class="footer hidden">…</footer>[22m
-    [2m  -   unexpected value "false"[22m
-
-
-      67 |
-      68 |     await expect(page.locator(".main")).toBeVisible();
-    > 69 |     await expect(page.locator(".footer")).toBeVisible();
-         |                                           ^
-      70 |     await checkNumberOfTodosInLocalStorage(page, 1);
-      71 |   });
-      72 | });
-
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:69:43[22m
-
-[31m  5) [chromium] › app.spec.js:75:3 › Item › should allow me to mark items as complete [90m==============[31m[39m
-
-    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoHaveClass[2m([22m[32mexpected[39m[2m)[22m
-
-    Expected string: [32m"completed"[39m
-    Received string: [31m"[7mtodo-container [27mcompleted"[39m
-    Call log:
-      [2m- expect.toHaveClass with timeout 5000ms[22m
-    [2m  - waiting for selector ".todo-list li >> nth=0"[22m
-    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
-    [2m  -   unexpected value "todo-container completed"[22m
-    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
-    [2m  -   unexpected value "todo-container completed"[22m
-    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
-    [2m  -   unexpected value "todo-container completed"[22m
-    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
-    [2m  -   unexpected value "todo-container completed"[22m
-    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
-    [2m  -   unexpected value "todo-container completed"[22m
-    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
-    [2m  -   unexpected value "todo-container completed"[22m
-    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
-    [2m  -   unexpected value "todo-container completed"[22m
-    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
-    [2m  -   unexpected value "todo-container completed"[22m
-
-
-      83 |     const firstTodo = page.locator(".todo-list li").nth(0);
-      84 |     await firstTodo.locator(".toggle").check();
-    > 85 |     await expect(firstTodo).toHaveClass("completed");
-         |                             ^
-      86 |
-      87 |     // Check second item.
-      88 |     const secondTodo = page.locator(".todo-list li").nth(1);
-
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:85:29[22m
-
-[31m  6) [chromium] › app.spec.js:97:3 › Item › should allow me to un-mark items as complete [90m===========[31m[39m
-
-    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoHaveClass[2m([22m[32mexpected[39m[2m)[22m
-
-    Expected string: [32m"completed"[39m
-    Received string: [31m"[7mtodo-container [27mcompleted"[39m
-    Call log:
-      [2m- expect.toHaveClass with timeout 5000ms[22m
-    [2m  - waiting for selector ".todo-list li >> nth=0"[22m
-    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
-    [2m  -   unexpected value "todo-container completed"[22m
-    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
-    [2m  -   unexpected value "todo-container completed"[22m
-    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
-    [2m  -   unexpected value "todo-container completed"[22m
-    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
-    [2m  -   unexpected value "todo-container completed"[22m
-    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
-    [2m  -   unexpected value "todo-container completed"[22m
-    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
-    [2m  -   unexpected value "todo-container completed"[22m
-    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
-    [2m  -   unexpected value "todo-container completed"[22m
-    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
-    [2m  -   unexpected value "todo-container completed"[22m
-
-
-      105 |     const secondTodo = page.locator(".todo-list li").nth(1);
-      106 |     await firstTodo.locator(".toggle").check();
-    > 107 |     await expect(firstTodo).toHaveClass("completed");
-          |                             ^
-      108 |     await expect(secondTodo).not.toHaveClass("completed");
-      109 |     await checkNumberOfCompletedTodosInLocalStorage(page, 1);
-      110 |
-
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:107:29[22m
-
-[31m  7) [chromium] › app.spec.js:117:3 › Item › should allow me to edit an item [90m=======================[31m[39m
-
-    [31mTimeout of 30000ms exceeded.[39m
-
-    page.waitForFunction: Target closed
-
-      346 |  */
-      347 | async function checkTodosInLocalStorage(page, title) {
-    > 348 |   return await page.waitForFunction((t) => {
-          |                     ^
-      349 |     const data = localStorage.getItem("mydayapp-js");
-      350 |     if (data) {
-      351 |       return JSON.parse(data)
-
-    [2m    at checkTodosInLocalStorage (/home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:348:21)[22m
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:133:11[22m
-
-    Pending operations:
-      - page.waitForFunction at e2e/app.spec.js:348:21
-
-
-[31m  8) [chromium] › app.spec.js:143:3 › Editing › should hide other controls when editing [90m============[31m[39m
-
-    page.waitForFunction: SyntaxError: "undefined" is not valid JSON
-
-      323 |  */
-      324 | async function checkNumberOfTodosInLocalStorage(page, expected) {
-    > 325 |   return await page.waitForFunction((e) => {
-          |                     ^
-      326 |     return JSON.parse(localStorage["mydayapp-js"]).length === e;
-      327 |   }, expected);
-      328 | }
-
-    [2m    at JSON.parse (<anonymous>)[22m
-    [2m    at eval (eval at predicate (eval at evaluate (:178:30)), <anonymous>:2:17)[22m
-    [2m    at predicate (eval at evaluate (:178:30), <anonymous>:11:20)[22m
-    [2m    at eval (eval at evaluate (:178:30), <anonymous>:22:82)[22m
-    [2m    at next (<anonymous>:4032:27)[22m
-    [2m    at <anonymous>:4042:7[22m
-    [2m    at Object.run (<anonymous>:4086:22)[22m
-    [2m    at eval (eval at evaluate (:178:30), <anonymous>:1:14)[22m
-    [2m    at UtilityScript.evaluate (<anonymous>:180:17)[22m
-    [2m    at UtilityScript.<anonymous> (<anonymous>:1:44)[22m
-    [2m=========================== logs ===========================[22m
-    [2m  "undefined" is not valid JSON[22m
-    [2m============================================================[22m
-    [2m    at checkNumberOfTodosInLocalStorage (/home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:325:21)[22m
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:140:11[22m
-
-[31m  9) [chromium] › app.spec.js:151:3 › Editing › should trim entered text [90m===========================[31m[39m
-
-    page.waitForFunction: SyntaxError: "undefined" is not valid JSON
-
-      323 |  */
-      324 | async function checkNumberOfTodosInLocalStorage(page, expected) {
-    > 325 |   return await page.waitForFunction((e) => {
-          |                     ^
-      326 |     return JSON.parse(localStorage["mydayapp-js"]).length === e;
-      327 |   }, expected);
-      328 | }
-
-    [2m    at JSON.parse (<anonymous>)[22m
-    [2m    at eval (eval at predicate (eval at evaluate (:178:30)), <anonymous>:2:17)[22m
-    [2m    at predicate (eval at evaluate (:178:30), <anonymous>:11:20)[22m
-    [2m    at eval (eval at evaluate (:178:30), <anonymous>:22:82)[22m
-    [2m    at next (<anonymous>:4032:27)[22m
-    [2m    at <anonymous>:4042:7[22m
-    [2m    at Object.run (<anonymous>:4086:22)[22m
-    [2m    at eval (eval at evaluate (:178:30), <anonymous>:1:14)[22m
-    [2m    at UtilityScript.evaluate (<anonymous>:180:17)[22m
-    [2m    at UtilityScript.<anonymous> (<anonymous>:1:44)[22m
-    [2m=========================== logs ===========================[22m
-    [2m  "undefined" is not valid JSON[22m
-    [2m============================================================[22m
-    [2m    at checkNumberOfTodosInLocalStorage (/home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:325:21)[22m
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:140:11[22m
-
-[31m  10) [chromium] › app.spec.js:165:3 › Editing › should cancel edits on escape [90m=====================[31m[39m
-
-    page.waitForFunction: SyntaxError: "undefined" is not valid JSON
-
-      323 |  */
-      324 | async function checkNumberOfTodosInLocalStorage(page, expected) {
-    > 325 |   return await page.waitForFunction((e) => {
-          |                     ^
-      326 |     return JSON.parse(localStorage["mydayapp-js"]).length === e;
-      327 |   }, expected);
-      328 | }
-
-    [2m    at JSON.parse (<anonymous>)[22m
-    [2m    at eval (eval at predicate (eval at evaluate (:178:30)), <anonymous>:2:17)[22m
-    [2m    at predicate (eval at evaluate (:178:30), <anonymous>:11:20)[22m
-    [2m    at eval (eval at evaluate (:178:30), <anonymous>:22:82)[22m
-    [2m    at next (<anonymous>:4032:27)[22m
-    [2m    at <anonymous>:4042:7[22m
-    [2m    at Object.run (<anonymous>:4086:22)[22m
-    [2m    at eval (eval at evaluate (:178:30), <anonymous>:1:14)[22m
-    [2m    at UtilityScript.evaluate (<anonymous>:180:17)[22m
-    [2m    at UtilityScript.<anonymous> (<anonymous>:1:44)[22m
-    [2m=========================== logs ===========================[22m
-    [2m  "undefined" is not valid JSON[22m
-    [2m============================================================[22m
-    [2m    at checkNumberOfTodosInLocalStorage (/home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:325:21)[22m
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:140:11[22m
-
-[31m  11) [chromium] › app.spec.js:174:3 › Counter › should display the current number of todo items [90m===[31m[39m
+[31m  2) [chromium] › app.spec.js:174:3 › Counter › should display the current number of todo items [90m====[31m[39m
 
     Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m
 
@@ -391,265 +122,235 @@ Running 20 tests using 1 worker
 
     [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:177:47[22m
 
-[31m  12) [chromium] › app.spec.js:199:3 › Clear completed button › should remove completed items when clicked [39m
+[31m  3) [chromium] › app.spec.js:199:3 › Clear completed button › should remove completed items when clicked [39m
 
-    [31mTimeout of 30000ms exceeded.[39m
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoHaveCount[2m([22m[32mexpected[39m[2m) // deep equality[22m
 
-    locator.click: Target closed
-    =========================== logs ===========================
-    waiting for selector ".clear-completed"
-      selector resolved to hidden <button class="clear-completed">Clear completed</button>
-    attempting click action
-      waiting for element to be visible, enabled and stable
-        element is not visible - waiting...
-    ============================================================
+    Expected: [32m2[39m
+    Received: [31m3[39m
+    Call log:
+      [2m- expect.toHaveCount with timeout 5000ms[22m
+    [2m  - waiting for selector ".todo-list li"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
 
-      200 |     const todoItems = page.locator(".todo-list li");
+
       201 |     await todoItems.nth(1).locator(".toggle").check();
-    > 202 |     await page.locator(".clear-completed").click();
-          |                                            ^
-      203 |     await expect(todoItems).toHaveCount(2);
+      202 |     await page.locator(".clear-completed").click();
+    > 203 |     await expect(todoItems).toHaveCount(2);
+          |                             ^
       204 |     await expect(todoItems).toHaveText([TODO_ITEMS[0], TODO_ITEMS[2]]);
       205 |   });
+      206 |
 
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:202:44[22m
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:203:29[22m
 
-    Pending operations:
-      - locator.click at e2e/app.spec.js:202:44
+[31m  4) [chromium] › app.spec.js:207:3 › Clear completed button › should be hidden when there are no items that are completed [39m
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeHidden[2m()[22m
+    Call log:
+      [2m- expect.toBeHidden with timeout 5000ms[22m
+    [2m  - waiting for selector ".clear-completed"[22m
+    [2m  -   selector resolved to <button class="clear-completed">Clear completed</button>[22m
+    [2m  -   unexpected value "false"[22m
+    [2m  -   selector resolved to <button class="clear-completed">Clear completed</button>[22m
+    [2m  -   unexpected value "false"[22m
+    [2m  -   selector resolved to <button class="clear-completed">Clear completed</button>[22m
+    [2m  -   unexpected value "false"[22m
+    [2m  -   selector resolved to <button class="clear-completed">Clear completed</button>[22m
+    [2m  -   unexpected value "false"[22m
+    [2m  -   selector resolved to <button class="clear-completed">Clear completed</button>[22m
+    [2m  -   unexpected value "false"[22m
+    [2m  -   selector resolved to <button class="clear-completed">Clear completed</button>[22m
+    [2m  -   unexpected value "false"[22m
+    [2m  -   selector resolved to <button class="clear-completed">Clear completed</button>[22m
+    [2m  -   unexpected value "false"[22m
+    [2m  -   selector resolved to <button class="clear-completed">Clear completed</button>[22m
+    [2m  -   unexpected value "false"[22m
 
 
-[31m  13) [chromium] › app.spec.js:207:3 › Clear completed button › should be hidden when there are no items that are completed [39m
-
-    [31mTimeout of 30000ms exceeded.[39m
-
-    locator.click: Target closed
-    =========================== logs ===========================
-    waiting for selector ".clear-completed"
-      selector resolved to hidden <button class="clear-completed">Clear completed</button>
-    attempting click action
-      waiting for element to be visible, enabled and stable
-        element is not visible - waiting...
-    ============================================================
-
-      209 |   }) => {
       210 |     await page.locator(".todo-list li .toggle").first().check();
-    > 211 |     await page.locator(".clear-completed").click();
-          |                                            ^
-      212 |     await expect(page.locator(".clear-completed")).toBeHidden();
+      211 |     await page.locator(".clear-completed").click();
+    > 212 |     await expect(page.locator(".clear-completed")).toBeHidden();
+          |                                                    ^
       213 |   });
       214 | });
+      215 |
 
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:211:44[22m
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:212:52[22m
 
-    Pending operations:
-      - locator.click at e2e/app.spec.js:211:44
+[31m  5) [chromium] › app.spec.js:247:3 › Routing › should allow me to display pending items [90m===========[31m[39m
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoHaveCount[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    Expected: [32m2[39m
+    Received: [31m3[39m
+    Call log:
+      [2m- expect.toHaveCount with timeout 5000ms[22m
+    [2m  - waiting for selector ".todo-list li"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
 
 
-[31m  14) [chromium] › app.spec.js:217:3 › Persistence › should persist its data [90m=======================[31m[39m
+      249 |     await checkNumberOfCompletedTodosInLocalStorage(page, 1);
+      250 |     await page.locator(".filters >> text=Pending").click();
+    > 251 |     await expect(page.locator(".todo-list li")).toHaveCount(2);
+          |                                                 ^
+      252 |     await expect(page.locator(".todo-list li")).toHaveText([
+      253 |       TODO_ITEMS[0],
+      254 |       TODO_ITEMS[2],
 
-    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoHaveClass[2m([22m[32mexpected[39m[2m) // deep equality[22m
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:251:49[22m
 
-    [32m- Expected  - 2[39m
-    [31m+ Received  + 2[39m
+[31m  6) [chromium] › app.spec.js:258:3 › Routing › should respect the back button [90m=====================[31m[39m
 
-    [2m  Array [[22m
-    [32m-   "completed",[39m
-    [32m-   "",[39m
-    [31m+   "todo-container completed",[39m
-    [31m+   "todo-container",[39m
-    [2m  ][22m
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoHaveCount[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    Expected: [32m1[39m
+    Received: [31m3[39m
+    Call log:
+      [2m- expect.toHaveCount with timeout 5000ms[22m
+    [2m  - waiting for selector ".todo-list li"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+
+
+      273 |     });
+      274 |
+    > 275 |     await expect(page.locator(".todo-list li")).toHaveCount(1);
+          |                                                 ^
+      276 |     await page.goBack();
+      277 |     await expect(page.locator(".todo-list li")).toHaveCount(2);
+      278 |     await page.goBack();
+
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:275:49[22m
+
+[31m  7) [chromium] › app.spec.js:282:3 › Routing › should allow me to display completed items [90m=========[31m[39m
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoHaveCount[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    Expected: [32m1[39m
+    Received: [31m3[39m
+    Call log:
+      [2m- expect.toHaveCount with timeout 5000ms[22m
+    [2m  - waiting for selector ".todo-list li"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 3 elements[22m
+    [2m  -   unexpected value "3"[22m
+
+
+      284 |     await checkNumberOfCompletedTodosInLocalStorage(page, 1);
+      285 |     await page.locator(".filters >> text=Completed").click();
+    > 286 |     await expect(page.locator(".todo-list li")).toHaveCount(1);
+          |                                                 ^
+      287 |   });
+      288 |
+      289 |   test("should allow me to display all items", async ({ page }) => {
+
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:286:49[22m
+
+[31m  8) [chromium] › app.spec.js:298:3 › Routing › should highlight the currently applied filter [90m======[31m[39m
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoHaveClass[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected string: [32m"selected"[39m
+    Received string: [31m""[39m
     Call log:
       [2m- expect.toHaveClass with timeout 5000ms[22m
-    [2m  - waiting for selector ".todo-list li"[22m
-    [2m  -   selector resolved to 2 elements[22m
+    [2m  - waiting for selector ".filters >> text=Pending"[22m
+    [2m  -   selector resolved to <a href="#/pending">Pending</a>[22m
+    [2m  -   unexpected value ""[22m
+    [2m  -   selector resolved to <a href="#/pending">Pending</a>[22m
+    [2m  -   unexpected value ""[22m
+    [2m  -   selector resolved to <a href="#/pending">Pending</a>[22m
+    [2m  -   unexpected value ""[22m
+    [2m  -   selector resolved to <a href="#/pending">Pending</a>[22m
+    [2m  -   unexpected value ""[22m
+    [2m  -   selector resolved to <a href="#/pending">Pending</a>[22m
+    [2m  -   unexpected value ""[22m
+    [2m  -   selector resolved to <a href="#/pending">Pending</a>[22m
+    [2m  -   unexpected value ""[22m
+    [2m  -   selector resolved to <a href="#/pending">Pending</a>[22m
+    [2m  -   unexpected value ""[22m
+    [2m  -   selector resolved to <a href="#/pending">Pending</a>[22m
+    [2m  -   unexpected value ""[22m
 
 
-      224 |     await todoItems.nth(0).locator(".toggle").check();
-      225 |     await expect(todoItems).toHaveText([TODO_ITEMS[0], TODO_ITEMS[1]]);
-    > 226 |     await expect(todoItems).toHaveClass(["completed", ""]);
-          |                             ^
-      227 |
-      228 |     // Ensure there is 1 completed item.
-      229 |     checkNumberOfCompletedTodosInLocalStorage(page, 1);
+      300 |     await page.locator(".filters >> text=Pending").click();
+      301 |     // Page change - active items.
+    > 302 |     await expect(page.locator(".filters >> text=Pending")).toHaveClass(
+          |                                                            ^
+      303 |       "selected"
+      304 |     );
+      305 |     await page.locator(".filters >> text=Completed").click();
 
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:226:29[22m
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:302:60[22m
 
-[31m  15) [chromium] › app.spec.js:247:3 › Routing › should allow me to display pending items [90m==========[31m[39m
-
-    [31mTimeout of 30000ms exceeded in beforeEach hook.[39m
-
-      237 |
-      238 | test.describe("Routing", () => {
-    > 239 |   test.beforeEach(async ({ page }) => {
-          |        ^
-      240 |     await createDefaultTodos(page);
-      241 |     // make sure the app had a chance to save updated todos in storage
-      242 |     // before navigating to a new view, otherwise the items can get lost :(
-
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:239:8[22m
-
-    page.waitForFunction: Target closed
-
-      346 |  */
-      347 | async function checkTodosInLocalStorage(page, title) {
-    > 348 |   return await page.waitForFunction((t) => {
-          |                     ^
-      349 |     const data = localStorage.getItem("mydayapp-js");
-      350 |     if (data) {
-      351 |       return JSON.parse(data)
-
-    [2m    at checkTodosInLocalStorage (/home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:348:21)[22m
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:244:11[22m
-
-    Pending operations:
-      - page.waitForFunction at e2e/app.spec.js:348:21
-
-
-[31m  16) [chromium] › app.spec.js:258:3 › Routing › should respect the back button [90m====================[31m[39m
-
-    [31mTimeout of 30000ms exceeded in beforeEach hook.[39m
-
-      237 |
-      238 | test.describe("Routing", () => {
-    > 239 |   test.beforeEach(async ({ page }) => {
-          |        ^
-      240 |     await createDefaultTodos(page);
-      241 |     // make sure the app had a chance to save updated todos in storage
-      242 |     // before navigating to a new view, otherwise the items can get lost :(
-
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:239:8[22m
-
-    page.waitForFunction: Target closed
-
-      346 |  */
-      347 | async function checkTodosInLocalStorage(page, title) {
-    > 348 |   return await page.waitForFunction((t) => {
-          |                     ^
-      349 |     const data = localStorage.getItem("mydayapp-js");
-      350 |     if (data) {
-      351 |       return JSON.parse(data)
-
-    [2m    at checkTodosInLocalStorage (/home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:348:21)[22m
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:244:11[22m
-
-    Pending operations:
-      - page.waitForFunction at e2e/app.spec.js:348:21
-
-
-[31m  17) [chromium] › app.spec.js:282:3 › Routing › should allow me to display completed items [90m========[31m[39m
-
-    [31mTimeout of 30000ms exceeded in beforeEach hook.[39m
-
-      237 |
-      238 | test.describe("Routing", () => {
-    > 239 |   test.beforeEach(async ({ page }) => {
-          |        ^
-      240 |     await createDefaultTodos(page);
-      241 |     // make sure the app had a chance to save updated todos in storage
-      242 |     // before navigating to a new view, otherwise the items can get lost :(
-
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:239:8[22m
-
-    page.waitForFunction: Target closed
-
-      346 |  */
-      347 | async function checkTodosInLocalStorage(page, title) {
-    > 348 |   return await page.waitForFunction((t) => {
-          |                     ^
-      349 |     const data = localStorage.getItem("mydayapp-js");
-      350 |     if (data) {
-      351 |       return JSON.parse(data)
-
-    [2m    at checkTodosInLocalStorage (/home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:348:21)[22m
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:244:11[22m
-
-    Pending operations:
-      - page.waitForFunction at e2e/app.spec.js:348:21
-
-
-[31m  18) [chromium] › app.spec.js:289:3 › Routing › should allow me to display all items [90m==============[31m[39m
-
-    [31mTimeout of 30000ms exceeded in beforeEach hook.[39m
-
-      237 |
-      238 | test.describe("Routing", () => {
-    > 239 |   test.beforeEach(async ({ page }) => {
-          |        ^
-      240 |     await createDefaultTodos(page);
-      241 |     // make sure the app had a chance to save updated todos in storage
-      242 |     // before navigating to a new view, otherwise the items can get lost :(
-
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:239:8[22m
-
-    page.waitForFunction: Target closed
-
-      346 |  */
-      347 | async function checkTodosInLocalStorage(page, title) {
-    > 348 |   return await page.waitForFunction((t) => {
-          |                     ^
-      349 |     const data = localStorage.getItem("mydayapp-js");
-      350 |     if (data) {
-      351 |       return JSON.parse(data)
-
-    [2m    at checkTodosInLocalStorage (/home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:348:21)[22m
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:244:11[22m
-
-    Pending operations:
-      - page.waitForFunction at e2e/app.spec.js:348:21
-
-
-[31m  19) [chromium] › app.spec.js:298:3 › Routing › should highlight the currently applied filter [90m=====[31m[39m
-
-    [31mTimeout of 30000ms exceeded in beforeEach hook.[39m
-
-      237 |
-      238 | test.describe("Routing", () => {
-    > 239 |   test.beforeEach(async ({ page }) => {
-          |        ^
-      240 |     await createDefaultTodos(page);
-      241 |     // make sure the app had a chance to save updated todos in storage
-      242 |     // before navigating to a new view, otherwise the items can get lost :(
-
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:239:8[22m
-
-    page.waitForFunction: Target closed
-
-      346 |  */
-      347 | async function checkTodosInLocalStorage(page, title) {
-    > 348 |   return await page.waitForFunction((t) => {
-          |                     ^
-      349 |     const data = localStorage.getItem("mydayapp-js");
-      350 |     if (data) {
-      351 |       return JSON.parse(data)
-
-    [2m    at checkTodosInLocalStorage (/home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:348:21)[22m
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:244:11[22m
-
-    Pending operations:
-      - page.waitForFunction at e2e/app.spec.js:348:21
-
-
-[33m  Slow test file: [39m[chromium] › app.spec.js[33m (5m)[39m
+[33m  Slow test file: [39m[chromium] › app.spec.js[33m (50s)[39m
 [33m  Consider splitting slow test files to speed up parallel execution[39m
 
-[31m  19 failed[39m
-[31m    [chromium] › app.spec.js:15:3 › New Todo › should allow me to add todo items [90m===================[31m[39m
-[31m    [chromium] › app.spec.js:36:3 › New Todo › should clear text input field when an item is added [90m=[31m[39m
+[31m  8 failed[39m
 [31m    [chromium] › app.spec.js:48:3 › New Todo › should append new items to the bottom of the list [90m===[31m[39m
-[31m    [chromium] › app.spec.js:64:3 › New Todo › should show #main and #footer when items added [90m======[31m[39m
-[31m    [chromium] › app.spec.js:75:3 › Item › should allow me to mark items as complete [90m===============[31m[39m
-[31m    [chromium] › app.spec.js:97:3 › Item › should allow me to un-mark items as complete [90m============[31m[39m
-[31m    [chromium] › app.spec.js:117:3 › Item › should allow me to edit an item [90m========================[31m[39m
-[31m    [chromium] › app.spec.js:143:3 › Editing › should hide other controls when editing [90m=============[31m[39m
-[31m    [chromium] › app.spec.js:151:3 › Editing › should trim entered text [90m============================[31m[39m
-[31m    [chromium] › app.spec.js:165:3 › Editing › should cancel edits on escape [90m=======================[31m[39m
 [31m    [chromium] › app.spec.js:174:3 › Counter › should display the current number of todo items [90m=====[31m[39m
 [31m    [chromium] › app.spec.js:199:3 › Clear completed button › should remove completed items when clicked [39m
 [31m    [chromium] › app.spec.js:207:3 › Clear completed button › should be hidden when there are no items that are completed [39m
-[31m    [chromium] › app.spec.js:217:3 › Persistence › should persist its data [90m=========================[31m[39m
 [31m    [chromium] › app.spec.js:247:3 › Routing › should allow me to display pending items [90m============[31m[39m
 [31m    [chromium] › app.spec.js:258:3 › Routing › should respect the back button [90m======================[31m[39m
 [31m    [chromium] › app.spec.js:282:3 › Routing › should allow me to display completed items [90m==========[31m[39m
-[31m    [chromium] › app.spec.js:289:3 › Routing › should allow me to display all items [90m================[31m[39m
 [31m    [chromium] › app.spec.js:298:3 › Routing › should highlight the currently applied filter [90m=======[31m[39m
-[32m  1 passed[39m[2m (5m)[22m
+[32m  12 passed[39m[2m (54s)[22m
