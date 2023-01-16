@@ -1,5 +1,5 @@
-import Storage from "./Storage";
-import Accounts from "./Accounts";
+import Storage from "./storage.js";
+import Accounts from "./accounts.js";
 
 let storage = new Storage();
 let accounts = new Accounts();

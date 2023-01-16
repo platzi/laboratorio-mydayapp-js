@@ -1,4 +1,4 @@
-import Storage from "./Storage";
+import Storage from "./storage.js";
 
 let storage = new Storage();
 export default class Accounts {
