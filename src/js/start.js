@@ -2,6 +2,7 @@ import {
   keyDownEvent,
   clearCompletedEvent,
   loadToDoList,
+  urlControl,
 } from "./manageDom.js";
 export default class Start {
   constructor() {}
@@ -9,14 +10,14 @@ export default class Start {
   init() {
     this.toDoList = document.querySelector(".todo-list");
     this.updateTask();
-    this.registerMainEvent();
+    this.registerMainEvents();
   }
 
   updateTask() {
     loadToDoList();
   }
 
-  registerMainEvent() {
+  registerMainEvents() {
     const toDoInput = document.querySelector(".new-todo");
     if (toDoInput) {
       toDoInput.addEventListener("keydown", keyDownEvent);
@@ -26,5 +27,7 @@ export default class Start {
     if (clearCompleted) {
       clearCompleted.addEventListener("click", clearCompletedEvent);
     }
+
+    window.addEventListener("hashchange", urlControl);
   }
 }

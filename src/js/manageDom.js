@@ -4,6 +4,9 @@ import Accounts from "./Accounts";
 let storage = new Storage();
 let accounts = new Accounts();
 let lu = document.querySelector(".todo-list");
+const allList = document.querySelector(".filters li:nth-child(1n) a");
+const pendingList = document.querySelector(".filters li:nth-child(2n) a");
+const completedList = document.querySelector(".filters li:nth-child(3n) a");
 
 const addToDoToDom = (text, index, completed) => {
   if (!lu) return;
@@ -107,6 +110,7 @@ function keyDownEvent(event) {
 }
 
 function clearCompletedEvent(event) {
+  clearClasses();
   if (!lu) return;
   storage.removeCompletedItems("mydayapp-js");
   loadToDoList();
@@ -114,10 +118,60 @@ function clearCompletedEvent(event) {
 }
 
 function loadToDoList() {
+  clearClasses();
+  allList.setAttribute("class", "selected");
   lu.innerHTML = "";
   storage.getStorage("mydayapp-js").forEach((item) => {
     addToDoToDom(item.title, item.id, item.completed);
   });
+  accounts.refreshAccounts("mydayapp-js");
 }
 
-export { keyDownEvent, clearCompletedEvent, loadToDoList };
+function loadPendingList() {
+  clearClasses();
+  lu.innerHTML = "";
+  pendingList.setAttribute("class", "selected");
+  storage.getPending("mydayapp-js").forEach((item) => {
+    addToDoToDom(item.title, item.id, item.completed);
+  });
+}
+
+function loadCompletedList() {
+  clearClasses();
+  lu.innerHTML = "";
+  completedList.setAttribute("class", "selected");
+  storage.getCompleted("mydayapp-js").forEach((item) => {
+    addToDoToDom(item.title, item.id, item.completed);
+  });
+}
+
+function clearClasses() {
+  allList.setAttribute("class", "");
+  pendingList.setAttribute("class", "");
+  completedList.setAttribute("class", "");
+}
+
+function urlControl(event) {
+  getNewPart(event.newURL);
+}
+
+function getNewPart(url) {
+  //http://localhost:3000/#/pending
+  let splitValue = url.split("#/");
+  if (splitValue.length === 1) return;
+  switch (splitValue[1]) {
+    case "completed":
+      loadCompletedList();
+      break;
+    case "":
+      loadToDoList();
+      break;
+    case "pending":
+      loadPendingList();
+      break;
+    default:
+      return;
+  }
+}
+
+export { keyDownEvent, clearCompletedEvent, loadToDoList, urlControl };

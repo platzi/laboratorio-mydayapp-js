@@ -25,6 +25,18 @@ export default class Storage {
     return JSON.parse(localStorage.getItem(key));
   }
 
+  getPending(key) {
+    return this.getStorage(key).filter((item) => {
+      return item.completed == false;
+    });
+  }
+
+  getCompleted(key) {
+    return this.getStorage(key).filter((item) => {
+      return item.completed == true;
+    });
+  }
+
   addNewItem(storage, index, value, key) {
     let newItem = {
       id: index,
