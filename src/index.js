@@ -11,29 +11,45 @@ const todoList = [
   { id: 'Una tarea', title: 'Una tarea', completed: false },
   { id: 'Otra tarea', title: 'Otra tarea', completed: false },
   { id: 'Una tarea completada', title: 'Una tarea completada', completed: true },
-]
+];
 
 const newTodoList = [];
+
+const toggleCompletedState = (checkedElement, elementToChange, elementId) => {
+  const elementIndex = todoList.findIndex(item => item.id === elementId);
+
+  if (checkedElement.checked) {
+    todoList[elementIndex].completed = true;
+    elementToChange.classList.add('completed');
+  } else {
+    todoList[elementIndex].completed = false;
+    elementToChange.classList.remove('completed');
+  }
+}
 
 const renderNewList = (array) => {
   array.forEach(item => {
     const todoContainer = document.createElement('li');
     
-    if(item.completed) {
-      todoContainer.classList.add('completed');
-    }
-  
     const todoDivContainer = document.createElement('div');
     todoDivContainer.classList.add('view');
     
     const checkBox = document.createElement('input');
     checkBox.classList.add('toggle');
     checkBox.type = 'checkbox';
+    
+    if(item.completed) {
+      todoContainer.classList.add('completed');
+      checkBox.checked = true;
+    }
+
+    checkBox.addEventListener('change', () => toggleCompletedState(checkBox, todoContainer, item.id));
   
     const todoLabel = document.createElement('label');
     todoLabel.innerHTML = item.title;
   
     const deleteTodoButton = document.createElement('button');
+    deleteTodoButton.type = 'button';
     deleteTodoButton.classList.add('destroy');
   
     todoDivContainer.append(checkBox, todoLabel, deleteTodoButton);
