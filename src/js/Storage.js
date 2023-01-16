@@ -22,7 +22,7 @@ export default class Storage {
   addNewItem(storage, index, value, key) {
     let newItem = {
       id: index,
-      title: value,
+      title: value.trim(),
       completed: false,
     };
     if (storage === null) storage = [];
@@ -39,11 +39,14 @@ export default class Storage {
     return itemsLeft.length;
   }
 
-  updateStateItem(key, id, state) {
+  updateStateItem(key, id, state, text) {
     let storage = this.getStorage(key);
     let clearValue = JSON.parse(storage);
     clearValue.forEach((element) => {
-      if (element.id == id) element.completed = state;
+      if (element.id == id) {
+        element.completed = state === undefined ? element.completed : state;
+        element.title = text === undefined ? element.title : text.trim();
+      }
     });
     let itemToStorage = JSON.stringify(clearValue);
     localStorage.setItem(key, itemToStorage);
