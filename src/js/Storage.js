@@ -51,7 +51,7 @@ export default class Storage {
   getItemLeft(key) {
     let itemsLeft = this.getStorage(key);
     if (!itemsLeft) return 0;
-    return itemsLeft.filter((item) => item.completed == false).length;
+    return itemsLeft.length;
   }
 
   getItemCompleted(key) {
