@@ -1,17 +1,29 @@
 import "./css/base.css";
 
-import { newTodoInput, todoListContainer, footer } from "./js/domElements";
+import { newTodoInput, todoListContainer, main, footer } from "./js/domElements";
 
-// testing list
-const todoList = [
-  { id: 'Una tarea', title: 'Una tarea', completed: false },
-  { id: 'Otra tarea', title: 'Otra tarea', completed: false },
-  { id: 'Una tarea completada', title: 'Una tarea completada', completed: true },
-];
+let todoList;
+
+if (!localStorage.getItem('mydayapp-js')) {
+  localStorage.setItem('mydayapp-js', JSON.stringify([]));
+  todoList = JSON.parse(localStorage.getItem('mydayapp-js'));
+} else {
+  todoList = JSON.parse(localStorage.getItem('mydayapp-js'));
+}
+
+const updateStoragedTodos = (arr) => {
+  localStorage.setItem('mydayapp-js', JSON.stringify(arr));
+  getStoragedTodos();
+}
+
+const getStoragedTodos = () => {
+  todoList = JSON.parse(localStorage.getItem('mydayapp-js'));
+}
 
 const renderNewList = (array) => {
 
   todoListContainer.replaceChildren('');
+  updateStoragedTodos(array);
 
   array.forEach(item => {
     const todoContainer = document.createElement('li');
@@ -64,21 +76,18 @@ const toggleCompletedState = (checkedElement, elementToChange, elementId) => {
   if (checkedElement.checked) {
     todoList[elementIndex].completed = true;
     elementToChange.classList.add('completed');
+    updateStoragedTodos(todoList);
   } else {
     todoList[elementIndex].completed = false;
     elementToChange.classList.remove('completed');
+    updateStoragedTodos(todoList);
   }
 }
 
 const eliminateTask = (elementId) => {
   todoList.splice(todoList.findIndex(item => item.id === elementId), 1);
   renderNewList(todoList);
-  hideFooter();
-}
-
-const addNewTask = (newTask) => {
-  todoList.push(newTask);
-  renderNewList(todoList);
+  hideMainAndFooterToggle();
 }
 
 const toggleHiddenContent = addHidden => {
@@ -120,6 +129,12 @@ const editTask = (e, elementId, elementToChange) => {
   }
 }
 
+const addNewTask = (newTask) => {
+  todoList.push(newTask);
+  renderNewList(todoList);
+  hideMainAndFooterToggle();
+}
+
 newTodoInput.addEventListener('keydown', e => {
   if (e.key === 'Enter' && e.target.value.length > 1 && e.target.value.trim()){
     const newTodo = {
@@ -132,12 +147,14 @@ newTodoInput.addEventListener('keydown', e => {
   }
 });
 
-const hideFooter = () => {
+const hideMainAndFooterToggle = () => {
   if(todoList.length < 1) {
     footer.classList.add('hidden');
+    main.classList.add('hidden');
   } else {
     footer.classList.remove('hidden');
+    main.classList.remove('hidden');
   }
 }
 
-hideFooter();
+hideMainAndFooterToggle();

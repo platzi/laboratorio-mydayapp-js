@@ -6,410 +6,633 @@
 > mydayapp-js@1.0.0 build
 > webpack
 
-asset main.bundle.js 12 KiB [compared for emit] [minimized] (name: main)
-asset index.html 11.2 KiB [emitted]
+asset main.bundle.js 14.8 KiB [emitted] [minimized] (name: main)
+asset index.html 10.7 KiB [emitted]
 runtime modules 1.09 KiB 5 modules
-orphan modules 1.2 KiB [orphan] 2 modules
-javascript modules 18.5 KiB
+orphan modules 1.52 KiB [orphan] 2 modules
+javascript modules 24.3 KiB
   modules by path ./node_modules/ 8.66 KiB
     modules by path ./node_modules/style-loader/dist/runtime/*.js 5.75 KiB 6 modules
     modules by path ./node_modules/css-loader/dist/runtime/*.js 2.91 KiB
       ./node_modules/css-loader/dist/runtime/noSourceMaps.js 64 bytes [built] [code generated]
       + 2 modules
-  modules by path ./src/ 9.82 KiB
-    ./src/index.js + 2 modules 1.29 KiB [built] [code generated]
+  modules by path ./src/ 15.7 KiB
+    ./src/index.js + 2 modules 7.13 KiB [built] [code generated]
     ./node_modules/css-loader/dist/cjs.js!./src/css/base.css 8.53 KiB [built] [code generated]
 asset modules 620 bytes
   data:image/svg+xml;utf8,%3Csvg%20xmlns%3.. 268 bytes [built] [code generated]
   data:image/svg+xml;utf8,%3Csvg%20xmlns%3.. 352 bytes [built] [code generated]
-webpack 5.73.0 compiled successfully in 881 ms
+webpack 5.73.0 compiled successfully in 1069 ms
 
 Running 20 tests using 1 worker
 
-[31m  ✘  [chromium] › app.spec.js:15:3 › New Todo › should allow me to add todo items[39m[2m (50ms)[22m
-[31m  ✘  [chromium] › app.spec.js:36:3 › New Todo › should clear text input field when an item is added[39m[2m (40ms)[22m
-[31m  ✘  [chromium] › app.spec.js:48:3 › New Todo › should append new items to the bottom of the list[39m[2m (41ms)[22m
-[31m  ✘  [chromium] › app.spec.js:64:3 › New Todo › should show #main and #footer when items added[39m[2m (41ms)[22m
-[31m  ✘  [chromium] › app.spec.js:75:3 › Item › should allow me to mark items as complete[39m[2m (37ms)[22m
-[31m  ✘  [chromium] › app.spec.js:97:3 › Item › should allow me to un-mark items as complete[39m[2m (37ms)[22m
-[31m  ✘  [chromium] › app.spec.js:117:3 › Item › should allow me to edit an item[39m[2m (41ms)[22m
-[31m  ✘  [chromium] › app.spec.js:143:3 › Editing › should hide other controls when editing[39m[2m (41ms)[22m
-[31m  ✘  [chromium] › app.spec.js:151:3 › Editing › should trim entered text[39m[2m (39ms)[22m
-[31m  ✘  [chromium] › app.spec.js:165:3 › Editing › should cancel edits on escape[39m[2m (40ms)[22m
-[31m  ✘  [chromium] › app.spec.js:174:3 › Counter › should display the current number of todo items[39m[2m (40ms)[22m
-[31m  ✘  [chromium] › app.spec.js:192:3 › Clear completed button › should display the correct text[39m[2m (40ms)[22m
-[31m  ✘  [chromium] › app.spec.js:199:3 › Clear completed button › should remove completed items when clicked[39m[2m (39ms)[22m
-[31m  ✘  [chromium] › app.spec.js:207:3 › Clear completed button › should be hidden when there are no items that are completed[39m[2m (40ms)[22m
-[31m  ✘  [chromium] › app.spec.js:217:3 › Persistence › should persist its data[39m[2m (41ms)[22m
-[31m  ✘  [chromium] › app.spec.js:247:3 › Routing › should allow me to display pending items[39m[2m (42ms)[22m
-[31m  ✘  [chromium] › app.spec.js:258:3 › Routing › should respect the back button[39m[2m (40ms)[22m
-[31m  ✘  [chromium] › app.spec.js:282:3 › Routing › should allow me to display completed items[39m[2m (37ms)[22m
-[31m  ✘  [chromium] › app.spec.js:289:3 › Routing › should allow me to display all items[39m[2m (40ms)[22m
-[31m  ✘  [chromium] › app.spec.js:298:3 › Routing › should highlight the currently applied filter[39m[2m (42ms)[22m
+[31m  ✘  [chromium] › app.spec.js:15:3 › New Todo › should allow me to add todo items[39m[2m (613ms)[22m
+[31m  ✘  [chromium] › app.spec.js:36:3 › New Todo › should clear text input field when an item is added[39m[2m (559ms)[22m
+[31m  ✘  [chromium] › app.spec.js:48:3 › New Todo › should append new items to the bottom of the list[39m[2m (6s)[22m
+[31m  ✘  [chromium] › app.spec.js:64:3 › New Todo › should show #main and #footer when items added[39m[2m (6s)[22m
+[31m  ✘  [chromium] › app.spec.js:75:3 › Item › should allow me to mark items as complete[39m[2m (6s)[22m
+[31m  ✘  [chromium] › app.spec.js:97:3 › Item › should allow me to un-mark items as complete[39m[2m (6s)[22m
+[31m  ✘  [chromium] › app.spec.js:117:3 › Item › should allow me to edit an item[39m[2m (30s)[22m
+[31m  ✘  [chromium] › app.spec.js:143:3 › Editing › should hide other controls when editing[39m[2m (558ms)[22m
+[31m  ✘  [chromium] › app.spec.js:151:3 › Editing › should trim entered text[39m[2m (541ms)[22m
+[31m  ✘  [chromium] › app.spec.js:165:3 › Editing › should cancel edits on escape[39m[2m (522ms)[22m
+[31m  ✘  [chromium] › app.spec.js:174:3 › Counter › should display the current number of todo items[39m[2m (6s)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:192:3 › Clear completed button › should display the correct text[39m[2m (528ms)[22m
+[31m  ✘  [chromium] › app.spec.js:199:3 › Clear completed button › should remove completed items when clicked[39m[2m (30s)[22m
+[31m  ✘  [chromium] › app.spec.js:207:3 › Clear completed button › should be hidden when there are no items that are completed[39m[2m (30s)[22m
+[31m  ✘  [chromium] › app.spec.js:217:3 › Persistence › should persist its data[39m[2m (6s)[22m
+[31m  ✘  [chromium] › app.spec.js:247:3 › Routing › should allow me to display pending items[39m[2m (30s)[22m
+[31m  ✘  [chromium] › app.spec.js:258:3 › Routing › should respect the back button[39m[2m (30s)[22m
+[31m  ✘  [chromium] › app.spec.js:282:3 › Routing › should allow me to display completed items[39m[2m (30s)[22m
+[31m  ✘  [chromium] › app.spec.js:289:3 › Routing › should allow me to display all items[39m[2m (30s)[22m
+[31m  ✘  [chromium] › app.spec.js:298:3 › Routing › should highlight the currently applied filter[39m[2m (30s)[22m
 
 
 [31m  1) [chromium] › app.spec.js:15:3 › New Todo › should allow me to add todo items [90m==================[31m[39m
 
-    browserType.launch: 
-    ╔══════════════════════════════════════════════════════╗
-    ║ Host system is missing dependencies to run browsers. ║
-    ║ Please install them with the following command:      ║
-    ║                                                      ║
-    ║     sudo npx playwright install-deps                 ║
-    ║                                                      ║
-    ║ Alternatively, use apt:                              ║
-    ║     sudo apt-get install libgbm1                     ║
-    ║                                                      ║
-    ║ <3 Playwright Team                                   ║
-    ╚══════════════════════════════════════════════════════╝
+    page.waitForFunction: SyntaxError: "undefined" is not valid JSON
 
+      323 |  */
+      324 | async function checkNumberOfTodosInLocalStorage(page, expected) {
+    > 325 |   return await page.waitForFunction((e) => {
+          |                     ^
+      326 |     return JSON.parse(localStorage["mydayapp-js"]).length === e;
+      327 |   }, expected);
+      328 | }
 
-
+    [2m    at JSON.parse (<anonymous>)[22m
+    [2m    at eval (eval at predicate (eval at evaluate (:178:30)), <anonymous>:2:17)[22m
+    [2m    at predicate (eval at evaluate (:178:30), <anonymous>:11:20)[22m
+    [2m    at eval (eval at evaluate (:178:30), <anonymous>:22:82)[22m
+    [2m    at next (<anonymous>:4032:27)[22m
+    [2m    at <anonymous>:4042:7[22m
+    [2m    at Object.run (<anonymous>:4086:22)[22m
+    [2m    at eval (eval at evaluate (:178:30), <anonymous>:1:14)[22m
+    [2m    at UtilityScript.evaluate (<anonymous>:180:17)[22m
+    [2m    at UtilityScript.<anonymous> (<anonymous>:1:44)[22m
+    [2m=========================== logs ===========================[22m
+    [2m  "undefined" is not valid JSON[22m
+    [2m============================================================[22m
+    [2m    at checkNumberOfTodosInLocalStorage (/home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:325:21)[22m
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:33:11[22m
 
 [31m  2) [chromium] › app.spec.js:36:3 › New Todo › should clear text input field when an item is added [39m
 
-    browserType.launch: 
-    ╔══════════════════════════════════════════════════════╗
-    ║ Host system is missing dependencies to run browsers. ║
-    ║ Please install them with the following command:      ║
-    ║                                                      ║
-    ║     sudo npx playwright install-deps                 ║
-    ║                                                      ║
-    ║ Alternatively, use apt:                              ║
-    ║     sudo apt-get install libgbm1                     ║
-    ║                                                      ║
-    ║ <3 Playwright Team                                   ║
-    ╚══════════════════════════════════════════════════════╝
+    page.waitForFunction: SyntaxError: "undefined" is not valid JSON
 
+      323 |  */
+      324 | async function checkNumberOfTodosInLocalStorage(page, expected) {
+    > 325 |   return await page.waitForFunction((e) => {
+          |                     ^
+      326 |     return JSON.parse(localStorage["mydayapp-js"]).length === e;
+      327 |   }, expected);
+      328 | }
 
-
+    [2m    at JSON.parse (<anonymous>)[22m
+    [2m    at eval (eval at predicate (eval at evaluate (:178:30)), <anonymous>:2:17)[22m
+    [2m    at predicate (eval at evaluate (:178:30), <anonymous>:11:20)[22m
+    [2m    at eval (eval at evaluate (:178:30), <anonymous>:22:82)[22m
+    [2m    at next (<anonymous>:4032:27)[22m
+    [2m    at <anonymous>:4042:7[22m
+    [2m    at Object.run (<anonymous>:4086:22)[22m
+    [2m    at eval (eval at evaluate (:178:30), <anonymous>:1:14)[22m
+    [2m    at UtilityScript.evaluate (<anonymous>:180:17)[22m
+    [2m    at UtilityScript.<anonymous> (<anonymous>:1:44)[22m
+    [2m=========================== logs ===========================[22m
+    [2m  "undefined" is not valid JSON[22m
+    [2m============================================================[22m
+    [2m    at checkNumberOfTodosInLocalStorage (/home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:325:21)[22m
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:45:11[22m
 
 [31m  3) [chromium] › app.spec.js:48:3 › New Todo › should append new items to the bottom of the list [90m==[31m[39m
 
-    browserType.launch: 
-    ╔══════════════════════════════════════════════════════╗
-    ║ Host system is missing dependencies to run browsers. ║
-    ║ Please install them with the following command:      ║
-    ║                                                      ║
-    ║     sudo npx playwright install-deps                 ║
-    ║                                                      ║
-    ║ Alternatively, use apt:                              ║
-    ║     sudo apt-get install libgbm1                     ║
-    ║                                                      ║
-    ║ <3 Playwright Team                                   ║
-    ╚══════════════════════════════════════════════════════╝
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoHaveText[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected string: [32m"[7m3[27m item[7ms[27m left"[39m
+    Received string: [31m"[7m0[27m item left"[39m
+    Call log:
+      [2m- expect.toHaveText with timeout 5000ms[22m
+    [2m  - waiting for selector ".todo-count"[22m
+    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
+    [2m  -   unexpected value "0 item left"[22m
+    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
+    [2m  -   unexpected value "0 item left"[22m
+    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
+    [2m  -   unexpected value "0 item left"[22m
+    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
+    [2m  -   unexpected value "0 item left"[22m
+    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
+    [2m  -   unexpected value "0 item left"[22m
+    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
+    [2m  -   unexpected value "0 item left"[22m
+    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
+    [2m  -   unexpected value "0 item left"[22m
+    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
+    [2m  -   unexpected value "0 item left"[22m
 
 
+      53 |
+      54 |     // Check test using different methods.
+    > 55 |     await expect(page.locator(".todo-count")).toHaveText("3 items left");
+         |                                               ^
+      56 |     await expect(page.locator(".todo-count")).toContainText("3");
+      57 |     await expect(page.locator(".todo-count")).toHaveText(/3/);
+      58 |
 
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:55:47[22m
 
 [31m  4) [chromium] › app.spec.js:64:3 › New Todo › should show #main and #footer when items added [90m=====[31m[39m
 
-    browserType.launch: 
-    ╔══════════════════════════════════════════════════════╗
-    ║ Host system is missing dependencies to run browsers. ║
-    ║ Please install them with the following command:      ║
-    ║                                                      ║
-    ║     sudo npx playwright install-deps                 ║
-    ║                                                      ║
-    ║ Alternatively, use apt:                              ║
-    ║     sudo apt-get install libgbm1                     ║
-    ║                                                      ║
-    ║ <3 Playwright Team                                   ║
-    ╚══════════════════════════════════════════════════════╝
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeVisible[2m()[22m
+    Call log:
+      [2m- expect.toBeVisible with timeout 5000ms[22m
+    [2m  - waiting for selector ".footer"[22m
+    [2m  -   selector resolved to <footer class="footer hidden">…</footer>[22m
+    [2m  -   unexpected value "false"[22m
+    [2m  -   selector resolved to <footer class="footer hidden">…</footer>[22m
+    [2m  -   unexpected value "false"[22m
+    [2m  -   selector resolved to <footer class="footer hidden">…</footer>[22m
+    [2m  -   unexpected value "false"[22m
+    [2m  -   selector resolved to <footer class="footer hidden">…</footer>[22m
+    [2m  -   unexpected value "false"[22m
+    [2m  -   selector resolved to <footer class="footer hidden">…</footer>[22m
+    [2m  -   unexpected value "false"[22m
+    [2m  -   selector resolved to <footer class="footer hidden">…</footer>[22m
+    [2m  -   unexpected value "false"[22m
+    [2m  -   selector resolved to <footer class="footer hidden">…</footer>[22m
+    [2m  -   unexpected value "false"[22m
+    [2m  -   selector resolved to <footer class="footer hidden">…</footer>[22m
+    [2m  -   unexpected value "false"[22m
 
 
+      67 |
+      68 |     await expect(page.locator(".main")).toBeVisible();
+    > 69 |     await expect(page.locator(".footer")).toBeVisible();
+         |                                           ^
+      70 |     await checkNumberOfTodosInLocalStorage(page, 1);
+      71 |   });
+      72 | });
 
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:69:43[22m
 
 [31m  5) [chromium] › app.spec.js:75:3 › Item › should allow me to mark items as complete [90m==============[31m[39m
 
-    browserType.launch: 
-    ╔══════════════════════════════════════════════════════╗
-    ║ Host system is missing dependencies to run browsers. ║
-    ║ Please install them with the following command:      ║
-    ║                                                      ║
-    ║     sudo npx playwright install-deps                 ║
-    ║                                                      ║
-    ║ Alternatively, use apt:                              ║
-    ║     sudo apt-get install libgbm1                     ║
-    ║                                                      ║
-    ║ <3 Playwright Team                                   ║
-    ╚══════════════════════════════════════════════════════╝
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoHaveClass[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected string: [32m"completed"[39m
+    Received string: [31m"[7mtodo-container [27mcompleted"[39m
+    Call log:
+      [2m- expect.toHaveClass with timeout 5000ms[22m
+    [2m  - waiting for selector ".todo-list li >> nth=0"[22m
+    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
+    [2m  -   unexpected value "todo-container completed"[22m
+    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
+    [2m  -   unexpected value "todo-container completed"[22m
+    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
+    [2m  -   unexpected value "todo-container completed"[22m
+    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
+    [2m  -   unexpected value "todo-container completed"[22m
+    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
+    [2m  -   unexpected value "todo-container completed"[22m
+    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
+    [2m  -   unexpected value "todo-container completed"[22m
+    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
+    [2m  -   unexpected value "todo-container completed"[22m
+    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
+    [2m  -   unexpected value "todo-container completed"[22m
 
 
+      83 |     const firstTodo = page.locator(".todo-list li").nth(0);
+      84 |     await firstTodo.locator(".toggle").check();
+    > 85 |     await expect(firstTodo).toHaveClass("completed");
+         |                             ^
+      86 |
+      87 |     // Check second item.
+      88 |     const secondTodo = page.locator(".todo-list li").nth(1);
 
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:85:29[22m
 
 [31m  6) [chromium] › app.spec.js:97:3 › Item › should allow me to un-mark items as complete [90m===========[31m[39m
 
-    browserType.launch: 
-    ╔══════════════════════════════════════════════════════╗
-    ║ Host system is missing dependencies to run browsers. ║
-    ║ Please install them with the following command:      ║
-    ║                                                      ║
-    ║     sudo npx playwright install-deps                 ║
-    ║                                                      ║
-    ║ Alternatively, use apt:                              ║
-    ║     sudo apt-get install libgbm1                     ║
-    ║                                                      ║
-    ║ <3 Playwright Team                                   ║
-    ╚══════════════════════════════════════════════════════╝
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoHaveClass[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected string: [32m"completed"[39m
+    Received string: [31m"[7mtodo-container [27mcompleted"[39m
+    Call log:
+      [2m- expect.toHaveClass with timeout 5000ms[22m
+    [2m  - waiting for selector ".todo-list li >> nth=0"[22m
+    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
+    [2m  -   unexpected value "todo-container completed"[22m
+    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
+    [2m  -   unexpected value "todo-container completed"[22m
+    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
+    [2m  -   unexpected value "todo-container completed"[22m
+    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
+    [2m  -   unexpected value "todo-container completed"[22m
+    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
+    [2m  -   unexpected value "todo-container completed"[22m
+    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
+    [2m  -   unexpected value "todo-container completed"[22m
+    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
+    [2m  -   unexpected value "todo-container completed"[22m
+    [2m  -   selector resolved to <li class="todo-container completed">…</li>[22m
+    [2m  -   unexpected value "todo-container completed"[22m
 
 
+      105 |     const secondTodo = page.locator(".todo-list li").nth(1);
+      106 |     await firstTodo.locator(".toggle").check();
+    > 107 |     await expect(firstTodo).toHaveClass("completed");
+          |                             ^
+      108 |     await expect(secondTodo).not.toHaveClass("completed");
+      109 |     await checkNumberOfCompletedTodosInLocalStorage(page, 1);
+      110 |
 
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:107:29[22m
 
 [31m  7) [chromium] › app.spec.js:117:3 › Item › should allow me to edit an item [90m=======================[31m[39m
 
-    browserType.launch: 
-    ╔══════════════════════════════════════════════════════╗
-    ║ Host system is missing dependencies to run browsers. ║
-    ║ Please install them with the following command:      ║
-    ║                                                      ║
-    ║     sudo npx playwright install-deps                 ║
-    ║                                                      ║
-    ║ Alternatively, use apt:                              ║
-    ║     sudo apt-get install libgbm1                     ║
-    ║                                                      ║
-    ║ <3 Playwright Team                                   ║
-    ╚══════════════════════════════════════════════════════╝
+    [31mTimeout of 30000ms exceeded.[39m
 
+    page.waitForFunction: Target closed
 
+      346 |  */
+      347 | async function checkTodosInLocalStorage(page, title) {
+    > 348 |   return await page.waitForFunction((t) => {
+          |                     ^
+      349 |     const data = localStorage.getItem("mydayapp-js");
+      350 |     if (data) {
+      351 |       return JSON.parse(data)
+
+    [2m    at checkTodosInLocalStorage (/home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:348:21)[22m
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:133:11[22m
+
+    Pending operations:
+      - page.waitForFunction at e2e/app.spec.js:348:21
 
 
 [31m  8) [chromium] › app.spec.js:143:3 › Editing › should hide other controls when editing [90m============[31m[39m
 
-    browserType.launch: 
-    ╔══════════════════════════════════════════════════════╗
-    ║ Host system is missing dependencies to run browsers. ║
-    ║ Please install them with the following command:      ║
-    ║                                                      ║
-    ║     sudo npx playwright install-deps                 ║
-    ║                                                      ║
-    ║ Alternatively, use apt:                              ║
-    ║     sudo apt-get install libgbm1                     ║
-    ║                                                      ║
-    ║ <3 Playwright Team                                   ║
-    ╚══════════════════════════════════════════════════════╝
+    page.waitForFunction: SyntaxError: "undefined" is not valid JSON
 
+      323 |  */
+      324 | async function checkNumberOfTodosInLocalStorage(page, expected) {
+    > 325 |   return await page.waitForFunction((e) => {
+          |                     ^
+      326 |     return JSON.parse(localStorage["mydayapp-js"]).length === e;
+      327 |   }, expected);
+      328 | }
 
-
+    [2m    at JSON.parse (<anonymous>)[22m
+    [2m    at eval (eval at predicate (eval at evaluate (:178:30)), <anonymous>:2:17)[22m
+    [2m    at predicate (eval at evaluate (:178:30), <anonymous>:11:20)[22m
+    [2m    at eval (eval at evaluate (:178:30), <anonymous>:22:82)[22m
+    [2m    at next (<anonymous>:4032:27)[22m
+    [2m    at <anonymous>:4042:7[22m
+    [2m    at Object.run (<anonymous>:4086:22)[22m
+    [2m    at eval (eval at evaluate (:178:30), <anonymous>:1:14)[22m
+    [2m    at UtilityScript.evaluate (<anonymous>:180:17)[22m
+    [2m    at UtilityScript.<anonymous> (<anonymous>:1:44)[22m
+    [2m=========================== logs ===========================[22m
+    [2m  "undefined" is not valid JSON[22m
+    [2m============================================================[22m
+    [2m    at checkNumberOfTodosInLocalStorage (/home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:325:21)[22m
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:140:11[22m
 
 [31m  9) [chromium] › app.spec.js:151:3 › Editing › should trim entered text [90m===========================[31m[39m
 
-    browserType.launch: 
-    ╔══════════════════════════════════════════════════════╗
-    ║ Host system is missing dependencies to run browsers. ║
-    ║ Please install them with the following command:      ║
-    ║                                                      ║
-    ║     sudo npx playwright install-deps                 ║
-    ║                                                      ║
-    ║ Alternatively, use apt:                              ║
-    ║     sudo apt-get install libgbm1                     ║
-    ║                                                      ║
-    ║ <3 Playwright Team                                   ║
-    ╚══════════════════════════════════════════════════════╝
+    page.waitForFunction: SyntaxError: "undefined" is not valid JSON
 
+      323 |  */
+      324 | async function checkNumberOfTodosInLocalStorage(page, expected) {
+    > 325 |   return await page.waitForFunction((e) => {
+          |                     ^
+      326 |     return JSON.parse(localStorage["mydayapp-js"]).length === e;
+      327 |   }, expected);
+      328 | }
 
-
+    [2m    at JSON.parse (<anonymous>)[22m
+    [2m    at eval (eval at predicate (eval at evaluate (:178:30)), <anonymous>:2:17)[22m
+    [2m    at predicate (eval at evaluate (:178:30), <anonymous>:11:20)[22m
+    [2m    at eval (eval at evaluate (:178:30), <anonymous>:22:82)[22m
+    [2m    at next (<anonymous>:4032:27)[22m
+    [2m    at <anonymous>:4042:7[22m
+    [2m    at Object.run (<anonymous>:4086:22)[22m
+    [2m    at eval (eval at evaluate (:178:30), <anonymous>:1:14)[22m
+    [2m    at UtilityScript.evaluate (<anonymous>:180:17)[22m
+    [2m    at UtilityScript.<anonymous> (<anonymous>:1:44)[22m
+    [2m=========================== logs ===========================[22m
+    [2m  "undefined" is not valid JSON[22m
+    [2m============================================================[22m
+    [2m    at checkNumberOfTodosInLocalStorage (/home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:325:21)[22m
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:140:11[22m
 
 [31m  10) [chromium] › app.spec.js:165:3 › Editing › should cancel edits on escape [90m=====================[31m[39m
 
-    browserType.launch: 
-    ╔══════════════════════════════════════════════════════╗
-    ║ Host system is missing dependencies to run browsers. ║
-    ║ Please install them with the following command:      ║
-    ║                                                      ║
-    ║     sudo npx playwright install-deps                 ║
-    ║                                                      ║
-    ║ Alternatively, use apt:                              ║
-    ║     sudo apt-get install libgbm1                     ║
-    ║                                                      ║
-    ║ <3 Playwright Team                                   ║
-    ╚══════════════════════════════════════════════════════╝
+    page.waitForFunction: SyntaxError: "undefined" is not valid JSON
 
+      323 |  */
+      324 | async function checkNumberOfTodosInLocalStorage(page, expected) {
+    > 325 |   return await page.waitForFunction((e) => {
+          |                     ^
+      326 |     return JSON.parse(localStorage["mydayapp-js"]).length === e;
+      327 |   }, expected);
+      328 | }
 
-
+    [2m    at JSON.parse (<anonymous>)[22m
+    [2m    at eval (eval at predicate (eval at evaluate (:178:30)), <anonymous>:2:17)[22m
+    [2m    at predicate (eval at evaluate (:178:30), <anonymous>:11:20)[22m
+    [2m    at eval (eval at evaluate (:178:30), <anonymous>:22:82)[22m
+    [2m    at next (<anonymous>:4032:27)[22m
+    [2m    at <anonymous>:4042:7[22m
+    [2m    at Object.run (<anonymous>:4086:22)[22m
+    [2m    at eval (eval at evaluate (:178:30), <anonymous>:1:14)[22m
+    [2m    at UtilityScript.evaluate (<anonymous>:180:17)[22m
+    [2m    at UtilityScript.<anonymous> (<anonymous>:1:44)[22m
+    [2m=========================== logs ===========================[22m
+    [2m  "undefined" is not valid JSON[22m
+    [2m============================================================[22m
+    [2m    at checkNumberOfTodosInLocalStorage (/home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:325:21)[22m
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:140:11[22m
 
 [31m  11) [chromium] › app.spec.js:174:3 › Counter › should display the current number of todo items [90m===[31m[39m
 
-    browserType.launch: 
-    ╔══════════════════════════════════════════════════════╗
-    ║ Host system is missing dependencies to run browsers. ║
-    ║ Please install them with the following command:      ║
-    ║                                                      ║
-    ║     sudo npx playwright install-deps                 ║
-    ║                                                      ║
-    ║ Alternatively, use apt:                              ║
-    ║     sudo apt-get install libgbm1                     ║
-    ║                                                      ║
-    ║ <3 Playwright Team                                   ║
-    ╚══════════════════════════════════════════════════════╝
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m
+
+    Expected string: [32m"1"[39m
+    Received string: [31m"0 item left"[39m
+    Call log:
+      [2m- expect.toContainText with timeout 5000ms[22m
+    [2m  - waiting for selector ".todo-count"[22m
+    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
+    [2m  -   unexpected value "0 item left"[22m
+    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
+    [2m  -   unexpected value "0 item left"[22m
+    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
+    [2m  -   unexpected value "0 item left"[22m
+    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
+    [2m  -   unexpected value "0 item left"[22m
+    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
+    [2m  -   unexpected value "0 item left"[22m
+    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
+    [2m  -   unexpected value "0 item left"[22m
+    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
+    [2m  -   unexpected value "0 item left"[22m
+    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
+    [2m  -   unexpected value "0 item left"[22m
 
 
+      175 |     await page.locator(".new-todo").fill(TODO_ITEMS[0]);
+      176 |     await page.locator(".new-todo").press("Enter");
+    > 177 |     await expect(page.locator(".todo-count")).toContainText("1");
+          |                                               ^
+      178 |
+      179 |     await page.locator(".new-todo").fill(TODO_ITEMS[1]);
+      180 |     await page.locator(".new-todo").press("Enter");
+
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:177:47[22m
+
+[31m  12) [chromium] › app.spec.js:199:3 › Clear completed button › should remove completed items when clicked [39m
+
+    [31mTimeout of 30000ms exceeded.[39m
+
+    locator.click: Target closed
+    =========================== logs ===========================
+    waiting for selector ".clear-completed"
+      selector resolved to hidden <button class="clear-completed">Clear completed</button>
+    attempting click action
+      waiting for element to be visible, enabled and stable
+        element is not visible - waiting...
+    ============================================================
+
+      200 |     const todoItems = page.locator(".todo-list li");
+      201 |     await todoItems.nth(1).locator(".toggle").check();
+    > 202 |     await page.locator(".clear-completed").click();
+          |                                            ^
+      203 |     await expect(todoItems).toHaveCount(2);
+      204 |     await expect(todoItems).toHaveText([TODO_ITEMS[0], TODO_ITEMS[2]]);
+      205 |   });
+
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:202:44[22m
+
+    Pending operations:
+      - locator.click at e2e/app.spec.js:202:44
 
 
-[31m  12) [chromium] › app.spec.js:192:3 › Clear completed button › should display the correct text [90m====[31m[39m
+[31m  13) [chromium] › app.spec.js:207:3 › Clear completed button › should be hidden when there are no items that are completed [39m
 
-    browserType.launch: 
-    ╔══════════════════════════════════════════════════════╗
-    ║ Host system is missing dependencies to run browsers. ║
-    ║ Please install them with the following command:      ║
-    ║                                                      ║
-    ║     sudo npx playwright install-deps                 ║
-    ║                                                      ║
-    ║ Alternatively, use apt:                              ║
-    ║     sudo apt-get install libgbm1                     ║
-    ║                                                      ║
-    ║ <3 Playwright Team                                   ║
-    ╚══════════════════════════════════════════════════════╝
+    [31mTimeout of 30000ms exceeded.[39m
 
+    locator.click: Target closed
+    =========================== logs ===========================
+    waiting for selector ".clear-completed"
+      selector resolved to hidden <button class="clear-completed">Clear completed</button>
+    attempting click action
+      waiting for element to be visible, enabled and stable
+        element is not visible - waiting...
+    ============================================================
 
+      209 |   }) => {
+      210 |     await page.locator(".todo-list li .toggle").first().check();
+    > 211 |     await page.locator(".clear-completed").click();
+          |                                            ^
+      212 |     await expect(page.locator(".clear-completed")).toBeHidden();
+      213 |   });
+      214 | });
 
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:211:44[22m
 
-[31m  13) [chromium] › app.spec.js:199:3 › Clear completed button › should remove completed items when clicked [39m
-
-    browserType.launch: 
-    ╔══════════════════════════════════════════════════════╗
-    ║ Host system is missing dependencies to run browsers. ║
-    ║ Please install them with the following command:      ║
-    ║                                                      ║
-    ║     sudo npx playwright install-deps                 ║
-    ║                                                      ║
-    ║ Alternatively, use apt:                              ║
-    ║     sudo apt-get install libgbm1                     ║
-    ║                                                      ║
-    ║ <3 Playwright Team                                   ║
-    ╚══════════════════════════════════════════════════════╝
+    Pending operations:
+      - locator.click at e2e/app.spec.js:211:44
 
 
+[31m  14) [chromium] › app.spec.js:217:3 › Persistence › should persist its data [90m=======================[31m[39m
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoHaveClass[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 2[39m
+    [31m+ Received  + 2[39m
+
+    [2m  Array [[22m
+    [32m-   "completed",[39m
+    [32m-   "",[39m
+    [31m+   "todo-container completed",[39m
+    [31m+   "todo-container",[39m
+    [2m  ][22m
+    Call log:
+      [2m- expect.toHaveClass with timeout 5000ms[22m
+    [2m  - waiting for selector ".todo-list li"[22m
+    [2m  -   selector resolved to 2 elements[22m
 
 
-[31m  14) [chromium] › app.spec.js:207:3 › Clear completed button › should be hidden when there are no items that are completed [39m
+      224 |     await todoItems.nth(0).locator(".toggle").check();
+      225 |     await expect(todoItems).toHaveText([TODO_ITEMS[0], TODO_ITEMS[1]]);
+    > 226 |     await expect(todoItems).toHaveClass(["completed", ""]);
+          |                             ^
+      227 |
+      228 |     // Ensure there is 1 completed item.
+      229 |     checkNumberOfCompletedTodosInLocalStorage(page, 1);
 
-    browserType.launch: 
-    ╔══════════════════════════════════════════════════════╗
-    ║ Host system is missing dependencies to run browsers. ║
-    ║ Please install them with the following command:      ║
-    ║                                                      ║
-    ║     sudo npx playwright install-deps                 ║
-    ║                                                      ║
-    ║ Alternatively, use apt:                              ║
-    ║     sudo apt-get install libgbm1                     ║
-    ║                                                      ║
-    ║ <3 Playwright Team                                   ║
-    ╚══════════════════════════════════════════════════════╝
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:226:29[22m
 
+[31m  15) [chromium] › app.spec.js:247:3 › Routing › should allow me to display pending items [90m==========[31m[39m
 
+    [31mTimeout of 30000ms exceeded in beforeEach hook.[39m
 
+      237 |
+      238 | test.describe("Routing", () => {
+    > 239 |   test.beforeEach(async ({ page }) => {
+          |        ^
+      240 |     await createDefaultTodos(page);
+      241 |     // make sure the app had a chance to save updated todos in storage
+      242 |     // before navigating to a new view, otherwise the items can get lost :(
 
-[31m  15) [chromium] › app.spec.js:217:3 › Persistence › should persist its data [90m=======================[31m[39m
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:239:8[22m
 
-    browserType.launch: 
-    ╔══════════════════════════════════════════════════════╗
-    ║ Host system is missing dependencies to run browsers. ║
-    ║ Please install them with the following command:      ║
-    ║                                                      ║
-    ║     sudo npx playwright install-deps                 ║
-    ║                                                      ║
-    ║ Alternatively, use apt:                              ║
-    ║     sudo apt-get install libgbm1                     ║
-    ║                                                      ║
-    ║ <3 Playwright Team                                   ║
-    ╚══════════════════════════════════════════════════════╝
+    page.waitForFunction: Target closed
 
+      346 |  */
+      347 | async function checkTodosInLocalStorage(page, title) {
+    > 348 |   return await page.waitForFunction((t) => {
+          |                     ^
+      349 |     const data = localStorage.getItem("mydayapp-js");
+      350 |     if (data) {
+      351 |       return JSON.parse(data)
 
+    [2m    at checkTodosInLocalStorage (/home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:348:21)[22m
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:244:11[22m
 
-
-[31m  16) [chromium] › app.spec.js:247:3 › Routing › should allow me to display pending items [90m==========[31m[39m
-
-    browserType.launch: 
-    ╔══════════════════════════════════════════════════════╗
-    ║ Host system is missing dependencies to run browsers. ║
-    ║ Please install them with the following command:      ║
-    ║                                                      ║
-    ║     sudo npx playwright install-deps                 ║
-    ║                                                      ║
-    ║ Alternatively, use apt:                              ║
-    ║     sudo apt-get install libgbm1                     ║
-    ║                                                      ║
-    ║ <3 Playwright Team                                   ║
-    ╚══════════════════════════════════════════════════════╝
+    Pending operations:
+      - page.waitForFunction at e2e/app.spec.js:348:21
 
 
+[31m  16) [chromium] › app.spec.js:258:3 › Routing › should respect the back button [90m====================[31m[39m
+
+    [31mTimeout of 30000ms exceeded in beforeEach hook.[39m
+
+      237 |
+      238 | test.describe("Routing", () => {
+    > 239 |   test.beforeEach(async ({ page }) => {
+          |        ^
+      240 |     await createDefaultTodos(page);
+      241 |     // make sure the app had a chance to save updated todos in storage
+      242 |     // before navigating to a new view, otherwise the items can get lost :(
+
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:239:8[22m
+
+    page.waitForFunction: Target closed
+
+      346 |  */
+      347 | async function checkTodosInLocalStorage(page, title) {
+    > 348 |   return await page.waitForFunction((t) => {
+          |                     ^
+      349 |     const data = localStorage.getItem("mydayapp-js");
+      350 |     if (data) {
+      351 |       return JSON.parse(data)
+
+    [2m    at checkTodosInLocalStorage (/home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:348:21)[22m
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:244:11[22m
+
+    Pending operations:
+      - page.waitForFunction at e2e/app.spec.js:348:21
 
 
-[31m  17) [chromium] › app.spec.js:258:3 › Routing › should respect the back button [90m====================[31m[39m
+[31m  17) [chromium] › app.spec.js:282:3 › Routing › should allow me to display completed items [90m========[31m[39m
 
-    browserType.launch: 
-    ╔══════════════════════════════════════════════════════╗
-    ║ Host system is missing dependencies to run browsers. ║
-    ║ Please install them with the following command:      ║
-    ║                                                      ║
-    ║     sudo npx playwright install-deps                 ║
-    ║                                                      ║
-    ║ Alternatively, use apt:                              ║
-    ║     sudo apt-get install libgbm1                     ║
-    ║                                                      ║
-    ║ <3 Playwright Team                                   ║
-    ╚══════════════════════════════════════════════════════╝
+    [31mTimeout of 30000ms exceeded in beforeEach hook.[39m
 
+      237 |
+      238 | test.describe("Routing", () => {
+    > 239 |   test.beforeEach(async ({ page }) => {
+          |        ^
+      240 |     await createDefaultTodos(page);
+      241 |     // make sure the app had a chance to save updated todos in storage
+      242 |     // before navigating to a new view, otherwise the items can get lost :(
 
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:239:8[22m
 
+    page.waitForFunction: Target closed
 
-[31m  18) [chromium] › app.spec.js:282:3 › Routing › should allow me to display completed items [90m========[31m[39m
+      346 |  */
+      347 | async function checkTodosInLocalStorage(page, title) {
+    > 348 |   return await page.waitForFunction((t) => {
+          |                     ^
+      349 |     const data = localStorage.getItem("mydayapp-js");
+      350 |     if (data) {
+      351 |       return JSON.parse(data)
 
-    browserType.launch: 
-    ╔══════════════════════════════════════════════════════╗
-    ║ Host system is missing dependencies to run browsers. ║
-    ║ Please install them with the following command:      ║
-    ║                                                      ║
-    ║     sudo npx playwright install-deps                 ║
-    ║                                                      ║
-    ║ Alternatively, use apt:                              ║
-    ║     sudo apt-get install libgbm1                     ║
-    ║                                                      ║
-    ║ <3 Playwright Team                                   ║
-    ╚══════════════════════════════════════════════════════╝
+    [2m    at checkTodosInLocalStorage (/home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:348:21)[22m
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:244:11[22m
+
+    Pending operations:
+      - page.waitForFunction at e2e/app.spec.js:348:21
 
 
+[31m  18) [chromium] › app.spec.js:289:3 › Routing › should allow me to display all items [90m==============[31m[39m
+
+    [31mTimeout of 30000ms exceeded in beforeEach hook.[39m
+
+      237 |
+      238 | test.describe("Routing", () => {
+    > 239 |   test.beforeEach(async ({ page }) => {
+          |        ^
+      240 |     await createDefaultTodos(page);
+      241 |     // make sure the app had a chance to save updated todos in storage
+      242 |     // before navigating to a new view, otherwise the items can get lost :(
+
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:239:8[22m
+
+    page.waitForFunction: Target closed
+
+      346 |  */
+      347 | async function checkTodosInLocalStorage(page, title) {
+    > 348 |   return await page.waitForFunction((t) => {
+          |                     ^
+      349 |     const data = localStorage.getItem("mydayapp-js");
+      350 |     if (data) {
+      351 |       return JSON.parse(data)
+
+    [2m    at checkTodosInLocalStorage (/home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:348:21)[22m
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:244:11[22m
+
+    Pending operations:
+      - page.waitForFunction at e2e/app.spec.js:348:21
 
 
-[31m  19) [chromium] › app.spec.js:289:3 › Routing › should allow me to display all items [90m==============[31m[39m
+[31m  19) [chromium] › app.spec.js:298:3 › Routing › should highlight the currently applied filter [90m=====[31m[39m
 
-    browserType.launch: 
-    ╔══════════════════════════════════════════════════════╗
-    ║ Host system is missing dependencies to run browsers. ║
-    ║ Please install them with the following command:      ║
-    ║                                                      ║
-    ║     sudo npx playwright install-deps                 ║
-    ║                                                      ║
-    ║ Alternatively, use apt:                              ║
-    ║     sudo apt-get install libgbm1                     ║
-    ║                                                      ║
-    ║ <3 Playwright Team                                   ║
-    ╚══════════════════════════════════════════════════════╝
+    [31mTimeout of 30000ms exceeded in beforeEach hook.[39m
 
+      237 |
+      238 | test.describe("Routing", () => {
+    > 239 |   test.beforeEach(async ({ page }) => {
+          |        ^
+      240 |     await createDefaultTodos(page);
+      241 |     // make sure the app had a chance to save updated todos in storage
+      242 |     // before navigating to a new view, otherwise the items can get lost :(
 
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:239:8[22m
 
+    page.waitForFunction: Target closed
 
-[31m  20) [chromium] › app.spec.js:298:3 › Routing › should highlight the currently applied filter [90m=====[31m[39m
+      346 |  */
+      347 | async function checkTodosInLocalStorage(page, title) {
+    > 348 |   return await page.waitForFunction((t) => {
+          |                     ^
+      349 |     const data = localStorage.getItem("mydayapp-js");
+      350 |     if (data) {
+      351 |       return JSON.parse(data)
 
-    browserType.launch: 
-    ╔══════════════════════════════════════════════════════╗
-    ║ Host system is missing dependencies to run browsers. ║
-    ║ Please install them with the following command:      ║
-    ║                                                      ║
-    ║     sudo npx playwright install-deps                 ║
-    ║                                                      ║
-    ║ Alternatively, use apt:                              ║
-    ║     sudo apt-get install libgbm1                     ║
-    ║                                                      ║
-    ║ <3 Playwright Team                                   ║
-    ╚══════════════════════════════════════════════════════╝
+    [2m    at checkTodosInLocalStorage (/home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:348:21)[22m
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:244:11[22m
+
+    Pending operations:
+      - page.waitForFunction at e2e/app.spec.js:348:21
 
 
+[33m  Slow test file: [39m[chromium] › app.spec.js[33m (5m)[39m
+[33m  Consider splitting slow test files to speed up parallel execution[39m
 
-
-
-[31m  20 failed[39m
+[31m  19 failed[39m
 [31m    [chromium] › app.spec.js:15:3 › New Todo › should allow me to add todo items [90m===================[31m[39m
 [31m    [chromium] › app.spec.js:36:3 › New Todo › should clear text input field when an item is added [90m=[31m[39m
 [31m    [chromium] › app.spec.js:48:3 › New Todo › should append new items to the bottom of the list [90m===[31m[39m
@@ -421,7 +644,6 @@ Running 20 tests using 1 worker
 [31m    [chromium] › app.spec.js:151:3 › Editing › should trim entered text [90m============================[31m[39m
 [31m    [chromium] › app.spec.js:165:3 › Editing › should cancel edits on escape [90m=======================[31m[39m
 [31m    [chromium] › app.spec.js:174:3 › Counter › should display the current number of todo items [90m=====[31m[39m
-[31m    [chromium] › app.spec.js:192:3 › Clear completed button › should display the correct text [90m======[31m[39m
 [31m    [chromium] › app.spec.js:199:3 › Clear completed button › should remove completed items when clicked [39m
 [31m    [chromium] › app.spec.js:207:3 › Clear completed button › should be hidden when there are no items that are completed [39m
 [31m    [chromium] › app.spec.js:217:3 › Persistence › should persist its data [90m=========================[31m[39m
@@ -430,3 +652,4 @@ Running 20 tests using 1 worker
 [31m    [chromium] › app.spec.js:282:3 › Routing › should allow me to display completed items [90m==========[31m[39m
 [31m    [chromium] › app.spec.js:289:3 › Routing › should allow me to display all items [90m================[31m[39m
 [31m    [chromium] › app.spec.js:298:3 › Routing › should highlight the currently applied filter [90m=======[31m[39m
+[32m  1 passed[39m[2m (5m)[22m

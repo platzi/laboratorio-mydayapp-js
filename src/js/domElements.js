@@ -6,4 +6,6 @@ export const newTodoInput = document.querySelector('.new-todo');
 
 export const todoListContainer = document.querySelector('.todo-list');
 
-export const footer = document.querySelector('.footer');
+export const footer = document.querySelector('#footer');
+
+export const main = document.querySelector('#main');
