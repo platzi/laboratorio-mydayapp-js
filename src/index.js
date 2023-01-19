@@ -67,6 +67,7 @@ const renderNewList = (array) => {
   });
 
   updateCounter(array);
+  toggleClearCompletedButton();
 }
 
 const toggleCompletedState = (checkedElement, elementToChange, elementId) => {
@@ -83,6 +84,7 @@ const toggleCompletedState = (checkedElement, elementToChange, elementId) => {
   }
 
   updateCounter(todoList);
+  toggleClearCompletedButton();
 }
 
 const eliminateTask = (elementId) => {
@@ -175,6 +177,14 @@ const deleteCompletedTasks = (array) => {
 }
 
 clearCompletedButton.addEventListener('click', () => deleteCompletedTasks(todoList));
+
+const toggleClearCompletedButton = () => {
+  if (todoList.some(item => item.completed)) {
+    clearCompletedButton.classList.remove('hidden');
+  } else {
+    clearCompletedButton.classList.add('hidden');
+  }
+}
 
 hideMainAndFooterToggle();
 
