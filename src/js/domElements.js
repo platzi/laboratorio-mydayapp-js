@@ -9,3 +9,5 @@ export const todoListContainer = document.querySelector('.todo-list');
 export const footer = document.querySelector('#footer');
 
 export const main = document.querySelector('#main');
+
+export const counter = document.querySelector('.todo-count');

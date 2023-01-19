@@ -1,6 +1,6 @@
 import "./css/base.css";
 
-import { newTodoInput, todoListContainer, main, footer } from "./js/domElements";
+import { newTodoInput, todoListContainer, main, footer, counter } from "./js/domElements";
 
 let todoList;
 
@@ -18,6 +18,11 @@ const updateStoragedTodos = (arr) => {
 
 const getStoragedTodos = () => {
   todoList = JSON.parse(localStorage.getItem('mydayapp-js'));
+}
+
+const updateCounter = (array) => {
+  const pendingTasks = array.filter(item => !item.completed);
+  counter.innerHTML = `<strong>${pendingTasks.length}</strong> ${pendingTasks.length === 1 ? 'item' : 'items'} left`;
 }
 
 const renderNewList = (array) => {
@@ -65,6 +70,8 @@ const renderNewList = (array) => {
   
     todoListContainer.append(todoContainer);
   });
+
+  updateCounter(array);
 }
 
 renderNewList(todoList);
@@ -81,6 +88,8 @@ const toggleCompletedState = (checkedElement, elementToChange, elementId) => {
     elementToChange.classList.remove('completed');
     updateStoragedTodos(todoList);
   }
+
+  updateCounter(todoList);
 }
 
 const eliminateTask = (elementId) => {
