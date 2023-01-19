@@ -20,18 +20,6 @@ const getStoragedTodos = () => {
   todoList = JSON.parse(localStorage.getItem('mydayapp-js'));
 }
 
-const updateCounter = (array) => {
-  const pendingTasks = array.filter(item => !item.completed);
-  counter.innerHTML = `<strong>${pendingTasks.length}</strong> ${pendingTasks.length === 1 ? 'item' : 'items'} left`;
-}
-
-const deleteCompletedTasks = (array) => {
-  const onlyPendingTasks = array.filter(item => !item.completed);
-  renderNewList(onlyPendingTasks);
-}
-
-clearCompletedButton.addEventListener('click', () => deleteCompletedTasks(todoList));
-
 const renderNewList = (array) => {
 
   todoListContainer.replaceChildren('');
@@ -80,8 +68,6 @@ const renderNewList = (array) => {
 
   updateCounter(array);
 }
-
-renderNewList(todoList);
 
 const toggleCompletedState = (checkedElement, elementToChange, elementId) => {
   const elementIndex = todoList.findIndex(item => item.id === elementId);
@@ -172,4 +158,24 @@ const hideMainAndFooterToggle = () => {
   }
 }
 
+// footer functionalities: todo counter, delete completed tasks button
+
+const updateCounter = (array) => {
+  const pendingTasks = array.filter(item => !item.completed);
+  counter.innerHTML = `<strong>${pendingTasks.length}</strong> ${pendingTasks.length === 1 ? 'item' : 'items'} left`;
+}
+
+const deleteCompletedTasks = (array) => {
+  const onlyPendingTasks = array.filter(item => !item.completed);
+  renderNewList(onlyPendingTasks);
+
+  if(onlyPendingTasks.length < 1) {
+    hideMainAndFooterToggle();
+  }
+}
+
+clearCompletedButton.addEventListener('click', () => deleteCompletedTasks(todoList));
+
 hideMainAndFooterToggle();
+
+renderNewList(todoList);
