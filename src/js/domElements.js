@@ -11,3 +11,5 @@ export const footer = document.querySelector('#footer');
 export const main = document.querySelector('#main');
 
 export const counter = document.querySelector('.todo-count');
+
+export const clearCompletedButton = document.querySelector('.clear-completed');

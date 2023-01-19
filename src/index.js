@@ -1,6 +1,6 @@
 import "./css/base.css";
 
-import { newTodoInput, todoListContainer, main, footer, counter } from "./js/domElements";
+import { newTodoInput, todoListContainer, main, footer, counter, clearCompletedButton } from "./js/domElements";
 
 let todoList;
 
@@ -24,6 +24,13 @@ const updateCounter = (array) => {
   const pendingTasks = array.filter(item => !item.completed);
   counter.innerHTML = `<strong>${pendingTasks.length}</strong> ${pendingTasks.length === 1 ? 'item' : 'items'} left`;
 }
+
+const deleteCompletedTasks = (array) => {
+  const onlyPendingTasks = array.filter(item => !item.completed);
+  renderNewList(onlyPendingTasks);
+}
+
+clearCompletedButton.addEventListener('click', () => deleteCompletedTasks(todoList));
 
 const renderNewList = (array) => {
 
