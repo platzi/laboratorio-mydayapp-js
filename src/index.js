@@ -1,5 +1,4 @@
 import "./css/base.css";
+import "./css/utils.scss";
+import { utils } from "./js/utils.js";
 
-import { sayHello } from "./js/utils";
-
-console.log(sayHello("Hello"));
