@@ -4,7 +4,6 @@ const path = require("path");
 
 module.exports = {
   mode: "production",
-  watch: true,
   entry: {
     main: "./src/index.js",
   },
