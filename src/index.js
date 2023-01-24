@@ -52,6 +52,17 @@ utils.todoInput.addEventListener('keyup', (event) => {
 
         const button = document.createElement('button');
         button.classList.add('destroy');
+
+        button.addEventListener('click', (event) => {
+            if (event.target.parentNode.parentNode.classList.contains('completed')){
+                tasksCount.completed--;
+            } else {
+                tasksCount.pending--;
+            }
+            tasksCount.all--;
+            utils.todoList.removeChild(event.target.parentNode.parentNode);
+            printItem_sCount(); in_activeClearButton(); in_activeTodo();
+        });
         
 
         const inputEdit = document.createElement('input');
