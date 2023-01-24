@@ -1,6 +1,6 @@
 import "./css/base.css";
 import "./css/utils.scss";
-import { utils, tasksCount, completedTask } from "./js/utils.js";
+import { utils, tasksCount, isCompletedTask } from "./js/utils.js";
 
 function in_activeTodo (){
     if (tasksCount.all > 0){
@@ -32,6 +32,7 @@ utils.todoInput.addEventListener('keyup', (event) => {
                 tasksCount.pending++;
             }
             printItem_sCount();
+            in_activeClearButton();
         });
 
 
@@ -41,7 +42,7 @@ utils.todoInput.addEventListener('keyup', (event) => {
         label.addEventListener('dblclick', () => {
             if (li.classList.contains('completed')) {
                 li.classList.replace('completed', 'editing');
-                completedTask.value = true;
+                isCompletedTask.value = true;
             } else {
                 li.classList.add('editing');
             }
@@ -61,17 +62,17 @@ utils.todoInput.addEventListener('keyup', (event) => {
             if (inputEdit.value.trim() != '') {
                 if (event.keyCode === 13){
                     label.innerText = inputEdit.value.trim();
-                    if (completedTask.value == true){
+                    if (isCompletedTask.value == true){
                         li.classList.replace('editing', 'completed');
-                        completedTask.value = false;
+                        isCompletedTask.value = false;
                     } else {
                         li.classList.remove('editing');
                     }
 
                 } else if (event.keyCode === 27) {
-                    if (completedTask.value == true){
+                    if (isCompletedTask.value == true){
                         li.classList.replace('editing', 'completed');
-                        completedTask.value = false;
+                        isCompletedTask.value = false;
                     } else {
                         li.classList.remove('editing');
                     }
@@ -89,6 +90,7 @@ utils.todoInput.addEventListener('keyup', (event) => {
         utils.todoInput.value = '';
         in_activeTodo();
         printItem_sCount();
+        in_activeClearButton();
     }
 });
 
@@ -105,3 +107,21 @@ function printItem_sCount (){
     utils.todoCount.innerHTML = `<strong>${tasksCount.pending}</strong> ${item_s} left`;
 }
 printItem_sCount();
+
+function in_activeClearButton(){
+    if (tasksCount.completed > 0){
+        utils.buttonClear.classList.remove('inactive');
+    } else {
+        utils.buttonClear.classList.add('inactive');
+    }
+}
+
+utils.buttonClear.addEventListener('click', () => {
+    const tasksCompleted = document.querySelectorAll('.todo-list .completed');
+    tasksCompleted.forEach((element => {
+        utils.todoList.removeChild(element);
+        tasksCount.all--; tasksCount.completed--;
+    }));
+    in_activeClearButton();
+    in_activeTodo();
+})

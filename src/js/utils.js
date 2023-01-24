@@ -12,8 +12,8 @@ const tasksCount = {
   completed: 0
 };
 
-let completedTask = {
+let isCompletedTask = {
   value: false
 };
 
-export {utils, tasksCount, completedTask}
+export {utils, tasksCount, isCompletedTask}
