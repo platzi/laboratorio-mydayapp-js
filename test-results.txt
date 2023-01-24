@@ -6,86 +6,46 @@
 > mydayapp-js@1.0.0 build
 > webpack
 
-asset main.bundle.js 79.8 KiB [emitted] [compared for emit] [minimized] (name: main)
+asset main.bundle.js 17 KiB [compared for emit] [minimized] (name: main)
 asset index.html 10.8 KiB [emitted]
 runtime modules 1.09 KiB 5 modules
-orphan modules 36.6 KiB [orphan] 4 modules
-cacheable modules 93.7 KiB
+orphan modules 4.08 KiB [orphan] 4 modules
+cacheable modules 29.6 KiB
   modules by path ./node_modules/ 8.66 KiB
     modules by path ./node_modules/style-loader/dist/runtime/*.js 5.75 KiB 6 modules
     modules by path ./node_modules/css-loader/dist/runtime/*.js 2.91 KiB
       ./node_modules/css-loader/dist/runtime/noSourceMaps.js 64 bytes [built] [code generated]
       + 2 modules
-  modules by path ./src/ 84.4 KiB
-    ./src/index.js + 4 modules 75.9 KiB [built] [code generated]
+  modules by path ./src/ 20.3 KiB
+    ./src/index.js + 4 modules 11.8 KiB [built] [code generated]
     ./node_modules/css-loader/dist/cjs.js!./src/css/base.css 8.53 KiB [built] [code generated]
   asset modules 620 bytes
     data:image/svg+xml;utf8,%3Csvg%20xmlns%3.. 268 bytes [built] [code generated]
     data:image/svg+xml;utf8,%3Csvg%20xmlns%3.. 352 bytes [built] [code generated]
-webpack 5.73.0 compiled successfully in 1302 ms
+webpack 5.73.0 compiled successfully in 1113 ms
 
 Running 20 tests using 1 worker
 
-[32m  ✓  [39m[90m[chromium] › app.spec.js:15:3 › New Todo › should allow me to add todo items[39m[2m (679ms)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:36:3 › New Todo › should clear text input field when an item is added[39m[2m (307ms)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:48:3 › New Todo › should append new items to the bottom of the list[39m[2m (373ms)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:64:3 › New Todo › should show #main and #footer when items added[39m[2m (302ms)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:75:3 › Item › should allow me to mark items as complete[39m[2m (426ms)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:97:3 › Item › should allow me to un-mark items as complete[39m[2m (437ms)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:117:3 › Item › should allow me to edit an item[39m[2m (412ms)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:143:3 › Editing › should hide other controls when editing[39m[2m (408ms)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:151:3 › Editing › should trim entered text[39m[2m (394ms)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:165:3 › Editing › should cancel edits on escape[39m[2m (387ms)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:174:3 › Counter › should display the current number of todo items[39m[2m (312ms)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:192:3 › Clear completed button › should display the correct text[39m[2m (363ms)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:199:3 › Clear completed button › should remove completed items when clicked[39m[2m (444ms)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:207:3 › Clear completed button › should be hidden when there are no items that are completed[39m[2m (424ms)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:217:3 › Persistence › should persist its data[39m[2m (394ms)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:247:3 › Routing › should allow me to display pending items[39m[2m (437ms)[22m
-[31m  ✘  [chromium] › app.spec.js:258:3 › Routing › should respect the back button[39m[2m (6s)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:282:3 › Routing › should allow me to display completed items[39m[2m (636ms)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:289:3 › Routing › should allow me to display all items[39m[2m (528ms)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:298:3 › Routing › should highlight the currently applied filter[39m[2m (432ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:15:3 › New Todo › should allow me to add todo items[39m[2m (597ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:36:3 › New Todo › should clear text input field when an item is added[39m[2m (321ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:48:3 › New Todo › should append new items to the bottom of the list[39m[2m (366ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:64:3 › New Todo › should show #main and #footer when items added[39m[2m (345ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:75:3 › Item › should allow me to mark items as complete[39m[2m (434ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:97:3 › Item › should allow me to un-mark items as complete[39m[2m (435ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:117:3 › Item › should allow me to edit an item[39m[2m (410ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:143:3 › Editing › should hide other controls when editing[39m[2m (393ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:151:3 › Editing › should trim entered text[39m[2m (393ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:165:3 › Editing › should cancel edits on escape[39m[2m (388ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:174:3 › Counter › should display the current number of todo items[39m[2m (325ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:192:3 › Clear completed button › should display the correct text[39m[2m (368ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:199:3 › Clear completed button › should remove completed items when clicked[39m[2m (418ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:207:3 › Clear completed button › should be hidden when there are no items that are completed[39m[2m (413ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:217:3 › Persistence › should persist its data[39m[2m (393ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:247:3 › Routing › should allow me to display pending items[39m[2m (426ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:258:3 › Routing › should respect the back button[39m[2m (524ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:282:3 › Routing › should allow me to display completed items[39m[2m (421ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:289:3 › Routing › should allow me to display all items[39m[2m (486ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:298:3 › Routing › should highlight the currently applied filter[39m[2m (449ms)[22m
 
 
-[31m  1) [chromium] › app.spec.js:258:3 › Routing › should respect the back button [90m=====================[31m[39m
-
-    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoHaveCount[2m([22m[32mexpected[39m[2m) // deep equality[22m
-
-    Expected: [32m2[39m
-    Received: [31m1[39m
-    Call log:
-      [2m- expect.toHaveCount with timeout 5000ms[22m
-    [2m  - waiting for selector ".todo-list li"[22m
-    [2m  -   selector resolved to 1 element[22m
-    [2m  -   unexpected value "1"[22m
-    [2m  -   selector resolved to 1 element[22m
-    [2m  -   unexpected value "1"[22m
-    [2m  -   selector resolved to 1 element[22m
-    [2m  -   unexpected value "1"[22m
-    [2m  -   selector resolved to 1 element[22m
-    [2m  -   unexpected value "1"[22m
-    [2m  -   selector resolved to 1 element[22m
-    [2m  -   unexpected value "1"[22m
-    [2m  -   selector resolved to 1 element[22m
-    [2m  -   unexpected value "1"[22m
-    [2m  -   selector resolved to 1 element[22m
-    [2m  -   unexpected value "1"[22m
-    [2m  -   selector resolved to 1 element[22m
-    [2m  -   unexpected value "1"[22m
-
-
-      275 |     await expect(page.locator(".todo-list li")).toHaveCount(1);
-      276 |     await page.goBack();
-    > 277 |     await expect(page.locator(".todo-list li")).toHaveCount(2);
-          |                                                 ^
-      278 |     await page.goBack();
-      279 |     await expect(page.locator(".todo-list li")).toHaveCount(3);
-      280 |   });
-
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:277:49[22m
-
-
-[31m  1 failed[39m
-[31m    [chromium] › app.spec.js:258:3 › Routing › should respect the back button [90m======================[31m[39m
-[32m  19 passed[39m[2m (15s)[22m
+[32m  20 passed[39m[2m (10s)[22m

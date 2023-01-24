@@ -1,29 +1,28 @@
-import { todoListContainer } from "./domElements";
+import { clearCompletedButton, todoListContainer } from "./domElements";
+import { routes } from "./routes";
 
 const errorMessage = document.createElement('h2');
 errorMessage.style.textAlign = 'center';
 
-export class Router {
-  constructor(route) {
-    this.route = route;
-    this.loadRoute();
-  }
+export const loadRoute = () => {
+  const currentRoute = window.location.hash;
+  const URL = currentRoute === '' ? '#/' : currentRoute;
+  loadPage(URL);
+}
 
-  loadRoute() {
-    const currentRoute = window.location.hash;
-    const URL = currentRoute === '' ? '#/' : currentRoute;
-    this.loadPage(URL);
-  }
-
-  loadPage(url) {
-    const currentUrl = this.route.find(item => item.path === url);
+export const loadPage = url => {
+  setTimeout(() => {
+    const currentUrl = routes.find(item => item.path === url);
     try {
       currentUrl.template();
     } catch {
-      errorMessage.textContent = `Sorry, but "${window.location.href}" isn't a valid URL. Please check and try again`
+      clearCompletedButton.classList.add('hidden');
+      errorMessage.textContent = `Sorry, but "${window.location.href}" isn't a valid URL. Please check and try again or use any of the filters below.`
       todoListContainer.append(errorMessage);
       throw new Error(`Sorry, but ${window.location.href} isn't a valid URL. Please check that the hash is either #/, #/pending or #/completed`);
     }
-    window.history.pushState({path: currentUrl.path}, 'loaded', currentUrl.path);
-  }
+  }, 0);
 }
+
+loadRoute();
+window.onpopstate = loadRoute;

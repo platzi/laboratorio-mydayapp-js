@@ -1,8 +1,7 @@
 import "./css/base.css";
 
 import { newTodoInput, todoListContainer, main, footer, counter, clearCompletedButton, filterElements } from "./js/domElements";
-import { routes } from "./js/routes";
-import { Router } from "./js/router";
+import { loadPage } from "./js/router";
 
 export let todoList;
 
@@ -174,7 +173,6 @@ const updateCounter = (array) => {
 
 const deleteCompletedTasks = (array) => {
   const onlyPendingTasks = array.filter(item => !item.completed);
-  console.log(onlyPendingTasks);
   renderNewList(onlyPendingTasks);
 
   if(onlyPendingTasks.length < 1) {
@@ -195,14 +193,12 @@ const toggleClearCompletedButton = () => {
 // this array contains all anchor elements which will be used in routes.js
 export const filterElementsArr = [...filterElements];
 
-// router logic is found in router.js
-const router = new Router(routes);
-
 filterElementsArr.forEach(item => {
-  item.addEventListener('click', () => router.loadPage(item.hash));
+  item.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.history.pushState({path: item.hash}, '', item.hash);
+    loadPage(item.hash);
+  });
 });
 
 hideMainAndFooterToggle();
-
-// renderNewList(todoList);
-// console.log(todoList);
