@@ -20,6 +20,9 @@ utils.todoInput.addEventListener('keyup', (event) => {
         const inputCheck = document.createElement('input');
         inputCheck.classList.add('toggle');
         inputCheck.setAttribute('type', 'checkbox');
+        inputCheck.addEventListener('change', () => {
+            li.classList.toggle('completed');
+        });
 
         const label = document.createElement('label');
         label.innerText = utils.todoInput.value.trim();
@@ -41,4 +44,3 @@ utils.todoInput.addEventListener('keyup', (event) => {
     }
 });
 
-//Funcion 2 terminada, haz commit
