@@ -6,351 +6,86 @@
 > mydayapp-js@1.0.0 build
 > webpack
 
-asset main.bundle.js 15.1 KiB [compared for emit] [minimized] (name: main)
-asset index.html 10.7 KiB [emitted]
+asset main.bundle.js 79.8 KiB [emitted] [compared for emit] [minimized] (name: main)
+asset index.html 10.8 KiB [emitted]
 runtime modules 1.09 KiB 5 modules
-orphan modules 1.57 KiB [orphan] 2 modules
-javascript modules 24.8 KiB
+orphan modules 36.6 KiB [orphan] 4 modules
+cacheable modules 93.7 KiB
   modules by path ./node_modules/ 8.66 KiB
     modules by path ./node_modules/style-loader/dist/runtime/*.js 5.75 KiB 6 modules
     modules by path ./node_modules/css-loader/dist/runtime/*.js 2.91 KiB
       ./node_modules/css-loader/dist/runtime/noSourceMaps.js 64 bytes [built] [code generated]
       + 2 modules
-  modules by path ./src/ 16.2 KiB
-    ./src/index.js + 2 modules 7.62 KiB [built] [code generated]
+  modules by path ./src/ 84.4 KiB
+    ./src/index.js + 4 modules 75.9 KiB [built] [code generated]
     ./node_modules/css-loader/dist/cjs.js!./src/css/base.css 8.53 KiB [built] [code generated]
-asset modules 620 bytes
-  data:image/svg+xml;utf8,%3Csvg%20xmlns%3.. 268 bytes [built] [code generated]
-  data:image/svg+xml;utf8,%3Csvg%20xmlns%3.. 352 bytes [built] [code generated]
-webpack 5.73.0 compiled successfully in 1050 ms
+  asset modules 620 bytes
+    data:image/svg+xml;utf8,%3Csvg%20xmlns%3.. 268 bytes [built] [code generated]
+    data:image/svg+xml;utf8,%3Csvg%20xmlns%3.. 352 bytes [built] [code generated]
+webpack 5.73.0 compiled successfully in 1302 ms
 
 Running 20 tests using 1 worker
 
-[32m  ✓  [39m[90m[chromium] › app.spec.js:15:3 › New Todo › should allow me to add todo items[39m[2m (547ms)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:36:3 › New Todo › should clear text input field when an item is added[39m[2m (296ms)[22m
-[31m  ✘  [chromium] › app.spec.js:48:3 › New Todo › should append new items to the bottom of the list[39m[2m (5s)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:64:3 › New Todo › should show #main and #footer when items added[39m[2m (607ms)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:75:3 › Item › should allow me to mark items as complete[39m[2m (456ms)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:97:3 › Item › should allow me to un-mark items as complete[39m[2m (419ms)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:117:3 › Item › should allow me to edit an item[39m[2m (396ms)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:143:3 › Editing › should hide other controls when editing[39m[2m (374ms)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:151:3 › Editing › should trim entered text[39m[2m (380ms)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:165:3 › Editing › should cancel edits on escape[39m[2m (366ms)[22m
-[31m  ✘  [chromium] › app.spec.js:174:3 › Counter › should display the current number of todo items[39m[2m (6s)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:192:3 › Clear completed button › should display the correct text[39m[2m (551ms)[22m
-[31m  ✘  [chromium] › app.spec.js:199:3 › Clear completed button › should remove completed items when clicked[39m[2m (5s)[22m
-[31m  ✘  [chromium] › app.spec.js:207:3 › Clear completed button › should be hidden when there are no items that are completed[39m[2m (6s)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:217:3 › Persistence › should persist its data[39m[2m (573ms)[22m
-[31m  ✘  [chromium] › app.spec.js:247:3 › Routing › should allow me to display pending items[39m[2m (5s)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:15:3 › New Todo › should allow me to add todo items[39m[2m (679ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:36:3 › New Todo › should clear text input field when an item is added[39m[2m (307ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:48:3 › New Todo › should append new items to the bottom of the list[39m[2m (373ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:64:3 › New Todo › should show #main and #footer when items added[39m[2m (302ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:75:3 › Item › should allow me to mark items as complete[39m[2m (426ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:97:3 › Item › should allow me to un-mark items as complete[39m[2m (437ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:117:3 › Item › should allow me to edit an item[39m[2m (412ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:143:3 › Editing › should hide other controls when editing[39m[2m (408ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:151:3 › Editing › should trim entered text[39m[2m (394ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:165:3 › Editing › should cancel edits on escape[39m[2m (387ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:174:3 › Counter › should display the current number of todo items[39m[2m (312ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:192:3 › Clear completed button › should display the correct text[39m[2m (363ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:199:3 › Clear completed button › should remove completed items when clicked[39m[2m (444ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:207:3 › Clear completed button › should be hidden when there are no items that are completed[39m[2m (424ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:217:3 › Persistence › should persist its data[39m[2m (394ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:247:3 › Routing › should allow me to display pending items[39m[2m (437ms)[22m
 [31m  ✘  [chromium] › app.spec.js:258:3 › Routing › should respect the back button[39m[2m (6s)[22m
-[31m  ✘  [chromium] › app.spec.js:282:3 › Routing › should allow me to display completed items[39m[2m (6s)[22m
-[32m  ✓  [39m[90m[chromium] › app.spec.js:289:3 › Routing › should allow me to display all items[39m[2m (727ms)[22m
-[31m  ✘  [chromium] › app.spec.js:298:3 › Routing › should highlight the currently applied filter[39m[2m (5s)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:282:3 › Routing › should allow me to display completed items[39m[2m (636ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:289:3 › Routing › should allow me to display all items[39m[2m (528ms)[22m
+[32m  ✓  [39m[90m[chromium] › app.spec.js:298:3 › Routing › should highlight the currently applied filter[39m[2m (432ms)[22m
 
 
-[31m  1) [chromium] › app.spec.js:48:3 › New Todo › should append new items to the bottom of the list [90m==[31m[39m
-
-    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoHaveText[2m([22m[32mexpected[39m[2m)[22m
-
-    Expected string: [32m"[7m3[27m item[7ms[27m left"[39m
-    Received string: [31m"[7m0[27m item left"[39m
-    Call log:
-      [2m- expect.toHaveText with timeout 5000ms[22m
-    [2m  - waiting for selector ".todo-count"[22m
-    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
-    [2m  -   unexpected value "0 item left"[22m
-    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
-    [2m  -   unexpected value "0 item left"[22m
-    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
-    [2m  -   unexpected value "0 item left"[22m
-    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
-    [2m  -   unexpected value "0 item left"[22m
-    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
-    [2m  -   unexpected value "0 item left"[22m
-    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
-    [2m  -   unexpected value "0 item left"[22m
-    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
-    [2m  -   unexpected value "0 item left"[22m
-    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
-    [2m  -   unexpected value "0 item left"[22m
-
-
-      53 |
-      54 |     // Check test using different methods.
-    > 55 |     await expect(page.locator(".todo-count")).toHaveText("3 items left");
-         |                                               ^
-      56 |     await expect(page.locator(".todo-count")).toContainText("3");
-      57 |     await expect(page.locator(".todo-count")).toHaveText(/3/);
-      58 |
-
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:55:47[22m
-
-[31m  2) [chromium] › app.spec.js:174:3 › Counter › should display the current number of todo items [90m====[31m[39m
-
-    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m
-
-    Expected string: [32m"1"[39m
-    Received string: [31m"0 item left"[39m
-    Call log:
-      [2m- expect.toContainText with timeout 5000ms[22m
-    [2m  - waiting for selector ".todo-count"[22m
-    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
-    [2m  -   unexpected value "0 item left"[22m
-    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
-    [2m  -   unexpected value "0 item left"[22m
-    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
-    [2m  -   unexpected value "0 item left"[22m
-    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
-    [2m  -   unexpected value "0 item left"[22m
-    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
-    [2m  -   unexpected value "0 item left"[22m
-    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
-    [2m  -   unexpected value "0 item left"[22m
-    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
-    [2m  -   unexpected value "0 item left"[22m
-    [2m  -   selector resolved to <span class="todo-count">…</span>[22m
-    [2m  -   unexpected value "0 item left"[22m
-
-
-      175 |     await page.locator(".new-todo").fill(TODO_ITEMS[0]);
-      176 |     await page.locator(".new-todo").press("Enter");
-    > 177 |     await expect(page.locator(".todo-count")).toContainText("1");
-          |                                               ^
-      178 |
-      179 |     await page.locator(".new-todo").fill(TODO_ITEMS[1]);
-      180 |     await page.locator(".new-todo").press("Enter");
-
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:177:47[22m
-
-[31m  3) [chromium] › app.spec.js:199:3 › Clear completed button › should remove completed items when clicked [39m
+[31m  1) [chromium] › app.spec.js:258:3 › Routing › should respect the back button [90m=====================[31m[39m
 
     Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoHaveCount[2m([22m[32mexpected[39m[2m) // deep equality[22m
 
     Expected: [32m2[39m
-    Received: [31m3[39m
+    Received: [31m1[39m
     Call log:
       [2m- expect.toHaveCount with timeout 5000ms[22m
     [2m  - waiting for selector ".todo-list li"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
+    [2m  -   selector resolved to 1 element[22m
+    [2m  -   unexpected value "1"[22m
+    [2m  -   selector resolved to 1 element[22m
+    [2m  -   unexpected value "1"[22m
+    [2m  -   selector resolved to 1 element[22m
+    [2m  -   unexpected value "1"[22m
+    [2m  -   selector resolved to 1 element[22m
+    [2m  -   unexpected value "1"[22m
+    [2m  -   selector resolved to 1 element[22m
+    [2m  -   unexpected value "1"[22m
+    [2m  -   selector resolved to 1 element[22m
+    [2m  -   unexpected value "1"[22m
+    [2m  -   selector resolved to 1 element[22m
+    [2m  -   unexpected value "1"[22m
+    [2m  -   selector resolved to 1 element[22m
+    [2m  -   unexpected value "1"[22m
 
 
-      201 |     await todoItems.nth(1).locator(".toggle").check();
-      202 |     await page.locator(".clear-completed").click();
-    > 203 |     await expect(todoItems).toHaveCount(2);
-          |                             ^
-      204 |     await expect(todoItems).toHaveText([TODO_ITEMS[0], TODO_ITEMS[2]]);
-      205 |   });
-      206 |
-
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:203:29[22m
-
-[31m  4) [chromium] › app.spec.js:207:3 › Clear completed button › should be hidden when there are no items that are completed [39m
-
-    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeHidden[2m()[22m
-    Call log:
-      [2m- expect.toBeHidden with timeout 5000ms[22m
-    [2m  - waiting for selector ".clear-completed"[22m
-    [2m  -   selector resolved to <button class="clear-completed">Clear completed</button>[22m
-    [2m  -   unexpected value "false"[22m
-    [2m  -   selector resolved to <button class="clear-completed">Clear completed</button>[22m
-    [2m  -   unexpected value "false"[22m
-    [2m  -   selector resolved to <button class="clear-completed">Clear completed</button>[22m
-    [2m  -   unexpected value "false"[22m
-    [2m  -   selector resolved to <button class="clear-completed">Clear completed</button>[22m
-    [2m  -   unexpected value "false"[22m
-    [2m  -   selector resolved to <button class="clear-completed">Clear completed</button>[22m
-    [2m  -   unexpected value "false"[22m
-    [2m  -   selector resolved to <button class="clear-completed">Clear completed</button>[22m
-    [2m  -   unexpected value "false"[22m
-    [2m  -   selector resolved to <button class="clear-completed">Clear completed</button>[22m
-    [2m  -   unexpected value "false"[22m
-    [2m  -   selector resolved to <button class="clear-completed">Clear completed</button>[22m
-    [2m  -   unexpected value "false"[22m
-
-
-      210 |     await page.locator(".todo-list li .toggle").first().check();
-      211 |     await page.locator(".clear-completed").click();
-    > 212 |     await expect(page.locator(".clear-completed")).toBeHidden();
-          |                                                    ^
-      213 |   });
-      214 | });
-      215 |
-
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:212:52[22m
-
-[31m  5) [chromium] › app.spec.js:247:3 › Routing › should allow me to display pending items [90m===========[31m[39m
-
-    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoHaveCount[2m([22m[32mexpected[39m[2m) // deep equality[22m
-
-    Expected: [32m2[39m
-    Received: [31m3[39m
-    Call log:
-      [2m- expect.toHaveCount with timeout 5000ms[22m
-    [2m  - waiting for selector ".todo-list li"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-
-
-      249 |     await checkNumberOfCompletedTodosInLocalStorage(page, 1);
-      250 |     await page.locator(".filters >> text=Pending").click();
-    > 251 |     await expect(page.locator(".todo-list li")).toHaveCount(2);
-          |                                                 ^
-      252 |     await expect(page.locator(".todo-list li")).toHaveText([
-      253 |       TODO_ITEMS[0],
-      254 |       TODO_ITEMS[2],
-
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:251:49[22m
-
-[31m  6) [chromium] › app.spec.js:258:3 › Routing › should respect the back button [90m=====================[31m[39m
-
-    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoHaveCount[2m([22m[32mexpected[39m[2m) // deep equality[22m
-
-    Expected: [32m1[39m
-    Received: [31m3[39m
-    Call log:
-      [2m- expect.toHaveCount with timeout 5000ms[22m
-    [2m  - waiting for selector ".todo-list li"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-
-
-      273 |     });
-      274 |
-    > 275 |     await expect(page.locator(".todo-list li")).toHaveCount(1);
-          |                                                 ^
+      275 |     await expect(page.locator(".todo-list li")).toHaveCount(1);
       276 |     await page.goBack();
-      277 |     await expect(page.locator(".todo-list li")).toHaveCount(2);
-      278 |     await page.goBack();
-
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:275:49[22m
-
-[31m  7) [chromium] › app.spec.js:282:3 › Routing › should allow me to display completed items [90m=========[31m[39m
-
-    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoHaveCount[2m([22m[32mexpected[39m[2m) // deep equality[22m
-
-    Expected: [32m1[39m
-    Received: [31m3[39m
-    Call log:
-      [2m- expect.toHaveCount with timeout 5000ms[22m
-    [2m  - waiting for selector ".todo-list li"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-    [2m  -   selector resolved to 3 elements[22m
-    [2m  -   unexpected value "3"[22m
-
-
-      284 |     await checkNumberOfCompletedTodosInLocalStorage(page, 1);
-      285 |     await page.locator(".filters >> text=Completed").click();
-    > 286 |     await expect(page.locator(".todo-list li")).toHaveCount(1);
+    > 277 |     await expect(page.locator(".todo-list li")).toHaveCount(2);
           |                                                 ^
-      287 |   });
-      288 |
-      289 |   test("should allow me to display all items", async ({ page }) => {
+      278 |     await page.goBack();
+      279 |     await expect(page.locator(".todo-list li")).toHaveCount(3);
+      280 |   });
 
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:286:49[22m
-
-[31m  8) [chromium] › app.spec.js:298:3 › Routing › should highlight the currently applied filter [90m======[31m[39m
-
-    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoHaveClass[2m([22m[32mexpected[39m[2m)[22m
-
-    Expected string: [32m"selected"[39m
-    Received string: [31m""[39m
-    Call log:
-      [2m- expect.toHaveClass with timeout 5000ms[22m
-    [2m  - waiting for selector ".filters >> text=Pending"[22m
-    [2m  -   selector resolved to <a href="#/pending">Pending</a>[22m
-    [2m  -   unexpected value ""[22m
-    [2m  -   selector resolved to <a href="#/pending">Pending</a>[22m
-    [2m  -   unexpected value ""[22m
-    [2m  -   selector resolved to <a href="#/pending">Pending</a>[22m
-    [2m  -   unexpected value ""[22m
-    [2m  -   selector resolved to <a href="#/pending">Pending</a>[22m
-    [2m  -   unexpected value ""[22m
-    [2m  -   selector resolved to <a href="#/pending">Pending</a>[22m
-    [2m  -   unexpected value ""[22m
-    [2m  -   selector resolved to <a href="#/pending">Pending</a>[22m
-    [2m  -   unexpected value ""[22m
-    [2m  -   selector resolved to <a href="#/pending">Pending</a>[22m
-    [2m  -   unexpected value ""[22m
-    [2m  -   selector resolved to <a href="#/pending">Pending</a>[22m
-    [2m  -   unexpected value ""[22m
+    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:277:49[22m
 
 
-      300 |     await page.locator(".filters >> text=Pending").click();
-      301 |     // Page change - active items.
-    > 302 |     await expect(page.locator(".filters >> text=Pending")).toHaveClass(
-          |                                                            ^
-      303 |       "selected"
-      304 |     );
-      305 |     await page.locator(".filters >> text=Completed").click();
-
-    [2m    at /home/santiagoa96/documentos/platzi/Prueba técnica mydayapp-js/laboratorio-mydayapp-js/e2e/app.spec.js:302:60[22m
-
-[33m  Slow test file: [39m[chromium] › app.spec.js[33m (50s)[39m
-[33m  Consider splitting slow test files to speed up parallel execution[39m
-
-[31m  8 failed[39m
-[31m    [chromium] › app.spec.js:48:3 › New Todo › should append new items to the bottom of the list [90m===[31m[39m
-[31m    [chromium] › app.spec.js:174:3 › Counter › should display the current number of todo items [90m=====[31m[39m
-[31m    [chromium] › app.spec.js:199:3 › Clear completed button › should remove completed items when clicked [39m
-[31m    [chromium] › app.spec.js:207:3 › Clear completed button › should be hidden when there are no items that are completed [39m
-[31m    [chromium] › app.spec.js:247:3 › Routing › should allow me to display pending items [90m============[31m[39m
+[31m  1 failed[39m
 [31m    [chromium] › app.spec.js:258:3 › Routing › should respect the back button [90m======================[31m[39m
-[31m    [chromium] › app.spec.js:282:3 › Routing › should allow me to display completed items [90m==========[31m[39m
-[31m    [chromium] › app.spec.js:298:3 › Routing › should highlight the currently applied filter [90m=======[31m[39m
-[32m  12 passed[39m[2m (54s)[22m
+[32m  19 passed[39m[2m (15s)[22m

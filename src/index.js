@@ -1,8 +1,10 @@
 import "./css/base.css";
 
-import { newTodoInput, todoListContainer, main, footer, counter, clearCompletedButton } from "./js/domElements";
+import { newTodoInput, todoListContainer, main, footer, counter, clearCompletedButton, filterElements } from "./js/domElements";
+import { routes } from "./js/routes";
+import { Router } from "./js/router";
 
-let todoList;
+export let todoList;
 
 if (!localStorage.getItem('mydayapp-js')) {
   localStorage.setItem('mydayapp-js', JSON.stringify([]));
@@ -20,50 +22,52 @@ const getStoragedTodos = () => {
   todoList = JSON.parse(localStorage.getItem('mydayapp-js'));
 }
 
-const renderNewList = (array) => {
+export const renderNewList = (array) => {
 
   todoListContainer.replaceChildren('');
   updateStoragedTodos(array);
 
   array.forEach(item => {
-    const todoContainer = document.createElement('li');
-    
-    const todoDivContainer = document.createElement('div');
-    todoDivContainer.classList.add('view');
-    
-    const checkBox = document.createElement('input');
-    checkBox.classList.add('toggle');
-    checkBox.type = 'checkbox';
-    checkBox.addEventListener('change', () => toggleCompletedState(checkBox, todoContainer, item.id));
-    
-    if(item.completed) {
-      todoContainer.classList.add('completed');
-      checkBox.checked = true;
-    }
-
-    const todoLabel = document.createElement('label');
-    todoLabel.innerHTML = item.title;
-
-    const deleteTodoButton = document.createElement('button');
-    deleteTodoButton.type = 'button';
-    deleteTodoButton.classList.add('destroy');
-    
-    deleteTodoButton.addEventListener('click', () => eliminateTask(item.id));
-    
-    todoDivContainer.append(checkBox, todoLabel, deleteTodoButton);
-    
-    const editTodoLabel = document.createElement('input');
-    editTodoLabel.type = 'text';
-    editTodoLabel.classList.add('edit');
-    editTodoLabel.value = item.title;
-    
-    todoLabel.addEventListener('dblclick', () => openTaskEditor(editTodoLabel, todoContainer));
-
-    editTodoLabel.addEventListener('keydown', e => editTask(e, item.id, todoContainer));
-    
-    todoContainer.append(todoDivContainer, editTodoLabel);
+    if(item.visible) {
+      const todoContainer = document.createElement('li');
+      
+      const todoDivContainer = document.createElement('div');
+      todoDivContainer.classList.add('view');
+      
+      const checkBox = document.createElement('input');
+      checkBox.classList.add('toggle');
+      checkBox.type = 'checkbox';
+      checkBox.addEventListener('change', () => toggleCompletedState(checkBox, todoContainer, item.id));
+      
+      if(item.completed) {
+        todoContainer.classList.add('completed');
+        checkBox.checked = true;
+      }
   
-    todoListContainer.append(todoContainer);
+      const todoLabel = document.createElement('label');
+      todoLabel.innerHTML = item.title;
+  
+      const deleteTodoButton = document.createElement('button');
+      deleteTodoButton.type = 'button';
+      deleteTodoButton.classList.add('destroy');
+      
+      deleteTodoButton.addEventListener('click', () => eliminateTask(item.id));
+      
+      todoDivContainer.append(checkBox, todoLabel, deleteTodoButton);
+      
+      const editTodoLabel = document.createElement('input');
+      editTodoLabel.type = 'text';
+      editTodoLabel.classList.add('edit');
+      editTodoLabel.value = item.title;
+      
+      todoLabel.addEventListener('dblclick', () => openTaskEditor(editTodoLabel, todoContainer));
+  
+      editTodoLabel.addEventListener('keydown', e => editTask(e, item.id, todoContainer));
+      
+      todoContainer.append(todoDivContainer, editTodoLabel);
+    
+      todoListContainer.append(todoContainer);
+    }
   });
 
   updateCounter(array);
@@ -143,7 +147,8 @@ newTodoInput.addEventListener('keydown', e => {
     const newTodo = {
       id: e.target.value.trim(),
       title: e.target.value.trim(),
-      completed: false
+      completed: false,
+      visible: true
     }
     addNewTask(newTodo);
     e.target.value = '';
@@ -160,7 +165,7 @@ const hideMainAndFooterToggle = () => {
   }
 }
 
-// footer functionalities: todo counter, delete completed tasks button
+// footer functionalities: todo counter, delete completed tasks button, filter tasks
 
 const updateCounter = (array) => {
   const pendingTasks = array.filter(item => !item.completed);
@@ -169,6 +174,7 @@ const updateCounter = (array) => {
 
 const deleteCompletedTasks = (array) => {
   const onlyPendingTasks = array.filter(item => !item.completed);
+  console.log(onlyPendingTasks);
   renderNewList(onlyPendingTasks);
 
   if(onlyPendingTasks.length < 1) {
@@ -186,6 +192,17 @@ const toggleClearCompletedButton = () => {
   }
 }
 
+// this array contains all anchor elements which will be used in routes.js
+export const filterElementsArr = [...filterElements];
+
+// router logic is found in router.js
+const router = new Router(routes);
+
+filterElementsArr.forEach(item => {
+  item.addEventListener('click', () => router.loadPage(item.hash));
+});
+
 hideMainAndFooterToggle();
 
-renderNewList(todoList);
+// renderNewList(todoList);
+// console.log(todoList);
