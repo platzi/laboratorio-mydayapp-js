@@ -28,10 +28,10 @@ const editData = {
       for (const key in data) {
         if (data[key].status == 'completed'){
           delete data[key];
-          tasksCount.completed--;
+          tasksCount.completed--; tasksCount.all--;
+          console.log(tasksCount, data);
         }
       }
-      filterUrl();
       saveLocalStorage();
     }
 };
@@ -250,7 +250,6 @@ utils.buttonClear.addEventListener('click', () => {
     editData.deleteCompleted();
     tasksCompleted.forEach((element => {
         utils.todoList.removeChild(element);
-        tasksCount.all--; tasksCount.completed--;
     }));
     in_activeClearButton();
     in_activeTodo();
