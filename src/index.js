@@ -8,6 +8,8 @@ const editData = {
         status,
         value
       };
+      ++tasksCount.all;
+      ++tasksCount.pending;
       saveLocalStorage();
     },
     editStatus: function ({ key, status }){
@@ -28,8 +30,8 @@ const editData = {
       for (const key in data) {
         if (data[key].status == 'completed'){
           delete data[key];
-          tasksCount.completed--; tasksCount.all--;
-          console.log(tasksCount, data);
+          --tasksCount.completed;
+          --tasksCount.all;
         }
       }
       saveLocalStorage();
@@ -45,124 +47,132 @@ function in_activeTodo (){
 }
 
 function createTask ({status = 'pending', value, isNewTask = true}){
-    const li = document.createElement('li');
 
-    const div = document.createElement('div');
-    div.classList.add('view');
-
-
-    const inputCheck = document.createElement('input');
-    inputCheck.classList.add('toggle');
-    inputCheck.setAttribute('type', 'checkbox');
-
-    inputCheck.addEventListener('change', (event) => {
-        li.classList.toggle('completed');
-        if (event.target.checked){
-            tasksCount.completed++;
-            tasksCount.pending--;
-            editData.editStatus({key: label.textContent, status: 'completed'});
-        } else {
-            tasksCount.completed--;
-            tasksCount.pending++;
-            editData.editStatus({key: label.textContent, status: 'pending'});
-        }
-        filterUrl();
-        printItem_sCount();
-        in_activeClearButton();
-    });
-
-
-    const label = document.createElement('label');
-    label.innerText = value;
-
-    label.addEventListener('dblclick', () => {
-        if (li.classList.contains('completed')) {
-            li.classList.replace('completed', 'editing');
-            isCompletedTask.value = true;
-        } else {
-            li.classList.add('editing');
-        }
-        inputEdit.focus();
-    });
-    
-
-    const button = document.createElement('button');
-    button.classList.add('destroy');
-
-    button.addEventListener('click', (event) => {
-        if (event.target.parentNode.parentNode.classList.contains('completed')){
-            tasksCount.completed--;
-        } else {
-            tasksCount.pending--;
-        }
-        tasksCount.all--;
-        editData.delete(label.textContent);
-        utils.todoList.removeChild(event.target.parentNode.parentNode);
-        printItem_sCount(); in_activeClearButton(); in_activeTodo();
-    });
-    
-
-    const inputEdit = document.createElement('input');
-    inputEdit.classList.add('edit');
-    inputEdit.value = value;
-
-    inputEdit.addEventListener('keyup', (event) => {
-        const newValue = inputEdit.value.trim();
-        if (newValue != '') {
-            if (event.keyCode === 13){
-                editData.editValue({oldKey: label.textContent, newKey: newValue});
-                label.innerText = newValue;
-                if (isCompletedTask.value == true){
-                    li.classList.replace('editing', 'completed');
-                    isCompletedTask.value = false;
-                } else {
-                    li.classList.remove('editing');
-                }
-
-            } else if (event.keyCode === 27) {
-                if (isCompletedTask.value == true){
-                    li.classList.replace('editing', 'completed');
-                    isCompletedTask.value = false;
-                } else {
-                    li.classList.remove('editing');
-                }
-                inputEdit.value = label.textContent;
-            }
-        }
-    });
-
-    if (status == 'completed'){
-        li.classList.add('completed');
-        inputCheck.checked = true;
+  if (isNewTask){
+    if (data[value]) {
+      alert('You already have that task');
+      return;
+    } else {
+      editData.create({key: value, status: 'pending'});
     }
+  }
 
-    div.append(inputCheck, label, button);
-    li.append(div, inputEdit);
-    utils.todoList.append(li);
+  const li = document.createElement('li');
 
-    if (isNewTask){
-        ++tasksCount.all;
-        ++tasksCount.pending;
-        editData.create({key: value, status: 'pending'});
+  const div = document.createElement('div');
+  div.classList.add('view');
+
+
+  const inputCheck = document.createElement('input');
+  inputCheck.classList.add('toggle');
+  inputCheck.setAttribute('type', 'checkbox');
+
+  inputCheck.addEventListener('change', (event) => {
+      li.classList.toggle('completed');
+      if (event.target.checked){
+        tasksCount.completed++;
+        tasksCount.pending--;
+        editData.editStatus({key: label.textContent, status: 'completed'});
+      } else {
+        tasksCount.completed--;
+        tasksCount.pending++;
+        editData.editStatus({key: label.textContent, status: 'pending'});
+      }
+      filterUrl();
+      printItem_sCount();
+      in_activeClearButton();
+  });
+
+
+  const label = document.createElement('label');
+  label.innerText = value;
+
+  label.addEventListener('dblclick', () => {
+      if (li.classList.contains('completed')) {
+        li.classList.replace('completed', 'editing');
+        isCompletedTask.value = true;
+      } else {
+        li.classList.add('editing');
+      }
+      inputEdit.focus();
+  });
+  
+
+  const button = document.createElement('button');
+  button.classList.add('destroy');
+
+  button.addEventListener('click', (event) => {
+    if (event.target.parentNode.parentNode.classList.contains('completed')){
+      tasksCount.completed--;
+    } else {
+      tasksCount.pending--;
     }
+    tasksCount.all--;
+    editData.delete(label.textContent);
+    utils.todoList.removeChild(event.target.parentNode.parentNode);
+    printItem_sCount(); in_activeClearButton(); in_activeTodo();
+  });
+  
 
-    utils.todoInput.value = '';
-    in_activeTodo();
-    printItem_sCount();
-    in_activeClearButton();
+  const inputEdit = document.createElement('input');
+  inputEdit.classList.add('edit');
+  inputEdit.value = value;
+
+  inputEdit.addEventListener('keyup', (event) => {
+    const newValue = inputEdit.value.trim();
+    if (newValue != '') {
+      if (event.keyCode === 13){
+        if (data[newValue]){
+          alert("Can't repeat task names");
+        } else {
+          editData.editValue({oldKey: label.textContent, newKey: newValue});
+          label.innerText = newValue;
+          if (isCompletedTask.value == true){
+            li.classList.replace('editing', 'completed');
+            isCompletedTask.value = false;
+          } else {
+            li.classList.remove('editing');
+          }
+        }
+
+      } else if (event.keyCode === 27) {
+        if (isCompletedTask.value == true){
+          li.classList.replace('editing', 'completed');
+          isCompletedTask.value = false;
+        } else {
+          li.classList.remove('editing');
+        }
+        inputEdit.value = label.textContent;
+      }
+    }
+  });
+
+  if (status == 'completed'){
+      li.classList.add('completed');
+      inputCheck.checked = true;
+  }
+
+  div.append(inputCheck, label, button);
+  li.append(div, inputEdit);
+  utils.todoList.append(li);
+
+  utils.todoInput.value = '';
+  in_activeTodo();
+  printItem_sCount();
+  in_activeClearButton();
 }
 
 function printItem_sCount (){
-    let item_s;
-    switch (tasksCount.pending) {
-        case 1:
-            item_s = 'item';
-            break;
-        default:
-            item_s = 'items';
-    }
+  let item_s;
+  switch (tasksCount.pending) {
+    case 1:
+      item_s = 'item';
+      break;
+    default:
+      item_s = 'items';
+  }
 
-    utils.todoCount.innerHTML = `<strong>${tasksCount.pending}</strong> ${item_s} left`;
+  utils.todoCount.innerHTML = `<strong>${tasksCount.pending}</strong> ${item_s} left`;
 }
 printItem_sCount();
 
@@ -238,26 +248,23 @@ function filterClass (){
 filterClass();
 
 utils.todoInput.addEventListener('keyup', (event) => {
-    const inputValue = event.target.value.trim();
-    if (event.keyCode === 13 && inputValue != ''){
-      location.hash = '#/all';
-      createTask({value: inputValue});
-    }
+  const inputValue = event.target.value.trim();
+  if (event.keyCode === 13 && inputValue != ''){
+    location.hash = '#/all';
+    createTask({value: inputValue});
+  }
 });
 
 utils.buttonClear.addEventListener('click', () => {
-    const tasksCompleted = document.querySelectorAll('.todo-list .completed');
-    editData.deleteCompleted();
-    tasksCompleted.forEach((element => {
-        utils.todoList.removeChild(element);
-    }));
-    in_activeClearButton();
-    in_activeTodo();
-    saveLocalStorage();
-})
+  editData.deleteCompleted();
+  filterUrl();
+  in_activeClearButton();
+  in_activeTodo();
+});
 
 window.addEventListener('hashchange', filterUrl);
 
 if (localStorage.getItem('mydayapp-js')){
-    filterUrl();
+  filterUrl();
+  in_activeTodo();
 }
