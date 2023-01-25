@@ -25,10 +25,13 @@ const editData = {
       saveLocalStorage();
     },
     deleteCompleted: function (){
-      const completedTasks = document.querySelectorAll('.completed div label');
-      completedTasks.forEach(element => {
-        delete data[element.textContent];
-      });
+      for (const key in data) {
+        if (data[key].status == 'completed'){
+          delete data[key];
+          tasksCount.completed--;
+        }
+      }
+      filterUrl();
       saveLocalStorage();
     }
 };
@@ -63,6 +66,7 @@ function createTask ({status = 'pending', value, isNewTask = true}){
             tasksCount.pending++;
             editData.editStatus({key: label.textContent, status: 'pending'});
         }
+        filterUrl();
         printItem_sCount();
         in_activeClearButton();
     });
@@ -175,10 +179,69 @@ function saveLocalStorage (){
     localStorage.setItem('counter', JSON.stringify(tasksCount));
 }
 
+function filterUrl () {
+  const dataStorage = localStorage.getItem('mydayapp-js');
+
+  if (location.hash == '#/' || location.hash == '#/all') {
+    utils.todoList.innerHTML = '';
+    const dataStorageObj = JSON.parse(dataStorage);
+    for (const key in dataStorageObj) {
+      createTask({status: dataStorageObj[key].status, value: dataStorageObj[key].value, isNewTask: false})
+    }
+    filterClass();
+    return;
+  }
+  if (location.hash == '#/pending'){
+    utils.todoList.innerHTML = '';
+    const dataStorageObj = JSON.parse(dataStorage);
+    for (const key in dataStorageObj) {
+      if (dataStorageObj[key].status == 'pending'){
+        createTask({status: dataStorageObj[key].status, value: dataStorageObj[key].value, isNewTask: false})
+      }
+    }
+    filterClass();
+    return;
+  }
+  if (location.hash == '#/completed'){
+    utils.todoList.innerHTML = '';
+    const dataStorageObj = JSON.parse(dataStorage);
+    for (const key in dataStorageObj) {
+      if (dataStorageObj[key].status == 'completed'){
+        createTask({status: dataStorageObj[key].status, value: dataStorageObj[key].value, isNewTask: false})
+      }
+    }
+    filterClass();
+    return;
+  }
+}
+
+function filterClass (){
+  if (location.hash == '#/' || location.hash == '#/all') {
+    utils.filters.all.className = 'selected';
+    utils.filters.pending.className = '';
+    utils.filters.completed.className = '';
+    return;
+  }  
+  if (location.hash == '#/pending'){
+    utils.filters.all.className = '';
+    utils.filters.pending.className = 'selected';
+    utils.filters.completed.className = '';
+    return;
+  }
+  if (location.hash == '#/completed'){
+    utils.filters.all.className = '';
+    utils.filters.pending.className = '';
+    utils.filters.completed.className = 'selected';
+    return;
+  }
+}
+filterClass();
+
 utils.todoInput.addEventListener('keyup', (event) => {
     const inputValue = event.target.value.trim();
     if (event.keyCode === 13 && inputValue != ''){
-        createTask({value: inputValue});
+      location.hash = '#/all';
+      createTask({value: inputValue});
     }
 });
 
@@ -194,10 +257,8 @@ utils.buttonClear.addEventListener('click', () => {
     saveLocalStorage();
 })
 
-const dataStorage = localStorage.getItem('mydayapp-js');
-if (dataStorage){
-    const dataStorageObj = JSON.parse(dataStorage);
-    for (const key in dataStorageObj) {
-        createTask({status: dataStorageObj[key].status, value: dataStorageObj[key].value, isNewTask: false})
-    }
+window.addEventListener('hashchange', filterUrl);
+
+if (localStorage.getItem('mydayapp-js')){
+    filterUrl();
 }

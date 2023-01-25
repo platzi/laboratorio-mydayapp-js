@@ -3,7 +3,12 @@ const utils = {
   todoContainer: document.querySelector('.todoapp-wrapper'),
   todoList: document.querySelector('.todo-list'),
   todoCount: document.querySelector('.todo-count'),
-  buttonClear: document.querySelector('.clear-completed')
+  buttonClear: document.querySelector('.clear-completed'),
+  filters: {
+    all: document.querySelector('.filters li:nth-child(1) a'),
+    pending: document.querySelector('.filters li:nth-child(2) a'),
+    completed: document.querySelector('.filters li:nth-child(3) a')
+  }
 };
 
 const isCompletedTask = {
