@@ -1,8 +1,8 @@
 // This file contains every default HTML element found in the inital index.html file where changes will be made depending on user's interactions with the app
 
-export const newTodoInput = document.querySelector('.new-todo');
+export const newTaskInput = document.querySelector('.new-todo');
 
-export const todoListContainer = document.querySelector('.todo-list');
+export const taskListContainer = document.querySelector('.todo-list');
 
 export const footer = document.querySelector('#footer');
 

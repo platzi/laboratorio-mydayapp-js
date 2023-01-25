@@ -1,71 +1,77 @@
-import "./css/base.css";
+// this file manages the main logic of the app or, in other words, any addition of new tasks, as well as
+// any modification or deletion each one has
 
-import { newTodoInput, todoListContainer, main, footer, counter, clearCompletedButton, filterElements } from "./js/domElements";
+// imports section
+import "./css/base.css";
+import { newTaskInput, taskListContainer, main, footer, counter, clearCompletedButton, filterElements } from "./js/domElements";
 import { loadPage } from "./js/router";
 
-export let todoList;
+// this will be the main array that manages all of the tasks
+let taskList;
 
+// localStorage logic
+// |-------------------------------------------------------------|
 if (!localStorage.getItem('mydayapp-js')) {
   localStorage.setItem('mydayapp-js', JSON.stringify([]));
-  todoList = JSON.parse(localStorage.getItem('mydayapp-js'));
+  taskList = JSON.parse(localStorage.getItem('mydayapp-js'));
 } else {
-  todoList = JSON.parse(localStorage.getItem('mydayapp-js'));
+  taskList = JSON.parse(localStorage.getItem('mydayapp-js'));
 }
 
-const updateStoragedTodos = (arr) => {
-  localStorage.setItem('mydayapp-js', JSON.stringify(arr));
-  getStoragedTodos();
+const updateStoragedTasks = (array) => {
+  localStorage.setItem('mydayapp-js', JSON.stringify(array));
+  taskList = JSON.parse(localStorage.getItem('mydayapp-js'));
 }
+// |-------------------------------------------------------------|
 
-const getStoragedTodos = () => {
-  todoList = JSON.parse(localStorage.getItem('mydayapp-js'));
-}
+// this function will render the list of tasks when: a new task is added, a task is deleted, a task
+// is edited and the list is filtered.
+const renderNewList = (array) => {
 
-export const renderNewList = (array) => {
-
-  todoListContainer.replaceChildren('');
-  updateStoragedTodos(array);
+  taskListContainer.replaceChildren('');
+  updateStoragedTasks(array);
 
   array.forEach(item => {
     if(item.visible) {
-      const todoContainer = document.createElement('li');
+      const taskContainer = document.createElement('li');
       
-      const todoDivContainer = document.createElement('div');
-      todoDivContainer.classList.add('view');
+      const taskDivContainer = document.createElement('div');
+      taskDivContainer.classList.add('view');
       
       const checkBox = document.createElement('input');
-      checkBox.classList.add('toggle');
       checkBox.type = 'checkbox';
-      checkBox.addEventListener('change', () => toggleCompletedState(checkBox, todoContainer, item.id));
+      checkBox.classList.add('toggle');
+      
+      checkBox.addEventListener('change', () => toggleCompletedState(checkBox, taskContainer, item.id));
       
       if(item.completed) {
-        todoContainer.classList.add('completed');
+        taskContainer.classList.add('completed');
         checkBox.checked = true;
       }
   
-      const todoLabel = document.createElement('label');
-      todoLabel.innerHTML = item.title;
+      const taskLabel = document.createElement('label');
+      taskLabel.textContent = item.title;
+
+      taskLabel.addEventListener('dblclick', () => openTaskEditor(editTaskLabel, taskContainer));
   
-      const deleteTodoButton = document.createElement('button');
-      deleteTodoButton.type = 'button';
-      deleteTodoButton.classList.add('destroy');
+      const deleteTaskButton = document.createElement('button');
+      deleteTaskButton.type = 'button';
+      deleteTaskButton.classList.add('destroy');
       
-      deleteTodoButton.addEventListener('click', () => eliminateTask(item.id));
+      deleteTaskButton.addEventListener('click', () => eliminateTask(item.id));
       
-      todoDivContainer.append(checkBox, todoLabel, deleteTodoButton);
+      taskDivContainer.append(checkBox, taskLabel, deleteTaskButton);
       
-      const editTodoLabel = document.createElement('input');
-      editTodoLabel.type = 'text';
-      editTodoLabel.classList.add('edit');
-      editTodoLabel.value = item.title;
+      const editTaskLabel = document.createElement('input');
+      editTaskLabel.type = 'text';
+      editTaskLabel.classList.add('edit');
+      editTaskLabel.value = item.title;
       
-      todoLabel.addEventListener('dblclick', () => openTaskEditor(editTodoLabel, todoContainer));
-  
-      editTodoLabel.addEventListener('keydown', e => editTask(e, item.id, todoContainer));
+      editTaskLabel.addEventListener('keydown', e => editTask(e, item.id, taskContainer));
       
-      todoContainer.append(todoDivContainer, editTodoLabel);
+      taskContainer.append(taskDivContainer, editTaskLabel);
     
-      todoListContainer.append(todoContainer);
+      taskListContainer.append(taskContainer);
     }
   });
 
@@ -73,89 +79,100 @@ export const renderNewList = (array) => {
   toggleClearCompletedButton();
 }
 
+// this is the text input that receives the text given to the input
+// and creates a new task. A task is an object that consists of four properties:
+// id: string; title: string; completed: boolean; visible: boolean;
+newTaskInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.value.length > 1 && e.target.value.trim()){
+    const newTask = {
+      id: e.target.value.trim(),
+      title: e.target.value.trim(),
+      completed: false,
+      visible: true
+    }
+    taskList.push(newTask);
+    renderNewList(taskList);
+    hideMainAndFooterToggle();
+    e.target.value = '';
+  }
+});
+
+// this function manages the visual and logic state of a task whenever its completed state changes
+// whenever the user checks or unchecks it, also updating the pending task's counter
 const toggleCompletedState = (checkedElement, elementToChange, elementId) => {
-  const elementIndex = todoList.findIndex(item => item.id === elementId);
+  const elementIndex = taskList.findIndex(item => item.id === elementId);
 
   if (checkedElement.checked) {
-    todoList[elementIndex].completed = true;
+    taskList[elementIndex].completed = true;
     elementToChange.classList.add('completed');
-    updateStoragedTodos(todoList);
+    updateStoragedTasks(taskList);
   } else {
-    todoList[elementIndex].completed = false;
+    taskList[elementIndex].completed = false;
     elementToChange.classList.remove('completed');
-    updateStoragedTodos(todoList);
+    updateStoragedTasks(taskList);
   }
 
-  updateCounter(todoList);
+  updateCounter(taskList);
   toggleClearCompletedButton();
 }
 
+// this function is responsible for the elimination of an specific task whenever the user clicks
+// the X icon
 const eliminateTask = (elementId) => {
-  todoList.splice(todoList.findIndex(item => item.id === elementId), 1);
-  renderNewList(todoList);
+  taskList.splice(taskList.findIndex(item => item.id === elementId), 1);
+  renderNewList(taskList);
   hideMainAndFooterToggle();
 }
 
-const toggleHiddenContent = addHidden => {
-  todoList.forEach(() => {
-    const nodeList = todoListContainer.children;
-    if(addHidden) {
-      [...nodeList].forEach(item => {
-        if(!item.classList.contains('editing')) {
-          item.classList.add('hidden');
-        }
-      })
-    } else {
-      [...nodeList].forEach(item => {
-        item.classList.remove('hidden');
-      })
-    }
-  })
-}
-
+// this function opens the task editor whenever the user double-clicks a task
 const openTaskEditor = (elementToFocus, elementToChange) => {
   elementToChange.classList.add('editing');
   elementToFocus.focus();
   toggleHiddenContent(true);
 }
 
+// this function actives whenever a task is going to be edited, hidding all other tasks in the list
+// and only showing the one being edited
+const toggleHiddenContent = addHidden => {
+  taskList.forEach(() => {
+    const tasksToHide = [...taskListContainer.children];
+    if(addHidden) {
+      tasksToHide.forEach(item => {
+        if(!item.classList.contains('editing')) {
+          item.classList.add('hidden');
+        }
+      })
+    } else {
+      tasksToHide.forEach(item => {
+        item.classList.remove('hidden');
+      })
+    }
+  })
+}
+
+// this function manages all the task editing logic, where it receives new text in a text input and,
+// if the user presses enter, the task gets update and, if escape is pressed, the task editor closes,
+// canceling any input the user entered and showing the default task.
+// Either if the user presses enter or escape, the rest of the tasks will be shown.
 const editTask = (e, elementId, elementToChange) => {
-  const elementIndex = todoList.findIndex(item => item.id === elementId);
+  const elementIndex = taskList.findIndex(item => item.id === elementId);
   
   if(e.key === 'Enter') {
-    todoList[elementIndex].title = e.target.value.trim();
-    todoList[elementIndex].id = e.target.value.trim();
+    taskList[elementIndex].title = e.target.value.trim();
+    taskList[elementIndex].id = e.target.value.trim();
     elementToChange.classList.remove('editing');
-    renderNewList(todoList);
+    renderNewList(taskList);
     toggleHiddenContent(false);
   } else if(e.key === 'Escape') {
     elementToChange.classList.remove('editing');
-    e.target.value = todoList[elementIndex].title;
+    e.target.value = taskList[elementIndex].title;
     toggleHiddenContent(false);
   }
 }
 
-const addNewTask = (newTask) => {
-  todoList.push(newTask);
-  renderNewList(todoList);
-  hideMainAndFooterToggle();
-}
-
-newTodoInput.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && e.target.value.length > 1 && e.target.value.trim()){
-    const newTodo = {
-      id: e.target.value.trim(),
-      title: e.target.value.trim(),
-      completed: false,
-      visible: true
-    }
-    addNewTask(newTodo);
-    e.target.value = '';
-  }
-});
-
+// this function toggles the visibility of the footer whenever the task list is empty or not
 const hideMainAndFooterToggle = () => {
-  if(todoList.length < 1) {
+  if(taskList.length < 1) {
     footer.classList.add('hidden');
     main.classList.add('hidden');
   } else {
@@ -164,13 +181,16 @@ const hideMainAndFooterToggle = () => {
   }
 }
 
-// footer functionalities: todo counter, delete completed tasks button, filter tasks
+// footer functionalities: task counter, delete completed tasks button, filter tasks
 
+// this function updates the counter whenever the task's completion state changes
 const updateCounter = (array) => {
   const pendingTasks = array.filter(item => !item.completed);
   counter.innerHTML = `<strong>${pendingTasks.length}</strong> ${pendingTasks.length === 1 ? 'item' : 'items'} left`;
 }
 
+// this function manages the "Clear completed" button functionality, where it will delete any completed
+// task there is.
 const deleteCompletedTasks = (array) => {
   const onlyPendingTasks = array.filter(item => !item.completed);
   renderNewList(onlyPendingTasks);
@@ -180,10 +200,12 @@ const deleteCompletedTasks = (array) => {
   }
 }
 
-clearCompletedButton.addEventListener('click', () => deleteCompletedTasks(todoList));
+clearCompletedButton.addEventListener('click', () => deleteCompletedTasks(taskList));
 
+// this function manages the visibility of the "Clear completed" button, where it defaults to 'hidden'
+// if there's no completed task and 'visible' otherwise
 const toggleClearCompletedButton = () => {
-  if (todoList.some(item => item.completed)) {
+  if (taskList.some(item => item.completed)) {
     clearCompletedButton.classList.remove('hidden');
   } else {
     clearCompletedButton.classList.add('hidden');
@@ -191,8 +213,10 @@ const toggleClearCompletedButton = () => {
 }
 
 // this array contains all anchor elements which will be used in routes.js
-export const filterElementsArr = [...filterElements];
+const filterElementsArr = [...filterElements];
 
+// here, all anchor elements receive a 'click' event to update the navigator's URL, saving it's current
+// state while also preventing page reloading
 filterElementsArr.forEach(item => {
   item.addEventListener('click', (e) => {
     e.preventDefault();
@@ -202,3 +226,5 @@ filterElementsArr.forEach(item => {
 });
 
 hideMainAndFooterToggle();
+
+export { filterElementsArr, renderNewList, taskList };
