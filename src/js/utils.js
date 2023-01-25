@@ -6,14 +6,26 @@ const utils = {
   buttonClear: document.querySelector('.clear-completed')
 };
 
-const tasksCount = {
-  all: 0,
-  pending: 0,
-  completed: 0
-};
-
-let isCompletedTask = {
+const isCompletedTask = {
   value: false
 };
 
-export {utils, tasksCount, isCompletedTask}
+let tasksCount;
+if (localStorage.getItem('counter')){
+  tasksCount = JSON.parse(localStorage.getItem('counter'));
+} else {
+  tasksCount = {
+    all: 0,
+    pending: 0,
+    completed: 0
+  };
+}
+
+let data;
+if (localStorage.getItem('mydayapp-js')){
+  data = JSON.parse(localStorage.getItem('mydayapp-js'));
+} else {
+  data = {};
+}
+
+export {utils, tasksCount, isCompletedTask, data}
