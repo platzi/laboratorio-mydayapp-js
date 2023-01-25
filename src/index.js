@@ -78,7 +78,6 @@ function createTask ({status = 'pending', value, isNewTask = true}){
         tasksCount.pending++;
         editData.editStatus({key: label.textContent, status: 'pending'});
       }
-      filterUrl();
       printItem_sCount();
       in_activeClearButton();
   });
