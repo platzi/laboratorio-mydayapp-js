@@ -17,25 +17,25 @@ window.addEventListener('hashchange', renderUI, false);
 //evento del boton que limpia las tareas completadas
 clearCompleted.addEventListener("click", clearTaskCompleted);
 //Evento del input principal para agregar nuevas tareas
-inputNewTodo.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
+inputNewTodo.addEventListener("keydown", ({key}) => {
+  if (key === "Enter") {
     inputValue(inputNewTodo);
   };
 });
 
 //la logica empleada para la primera carga de la aplicacion
-export function firstLoad() {    
+export function firstLoad() {
   //se valida si hay alguna tarea almacenada en el localstorage, de ser nula se llama a la funcion que oculta el main y el footer
   //si hay alguna tarea en el localstorage, se carga los elementos en la variable temporal taskListArray y se realiza el renderizado
   //en la interfaz grafica
   if (getterLocalStorage === null) {
     setterLocalStorage();
     verifyTaskLIstArray();
-  } else {    
+  } else {
     verifyTaskLIstArray();
     taskListArray = [...getterLocalStorage];
-    renderUI();    
-  };  
+    renderUI();
+  };
 };
 
 //utils
@@ -47,7 +47,7 @@ function verifyTaskLIstArray() {
     main.classList.remove("hidden");
     footer.classList.remove("hidden");
 
-    const someCompleted = taskListArray.some((task) => task.completed == true);    
+    const someCompleted = taskListArray.some((task) => task.completed == true);
     someCompleted ? clearCompleted.classList.remove('hidden') : clearCompleted.classList.add('hidden')
   };
 };
@@ -57,7 +57,7 @@ function clearInput() {
 };
 
 function setterLocalStorage() {
-  localStorage.setItem("mydayapp-js", JSON.stringify(taskListArray));  
+  localStorage.setItem("mydayapp-js", JSON.stringify(taskListArray));
 };
 
 //logic add Task
@@ -85,42 +85,37 @@ function addTodoList(text) {
 };
 
 //UI interface
-function deleteTask(deleteIcon) {
-  const path = deleteIcon.path[2]; // liContainer para acceder al dataset donde se almaceno el ID  
-  const taskId = path.dataset.id;
-  taskListArray = taskListArray.filter((task) => task.id != taskId);
+function deleteTask({target: {offsetParent: liContainer}}) {
+  taskListArray = taskListArray.filter((task) => task.id != liContainer.dataset.id);
   setterLocalStorage();
   renderUI();
 };
 
-function editingMode(edit) {  
-  const li_Container = edit.path[2] //LiContainer
-  const input = edit.path[1].nextSibling //acceder al input
-  li_Container.classList.toggle("editing"); // se agrega la clase al Contenedor para acceder a al modo editar
-  input.focus();  
-  
+function editingMode({target: {offsetParent: liContainer}}) {
+  const { lastChild: input } = liContainer
+  liContainer.classList.toggle("editing"); // se agrega la clase al Contenedor para acceder a al modo editar
+  input.focus();
+
   // se almacenan los valores del ID y del valor por defecto del input
-  const taskId = li_Container.dataset.id; // liContainer para acceder al dataset donde se almaceno el ID
-  const inputEditValue = this.innerText; // se almacena el valor iniciar del input    
-  
-  input.addEventListener("keydown", (eventkey) => {
-    if (eventkey.key === "Enter") {
-      const found = taskListArray.findIndex((index) => index.id == taskId)
+
+  const inputEditValue = this.innerText; // se almacena el valor iniciar del input
+
+  input.addEventListener("keydown", ({key}) => {
+    if (key === "Enter") {
+      const found = taskListArray.findIndex((index) => index.id == liContainer.dataset.id)
       taskListArray[found].title = input.value.trim();
       setterLocalStorage();
       renderUI();
-    } else if (eventkey.key === "Escape") {
+    } else if (key === "Escape") {
       input.value = inputEditValue;
-      li_Container.classList.remove("editing");
+      liContainer.classList.remove("editing");
     };
   });
 };
 
-function checkBox(checkboxToggle) {  
-  const path = checkboxToggle.path[2] // liContainer para acceder al dataset donde se almaceno el ID
-  const taskId = path.dataset.id;
-  path.classList.toggle("completed");
-  const found = taskListArray.findIndex((index) => index.id == taskId);
+function checkBox({target: {offsetParent: liContainer}}) {
+  liContainer.classList.toggle("completed");
+  const found = taskListArray.findIndex((index) => index.id == liContainer.dataset.id);
   taskListArray[found].completed === false
     ? (taskListArray[found].completed = true)
     : (taskListArray[found].completed = false);
@@ -135,6 +130,8 @@ function clearTaskCompleted() {
   renderUI();
 };
 
+//target.offsetParent.dataset
+
 function renderUI() {
   let taskIterator = []
   todoListContainer.innerHTML = "";
@@ -142,13 +139,13 @@ function renderUI() {
   getTaskFilterd(taskIterator);
   const container = [];
   if (location.hash.startsWith('#/pending')) {
-    taskIterator = taskListArray.filter((task) => task.completed !== true);  
+    taskIterator = taskListArray.filter((task) => task.completed !== true);
   } else if (location.hash.startsWith('#/completed')) {
     taskIterator = taskListArray.filter((task) => task.completed !== false);
   } else {
     taskIterator = taskListArray;
-  };  
-  
+  };
+
   taskIterator.forEach((task) => {
     const liContainer = template(task);
     container.push(liContainer);
@@ -159,28 +156,32 @@ function renderUI() {
 
 const getTaskFilterd = () => {
   const { hash } = window.location;
-switch (hash) {
-  case "":
-  case "#/":
-  case "#/all":
-      filters.children[0].lastElementChild.classList.add('selected');
-      filters.children[1].lastElementChild.classList.remove('selected');
-      filters.children[2].lastElementChild.classList.remove('selected');
+  const all = filters.children[0].lastElementChild.classList;
+  const pending = filters.children[1].lastElementChild.classList;
+  const completed = filters.children[2].lastElementChild.classList;
+
+  switch (hash) {
+    case "":
+    case "#/":
+    case "#/all":
+      all.add('selected');
+      pending.remove('selected');
+      completed.remove('selected');
       break;
-      case "#/pending": 
-      filters.children[0].lastElementChild.classList.remove('selected');
-      filters.children[1].lastElementChild.classList.add('selected');
-      filters.children[2].lastElementChild.classList.remove('selected');
+      case "#/pending":
+      all.remove('selected');
+      pending.add('selected');
+      completed.remove('selected');
       break;
-      case "#/completed": 
-      filters.children[0].lastElementChild.classList.remove('selected');
-      filters.children[1].lastElementChild.classList.remove('selected');
-      filters.children[2].lastElementChild.classList.add('selected');
+      case "#/completed":
+      all.remove('selected');
+      pending.remove('selected');
+      completed.add('selected');
     break;
     default:
-      filters.children[0].classList.add('selected');
-      filters.children[1].classList.remove('selected');
-      filters.children[2].classList.remove('selected');
+      all.add('selected');
+      pending.remove('selected');
+      completed.remove('selected');
     };
   };
 
@@ -222,8 +223,8 @@ function template(task) {
 };
 //Funciones
 function itemLeft() {
-  let item;  
+  let item;
   let items = taskListArray.filter((task) => task.completed !== true);
-  items.length > 1 ? (item = "items") : (item = "item");  
+  items.length > 1 ? (item = "items") : (item = "item");
   todoCount.innerHTML = `<strong>${items.length}</strong> ${item} left`;
 };
