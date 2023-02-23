@@ -23,6 +23,7 @@ const listGenerator = (list) => {
     if (item.completed == true) {
       task.classList.add("completed");
     }
+
     to_do_list.appendChild(task);
   });
 };
