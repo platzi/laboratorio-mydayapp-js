@@ -1,3 +1,6 @@
+import { tasksEvents } from "./eventsSystem";
+import { store } from "../index";
+
 const listGenerator = (list) => {
   //select task container and clean it
   const to_do_list = document.querySelector(".todo-list");
@@ -28,6 +31,7 @@ const listGenerator = (list) => {
 
     to_do_list.appendChild(task);
   });
+  tasksEvents(store);
 };
 
 const listFilter = (list) => {

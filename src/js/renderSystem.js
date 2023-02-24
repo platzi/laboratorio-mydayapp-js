@@ -12,7 +12,6 @@ import {
   saveStateBeforeExit,
   hashChange,
 } from "./eventsSystem";
-import { store } from "../index";
 
 const reRender = (target, prop, value) => {
   target[prop] = value;
@@ -27,7 +26,6 @@ const reRender = (target, prop, value) => {
       target.data.filter((element) => element.completed == false)
     );
   }
-  tasksEvents(store);
   return true;
 };
 
@@ -35,7 +33,6 @@ const firstRender = (store) => {
   listGenerator(listFilter(store.list.data));
   mfControl(store.list.data);
   newInputHandler(store);
-  tasksEvents(store);
   cleanEvent(store);
   footerItemsControl(
     store.list.data.filter((element) => element.completed == false)
