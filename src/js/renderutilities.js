@@ -10,11 +10,11 @@ const listGenerator = (list) => {
     // defining task inside content
     const primitiveTask = `
     <div class="view">
-      <input class="toggle" type="checkbox" ${
+      <input class="toggle pointer" type="checkbox" ${
         item.completed ? "checked" : ""
       } />
-      <label>${item.title}</label>
-      <button class="destroy"></button>
+      <label class="pointer">${item.title}</label>
+      <button class="destroy pointer"></button>
     </div>
     <input class="edit" value="${item.title}" />
     `;

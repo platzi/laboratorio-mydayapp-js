@@ -13,3 +13,7 @@
   background-size: 30px 30px;
   background-image:  repeating-linear-gradient(0deg, #3ebafd, #3ebafd 1.5px, #ffffff 1.5px, #ffffff);
 }
+
+.pointer{
+  cursor: pointer;
+}
