@@ -30,6 +30,19 @@ const listGenerator = (list) => {
   });
 };
 
+const listFilter = (list) => {
+  const filter = window.location.hash;
+  let filteredList;
+  if (filter == "#/pending") {
+    filteredList = list.filter((element) => element.completed == false);
+  } else if (filter == "#/completed") {
+    filteredList = list.filter((element) => element.completed == true);
+  } else {
+    filteredList = list;
+  }
+  return filteredList;
+};
+
 const mfControl = (list) => {
   if (list.length == 0) {
     const main_section = document.querySelector(".main");
@@ -56,4 +69,25 @@ const footerItemsControl = (list) => {
   }
 };
 
-export { listGenerator, mfControl, footerItemsControl };
+const footerSelectedControl = () => {
+  if (["#/pending", "#/completed", "#/"].includes(window.location.hash)) {
+    // remove other selected effects on buttons
+    const footerButtons = document.querySelectorAll("ul li a[href]");
+    footerButtons.forEach((button) => {
+      button.classList.remove("selected");
+    });
+    // add slected effect to current filter
+    const currentFilterButton = document.querySelector(
+      `ul li a[href="${window.location.hash}"]`
+    );
+    currentFilterButton.classList.add("selected");
+  }
+};
+
+export {
+  listGenerator,
+  mfControl,
+  footerItemsControl,
+  listFilter,
+  footerSelectedControl,
+};

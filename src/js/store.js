@@ -1,7 +1,7 @@
 import { reRender } from "./renderSystem";
 class Store {
   constructor() {
-    const initState = JSON.parse(localStorage.getItem("todo_list")) || [];
+    const initState = JSON.parse(localStorage.getItem("mydayapp-js")) || [];
     this.list = { data: initState };
     const dataHandler = {
       get: (target, prop) => {
@@ -51,7 +51,7 @@ class Store {
     );
   }
   saveList() {
-    localStorage.setItem(JSON.stringify(this.list));
+    localStorage.setItem("mydayapp-js", JSON.stringify(this.list.data));
   }
 }
 

@@ -2,21 +2,27 @@ import {
   listGenerator,
   mfControl,
   footerItemsControl,
+  listFilter,
+  footerSelectedControl,
 } from "./renderutilities";
-import { newInputHandler, tasksEvents, cleanEvent } from "./eventsSystem";
+import {
+  newInputHandler,
+  tasksEvents,
+  cleanEvent,
+  saveStateBeforeExit,
+  hashChange,
+} from "./eventsSystem";
 import { store } from "../index";
 
 const reRender = (target, prop, value) => {
   target[prop] = value;
   if (Array.isArray(target) == true) {
-    console.log("entro al menejo de arrays", target)
     mfControl(target);
-    listGenerator(target);
+    listGenerator(listFilter(target));
     footerItemsControl(target.filter((element) => element.completed == false));
   } else {
-    console.log("entro al menejo de objeto", target)
     mfControl(target.data);
-    listGenerator(target.data);
+    listGenerator(listFilter(target));
     footerItemsControl(
       target.data.filter((element) => element.completed == false)
     );
@@ -26,11 +32,17 @@ const reRender = (target, prop, value) => {
 };
 
 const firstRender = (store) => {
-  listGenerator(store.list.data);
+  listGenerator(listFilter(store.list.data));
   mfControl(store.list.data);
   newInputHandler(store);
   tasksEvents(store);
   cleanEvent(store);
+  footerItemsControl(
+    store.list.data.filter((element) => element.completed == false)
+  );
+  saveStateBeforeExit(store);
+  hashChange(store.list.data);
+  footerSelectedControl();
 };
 
 export { reRender, firstRender };

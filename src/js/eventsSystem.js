@@ -1,3 +1,8 @@
+import {
+  listGenerator,
+  listFilter,
+  footerSelectedControl,
+} from "./renderutilities";
 const newInputHandler = (store) => {
   //new_input handler
   const new_input = document.querySelector(".new-todo");
@@ -63,4 +68,23 @@ const cleanEvent = (store) => {
   });
 };
 
-export { newInputHandler, tasksEvents, cleanEvent };
+const saveStateBeforeExit = (store) => {
+  window.addEventListener("beforeunload", () => {
+    store.saveList();
+  });
+};
+
+const hashChange = (list) => {
+  window.addEventListener("hashchange", () => {
+    listGenerator(listFilter(list));
+    footerSelectedControl();
+  });
+};
+
+export {
+  newInputHandler,
+  tasksEvents,
+  cleanEvent,
+  saveStateBeforeExit,
+  hashChange,
+};
