@@ -12,6 +12,14 @@ export const mainFooterDisplayValidator = () => {
 
 export const elementGenerator = (element) => document.createElement(element);
 
+export const generalTodoListGenerator = (todos) => {
+  const todoListTarget = document.querySelector(".todo-list");
+  todoListTarget.innerHTML = "";
+
+  todos.forEach((item, index) => {
+    todoListTarget.append(createNewTodo(item.title, index, todos));
+  });
+};
 export const createNewTodo = (todo, index, todos) => {
   const listElement = elementGenerator("li");
 
@@ -37,6 +45,10 @@ export const createNewTodo = (todo, index, todos) => {
 
   const todoDeleteButton = elementGenerator("button");
   todoDeleteButton.className = "destroy";
+  todoDeleteButton.addEventListener("click", () => {
+    todos.splice(index, 1);
+    generalTodoListGenerator(todos);
+  });
 
   const editTodoInput = elementGenerator("input");
   editTodoInput.className = "edit";
@@ -46,13 +58,4 @@ export const createNewTodo = (todo, index, todos) => {
   listElement.append(viewDiv, editTodoInput);
 
   return listElement;
-};
-
-export const generalTodoListGenerator = (todos) => {
-  const todoListTarget = document.querySelector(".todo-list");
-  todoListTarget.innerHTML = "";
-
-  todos.forEach((item, index) => {
-    todoListTarget.append(createNewTodo(item.title, index, todos));
-  });
 };
