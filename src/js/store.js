@@ -21,7 +21,15 @@ class Store {
     this.dataProxy.push(new_task);
   }
   switchItemState(id) {
-    this.dataProxy[id].completed = !this.dataProxy[id].completed;
+    const idIndex = this.dataProxy.findIndex((element) => element.id == id);
+    this.dataProxy[idIndex] = {
+      ...this.dataProxy[idIndex],
+      completed: !this.dataProxy[idIndex].completed,
+    };
+  }
+  editItem(id, title) {
+    const idIndex = this.dataProxy.findIndex((element) => element.id == id);
+    this.dataProxy[idIndex] = { ...this.dataProxy[idIndex], title: title };
   }
   saveList() {
     localStorage.setItem(JSON.stringify(this.data));

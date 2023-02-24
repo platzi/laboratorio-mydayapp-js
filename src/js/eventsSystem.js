@@ -15,19 +15,45 @@ const newInputHandler = (store) => {
   });
 };
 
-const getTasks = (store) => {
+const tasksEvents = (store) => {
+  // get tasks on page
   const tasks = document.querySelectorAll(".todo-list li");
+
+  //global esc event to close all editing fields
+  document.addEventListener("keyup", (e) => {
+    if (e.key === "Escape") {
+      tasks.forEach((task) => {
+        const inputfield = task.querySelector(".edit");
+        const originalvalue = task.querySelector("label").innerHTML;
+        inputfield.value = originalvalue;
+        task.classList.remove("editing");
+      });
+    }
+  });
+
+  //itereate over each task to add events
   tasks.forEach((task) => {
+    //double click on label editing event
+    const label = task.querySelector("label");
+    const inputfield = task.querySelector(".edit");
+    label.addEventListener("dblclick", () => {
+      task.classList.add("editing");
+      inputfield.focus();
+    });
+
+    //enter finalize editing event
+    inputfield.addEventListener("keyup", (e) => {
+      if (e.key === "Enter") {
+        store.editItem(task.id, e.target.value.trim());
+      }
+    });
+
+    //checkbox events
     const checkbox = task.querySelector(".toggle");
     checkbox.addEventListener("click", () => {
       store.switchItemState(task.id);
-      if (checkbox.checked) {
-        task.classList.add("completed");
-      } else {
-        task.classList.remove("completed");
-      }
     });
   });
 };
 
-export { newInputHandler, getTasks };
+export { newInputHandler, tasksEvents };
