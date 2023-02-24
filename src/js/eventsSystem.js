@@ -56,4 +56,11 @@ const tasksEvents = (store) => {
   });
 };
 
-export { newInputHandler, tasksEvents };
+const cleanEvent = (store) => {
+  const cleanbutton = document.querySelector(".clear-completed");
+  cleanbutton.addEventListener("click", () => {
+    store.cleanCompletes();
+  });
+};
+
+export { newInputHandler, tasksEvents, cleanEvent };
