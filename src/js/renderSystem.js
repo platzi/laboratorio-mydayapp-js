@@ -1,18 +1,23 @@
-import { listGenerator, mf_control } from "./renderutilities";
+import {
+  listGenerator,
+  mfControl,
+  footerItemsControl,
+} from "./renderutilities";
 import { newInputHandler, tasksEvents } from "./eventsSystem";
 import { store } from "../index";
 
 const reRender = (target, prop, value) => {
   target[prop] = value;
-  mf_control(target);
+  mfControl(target);
   listGenerator(target);
+  footerItemsControl(target.filter((element) => element.completed == false));
   tasksEvents(store);
   return true;
 };
 
 const firstRender = (store) => {
   listGenerator(store.data);
-  mf_control(store.data);
+  mfControl(store.data);
   newInputHandler(store);
   tasksEvents(store);
 };

@@ -30,7 +30,7 @@ const listGenerator = (list) => {
   });
 };
 
-const mf_control = (list) => {
+const mfControl = (list) => {
   if (list.length == 0) {
     const main_section = document.querySelector(".main");
     const footer = document.querySelector(".footer");
@@ -44,4 +44,16 @@ const mf_control = (list) => {
   }
 };
 
-export { listGenerator, mf_control };
+const footerItemsControl = (list) => {
+  if (list.length == 1) {
+    const todo_count = document.querySelector(".todo-count");
+    todo_count.innerHTML = "";
+    todo_count.innerHTML = `<strong>${list.length}</strong> item left`;
+  } else {
+    const todo_count = document.querySelector(".todo-count");
+    todo_count.innerHTML = "";
+    todo_count.innerHTML = `<strong>${list.length}</strong> items left`;
+  }
+};
+
+export { listGenerator, mfControl, footerItemsControl };
