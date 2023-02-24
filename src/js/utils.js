@@ -65,7 +65,10 @@ export const createNewTodo = (todo, index, todos) => {
     editInputValue = editValue;
   });
   editTodoInput.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") listElement.classList.remove("editing");
+    if (e.key === "Escape") {
+      listElement.classList.remove("editing");
+      editTodoInput.value = todo;
+    }
     if (e.key === "Enter" || e.key === "NumpadEnter") {
       editTodoInput.value = editInputValue;
       todos[index].title = editInputValue;

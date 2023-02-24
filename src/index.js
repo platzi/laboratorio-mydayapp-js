@@ -15,7 +15,7 @@ const newTodoInput = document.querySelector(".new-todo");
 let newUserInput = "";
 
 newTodoInput.addEventListener("input", (e) => {
-  const userInput = e.target.value;
+  const userInput = e.target.value.trim();
   newUserInput = userInput;
 });
 
