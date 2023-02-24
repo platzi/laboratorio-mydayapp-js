@@ -45,6 +45,12 @@ class Store {
       title: title,
     };
   }
+  deleteItem(id) {
+    const idIndex = this.listProxy.data.findIndex(
+      (element) => element.id == id
+    );
+    this.listProxy.data.splice(idIndex, 1);
+  }
   cleanCompletes() {
     this.listProxy.data = this.listProxy.data.filter(
       (element) => element.completed == false

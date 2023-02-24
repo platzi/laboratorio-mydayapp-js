@@ -58,6 +58,11 @@ const tasksEvents = (store) => {
     checkbox.addEventListener("click", () => {
       store.switchItemState(task.id);
     });
+    // delete event
+    const deleteButton = task.querySelector(".destroy");
+    deleteButton.addEventListener("click", () => {
+      store.deleteItem(task.id);
+    });
   });
 };
 

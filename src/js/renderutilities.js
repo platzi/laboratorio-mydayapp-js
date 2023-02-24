@@ -73,6 +73,16 @@ const footerItemsControl = (list) => {
   }
 };
 
+const cleanCompletesButtonControl = (list) => {
+  if (list.length > 0) {
+    const clearCompletesButton = document.querySelector(".clear-completed");
+    clearCompletesButton.classList.remove("hidden");
+  } else {
+    const clearCompletesButton = document.querySelector(".clear-completed");
+    clearCompletesButton.classList.add("hidden");
+  }
+};
+
 const footerSelectedControl = () => {
   if (["#/pending", "#/completed", "#/"].includes(window.location.hash)) {
     // remove other selected effects on buttons
@@ -94,4 +104,5 @@ export {
   footerItemsControl,
   listFilter,
   footerSelectedControl,
+  cleanCompletesButtonControl,
 };
