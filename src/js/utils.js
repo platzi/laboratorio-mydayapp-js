@@ -1,3 +1,4 @@
+import { clearCompletedButtonValidator } from "./clearCompleted";
 import { todoCounterGenerator } from "./counter";
 
 export const mainFooterDisplayValidator = () => {
@@ -55,6 +56,7 @@ export const createNewTodo = (todo, index, todos) => {
     }
     localStorage.setItem("mydayapp-js", JSON.stringify(todos));
     todoCounterGenerator();
+    clearCompletedButtonValidator();
   });
 
   const todoLabel = elementGenerator("label");
@@ -72,6 +74,7 @@ export const createNewTodo = (todo, index, todos) => {
     localStorage.setItem("mydayapp-js", JSON.stringify(todos));
     generalTodoListGenerator();
     mainFooterDisplayValidator();
+    clearCompletedButtonValidator();
   });
 
   const editTodoInput = elementGenerator("input");

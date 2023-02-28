@@ -6,6 +6,6 @@ export const todoCounterGenerator = () => {
   console.log({ pendingTodos });
   const todoCounterTarget = document.querySelector(".todo-count");
   todoCounterTarget.innerHTML = `<strong>${pendingTodos.length}</strong> ${
-    pendingTodos.length <= 1 ? "item" : "items"
+    pendingTodos.length === 1 ? "item" : "items"
   } left</span>`;
 };

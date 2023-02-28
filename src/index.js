@@ -3,6 +3,10 @@ import {
   generalTodoListGenerator,
 } from "./js/utils";
 import "./css/base.css";
+import {
+  clearCompleted,
+  clearCompletedButtonValidator,
+} from "./js/clearCompleted";
 
 let todos = [];
 
@@ -12,6 +16,7 @@ if (!isMydayapp_js) localStorage.setItem("mydayapp-js", JSON.stringify(todos));
 
 generalTodoListGenerator();
 mainFooterDisplayValidator();
+clearCompletedButtonValidator();
 
 // const saveTodosInLocalStorage = () => {
 //   localStorage.setItem("mydayapp-js", JSON.stringify(todos));
@@ -37,9 +42,16 @@ newTodoInput.addEventListener("keypress", (e) => {
     todos?.push({ title: newUserInput, completed: false });
     localStorage.setItem("mydayapp-js", JSON.stringify(todos));
     generalTodoListGenerator();
+    clearCompletedButtonValidator();
 
     e.target.value = "";
     newUserInput = "";
   }
   return;
+});
+
+const clearCompletedTarget = document.querySelector(".clear-completed");
+
+clearCompletedTarget.addEventListener("click", () => {
+  clearCompleted();
 });
