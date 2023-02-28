@@ -6,7 +6,9 @@ import "./css/base.css";
 
 let todos = [];
 
-localStorage.setItem("mydayapp-js", JSON.stringify(todos));
+const isMydayapp_js = JSON.parse(localStorage.getItem("mydayapp-js"));
+
+if (!isMydayapp_js) localStorage.setItem("mydayapp-js", JSON.stringify(todos));
 
 generalTodoListGenerator();
 mainFooterDisplayValidator();
