@@ -7,6 +7,7 @@ import {
   clearCompleted,
   clearCompletedButtonValidator,
 } from "./js/clearCompleted";
+import { routeValidator } from "./js/routes-filter";
 
 let todos = [];
 
@@ -17,6 +18,7 @@ if (!isMydayapp_js) localStorage.setItem("mydayapp-js", JSON.stringify(todos));
 generalTodoListGenerator();
 mainFooterDisplayValidator();
 clearCompletedButtonValidator();
+routeValidator();
 
 // const saveTodosInLocalStorage = () => {
 //   localStorage.setItem("mydayapp-js", JSON.stringify(todos));
@@ -55,3 +57,26 @@ const clearCompletedTarget = document.querySelector(".clear-completed");
 clearCompletedTarget.addEventListener("click", () => {
   clearCompleted();
 });
+
+const pendingRouteTarget = document.querySelector(
+  "ul.filters a[href='#/pending']"
+);
+pendingRouteTarget.addEventListener("click", () =>
+  setTimeout(() => routeValidator(), 100)
+);
+
+const allRouteTarget = document.querySelector("ul.filters a[href='#/']");
+allRouteTarget.addEventListener("click", () =>
+  setTimeout(() => routeValidator(), 100)
+);
+
+const completedRouteTarget = document.querySelector(
+  "ul.filters a[href='#/completed']"
+);
+completedRouteTarget.addEventListener("click", () =>
+  setTimeout(() => routeValidator(), 100)
+);
+
+window.onhashchange = function () {
+  routeValidator();
+};
