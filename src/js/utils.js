@@ -69,7 +69,6 @@ export const createNewTodo = (todo, index, todos) => {
   const todoDeleteButton = elementGenerator("button");
   todoDeleteButton.className = "destroy";
   todoDeleteButton.addEventListener("click", () => {
-    console.log("borrar");
     todos.splice(index, 1);
     localStorage.setItem("mydayapp-js", JSON.stringify(todos));
     generalTodoListGenerator();

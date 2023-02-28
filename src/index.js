@@ -16,9 +16,9 @@ const isMydayapp_js = JSON.parse(localStorage.getItem("mydayapp-js"));
 if (!isMydayapp_js) localStorage.setItem("mydayapp-js", JSON.stringify(todos));
 
 generalTodoListGenerator();
-mainFooterDisplayValidator();
 clearCompletedButtonValidator();
 routeValidator();
+mainFooterDisplayValidator();
 
 // const saveTodosInLocalStorage = () => {
 //   localStorage.setItem("mydayapp-js", JSON.stringify(todos));
