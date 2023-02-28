@@ -1,3 +1,28 @@
+# My Solution
+
+Here is my solution. I have worked only on the JS files to solve all the requested tasks.
+
+- [index JS code](https://github.com/DavidTG7/laboratorio-mydayapp-js/blob/main/src/index.js)
+- [JS files](https://github.com/DavidTG7/laboratorio-mydayapp-js/tree/main/src/js)
+
+### All tests passed
+![preview](./images/test_screenshot.png)
+
+### Preview working app
+![preview](./images/app_working.gif)
+
+### Deployment
+[https://davidtg7.github.io/laboratorio-mydayapp-js/](https://davidtg7.github.io/laboratorio-mydayapp-js/)
+
+### Author
+
+- LinkedIn - [@david-tg](https://www.linkedin.com/in/david-tg/)
+- GitHub - [@DavidTG7](https://github.com/DavidTG7)
+- Twitter - [@DavidLTG](https://www.twitter.com/DavidLTG)
+
+<br>
+<br>
+
 # MyDayApp - JavaScript
 
 MyDayApp es una aplicación para gestionar tareas de forma sencilla, fácil y en donde pondrás a pruebas tus conocimientos en JS.
