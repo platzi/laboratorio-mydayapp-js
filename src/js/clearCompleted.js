@@ -10,6 +10,7 @@ export const clearCompleted = () => {
 
   generalTodoListGenerator();
   mainFooterDisplayValidator();
+  clearCompletedButtonValidator();
 };
 
 export const clearCompletedButtonValidator = () => {
@@ -18,6 +19,6 @@ export const clearCompletedButtonValidator = () => {
     localStorage.getItem("mydayapp-js")
   ).filter((item) => item.completed);
 
-  clearCompletedTarget.style.display =
-    completedTodosValidator.length < 1 ? "none" : "block";
+  clearCompletedTarget.style.visibility =
+    completedTodosValidator.length < 1 ? "hidden" : "visible";
 };
