@@ -4,11 +4,20 @@ import {
 } from "./js/utils";
 import "./css/base.css";
 
-mainFooterDisplayValidator();
-
 let todos = [];
 
-generalTodoListGenerator(todos);
+localStorage.setItem("mydayapp-js", JSON.stringify(todos));
+
+generalTodoListGenerator();
+mainFooterDisplayValidator();
+
+// const saveTodosInLocalStorage = () => {
+//   localStorage.setItem("mydayapp-js", JSON.stringify(todos));
+// };
+
+// const getTodosFromLocalStorage = () => {
+//   todos = JSON.parse(localStorage.getItem("maydayapp-js"));
+// };
 
 const newTodoInput = document.querySelector(".new-todo");
 
@@ -22,8 +31,10 @@ newTodoInput.addEventListener("input", (e) => {
 newTodoInput.addEventListener("keypress", (e) => {
   if (e.code === "Enter" || e.code === "NumpadEnter") {
     if (newUserInput.length < 1) return;
-    todos.push({ id: todos.length, title: newUserInput, completed: false });
-    generalTodoListGenerator(todos);
+    todos = JSON.parse(localStorage.getItem("mydayapp-js"));
+    todos?.push({ title: newUserInput, completed: false });
+    localStorage.setItem("mydayapp-js", JSON.stringify(todos));
+    generalTodoListGenerator();
 
     e.target.value = "";
     newUserInput = "";

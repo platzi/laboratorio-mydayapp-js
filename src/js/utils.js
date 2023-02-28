@@ -1,3 +1,5 @@
+import { todoCounterGenerator } from "./counter";
+
 export const mainFooterDisplayValidator = () => {
   const totalList = document.querySelector(".todo-list");
 
@@ -12,13 +14,23 @@ export const mainFooterDisplayValidator = () => {
 
 export const elementGenerator = (element) => document.createElement(element);
 
-export const generalTodoListGenerator = (todos) => {
+export const generalTodoListGenerator = () => {
+  let todos = JSON.parse(localStorage.getItem("mydayapp-js"));
+
+  const mainTarget = document.querySelector(".main");
+  mainTarget.style.display = "block";
+
+  const footerTarget = document.querySelector(".footer");
+  footerTarget.style.display = "block";
+
   const todoListTarget = document.querySelector(".todo-list");
   todoListTarget.innerHTML = "";
 
-  todos.forEach((item, index) => {
+  todos?.forEach((item, index) => {
     todoListTarget.append(createNewTodo(item.title, index, todos));
   });
+
+  todoCounterGenerator();
 };
 export const createNewTodo = (todo, index, todos) => {
   const listElement = elementGenerator("li");
@@ -28,6 +40,10 @@ export const createNewTodo = (todo, index, todos) => {
 
   const checkboxInput = elementGenerator("input");
   checkboxInput.type = "checkbox";
+  if (todos[index].completed) {
+    checkboxInput.checked = true;
+    listElement.className = "completed";
+  }
   checkboxInput.className = "toggle";
   checkboxInput.addEventListener("click", (e) => {
     if (e.target.checked) {
@@ -37,7 +53,8 @@ export const createNewTodo = (todo, index, todos) => {
       listElement.classList.remove("completed");
       todos[index].completed = false;
     }
-    console.log(todos);
+    localStorage.setItem("mydayapp-js", JSON.stringify(todos));
+    todoCounterGenerator();
   });
 
   const todoLabel = elementGenerator("label");
@@ -50,8 +67,11 @@ export const createNewTodo = (todo, index, todos) => {
   const todoDeleteButton = elementGenerator("button");
   todoDeleteButton.className = "destroy";
   todoDeleteButton.addEventListener("click", () => {
+    console.log("borrar");
     todos.splice(index, 1);
-    generalTodoListGenerator(todos);
+    localStorage.setItem("mydayapp-js", JSON.stringify(todos));
+    generalTodoListGenerator();
+    mainFooterDisplayValidator();
   });
 
   const editTodoInput = elementGenerator("input");
@@ -61,7 +81,7 @@ export const createNewTodo = (todo, index, todos) => {
   let editInputValue = "";
 
   editTodoInput.addEventListener("input", (e) => {
-    const editValue = e.target.value;
+    const editValue = e.target.value.trim();
     editInputValue = editValue;
   });
   editTodoInput.addEventListener("keydown", (e) => {
@@ -70,9 +90,14 @@ export const createNewTodo = (todo, index, todos) => {
       editTodoInput.value = todo;
     }
     if (e.key === "Enter" || e.key === "NumpadEnter") {
+      if (editInputValue.trim().length < 1) {
+        alert("Input value can't be empty. Please write something to do.");
+        return;
+      }
       editTodoInput.value = editInputValue;
       todos[index].title = editInputValue;
-      generalTodoListGenerator(todos);
+      localStorage.setItem("mydayapp-js", JSON.stringify(todos));
+      generalTodoListGenerator();
     }
   });
 
