@@ -61,7 +61,7 @@ export const createNewTodo = (todo, index, todos) => {
 
   const todoLabel = elementGenerator("label");
   todoLabel.innerText = todo;
-  todoLabel.addEventListener("click", () => {
+  todoLabel.addEventListener("dblclick", () => {
     listElement.className = "editing";
     editTodoInput.focus();
   });
