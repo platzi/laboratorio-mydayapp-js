@@ -21,5 +21,21 @@ export const render = function () {
       </div>
       <input class="edit" value='${task}' />
     </li>`;
+
+    // element tasks
+    const list = document.querySelectorAll(".todo-list li");
+    const toggle = document.querySelectorAll(".toggle");
+
+    for (let i = 0; i < list.length; i++) {
+      // 1. checkbox
+      toggle[i].addEventListener("click", function () {
+        toggle[i].checked = toggle[i].checked && true;
+        toggle[i].setAttribute("checked", "checked");
+        list[i].setAttribute(
+          "class",
+          `${toggle[i].checked ? "completed" : ""}`
+        );
+      });
+    }
   }
 };
