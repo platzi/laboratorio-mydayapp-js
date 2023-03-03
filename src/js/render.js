@@ -13,6 +13,14 @@ export const render = function () {
     }
   });
 
+  // hide main and footer
+  function hideSections(boolean) {
+    let hideSection = boolean ? "block" : "none";
+    document.getElementsByClassName("main")[0].style.display = hideSection;
+    document.getElementsByClassName("footer")[0].style.display = hideSection;
+  }
+  hideSections(false);
+
   // pluralizing word
   function pluralize() {
     let word =
@@ -95,6 +103,7 @@ export const render = function () {
         count == 1 || count == 2 ? pluralize() : (todoCount.innerHTML = count);
       });
     }
+    hideSections(true);
     pluralize();
   }
 };
