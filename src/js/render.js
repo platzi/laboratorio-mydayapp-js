@@ -3,7 +3,7 @@ export const render = function () {
   const input = document.querySelector(".new-todo");
 
   // task counter
-  let todoCount = document.querySelector(".todo-count strong");
+  let todoCount;
   let count = 0;
 
   // new task
@@ -12,6 +12,17 @@ export const render = function () {
       renderElements(input.value);
     }
   });
+
+  // pluralizing word
+  function pluralize() {
+    let word =
+      count > 1 ? ["item left", "items left"] : ["items left", "item left"];
+    document.querySelector(".todo-count").innerHTML = document
+      .querySelector(".todo-count")
+      .innerHTML.replace(`${word[0]}`, `${word[1]}`);
+    todoCount = document.querySelector(".todo-count strong");
+    todoCount.innerHTML = count;
+  }
 
   function renderElements(task) {
     // render element
@@ -44,7 +55,7 @@ export const render = function () {
           "class",
           `${toggle[i].checked ? "completed" : ""}`
         );
-        todoCount.innerHTML = count;
+        count == 1 || count == 2 ? pluralize() : (todoCount.innerHTML = count);
       });
       // 2.edit item
       label[i].addEventListener("dblclick", function () {
@@ -75,15 +86,15 @@ export const render = function () {
             label[i].style.display = "block";
             break;
         }
-        todoCount.innerHTML = count;
+        count == 1 || count == 2 ? pluralize() : (todoCount.innerHTML = count);
       });
       // 4. destroy task
       destroyBtn[i].addEventListener("click", function () {
         !toggle[i].checked && --count;
         list[i].remove();
-        todoCount.innerHTML = count;
+        count == 1 || count == 2 ? pluralize() : (todoCount.innerHTML = count);
       });
     }
-    todoCount.innerHTML = count;
+    pluralize();
   }
 };
