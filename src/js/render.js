@@ -26,6 +26,7 @@ export const render = function () {
     const toggle = document.querySelectorAll(".toggle");
     const label = document.querySelectorAll("label");
     const edit = document.querySelectorAll("input.edit");
+    const destroyBtn = document.querySelectorAll(".destroy");
 
     for (let i = 0; i < list.length; i++) {
       // 1. checkbox
@@ -64,6 +65,10 @@ export const render = function () {
             label[i].style.display = "block";
             break;
         }
+      });
+      // 4. destroy task
+      destroyBtn[i].addEventListener("click", function () {
+        list[i].remove();
       });
     }
   }
