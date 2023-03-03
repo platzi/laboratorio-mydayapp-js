@@ -1,5 +1,4 @@
 export const render = function () {
-
   // main input
   const input = document.querySelector(".new-todo");
 
@@ -11,7 +10,7 @@ export const render = function () {
   });
 
   function renderElements(task) {
-  // render element
+    // render element
     document.querySelector(`.todo-list`).innerHTML += `
     <li>
       <div class="view">
@@ -25,6 +24,8 @@ export const render = function () {
     // element tasks
     const list = document.querySelectorAll(".todo-list li");
     const toggle = document.querySelectorAll(".toggle");
+    const label = document.querySelectorAll("label");
+    const edit = document.querySelectorAll("input.edit");
 
     for (let i = 0; i < list.length; i++) {
       // 1. checkbox
@@ -35,6 +36,34 @@ export const render = function () {
           "class",
           `${toggle[i].checked ? "completed" : ""}`
         );
+      });
+      // 2.edit item
+      label[i].addEventListener("dblclick", function () {
+        list[i].setAttribute("class", "editing");
+        edit[i].focus();
+      });
+      // event key-up
+      edit[i].addEventListener("keyup", function (e) {
+        toggle[i].style.display = "none";
+        label[i].style.display = "none";
+        switch (e.key) {
+          case "Enter":
+            toggle[i].checked = false;
+            list[i].setAttribute("class", "");
+            toggle[i].style.display = "block";
+            label[i].style.display = "block";
+            label[i].innerText = edit[i].value;
+            break;
+          case "Escape":
+            toggle[i].checked = toggle[i].checked && true;
+            list[i].setAttribute(
+              "class",
+              `${toggle[i].checked ? "completed" : ""}`
+            );
+            toggle[i].style.display = "block";
+            label[i].style.display = "block";
+            break;
+        }
       });
     }
   }
