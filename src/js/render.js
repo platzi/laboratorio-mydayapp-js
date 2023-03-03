@@ -1,4 +1,8 @@
+const MyDayApp = require("./crud");
+
 export const render = function () {
+  const service = new MyDayApp();
+
   // main input
   const input = document.querySelector(".new-todo");
 
@@ -9,7 +13,8 @@ export const render = function () {
   // new task
   input.addEventListener("keypress", function (e) {
     if ((e.key === "Enter") & (input.value !== "")) {
-      renderElements(input.value);
+      service.create(input.value, (input.value = "")),
+        renderElements(service.tasks, false);
     }
   });
 
@@ -19,7 +24,6 @@ export const render = function () {
     document.getElementsByClassName("main")[0].style.display = hideSection;
     document.getElementsByClassName("footer")[0].style.display = hideSection;
   }
-  hideSections(false);
 
   // pluralizing word
   function pluralize() {
@@ -32,17 +36,28 @@ export const render = function () {
     todoCount.innerHTML = count;
   }
 
-  function renderElements(task) {
+  // rendering exitly elements
+  renderElements(service.tasks, true);
+
+  function renderElements(tasks, onlyOnce) {
+    onlyOnce &&
+      (document.querySelector(`.main`).innerHTML = `<ul class=todo-list><ul>`);
     // render element
-    document.querySelector(`.todo-list`).innerHTML += `
-    <li>
-      <div class="view">
-        <input class="toggle" type="checkbox" />
-        <label>${task}</label>
-        <button class="destroy"></button>
-      </div>
-      <input class="edit" value='${task}' />
-    </li>`;
+    for (let i = 0; i < tasks.length; ++i) {
+      if (i === tasks.length - 1 || onlyOnce) {
+        document.querySelector(`.todo-list`).innerHTML += `
+        ${tasks[i].completed ? '<li class="completed">' : "<li>"}
+          <div class="view">
+            <input class="toggle" type="checkbox" ${
+              tasks[i].completed && "checked"
+            }/>
+            <label>${tasks[i].title}</label>
+            <button class="destroy"></button>
+          </div>
+          <input class="edit" value='${tasks[i].title}' />
+        </li>`;
+      }
+    }
 
     // element tasks
     const list = document.querySelectorAll(".todo-list li");
@@ -50,7 +65,9 @@ export const render = function () {
     const label = document.querySelectorAll("label");
     const edit = document.querySelectorAll("input.edit");
     const destroyBtn = document.querySelectorAll(".destroy");
-    count = ++count;
+    count = service.tasks.filter(function (task) {
+      return task.completed === false;
+    }).length;
 
     for (let i = 0; i < list.length; i++) {
       // 1. checkbox
@@ -103,7 +120,7 @@ export const render = function () {
         count == 1 || count == 2 ? pluralize() : (todoCount.innerHTML = count);
       });
     }
-    hideSections(true);
+    tasks.length === 0 ? hideSections(false) : hideSections(true);
     pluralize();
   }
 };
