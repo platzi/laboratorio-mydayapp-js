@@ -2,6 +2,10 @@ export const render = function () {
   // main input
   const input = document.querySelector(".new-todo");
 
+  // task counter
+  let todoCount = document.querySelector(".todo-count strong");
+  let count = 0;
+
   // new task
   input.addEventListener("keypress", function (e) {
     if ((e.key === "Enter") & (input.value !== "")) {
@@ -27,16 +31,20 @@ export const render = function () {
     const label = document.querySelectorAll("label");
     const edit = document.querySelectorAll("input.edit");
     const destroyBtn = document.querySelectorAll(".destroy");
+    count = ++count;
 
     for (let i = 0; i < list.length; i++) {
       // 1. checkbox
       toggle[i].addEventListener("click", function () {
+        toggle[i].checked = toggle[i].checked && true;
+        toggle[i].checked ? --count : ++count;
         toggle[i].checked = toggle[i].checked && true;
         toggle[i].setAttribute("checked", "checked");
         list[i].setAttribute(
           "class",
           `${toggle[i].checked ? "completed" : ""}`
         );
+        todoCount.innerHTML = count;
       });
       // 2.edit item
       label[i].addEventListener("dblclick", function () {
@@ -49,6 +57,8 @@ export const render = function () {
         label[i].style.display = "none";
         switch (e.key) {
           case "Enter":
+            toggle[i].checked = toggle[i].checked && true;
+            toggle[i].checked && ++count;
             toggle[i].checked = false;
             list[i].setAttribute("class", "");
             toggle[i].style.display = "block";
@@ -65,11 +75,15 @@ export const render = function () {
             label[i].style.display = "block";
             break;
         }
+        todoCount.innerHTML = count;
       });
       // 4. destroy task
       destroyBtn[i].addEventListener("click", function () {
+        !toggle[i].checked && --count;
         list[i].remove();
+        todoCount.innerHTML = count;
       });
     }
+    todoCount.innerHTML = count;
   }
 };
