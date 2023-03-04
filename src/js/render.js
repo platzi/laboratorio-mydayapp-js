@@ -65,6 +65,7 @@ export const render = function () {
     const label = document.querySelectorAll("label");
     const edit = document.querySelectorAll("input.edit");
     const destroyBtn = document.querySelectorAll(".destroy");
+    const clearBtn = document.querySelector(".clear-completed");
     count = service.tasks.filter(function (task) {
       return task.completed === false;
     }).length;
@@ -125,6 +126,17 @@ export const render = function () {
         delete id[i];
         count == 1 || count == 2 ? pluralize() : (todoCount.innerHTML = count);
         tasks.length === 0 && hideSections(false);
+      });
+      // 5. destroy tasks completed
+      clearBtn.addEventListener("click", function () {
+        if (list[i].classList[0] == "completed"){
+          service.delete(id[i]);
+          delete id[i];
+          list[i].remove();
+        }
+        count == 1 || count == 2 ? pluralize() : (todoCount.innerHTML = count);
+        tasks.length === 0 && hideSections(false);
+
       });
     }
     tasks.length === 0 ? hideSections(false) : hideSections(true);
