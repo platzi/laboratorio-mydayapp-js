@@ -121,7 +121,10 @@ export const render = function () {
       destroyBtn[i].addEventListener("click", function () {
         !toggle[i].checked && --count;
         list[i].remove();
+        service.delete(id[i]);
+        delete id[i];
         count == 1 || count == 2 ? pluralize() : (todoCount.innerHTML = count);
+        tasks.length === 0 && hideSections(false);
       });
     }
     tasks.length === 0 ? hideSections(false) : hideSections(true);

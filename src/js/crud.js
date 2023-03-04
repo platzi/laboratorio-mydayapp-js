@@ -38,6 +38,14 @@ class MyDayApp {
     }
     localStorage.setItem("mydayapp-js", JSON.stringify(this.tasks));
   }
+
+  delete(id) {
+    let index = this.tasks.findIndex(function (task) {
+      return id == task.id;
+    });
+    this.tasks.splice(index, 1);
+    localStorage.setItem("mydayapp-js", JSON.stringify(this.tasks));
+  }
 }
 
 module.exports = MyDayApp;
