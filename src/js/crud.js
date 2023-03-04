@@ -23,6 +23,21 @@ class MyDayApp {
       localStorage.setItem("mydayapp-js", JSON.stringify(this.tasks));
     }
   }
+
+  findOne(id) {
+    return this.tasks.find(function (task) {
+      return task.id === id;
+    });
+  }
+
+  update(id, changes) {
+    if (typeof changes === "boolean") {
+      this.findOne(id).completed = changes;
+    } else if (typeof changes === "string") {
+      this.findOne(id).title = changes;
+    }
+    localStorage.setItem("mydayapp-js", JSON.stringify(this.tasks));
+  }
 }
 
 module.exports = MyDayApp;

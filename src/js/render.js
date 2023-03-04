@@ -68,8 +68,9 @@ export const render = function () {
     count = service.tasks.filter(function (task) {
       return task.completed === false;
     }).length;
-
+    const id = new Object();
     for (let i = 0; i < list.length; i++) {
+      id[i] = service.tasks[i].id;
       // 1. checkbox
       toggle[i].addEventListener("click", function () {
         toggle[i].checked = toggle[i].checked && true;
@@ -81,6 +82,7 @@ export const render = function () {
           `${toggle[i].checked ? "completed" : ""}`
         );
         count == 1 || count == 2 ? pluralize() : (todoCount.innerHTML = count);
+        service.update(id[i], toggle[i].checked);
       });
       // 2.edit item
       label[i].addEventListener("dblclick", function () {
@@ -100,6 +102,8 @@ export const render = function () {
             toggle[i].style.display = "block";
             label[i].style.display = "block";
             label[i].innerText = edit[i].value;
+            service.update(id[i], edit[i].value.trim());
+            service.update(id[i], toggle[i].checked);
             break;
           case "Escape":
             toggle[i].checked = toggle[i].checked && true;
