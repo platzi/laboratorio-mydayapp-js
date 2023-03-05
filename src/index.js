@@ -1,5 +1,13 @@
 import "./css/base.css";
 
-import { sayHello } from "./js/utils";
+import { todoContainer, checkTaskNumber } from "./js/utils";
 
-console.log(sayHello("Hello"));
+// const todoContainer = document.querysSelector("ul.todo-list");
+
+window.addEventListener("load", checkTaskNumber);
+
+const taskCountObserver = new MutationObserver(() => {
+  checkTaskNumber();
+});
+
+taskCountObserver.observe(todoContainer, { childList: true });
