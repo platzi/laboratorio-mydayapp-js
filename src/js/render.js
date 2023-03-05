@@ -138,7 +138,7 @@ export const render = function () {
       });
       // 5. destroy tasks completed
       clearBtn.addEventListener("click", function () {
-        if (list[i].classList[0] == "completed"){
+        if (list[i].classList[0] == "completed") {
           service.delete(id[i]);
           delete id[i];
           list[i].remove();
