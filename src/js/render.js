@@ -25,6 +25,15 @@ export const render = function () {
     document.getElementsByClassName("footer")[0].style.display = hideSection;
   }
 
+  /* seleted button */
+  const selectedBtn = document.querySelectorAll("li a");
+  for (let i = 0; i < selectedBtn.length; ++i) {
+    selectedBtn[i].addEventListener("click", function () {
+      document.querySelector(".selected").classList.remove("selected");
+      document.querySelectorAll("a")[i].classList.add("selected");
+    });
+  }
+
   // pluralizing word
   function pluralize() {
     let word =
@@ -136,10 +145,25 @@ export const render = function () {
         }
         count == 1 || count == 2 ? pluralize() : (todoCount.innerHTML = count);
         tasks.length === 0 && hideSections(false);
-
       });
     }
-    tasks.length === 0 ? hideSections(false) : hideSections(true);
+    service.tasks.length === 0 ? hideSections(false) : hideSections(true);
     pluralize();
   }
+  // 6. filter each all, pending and completed tasks
+  window.addEventListener("hashchange", function () {
+    let filterTasks;
+    if (location.hash === `#/`) {
+      filterTasks = service.tasks;
+    } else if (location.hash === `#/pending`) {
+      filterTasks = service.tasks.filter(function (task) {
+        return task.completed === false;
+      });
+    } else if (location.hash === "#/completed") {
+      filterTasks = service.tasks.filter(function (task) {
+        return task.completed === true;
+      });
+    }
+    renderElements(filterTasks, true);
+  });
 };
