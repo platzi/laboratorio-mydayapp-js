@@ -7,7 +7,6 @@ export let todos = [];
 
 export const checkTaskNumber = () => {
   const taskCount = todoContainer.childElementCount;
-  console.log(taskCount);
   if (taskCount == 0) {
     mainContainer.classList.add("hidden");
     footerContainer.classList.add("hidden");
@@ -15,6 +14,8 @@ export const checkTaskNumber = () => {
     mainContainer.classList.remove("hidden");
     footerContainer.classList.remove("hidden");
   }
+  const todoCounterSpan = document.querySelector("strong");
+  todoCounterSpan.innerText = taskCount;
 };
 
 // To add new Task to DOM
@@ -33,8 +34,16 @@ export const renderTodo = (todo) => {
                       <input class="edit" value="${todo.title}" />
                     </li>`;
   todoContainer.insertAdjacentHTML("beforeend", todoHTML);
-  const todoDeleteIcon = document.querySelector(`#todo-${todo.id} div button`);
+
+  const todoItem = document.querySelector(`#todo-${todo.id}`);
+
+  const todoDeleteIcon = todoItem.querySelector(`div button`);
+  const checkInput = todoItem.querySelector(`div input`);
+  const todoLabel = todoItem.querySelector(`div label`);
+
   todoDeleteIcon.addEventListener("click", () => deleteTodo(todo.id));
+  checkInput.addEventListener("change", () => completeTodo(todo.id));
+  todoLabel.addEventListener("dblclick", () => editTodo(todo.id));
 };
 
 // Load task from localStorage
@@ -64,4 +73,35 @@ export const deleteTodo = (id) => {
   console.log(JSON.stringify(todos));
   localStorage.setItem("todos", JSON.stringify(todos));
   loadTodos();
+};
+
+export const completeTodo = (id) => {
+  const todoToUpdate = todos.find((todo) => {
+    return todo.id == id;
+  });
+  todoToUpdate.completed = !todoToUpdate.completed;
+  localStorage.setItem("todos", JSON.stringify(todos));
+  loadTodos();
+};
+
+export const editTodo = (id) => {
+  const todoItem = document.querySelector(`#todo-${id}`);
+  todoItem.classList.add("editing");
+  const todoInput = todoItem.querySelector("input.edit");
+  console.log(todoInput);
+  todoInput.focus();
+  todoInput.setSelectionRange(todoInput.value.length, todoInput.value.length);
+  todoInput.addEventListener("keydown", (event) => {
+    if (event.key == "Enter") {
+      const value = todoInput.value;
+      saveNewValue(id, value);
+      loadTodos();
+    }
+  });
+};
+
+export const saveNewValue = (id, value) => {
+  const todoToUpdate = todos.find((todo) => todo.id == id);
+  todoToUpdate.title = value;
+  localStorage.setItem("todos", JSON.stringify(todos));
 };
