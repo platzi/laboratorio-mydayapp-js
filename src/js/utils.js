@@ -1,7 +1,13 @@
 export const todoContainer = document.querySelector("ul.todo-list");
 export const mainContainer = document.querySelector(".main");
 export const footerContainer = document.querySelector(".footer");
+export const clearComplete = document.querySelector(".clear-completed");
+
 export let todos = [];
+
+clearComplete.addEventListener("click", () => {
+  clearCompleted();
+});
 
 // To know how many task we have
 
@@ -14,8 +20,9 @@ export const checkTaskNumber = () => {
     mainContainer.classList.remove("hidden");
     footerContainer.classList.remove("hidden");
   }
+  const pendingTodos = todos.filter((todo) => !todo.completed).length;
   const todoCounterSpan = document.querySelector("strong");
-  todoCounterSpan.innerText = taskCount;
+  todoCounterSpan.innerText = pendingTodos;
 };
 
 // To add new Task to DOM
@@ -104,4 +111,10 @@ export const saveNewValue = (id, value) => {
   const todoToUpdate = todos.find((todo) => todo.id == id);
   todoToUpdate.title = value;
   localStorage.setItem("todos", JSON.stringify(todos));
+};
+
+export const clearCompleted = () => {
+  todos = todos.filter((el) => !el.completed);
+  localStorage.setItem("todos", JSON.stringify(todos));
+  loadTodos();
 };
