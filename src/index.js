@@ -1,10 +1,17 @@
 import "./css/base.css";
 
-import { todoContainer, checkTaskNumber, addTodo } from "./js/utils";
+import {
+  todoContainer,
+  checkTaskNumber,
+  loadTodos,
+  saveTodo,
+} from "./js/utils";
 
 // MutationObserver -> To check Task number
 
-window.addEventListener("load", checkTaskNumber);
+window.addEventListener("load", () => {
+  loadTodos();
+});
 
 const taskCountObserver = new MutationObserver(() => {
   checkTaskNumber();
@@ -22,7 +29,12 @@ document.addEventListener("keydown", function (event) {
       input.type === "text" &&
       input.value.trim() !== ""
     ) {
-      addTodo(input.value);
+      const todo = {
+        id: new Date().getTime(),
+        title: input.value.trim(),
+        completed: false,
+      };
+      saveTodo(todo);
       input.value = "";
     }
   }
