@@ -1,8 +1,8 @@
 import "./css/base.css";
 
-import { todoContainer, checkTaskNumber } from "./js/utils";
+import { todoContainer, checkTaskNumber, addTodo } from "./js/utils";
 
-// const todoContainer = document.querysSelector("ul.todo-list");
+// MutationObserver -> To check Task number
 
 window.addEventListener("load", checkTaskNumber);
 
@@ -11,3 +11,19 @@ const taskCountObserver = new MutationObserver(() => {
 });
 
 taskCountObserver.observe(todoContainer, { childList: true });
+
+// Event listener for add new Task when keypress Enter
+
+document.addEventListener("keydown", function (event) {
+  const input = document.activeElement;
+  if (event.key === "Enter") {
+    if (
+      input.className === "new-todo" &&
+      input.type === "text" &&
+      input.value.trim() !== ""
+    ) {
+      addTodo(input.value);
+      input.value = "";
+    }
+  }
+});
