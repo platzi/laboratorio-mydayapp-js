@@ -25,6 +25,16 @@ export const render = function () {
     document.getElementsByClassName("footer")[0].style.display = hideSection;
   }
 
+  /* hide clear button */
+  function hideClearBtn() {
+    let taskCompleted = service.tasks.some(function (task) {
+      return task.completed === true;
+    });
+    document.querySelector(".clear-completed").style.visibility = `${
+      taskCompleted ? "visible" : "hidden"
+    }`;
+  }
+
   /* seleted button */
   const selectedBtn = document.querySelectorAll("li a");
   for (let i = 0; i < selectedBtn.length; ++i) {
@@ -93,6 +103,7 @@ export const render = function () {
         );
         count == 1 || count == 2 ? pluralize() : (todoCount.innerHTML = count);
         service.update(id[i], toggle[i].checked);
+        hideClearBtn();
       });
       // 2.edit item
       label[i].addEventListener("dblclick", function () {
@@ -135,6 +146,7 @@ export const render = function () {
         delete id[i];
         count == 1 || count == 2 ? pluralize() : (todoCount.innerHTML = count);
         tasks.length === 0 && hideSections(false);
+        hideClearBtn();
       });
       // 5. destroy tasks completed
       clearBtn.addEventListener("click", function () {
@@ -145,10 +157,12 @@ export const render = function () {
         }
         count == 1 || count == 2 ? pluralize() : (todoCount.innerHTML = count);
         tasks.length === 0 && hideSections(false);
+        hideClearBtn();
       });
     }
     service.tasks.length === 0 ? hideSections(false) : hideSections(true);
     pluralize();
+    hideClearBtn();
   }
   // 6. filter each all, pending and completed tasks
   window.addEventListener("hashchange", function () {
