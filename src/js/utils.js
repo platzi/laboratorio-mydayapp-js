@@ -11,3 +11,11 @@ export const hideSections = () => {
   document.querySelector(".main").classList.add("hidden");
   document.querySelector(".footer").classList.add("hidden");
 }
+
+export const createItem = (title) => {
+  return {
+    id: String(Date.now()),
+    title,
+    completed: false
+  }
+}
