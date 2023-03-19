@@ -1,7 +1,7 @@
 import "./css/base.css";
 
-import { sayHello, showSections, hideSections, createItem } from "./js/utils";
-import { addItem } from "./js/helpers";
+import { sayHello, showSections, hideSections, addItem, addItemEvents } from "./js/utils";
+//import { addItem } from "./js/helpers";
 
 console.log(sayHello("Hello"));
 
@@ -17,15 +17,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 document.querySelector(".new-todo").addEventListener("keyup", (event) => {
     if(event.key === "Enter" || event.keycode === 13){
-        const element = event.target;
-        const title = element.value.trim();
+        const title = event.target.value.trim();
         if(title.length > 0) {
-            const item = createItem(title);
-            toDoItems.push(item);
-            addItem(item);
-            element.value = null;
-            showSections();
-            console.log(toDoItems);
+            addItem(title, toDoItems);
         }
     }
 });
