@@ -9,3 +9,7 @@ export const addItemTemplate = (item) => {
     </li>`;
     document.querySelector(".todo-list").insertAdjacentHTML("beforeend", itemTemplate);
 }
+
+export const pendingItemsCounter = (counter) => {
+    document.querySelector(".todo-count").innerHTML = `${counter} ${counter === 1 ? "item" : "items" } left`;
+}

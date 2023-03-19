@@ -1,4 +1,4 @@
-import { addItemTemplate } from "./helpers";
+import { addItemTemplate, pendingItemsCounter } from "./helpers";
 
 export const sayHello = (text) => {
   return text;
@@ -22,6 +22,8 @@ export const createItem = (title) => {
   }
 }
 
+
+
 export const addItem = (title, toDoItems) => {
   const item = createItem(title);
   if(toDoItems.length === 0) {
@@ -30,7 +32,8 @@ export const addItem = (title, toDoItems) => {
   toDoItems.push(item);
   addItemTemplate(item);
   addItemEvents(toDoItems);
-  document.querySelector(".new-todo").value = null;  
+  document.querySelector(".new-todo").value = null;
+  pendingItemsCounter(toDoItems.filter((item) => !item.completed).length);
   console.log(toDoItems);
 }
 
@@ -55,6 +58,7 @@ export const addItemEvents = (toDoItems) => {
 const completeItem = (itemElement, index, toDoItems) => {
   itemElement.classList.toggle("completed");
   toDoItems[index].completed = toDoItems[index].completed ? false : true;
+  pendingItemsCounter(toDoItems.filter((item) => !item.completed).length);
   console.log(toDoItems);
 }
 
@@ -66,6 +70,7 @@ const destroyItem = (itemElement, index, toDoItems) => {
     toDoItems.pop();
     hideSections();
   }
+  pendingItemsCounter(toDoItems.filter((item) => !item.completed).length);
   console.log(toDoItems);
 }
 
