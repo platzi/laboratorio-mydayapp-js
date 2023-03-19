@@ -34,57 +34,80 @@ export const addItem = (title, toDoItems) => {
   addItemEvents(toDoItems);
   document.querySelector(".new-todo").value = null;
   pendingItemsCounter(toDoItems.filter((item) => !item.completed).length);
-  console.log(toDoItems);
 }
 
 export const addItemEvents = (toDoItems) => {
   const itemElement = document.querySelector(".todo-list").lastElementChild;
-  const title = itemElement.querySelector("label").textContent;
-  const index = toDoItems.findIndex((item) => item.title === title);
-  itemElement.querySelector(".toggle").addEventListener("click", (event) => completeItem(itemElement, index, toDoItems));
-  itemElement.querySelector("label").addEventListener("dblclick", (event) => itemElement.classList.toggle("editing"));
-  itemElement.querySelector(".destroy").addEventListener("click", (event) => destroyItem(itemElement, index, toDoItems));
+  itemElement.querySelector(".toggle").addEventListener("click", () => {
+    completeItem(itemElement, toDoItems);
+  });
+  itemElement.querySelector("label").addEventListener("dblclick", () => {
+    itemElement.classList.toggle("editing")
+  });
+  itemElement.querySelector(".destroy").addEventListener("click", () => {
+    destroyItem(itemElement, toDoItems);
+  });
   itemElement.querySelector(".edit").addEventListener("keyup", (event) => {
-    const element = event.target;
     if(event.key === "Enter" || event.keycode === 13){
-      editItem(itemElement, index, toDoItems);
+      editItem(itemElement, toDoItems);
+      itemElement.classList.remove("editing");
     } else if (event.key === "Escape" || event.keycode === 27){
-      element.value = title;
+      event.target.value = itemElement.querySelector("label").textContent;
       itemElement.classList.remove("editing");
     }
   });
 }
 
-const completeItem = (itemElement, index, toDoItems) => {
+const findItemTitle = (itemElement) => {
+  return itemElement.querySelector("label").textContent
+}
+
+const findItemNewTitle = (itemElement) => {
+  return itemElement.querySelector(".edit").value.trim();
+}
+
+const findItemIndex = (title, toDoItems) => {
+  return toDoItems.findIndex((item) => item.title === title);
+}
+
+const completeItem = (itemElement, toDoItems) => {
+  const title = findItemTitle(itemElement);
+  const index = findItemIndex(title, toDoItems);
   itemElement.classList.toggle("completed");
   toDoItems[index].completed = toDoItems[index].completed ? false : true;
   pendingItemsCounter(toDoItems.filter((item) => !item.completed).length);
-  console.log(toDoItems);
 }
 
-const destroyItem = (itemElement, index, toDoItems) => {
+const destroyItem = (itemElement, toDoItems) => {
+  const title = findItemTitle(itemElement);
   itemElement.remove();
   if(toDoItems.length > 1) {
+    const index = findItemIndex(title, toDoItems);
     toDoItems.splice(index, 1);
   } else if(toDoItems.length === 1) {
     toDoItems.pop();
     hideSections();
   }
   pendingItemsCounter(toDoItems.filter((item) => !item.completed).length);
-  console.log(toDoItems);
 }
 
-const editItem = (itemElement, index, toDoItems) => {
-  const itemLabel = itemElement.querySelector("label");
-  const itemInput = itemElement.querySelector(".edit");
-  const title = itemLabel.textContent;
-  const newTitle = itemInput.value.trim();
+const editItem = (itemElement, toDoItems) => {
+  const title = findItemTitle(itemElement);
+  const newTitle = findItemNewTitle(itemElement);
   if(newTitle.length > 0 && newTitle !== title) {
+    const index = findItemIndex(title, toDoItems);
     toDoItems[index].title = newTitle;
-    itemLabel.innerHTML = newTitle;
-    itemInput.value = newTitle;
+    itemElement.querySelector("label").innerHTML = newTitle;
+    itemElement.querySelector(".edit").value = newTitle
   }
-  itemElement.classList.remove("editing");
-  console.log(toDoItems);
 }
 
+export const clearCompletedItem = (counter, toDoItems) => {
+  if(counter > 0) {
+      const index = toDoItems.findIndex((item) => item.completed);
+      const itemElement = document.querySelector(".todo-list").children[index];
+      destroyItem(itemElement, toDoItems);
+      clearCompletedItem(counter - 1, toDoItems);
+  }
+  return;
+}

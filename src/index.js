@@ -1,6 +1,6 @@
 import "./css/base.css";
 
-import { sayHello, showSections, hideSections, addItem, addItemEvents } from "./js/utils";
+import { sayHello, showSections, hideSections, addItem, clearCompletedItem } from "./js/utils";
 //import { addItem } from "./js/helpers";
 
 console.log(sayHello("Hello"));
@@ -22,4 +22,9 @@ document.querySelector(".new-todo").addEventListener("keyup", (event) => {
             addItem(title, toDoItems);
         }
     }
+});
+
+document.querySelector(".clear-completed").addEventListener("click", (event) => {
+    const counter = toDoItems.filter((item) => item.completed).length;
+    clearCompletedItem(counter, toDoItems);
 });
