@@ -1,7 +1,7 @@
 export const addItemTemplate = (item) => {
-    const itemTemplate = `<li>
+    const itemTemplate = `<li ${item.completed ? "class = \"completed\"" : "" }>
         <div class="view">
-            <input class="toggle" type="checkbox" />
+            <input class="toggle" type="checkbox"  ${item.completed ? "checked" : "" } />
             <label>${item.title}</label>
             <button class="destroy"></button>
         </div>
