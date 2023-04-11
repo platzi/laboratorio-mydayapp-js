@@ -8,19 +8,18 @@ const filters = document.querySelector(".filters");
 //se crea un array vacio para el almacenamiento temporal de las tareas
 let taskListArray = [];
 //una variable para guardar un atajo para el llamado de las tareas almacenadas en el localstorage
-const getterLocalStorage = JSON.parse(localStorage.getItem('mydayapp-js'));
-
+const getterLocalStorage = JSON.parse(localStorage.getItem("mydayapp-js"));
 
 //compoentes de eventos globales
 //evento que esuchca cuando el hash cambia
-window.addEventListener('hashchange', renderUI, false);
+window.addEventListener("hashchange", renderUI, false);
 //evento del boton que limpia las tareas completadas
 clearCompleted.addEventListener("click", clearTaskCompleted);
 //Evento del input principal para agregar nuevas tareas
-inputNewTodo.addEventListener("keydown", ({key}) => {
+inputNewTodo.addEventListener("keydown", ({ key }) => {
   if (key === "Enter") {
     inputValue(inputNewTodo);
-  };
+  }
 });
 
 //la logica empleada para la primera carga de la aplicacion
@@ -35,8 +34,8 @@ export function firstLoad() {
     verifyTaskLIstArray();
     taskListArray = [...getterLocalStorage];
     renderUI();
-  };
-};
+  }
+}
 
 //utils
 function verifyTaskLIstArray() {
@@ -48,17 +47,19 @@ function verifyTaskLIstArray() {
     footer.classList.remove("hidden");
 
     const someCompleted = taskListArray.some((task) => task.completed == true);
-    someCompleted ? clearCompleted.classList.remove('hidden') : clearCompleted.classList.add('hidden')
-  };
-};
+    someCompleted
+      ? clearCompleted.classList.remove("hidden")
+      : clearCompleted.classList.add("hidden");
+  }
+}
 
 function clearInput() {
   inputNewTodo.value = "";
-};
+}
 
 function setterLocalStorage() {
   localStorage.setItem("mydayapp-js", JSON.stringify(taskListArray));
-};
+}
 
 //logic add Task
 const inputValue = () => {
@@ -68,9 +69,8 @@ const inputValue = () => {
     addTodoList(text);
   } else {
     clearInput();
-  };
+  }
 };
-
 
 function addTodoList(text) {
   const id = (taskListArray.length + 1).toString();
@@ -82,17 +82,19 @@ function addTodoList(text) {
   taskListArray = [...taskListArray, newTask];
   setterLocalStorage();
   renderUI();
-};
+}
 
 //UI interface
-function deleteTask({target: {offsetParent: liContainer}}) {
-  taskListArray = taskListArray.filter((task) => task.id != liContainer.dataset.id);
+function deleteTask({ target: { offsetParent: liContainer } }) {
+  taskListArray = taskListArray.filter(
+    (task) => task.id != liContainer.dataset.id
+  );
   setterLocalStorage();
   renderUI();
-};
+}
 
-function editingMode({target: {offsetParent: liContainer}}) {
-  const { lastChild: input } = liContainer
+function editingMode({ target: { offsetParent: liContainer } }) {
+  const { lastChild: input } = liContainer;
   liContainer.classList.toggle("editing"); // se agrega la clase al Contenedor para acceder a al modo editar
   input.focus();
 
@@ -100,51 +102,55 @@ function editingMode({target: {offsetParent: liContainer}}) {
 
   const inputEditValue = this.innerText; // se almacena el valor iniciar del input
 
-  input.addEventListener("keydown", ({key}) => {
+  input.addEventListener("keydown", ({ key }) => {
     if (key === "Enter") {
-      const found = taskListArray.findIndex((index) => index.id == liContainer.dataset.id)
+      const found = taskListArray.findIndex(
+        (index) => index.id == liContainer.dataset.id
+      );
       taskListArray[found].title = input.value.trim();
       setterLocalStorage();
       renderUI();
     } else if (key === "Escape") {
       input.value = inputEditValue;
       liContainer.classList.remove("editing");
-    };
+    }
   });
-};
+}
 
-function checkBox({target: {offsetParent: liContainer}}) {
+function checkBox({ target: { offsetParent: liContainer } }) {
   liContainer.classList.toggle("completed");
-  const found = taskListArray.findIndex((index) => index.id == liContainer.dataset.id);
+  const found = taskListArray.findIndex(
+    (index) => index.id == liContainer.dataset.id
+  );
   taskListArray[found].completed === false
     ? (taskListArray[found].completed = true)
     : (taskListArray[found].completed = false);
-    verifyTaskLIstArray();
-    setterLocalStorage();
-    renderUI();
-};
+  verifyTaskLIstArray();
+  setterLocalStorage();
+  renderUI();
+}
 
 function clearTaskCompleted() {
   taskListArray = taskListArray.filter((task) => task.completed !== true);
   setterLocalStorage();
   renderUI();
-};
+}
 
 //target.offsetParent.dataset
 
 function renderUI() {
-  let taskIterator = []
+  let taskIterator = [];
   todoListContainer.innerHTML = "";
   verifyTaskLIstArray();
   getTaskFilterd(taskIterator);
   const container = [];
-  if (location.hash.startsWith('#/pending')) {
+  if (location.hash.startsWith("#/pending")) {
     taskIterator = taskListArray.filter((task) => task.completed !== true);
-  } else if (location.hash.startsWith('#/completed')) {
+  } else if (location.hash.startsWith("#/completed")) {
     taskIterator = taskListArray.filter((task) => task.completed !== false);
   } else {
     taskIterator = taskListArray;
-  };
+  }
 
   taskIterator.forEach((task) => {
     const liContainer = template(task);
@@ -152,7 +158,7 @@ function renderUI() {
   });
   todoListContainer.append(...container);
   itemLeft();
-};
+}
 
 const getTaskFilterd = () => {
   const { hash } = window.location;
@@ -164,27 +170,26 @@ const getTaskFilterd = () => {
     case "":
     case "#/":
     case "#/all":
-      all.add('selected');
-      pending.remove('selected');
-      completed.remove('selected');
+      all.add("selected");
+      pending.remove("selected");
+      completed.remove("selected");
       break;
-      case "#/pending":
-      all.remove('selected');
-      pending.add('selected');
-      completed.remove('selected');
+    case "#/pending":
+      all.remove("selected");
+      pending.add("selected");
+      completed.remove("selected");
       break;
-      case "#/completed":
-      all.remove('selected');
-      pending.remove('selected');
-      completed.add('selected');
-    break;
+    case "#/completed":
+      all.remove("selected");
+      pending.remove("selected");
+      completed.add("selected");
+      break;
     default:
-      all.add('selected');
-      pending.remove('selected');
-      completed.remove('selected');
-    };
-  };
-
+      all.add("selected");
+      pending.remove("selected");
+      completed.remove("selected");
+  }
+};
 
 //template
 function template(task) {
@@ -206,7 +211,7 @@ function template(task) {
   } else if (task.completed === false) {
     inputCheckBox.checked = false;
     liContainer.classList.remove("completed");
-  };
+  }
 
   labelTask.innerText = task.title;
   labelTask.addEventListener("dblclick", editingMode);
@@ -220,11 +225,11 @@ function template(task) {
   divView.append(inputCheckBox, labelTask, btnDestroy);
   liContainer.append(divView, inputEdit);
   return liContainer;
-};
+}
 //Funciones
 function itemLeft() {
   let item;
   let items = taskListArray.filter((task) => task.completed !== true);
   items.length > 1 ? (item = "items") : (item = "item");
   todoCount.innerHTML = `<strong>${items.length}</strong> ${item} left`;
-};
+}
