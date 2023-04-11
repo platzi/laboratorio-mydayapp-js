@@ -2,27 +2,15 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 
 module.exports = {
-  mode: "production",
-  entry: {
-    main: "./src/index.js",
-  },
+  mode: "development",
+  entry: "./src/index.js",
   output: {
-    path: __dirname + "/dist",
+    path: path.resolve(__dirname + "/dist"),
     filename: "[name].bundle.js",
   },
-  devServer: {
-    static: {
-      directory: path.join(__dirname, "dist"),
-    },
-    compress: true,
-    port: 3000,
+  resolve: {
+    extensions: [".js"],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "./src/index.html",
-      filename: "index.html",
-    }),
-  ],
   module: {
     rules: [
       {
@@ -40,5 +28,19 @@ module.exports = {
         },
       },
     ],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: "./public/index.html",
+      filename: "index.html",
+    }),
+  ],
+  devServer: {
+    static: {
+      directory: path.join(__dirname, "dist"),
+    },
+    compress: true,
+    port: 3000,
   },
 };
