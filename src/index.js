@@ -6,6 +6,8 @@ import { todoArray } from './js/utils'
 
 import { newTodo } from './js/utils';
 import { todoList } from './js/utils';
+import { todoItem } from './js/utils';
+
 
 newTodo.addEventListener('keyup', (e) => {
     if(e.keyCode == 13) {
@@ -16,7 +18,6 @@ newTodo.addEventListener('keyup', (e) => {
             newData.completed = false;
             todoArray.push(newData);
             newTodo.value = '';
-            console.log(todoArray);
             const todoLi = document.createElement('li');
             const todoDiv = document.createElement('div');
             todoDiv.classList.add('view');
@@ -36,6 +37,14 @@ newTodo.addEventListener('keyup', (e) => {
             todoDiv.appendChild(todoLabel);
             todoDiv.appendChild(todoButton);
             todoLi.appendChild(editInput);
+            todoInput.addEventListener('click', () => {
+                if(todoInput.checked) {
+                    todoLi.classList.add('completed');
+                } else {
+                    todoLi.classList.remove('completed');
+                }
+            });
         }
     } 
 });
+
