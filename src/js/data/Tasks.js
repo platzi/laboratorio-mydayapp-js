@@ -2,11 +2,11 @@ const createTasks = () => {
   let tasksList = [];
   return {
     addTask(newTask) {
-      tasksList.push(...newTask);
+      tasksList.push(newTask);
       return "Todo agregado exitosamente";
     },
     removeTask(id) {
-      tasksList = tasksList.filter((task) => task.id !== id);
+      tasksList = tasksList.filter((task) => task.id !== Number(id));
     },
     getTasks() {
       return tasksList;
@@ -19,11 +19,11 @@ const createTasks = () => {
     },
     toggleCompleted(id) {
       let index;
-      index = tasksList.findIndex((task) => task.id === id);
+      index = tasksList.findIndex((task) => task.id === Number(id));
       tasksList[index].completed = !tasksList[index].completed;
     },
     updateTask(id, updates) {
-      const index = tasksList.findIndex((task) => task.id === id);
+      const index = tasksList.findIndex((task) => task.id === Number(id));
       tasksList[index] = { ...tasksList[index], ...updates };
     },
     clearTaskCompleted() {

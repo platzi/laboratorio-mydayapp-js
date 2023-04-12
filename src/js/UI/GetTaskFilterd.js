@@ -1,10 +1,10 @@
-import { $filters } from "../node/node";
+import { filters } from "../../index";
 
 export const getTaskFilterd = () => {
   const { hash } = window.location;
-  const all = $filters.children[0].lastElementChild.classList;
-  const pending = $filters.children[1].lastElementChild.classList;
-  const completed = $filters.children[2].lastElementChild.classList;
+  const all = filters.children[0].lastElementChild.classList;
+  const pending = filters.children[1].lastElementChild.classList;
+  const completed = filters.children[2].lastElementChild.classList;
 
   switch (hash) {
     case "":

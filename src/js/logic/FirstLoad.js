@@ -9,11 +9,11 @@ import {
 export const firstLoad = () => {
   const tasks = getterLocalStorage();
 
-  if (tasks === null) {
+  if (!tasks || !tasks.length) {
     setterLocalStorage();
     verifyTaskLIstArray();
   } else {
-    taskPlanner.addTask(tasks);
+    taskPlanner.addTask(...tasks);
     verifyTaskLIstArray();
     renderUI();
   }

@@ -2,7 +2,7 @@ import { setterLocalStorage } from "../logic/setterLocalStorage";
 import { renderUI } from "../UI/renderUI";
 import { taskPlanner } from "../data/Tasks";
 
-export const editingMode = ({ target: { offsetParent: liContainer } }) => {
+export function editingMode({ target: { offsetParent: liContainer } }) {
   const { lastChild: input } = liContainer;
   liContainer.classList.toggle("editing"); // se agrega la clase al Contenedor para acceder a al modo editar
   input.focus();
@@ -23,4 +23,4 @@ export const editingMode = ({ target: { offsetParent: liContainer } }) => {
       liContainer.classList.remove("editing");
     }
   });
-};
+}

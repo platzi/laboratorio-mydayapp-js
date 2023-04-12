@@ -1,5 +1,4 @@
-import { $inputNewTodo } from "../node/node";
-
+import { inputNewTodo } from "../..";
 export function clearInput() {
-  $inputNewTodo.value = "";
+  inputNewTodo.value = "";
 }
