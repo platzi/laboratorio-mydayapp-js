@@ -92,18 +92,19 @@ newTodo.addEventListener('keyup', (e) => {
                 todoCount.innerHTML = itemLeft();
             });
             destroyButton.addEventListener('click', () => {
-                todoLi.remove();
-                todoArray.splice(newData.id, 1);
-                todoCount.innerHTML = itemLeft();
+                const index = todoArray.findIndex(item => item.id === newData.id);
+                todoArray.splice(index, 1);
+                todoCount.innerHTML = itemLeft();                
                 if(todoArray.length === 0) {
                     footer.classList.add('hidden');
                     main.classList.add('hidden');
                 }
-            })         
+                todoLi.remove();
+            });
         }        
-        hideMainAndFooter();         
-        todoCount.innerHTML = itemLeft();   
     }
+    hideMainAndFooter();         
+    todoCount.innerHTML = itemLeft();  
 });
 
 hideMainAndFooter();
