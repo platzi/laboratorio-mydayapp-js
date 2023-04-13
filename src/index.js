@@ -8,6 +8,7 @@ import { newTodo } from './js/utils';
 import { todoList } from './js/utils';
 import { footer } from './js/utils';
 import { main } from './js/utils';
+import { todoCount } from './js/utils';
 
 function hideMainAndFooter() {  
     if(todoArray.length === 0) {
@@ -17,6 +18,16 @@ function hideMainAndFooter() {
         footer.classList.remove('hidden');
         main.classList.remove('hidden');
     }
+}
+
+function itemLeft() {
+    let count = 0;
+    todoArray.forEach(item => {
+        if(!item.completed) {
+            count++;
+        }
+    });
+    return count;
 }
 
 newTodo.addEventListener('keyup', (e) => {
@@ -50,8 +61,12 @@ newTodo.addEventListener('keyup', (e) => {
             todoInput.addEventListener('click', () => {
                 if(todoInput.checked) {
                     todoLi.classList.add('completed');
+                    newData.completed = true;
+                    todoCount.innerText = itemLeft();
                 } else {
                     todoLi.classList.remove('completed');
+                    newData.completed = false;
+                    todoCount.innerText = itemLeft();
                 }
             });
             todoLi.addEventListener('dblclick', () => {
@@ -67,8 +82,10 @@ newTodo.addEventListener('keyup', (e) => {
                 }
             });            
         }        
+        hideMainAndFooter();         
+        todoCount.innerText = itemLeft();        
     }
-    hideMainAndFooter(); 
 });
 
 hideMainAndFooter();
+todoCount.innerText = itemLeft();
