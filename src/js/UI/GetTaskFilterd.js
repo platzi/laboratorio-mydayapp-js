@@ -1,4 +1,4 @@
-import { filters } from "../../index";
+export const filters = document.querySelector(".filters");
 
 export const getTaskFilterd = () => {
   const { hash } = window.location;

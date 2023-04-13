@@ -8,7 +8,6 @@ export const footer = document.querySelector(".footer");
 export const inputNewTodo = document.querySelector(".new-todo");
 export const todoCount = document.querySelector(".todo-count");
 export const clearCompleted = document.querySelector(".clear-completed");
-export const filters = document.querySelector(".filters");
 
 window.addEventListener("hashchange", renderUI, false);
 clearCompleted.addEventListener("click", clearTaskCompleted);
