@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <title>MyDayApp - JS</title>
+  </head>
+  <body>
+    <section class="todoapp">
+      <header class="header">
+        <div class="container">
+          <h1>My Day</h1>
+          <p>All my tasks in one place</p>
+          <input
+            class="new-todo"
+            placeholder="Type new todo"
+            autofocus
+            type="text"
+          />
+        </div>
+      </header>
+      <div class="container todoapp-wrapper">
+        <section class="main">
+          <ul class="todo-list">
+            <li class="completed hidden"></li>
+          </ul>
+        </section>
+        <footer class="footer hidden">
+          <span class="todo-count"></span>
+          <ul class="filters">
+            <li>
+              <a href="#/" class="selected">All</a>
+            </li>
+            <li>
+              <a href="#/pending">Pending</a>
+            </li>
+            <li>
+              <a href="#/completed">Completed</a>
+            </li>
+          </ul>
+          <!-- Hidden if no completed items are left ↓ -->
+          <button class="clear-completed">Clear completed</button>
+        </footer>
+      </div>
+    </section>
+  </body>
+</html>
