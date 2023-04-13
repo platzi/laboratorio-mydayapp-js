@@ -6,11 +6,21 @@ import { todoArray } from './js/utils'
 
 import { newTodo } from './js/utils';
 import { todoList } from './js/utils';
-import { todoItem } from './js/utils';
+import { footer } from './js/utils';
+import { main } from './js/utils';
 
+function hideMainAndFooter() {  
+    if(todoArray.length === 0) {
+        footer.classList.add('hidden');
+        main.classList.add('hidden');
+    } else {
+        footer.classList.remove('hidden');
+        main.classList.remove('hidden');
+    }
+}
 
 newTodo.addEventListener('keyup', (e) => {
-    if(e.keyCode == 13) {
+    if(e.keyCode === 13) {
         if(newTodo.value != '') {
             const newData = new data;
             newData.id = todoArray.length;
@@ -44,7 +54,21 @@ newTodo.addEventListener('keyup', (e) => {
                     todoLi.classList.remove('completed');
                 }
             });
-        }
-    } 
+            todoLi.addEventListener('dblclick', () => {
+                todoLi.classList.add('editing');
+            });
+            editInput.addEventListener('keyup', (ev) => {
+                if(ev.keyCode == 13) {
+                    if(editInput.value != '') {
+                        newData.title = editInput.value.trim();
+                        todoLabel.innerText = newData.title;
+                        todoLi.classList.remove('editing');
+                    }
+                }
+            });            
+        }        
+    }
+    hideMainAndFooter(); 
 });
 
+hideMainAndFooter();
