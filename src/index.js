@@ -47,8 +47,8 @@ newTodo.addEventListener('keyup', (e) => {
             todoInput.setAttribute('type', 'checkbox');
             const todoLabel = document.createElement('label');
             todoLabel.innerText = newData.title;
-            const todoButton = document.createElement('button');
-            todoButton.classList.add('destroy');
+            const destroyButton = document.createElement('button');
+            destroyButton.classList.add('destroy');
             const editInput = document.createElement('input');
             editInput.classList.add('edit');
             editInput.setAttribute('value', newData.title);
@@ -56,18 +56,17 @@ newTodo.addEventListener('keyup', (e) => {
             todoLi.appendChild(todoDiv);
             todoDiv.appendChild(todoInput);
             todoDiv.appendChild(todoLabel);
-            todoDiv.appendChild(todoButton);
+            todoDiv.appendChild(destroyButton);
             todoLi.appendChild(editInput);
             todoInput.addEventListener('click', () => {
                 if(todoInput.checked) {
                     todoLi.classList.add('completed');
                     newData.completed = true;
-                    todoCount.innerText = itemLeft();
                 } else {
                     todoLi.classList.remove('completed');
                     newData.completed = false;
-                    todoCount.innerText = itemLeft();
                 }
+                todoCount.innerText = itemLeft();
             });
             todoLi.addEventListener('dblclick', () => {
                 todoLi.classList.add('editing');
@@ -80,10 +79,20 @@ newTodo.addEventListener('keyup', (e) => {
                         todoLi.classList.remove('editing');
                     }
                 }
-            });            
+                todoCount.innerText = itemLeft();
+            });
+            destroyButton.addEventListener('click', () => {
+                todoLi.remove();
+                todoArray.splice(newData.id, 1);
+                todoCount.innerText = itemLeft();
+                if(todoArray.length === 0) {
+                    footer.classList.add('hidden');
+                    main.classList.add('hidden');
+                }
+            })         
         }        
         hideMainAndFooter();         
-        todoCount.innerText = itemLeft();        
+        todoCount.innerText = itemLeft();   
     }
 });
 
