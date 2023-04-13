@@ -21,7 +21,7 @@ export const template = (taskList) => {
     //la etiqueta
     const label = document.createElement("label");
     label.innerText = title;
-    label.addEventListener("dlclick", editingMode);
+    label.addEventListener("dblclick", editingMode);
     // el boton de eliminar
     const deleteButton = document.createElement("button");
     deleteButton.classList.add("destroy");

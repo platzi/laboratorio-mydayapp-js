@@ -28,7 +28,8 @@ const createTasks = () => {
     },
     updateTask(id, updates) {
       const index = tasksList.findIndex((task) => task.id === Number(id));
-      tasksList[index] = { ...tasksList[index], ...updates };
+      tasksList[index] = { ...tasksList[index], title: updates };
+      return "Tarea actualizada con exito", updates, tasksList;
     },
     clearTaskCompleted() {
       tasksList = tasksList.filter((task) => !task.completed);

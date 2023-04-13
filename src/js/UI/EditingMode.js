@@ -8,7 +8,6 @@ export function editingMode({ target: { offsetParent: liContainer } }) {
   input.focus();
 
   // se almacenan los valores del ID y del valor por defecto del input
-
   const initialValue = this.innerText; // se almacena el valor iniciar del input
 
   input.addEventListener("keydown", ({ key }) => {
