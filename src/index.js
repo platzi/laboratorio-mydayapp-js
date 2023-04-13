@@ -72,10 +72,14 @@ newTodo.addEventListener('keyup', (e) => {
                 todoLi.classList.add('editing');
             });
             editInput.addEventListener('keyup', (ev) => {
-                if(ev.keyCode == 13) {
-                    if(editInput.value != '') {
+                if(editInput.value != '') {
+                    if(ev.keyCode === 13) {                    
                         newData.title = editInput.value.trim();
                         todoLabel.innerText = newData.title;
+                        todoLi.classList.remove('editing');
+                    } else if(ev.keyCode === 27) {
+                        todoLabel.innerText = newData.title;
+                        editInput.value = newData.title;
                         todoLi.classList.remove('editing');
                     }
                 }
