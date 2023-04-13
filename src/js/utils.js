@@ -1,10 +1,14 @@
 import { doc } from "prettier";
 
-export const todoArray = [];
 
-export const newTodo = document.querySelector('.new-todo');
-export const todoList = document.querySelector('.todo-list');
-export const footer = document.querySelector('.footer');
-export const main = document.querySelector('.main');
-export const todoCount = document.querySelector('.todo-count');
+export const selectors = {
+  clearCompleted: document.querySelector('.clear-completed'),
+  newTodo: document.querySelector('.new-todo'),
+  todoList: document.querySelector('.todo-list'),
+  footer: document.querySelector('.footer'),
+  main: document.querySelector('.main'),
+  todoCount: document.querySelector('.todo-count'),
+}
+
+export const todoArray = [];
 

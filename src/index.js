@@ -4,19 +4,15 @@ import { data } from './js/data.js';
 
 import { todoArray } from './js/utils'
 
-import { newTodo } from './js/utils';
-import { todoList } from './js/utils';
-import { footer } from './js/utils';
-import { main } from './js/utils';
-import { todoCount } from './js/utils';
+import { selectors } from './js/utils';
 
 function hideMainAndFooter() {  
     if(todoArray.length === 0) {
-        footer.classList.add('hidden');
-        main.classList.add('hidden');
+        selectors.footer.classList.add('hidden');
+        selectors.main.classList.add('hidden');
     } else {
-        footer.classList.remove('hidden');
-        main.classList.remove('hidden');
+        selectors.footer.classList.remove('hidden');
+        selectors.main.classList.remove('hidden');
     }
 }
 
@@ -36,15 +32,15 @@ function itemLeft() {
     return code;
 }
 
-newTodo.addEventListener('keyup', (e) => {
+selectors.newTodo.addEventListener('keyup', (e) => {
     if(e.keyCode === 13) {
-        if(newTodo.value != '') {
+        if(selectors.newTodo.value != '') {
             const newData = new data;
             newData.id = todoArray.length;
-            newData.title = newTodo.value.trim();
+            newData.title = selectors.newTodo.value.trim();
             newData.completed = false;
             todoArray.push(newData);
-            newTodo.value = '';
+            selectors.newTodo.value = '';
             const todoLi = document.createElement('li');
             const todoDiv = document.createElement('div');
             todoDiv.classList.add('view');
@@ -58,7 +54,7 @@ newTodo.addEventListener('keyup', (e) => {
             const editInput = document.createElement('input');
             editInput.classList.add('edit');
             editInput.setAttribute('value', newData.title);
-            todoList.appendChild(todoLi);
+            selectors.todoList.appendChild(todoLi);
             todoLi.appendChild(todoDiv);
             todoDiv.appendChild(todoInput);
             todoDiv.appendChild(todoLabel);
@@ -72,7 +68,7 @@ newTodo.addEventListener('keyup', (e) => {
                     todoLi.classList.remove('completed');
                     newData.completed = false;
                 }
-                todoCount.innerHTML = itemLeft();
+                selectors.todoCount.innerHTML = itemLeft();
             });
             todoLi.addEventListener('dblclick', () => {
                 todoLi.classList.add('editing');
@@ -89,23 +85,25 @@ newTodo.addEventListener('keyup', (e) => {
                         todoLi.classList.remove('editing');
                     }
                 }
-                todoCount.innerHTML = itemLeft();
+                selectors.todoCount.innerHTML = itemLeft();
             });
             destroyButton.addEventListener('click', () => {
                 const index = todoArray.findIndex(item => item.id === newData.id);
                 todoArray.splice(index, 1);
-                todoCount.innerHTML = itemLeft();                
+                selectors.todoCount.innerHTML = itemLeft();                
                 if(todoArray.length === 0) {
-                    footer.classList.add('hidden');
-                    main.classList.add('hidden');
+                    selectors.footer.classList.add('hidden');
+                    selectors.main.classList.add('hidden');
                 }
                 todoLi.remove();
             });
         }        
     }
     hideMainAndFooter();         
-    todoCount.innerHTML = itemLeft();  
+    selectors.todoCount.innerHTML = itemLeft();  
 });
 
+selectors.clearCompleted.addEventListener('click', () => {alert('it makes!!!')});
+
 hideMainAndFooter();
-todoCount.innerHTML = itemLeft();
+selectors.todoCount.innerHTML = itemLeft();
