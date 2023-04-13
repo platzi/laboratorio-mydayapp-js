@@ -3,13 +3,17 @@ const createTasks = () => {
   return {
     addTask(newTask) {
       tasksList.push(newTask);
-      return "Todo agregado exitosamente";
+      return "Todo agregado exitosamente", newTask;
     },
     removeTask(id) {
       tasksList = tasksList.filter((task) => task.id !== Number(id));
+      return "Elemento Eliminado con exito", id;
     },
     getTasks() {
       return tasksList;
+    },
+    getLastTaskId() {
+      return tasksList[tasksList.length - 1]?.id;
     },
     getPendingTasks() {
       return tasksList.filter((task) => !task.completed);

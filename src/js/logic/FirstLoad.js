@@ -13,7 +13,7 @@ export const firstLoad = () => {
     setterLocalStorage();
     verifyTaskLIstArray();
   } else {
-    taskPlanner.addTask(...tasks);
+    tasks.forEach((task) => taskPlanner.addTask(task));
     verifyTaskLIstArray();
     renderUI();
   }
