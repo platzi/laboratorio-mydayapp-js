@@ -22,12 +22,18 @@ function hideMainAndFooter() {
 
 function itemLeft() {
     let count = 0;
+    let code = '';
+    let plural = 's';
     todoArray.forEach(item => {
         if(!item.completed) {
             count++;
         }
     });
-    return count;
+    if(count === 1) {
+        plural = '';
+    }
+    code = `<strong>${count}</strong> item${plural} left`
+    return code;
 }
 
 newTodo.addEventListener('keyup', (e) => {
@@ -66,7 +72,7 @@ newTodo.addEventListener('keyup', (e) => {
                     todoLi.classList.remove('completed');
                     newData.completed = false;
                 }
-                todoCount.innerText = itemLeft();
+                todoCount.innerHTML = itemLeft();
             });
             todoLi.addEventListener('dblclick', () => {
                 todoLi.classList.add('editing');
@@ -83,12 +89,12 @@ newTodo.addEventListener('keyup', (e) => {
                         todoLi.classList.remove('editing');
                     }
                 }
-                todoCount.innerText = itemLeft();
+                todoCount.innerHTML = itemLeft();
             });
             destroyButton.addEventListener('click', () => {
                 todoLi.remove();
                 todoArray.splice(newData.id, 1);
-                todoCount.innerText = itemLeft();
+                todoCount.innerHTML = itemLeft();
                 if(todoArray.length === 0) {
                     footer.classList.add('hidden');
                     main.classList.add('hidden');
@@ -96,9 +102,9 @@ newTodo.addEventListener('keyup', (e) => {
             })         
         }        
         hideMainAndFooter();         
-        todoCount.innerText = itemLeft();   
+        todoCount.innerHTML = itemLeft();   
     }
 });
 
 hideMainAndFooter();
-todoCount.innerText = itemLeft();
+todoCount.innerHTML = itemLeft();
