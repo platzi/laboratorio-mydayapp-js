@@ -2,15 +2,13 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ProgressPlugin = require('progress-webpack-plugin');
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {  
-  mode: "production",
+  mode: "development",
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname + "/dist"),
-    filename: "[name].bundle.js",
-    clean: true,
+    filename: "[name].bundle.js",    
   },
   resolve: {
     extensions: [".js"],
@@ -47,10 +45,10 @@ module.exports = {
     }),
     new ProgressPlugin(true)
   ],
-    optimization: {
-        minimize: true,
-        minimizer: [
-            new CssMinimizerPlugin(),
-        ]
-    }
+  devServer: {
+    static: path.join(__dirname, "dist"),
+    compress: true,
+    port: 3000,
+    open: true
+  },
 };
