@@ -1,18 +1,24 @@
-import { clearCompleted, footer, main } from "../..";
-import { taskPlanner } from "../data/Tasks";
-
 export const verifyTaskLIstArray = () => {
-  const tasks = taskPlanner.getTasks();
-  if (!tasks || !tasks.length) {
-    main.classList.add("hidden");
-    footer.classList.add("hidden");
-  } else {
-    main.classList.remove("hidden");
-    footer.classList.remove("hidden");
+  import("src/js/data/Tasks")
+    .then((module) => module.taskPlanner.getTasks())
+    .then((tasks) => {
+      if (!tasks || !tasks.length) {
+        import("src").then((module) => module.main.classList.add("hidden"));
+        import("src").then((module) => module.footer.classList.add("hidden"));
+      } else {
+        import("src").then((module) => module.main.classList.remove("hidden"));
+        import("src").then((module) =>
+          module.footer.classList.remove("hidden")
+        );
 
-    const someCompleted = tasks.some((task) => task.completed === true);
-    someCompleted
-      ? clearCompleted.classList.remove("hidden")
-      : clearCompleted.classList.add("hidden");
-  }
+        const someCompleted = tasks.some((task) => task.completed === true);
+        someCompleted
+          ? import("src").then((module) =>
+              module.clearCompleted.classList.remove("hidden")
+            )
+          : import("src").then((module) =>
+              module.clearCompleted.classList.add("hidden")
+            );
+      }
+    });
 };

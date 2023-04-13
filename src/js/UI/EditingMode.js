@@ -1,7 +1,3 @@
-import { setterLocalStorage } from "../logic/setterLocalStorage";
-import { renderUI } from "../UI/renderUI";
-import { taskPlanner } from "../data/Tasks";
-
 export function editingMode({ target: { offsetParent: liContainer } }) {
   const { lastChild: input } = liContainer;
   liContainer.classList.toggle("editing"); // se agrega la clase al Contenedor para acceder a al modo editar
@@ -14,9 +10,13 @@ export function editingMode({ target: { offsetParent: liContainer } }) {
     if (key === "Enter") {
       const id = liContainer.dataset.id;
       const updatedTask = input.value.trim();
-      taskPlanner.updateTask(id, updatedTask);
-      setterLocalStorage();
-      renderUI();
+      import("src/js/data/Tasks").then((module) =>
+        module.taskPlanner.updateTask(id, updatedTask)
+      );
+      import("src/js/logic/setterLocalStorage").then((module) =>
+        module.setterLocalStorage()
+      );
+      import("src/js/UI/renderUI").then((module) => module.renderUI());
     } else if (key === "Escape") {
       input.value = initialValue;
       liContainer.classList.remove("editing");

@@ -1,14 +1,16 @@
-import { verifyTaskLIstArray } from "../logic/VerifyTaskLIstArray";
-import { setterLocalStorage } from "../logic/setterLocalStorage";
-import { taskPlanner } from "../data/Tasks";
-import { renderUI } from "./renderUI";
-import { todoListContainer } from "../..";
-
 export const setCheckBox = ({ target: { offsetParent: liContainer } }) => {
-  todoListContainer.classList.toggle("completed");
+  import("src").then((module) =>
+    module.todoListContainer.classList.toggle("completed")
+  );
   const id = liContainer.dataset.id;
-  taskPlanner.toggleCompleted(id);
-  verifyTaskLIstArray();
-  setterLocalStorage();
-  renderUI();
+  import("src/js/data/Tasks").then((module) =>
+    module.taskPlanner.toggleCompleted(id)
+  );
+  import("src/js/logic/VerifyTaskLIstArray").then((module) =>
+    module.verifyTaskLIstArray()
+  );
+  import("src/js/logic/setterLocalStorage").then((module) =>
+    module.setterLocalStorage()
+  );
+  import("src/js/UI/renderUI").then((module) => module.renderUI());
 };

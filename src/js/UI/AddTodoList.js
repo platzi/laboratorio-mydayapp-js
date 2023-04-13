@@ -1,7 +1,4 @@
-import { taskPlanner } from "../data/Tasks";
-import { setterLocalStorage } from "../logic/setterLocalStorage";
-import { renderUI } from "./renderUI";
-import { idGenerator } from "../logic/idGenerator";
+import { idGenerator } from "src/js/logic/idGenerator";
 
 export const addTodoList = (text) => {
   const id = idGenerator();
@@ -10,7 +7,11 @@ export const addTodoList = (text) => {
     title: text,
     completed: false,
   };
-  taskPlanner.addTask(newTask);
-  setterLocalStorage();
-  renderUI();
+  import("src/js/data/Tasks").then((module) =>
+    module.taskPlanner.addTask(newTask)
+  );
+  import("src/js/logic/setterLocalStorage").then((module) =>
+    module.setterLocalStorage()
+  );
+  import("src/js/UI/renderUI").then((module) => module.renderUI());
 };

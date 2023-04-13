@@ -1,4 +1,3 @@
-import { inputNewTodo } from "../..";
 export function clearInput() {
-  inputNewTodo.value = "";
+  import("src").then((module) => (module.inputNewTodo.value = ""));
 }

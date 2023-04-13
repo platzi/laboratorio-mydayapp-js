@@ -1,24 +1,27 @@
-import { verifyTaskLIstArray } from "../logic/VerifyTaskLIstArray";
-import { getTaskFilterd } from "./GetTaskFilterd";
-import { taskPlanner } from "../data/Tasks";
-import { itemLeft } from "./ItemLeft";
-import { template } from "../template/Template";
-import { todoListContainer } from "../..";
+import { template } from "src/js/template/Template";
+const todoListContainer = document.querySelector(".todo-list");
 
 export const renderUI = () => {
-  let taskIterator = [];
   todoListContainer.innerHTML = "";
-  verifyTaskLIstArray();
-  getTaskFilterd();
+  import("src/js/logic/VerifyTaskLIstArray").then((module) =>
+    module.verifyTaskLIstArray()
+  );
+  import("src/js/UI/GetTaskFilterd").then((module) => module.getTaskFilterd());
   if (location.hash.startsWith("#/pending")) {
-    taskIterator = taskPlanner.getPendingTasks();
+    import("src/js/data/Tasks")
+      .then((module) => module.taskPlanner.getPendingTasks())
+      .then((result) => todoListContainer.append(...template(result)));
   } else if (location.hash.startsWith("#/completed")) {
-    taskIterator = taskPlanner.getCompletedTasks();
+    import("src/js/data/Tasks")
+      .then((module) => module.taskPlanner.getCompletedTasks())
+      .then((result) => todoListContainer.append(...template(result)));
   } else {
-    taskIterator = taskPlanner.getTasks();
+    import("src/js/data/Tasks")
+      .then((module) => module.taskPlanner.getTasks())
+      .then((result) => todoListContainer.append(...template(result)));
   }
-  const view = template(taskIterator);
-  todoListContainer.append(...view);
+  // const view = template(taskIterator);
+  // todoListContainer.append(...view);
 
-  itemLeft();
+  import("src/js/UI/ItemLeft").then((module) => module.itemLeft());
 };

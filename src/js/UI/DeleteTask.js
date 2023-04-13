@@ -1,10 +1,10 @@
-import { setterLocalStorage } from "../logic/setterLocalStorage";
-import { renderUI } from "../UI/renderUI";
-import { taskPlanner } from "../data/Tasks";
-
 export const deleteTask = ({ target: { offsetParent: liContainer } }) => {
   const id = liContainer.dataset.id;
-  taskPlanner.removeTask(id);
-  setterLocalStorage();
-  renderUI();
+  import("src/js/data/Tasks").then((module) =>
+    module.taskPlanner.removeTask(id)
+  );
+  import("src/js/logic/setterLocalStorage").then((module) =>
+    module.setterLocalStorage()
+  );
+  import("src/js/UI/renderUI").then((module) => module.renderUI());
 };

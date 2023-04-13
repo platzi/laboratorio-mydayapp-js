@@ -6,7 +6,6 @@ const incrementer = () => {
     const lastId = taskPlanner.getLastTaskId();
     counter = lastId ? lastId : 0;
     counter++;
-    console.log(counter);
     return counter;
   };
 };

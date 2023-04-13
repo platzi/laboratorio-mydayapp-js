@@ -1,21 +1,26 @@
-import { taskPlanner } from "../data/Tasks";
-import { verifyTaskLIstArray } from "./VerifyTaskLIstArray";
-import { renderUI } from "../UI/renderUI";
-import {
-  getterLocalStorage,
-  setterLocalStorage,
-} from "../logic/setterLocalStorage.js"; //la logica empleada para la primera carga de la aplicacion
+import { getterLocalStorage } from "src/js/logic/setterLocalStorage.js";
+//la logica empleada para la primera carga de la aplicacion
 
 export const firstLoad = () => {
   const tasks = getterLocalStorage();
 
   if (!tasks || !tasks.length) {
-    setterLocalStorage();
-    verifyTaskLIstArray();
+    import("src/js/logic/setterLocalStorage.js").then((module) =>
+      module.setterLocalStorage()
+    );
+    import("src/js/logic/VerifyTaskLIstArray").then((module) =>
+      module.verifyTaskLIstArray()
+    );
   } else {
-    tasks.forEach((task) => taskPlanner.addTask(task));
-    verifyTaskLIstArray();
-    renderUI();
+    tasks.forEach((task) =>
+      import("src/js/data/Tasks").then((module) =>
+        module.taskPlanner.addTask(task)
+      )
+    );
+    import("src/js/logic/VerifyTaskLIstArray").then((module) =>
+      module.verifyTaskLIstArray()
+    );
+    import("src/js/UI/renderUI").then((module) => module.renderUI());
   }
   removeEventListener("load", firstLoad);
 };

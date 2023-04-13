@@ -1,6 +1,6 @@
-import { setCheckBox } from "../UI/CheckBox";
-import { deleteTask } from "../UI/DeleteTask";
-import { editingMode } from "../UI/EditingMode";
+import { setCheckBox } from "src/js/UI/CheckBox";
+import { deleteTask } from "src/js/UI/DeleteTask";
+import { editingMode } from "src/js/UI/EditingMode";
 
 export const template = (taskList) => {
   return taskList.map((taskView) => {

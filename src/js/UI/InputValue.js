@@ -1,10 +1,7 @@
-import { clearInput } from "../logic/ClearInput";
-import { addTodoList } from "./AddTodoList";
-
 export const inputValue = (text) => {
   text.trim().toLowerCase();
   if (text !== "") {
-    addTodoList(text);
+    import("src/js/UI/AddTodoList").then((module) => module.addTodoList(text));
   }
-  clearInput();
+  import("src/js/logic/ClearInput").then((module) => module.clearInput());
 };
