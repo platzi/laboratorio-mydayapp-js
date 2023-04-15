@@ -10,5 +10,5 @@ export const selectors = {
   todoCount: document.querySelector('.todo-count'),
 }
 
-export const todoArray = [];
+export const todoArray = JSON.parse(localStorage.getItem('Todo_Array'));;
 

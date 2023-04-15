@@ -4,6 +4,7 @@ import { todoArray } from './js/utils'
 import { selectors } from './js/utils';
 
 function hideMainAndFooter() {  
+    console.log(todoArray.length);
     if(todoArray.length === 0) {
         selectors.footer.classList.add('hidden');
         selectors.main.classList.add('hidden');
@@ -94,6 +95,7 @@ function renderTodo() {
             todoLi.remove();
         });           
     });
+    localStorage.setItem('Todo_Array', JSON.stringify(todoArray));
 }
 
 selectors.newTodo.addEventListener('keyup', (e) => {
@@ -109,7 +111,8 @@ selectors.newTodo.addEventListener('keyup', (e) => {
         }
     }
     hideMainAndFooter();         
-    selectors.todoCount.innerHTML = itemLeft();  
+    selectors.todoCount.innerHTML = itemLeft(); 
+    localStorage.setItem('Todo_Array', JSON.stringify(todoArray)); 
 });
 
 selectors.clearCompleted.addEventListener('click', () => {       
@@ -120,9 +123,12 @@ selectors.clearCompleted.addEventListener('click', () => {
             deleteTodo();
         }
     }
+    localStorage.setItem('Todo_Array', JSON.stringify(todoArray));
     deleteTodo();
-    renderTodo();
+    renderTodo(); 
+    hideMainAndFooter();   
 });
 
+renderTodo();
 hideMainAndFooter();
 selectors.todoCount.innerHTML = itemLeft();
