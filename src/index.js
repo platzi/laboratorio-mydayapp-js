@@ -1,5 +1,6 @@
 import "./css/base.css";
 import { data } from './js/data.js';
+import { paths } from './js/paths.js';
 import { todoArray } from './js/utils'
 import { selectors } from './js/utils';
 
@@ -29,7 +30,7 @@ function itemLeft() {
     return code;
 }
 
-function renderTodo() {
+function renderTodo(state = 'all') {
     selectors.todoList.innerHTML = '';
     todoArray.forEach(item => {
         const todoLi = document.createElement('li');
@@ -128,6 +129,19 @@ selectors.clearCompleted.addEventListener('click', () => {
     hideMainAndFooter();   
 });
 
-renderTodo();
+window.addEventListener('hashchange', () => {
+    if(location.hash.startsWith('#/pending')) {
+        selectors.filters.innerHTML = paths.pending.template;
+        renderTodo('pending');
+    } else if(location.hash.startsWith('#/completed')) {
+        selectors.filters.innerHTML = paths.completed.template;
+        renderTodo('completed');
+    } else {
+        selectors.filters.innerHTML = paths.all.template;
+        renderTodo('all');
+    }
+});
+
+renderTodo('all');
 hideMainAndFooter();
 selectors.todoCount.innerHTML = itemLeft();

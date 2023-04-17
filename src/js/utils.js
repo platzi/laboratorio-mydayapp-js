@@ -8,6 +8,7 @@ export const selectors = {
   footer: document.querySelector('.footer'),
   main: document.querySelector('.main'),
   todoCount: document.querySelector('.todo-count'),
+  filters: document.querySelector('.filters'),
 }
 
 export const todoArray = JSON.parse(localStorage.getItem('mydayapp-js'));;
