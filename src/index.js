@@ -43,6 +43,9 @@ function renderTodo(state = 'all') {
         todoDiv.classList.add('view');
         const todoInput = document.createElement('input');
         todoInput.classList.add('toggle');
+        if(item.completed) {
+            todoInput.checked = true;            
+        } 
         todoInput.setAttribute('type', 'checkbox');
         const todoLabel = document.createElement('label');
         todoLabel.innerText = item.title;
@@ -93,7 +96,14 @@ function renderTodo(state = 'all') {
                 selectors.main.classList.add('hidden');
             }
             todoLi.remove();
-        });           
+        });  
+        if(state === 'all') {
+            todoDiv.classList.remove('hidden');
+        } else if(state === 'pending' && item.completed === true) {
+            todoDiv.classList.add('hidden');
+        } else if(state === 'completed' && item.completed === false) {
+            todoDiv.classList.add('hidden');
+        }
     });
     localStorage.setItem('mydayapp-js', JSON.stringify(todoArray));
 }
