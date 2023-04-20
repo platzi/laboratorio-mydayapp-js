@@ -14,7 +14,7 @@ const config = {
   reporter: "list",
   use: {
     actionTimeout: 0,
-    baseURL: "http://localhost:8080",
+    baseURL: "http://localhost:8081",
     trace: "on-first-retry",
   },
   projects: [
@@ -28,7 +28,7 @@ const config = {
   outputDir: "test-results/",
   webServer: {
     command: "npm run start",
-    port: 8080,
+    port: 8081,
   },
 };
 
