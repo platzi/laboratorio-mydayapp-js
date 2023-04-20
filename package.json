@@ -5,7 +5,7 @@
   "private": true,
   "main": "src/index.js",
   "scripts": {
-    "start": "http-server ./dist -p 8080",
+    "start": "http-server ./dist -p 8081",
     "dev": "webpack-dev-server --mode development --open",
     "build": "webpack",
     "e2e": "npm run build && playwright test",
