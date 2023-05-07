@@ -114,6 +114,7 @@ function addNewTodo() {
   todos.push(newTodoToAdd);
   newTodo.value = "";
   showTodoList(todos);
+  todoFilters();
 }
 
 function completeTodo(todoIndex) {
