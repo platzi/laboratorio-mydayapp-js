@@ -6,11 +6,13 @@ const todos = [];
 const main = document.querySelector(".main");
 const footer = document.querySelector(".footer");
 const todoList = document.querySelector(".todo-list");
+const newTodo = document.querySelector(".new-todo");
 
 console.log(sayHello("Hello"));
 
 showInitialInfo();
 showTodoList();
+listeForNewTodo();
 
 function showInitialInfo() {
   if (!todos.length) {
@@ -51,4 +53,26 @@ function showTodoList() {
 
     todoList.appendChild(listItem);
   });
+}
+
+function listeForNewTodo() {
+  newTodo.addEventListener("keypress", (event) => {
+    if ((event.keyCode === 13 || event.wich === 13) && !!newTodo.value) {
+      addNewTodo();
+    }
+  });
+}
+
+function addNewTodo() {
+  todoList.innerHTML = "";
+  const todoId = (todos.length + 1).toString();
+  const newTodoToAdd = {
+    id: todoId,
+    title: newTodo.value.trim(),
+    completed: false,
+  };
+
+  todos.push(newTodoToAdd);
+  newTodo.value = "";
+  showTodoList();
 }
