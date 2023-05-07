@@ -1,28 +1,34 @@
 import "./css/base.css";
 import { sayHello } from "./js/utils";
 
-const todos = [];
+let todos = [];
 
 const main = document.querySelector(".main");
 const footer = document.querySelector(".footer");
 const todoList = document.querySelector(".todo-list");
 const newTodo = document.querySelector(".new-todo");
+const clearCompleteTodosButton = document.querySelector(".clear-completed");
+
 let totalPendingItems = 0;
 
 console.log(sayHello("Hello"));
 
-showInitialInfo();
 showTodoList();
 listenForNewTodo();
+listenForCleanAllCompletedtodos();
 
 function showInitialInfo() {
   if (!todos.length) {
     main.classList.add("hidden");
     footer.classList.add("hidden");
+  } else {
+    main.classList.remove("hidden");
+    footer.classList.remove("hidden");
   }
 }
 
 function showTodoList() {
+  todoList.innerHTML = "";
   todos.forEach((todo, index) => {
     const listItem = document.createElement("li");
 
@@ -78,6 +84,8 @@ function showTodoList() {
     todoList.appendChild(listItem);
   });
   updatePendingItems();
+  showInitialInfo();
+  checkCompletedTodos();
 }
 
 function listenForNewTodo() {
@@ -89,7 +97,6 @@ function listenForNewTodo() {
 }
 
 function addNewTodo() {
-  todoList.innerHTML = "";
   const todoId = (todos.length + 1).toString();
   const newTodoToAdd = {
     id: todoId,
@@ -105,13 +112,13 @@ function addNewTodo() {
 function completeTodo(todoIndex) {
   todos[todoIndex].completed = !todos[todoIndex].completed;
   updatePendingItems();
+  checkCompletedTodos();
 }
 
 function saveTodoChange({ todoIndex, value, listItem, event }) {
   if (event.keyCode === 13 || event.wich === 13) {
     todos[todoIndex].title = value.trim();
     listItem.classList.remove("editing");
-    todoList.innerHTML = "";
     showTodoList();
   }
 }
@@ -129,4 +136,21 @@ function updatePendingItems() {
   pendingItems.innerHTML = `
     <strong>${totalPendingItems}</strong> ${labelItems}
   `;
+}
+
+function listenForCleanAllCompletedtodos() {
+  checkCompletedTodos();
+  clearCompleteTodosButton.addEventListener("click", () => {
+    todos = todos.filter((todo) => !todo.completed);
+    showTodoList();
+  });
+}
+
+function checkCompletedTodos() {
+  const completedTodos = todos.some((todo) => todo.completed);
+
+  clearCompleteTodosButton.classList.remove("hidden");
+  if (!completedTodos) {
+    clearCompleteTodosButton.classList.add("hidden");
+  }
 }
