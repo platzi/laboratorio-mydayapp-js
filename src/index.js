@@ -22,7 +22,7 @@ function showInitialInfo() {
 }
 
 function showTodoList() {
-  todos.forEach((todo) => {
+  todos.forEach((todo, index) => {
     const listItem = document.createElement("li");
 
     const todoContainer = document.createElement("div");
@@ -31,8 +31,15 @@ function showTodoList() {
     const todoContainerInput = document.createElement("input");
     todoContainerInput.classList.add("toggle");
     todoContainerInput.setAttribute("type", "checkbox");
+    todoContainerInput.addEventListener("click", () => {
+      listItem.classList.toggle("completed");
+      completeTodo(index);
+    });
 
     const todoLabel = document.createElement("label");
+    todoLabel.addEventListener("dblclick", () =>
+      listItem.classList.add("editing")
+    );
     const todoText = document.createTextNode(todo.title);
 
     const todoButton = document.createElement("button");
@@ -75,4 +82,8 @@ function addNewTodo() {
   todos.push(newTodoToAdd);
   newTodo.value = "";
   showTodoList();
+}
+
+function completeTodo(todoIndex) {
+  todos[todoIndex].completed = !todos[todoIndex].completed;
 }
