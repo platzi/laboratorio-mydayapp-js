@@ -13,6 +13,7 @@ let totalPendingItems = 0;
 
 console.log(sayHello("Hello"));
 
+getLocalStorage();
 showTodoList();
 listenForNewTodo();
 listenForCleanAllCompletedtodos();
@@ -86,6 +87,7 @@ function showTodoList() {
   updatePendingItems();
   showInitialInfo();
   checkCompletedTodos();
+  saveLocalStorage();
 }
 
 function listenForNewTodo() {
@@ -113,6 +115,7 @@ function completeTodo(todoIndex) {
   todos[todoIndex].completed = !todos[todoIndex].completed;
   updatePendingItems();
   checkCompletedTodos();
+  saveLocalStorage();
 }
 
 function saveTodoChange({ todoIndex, value, listItem, event }) {
@@ -152,5 +155,16 @@ function checkCompletedTodos() {
   clearCompleteTodosButton.classList.remove("hidden");
   if (!completedTodos) {
     clearCompleteTodosButton.classList.add("hidden");
+  }
+}
+
+function saveLocalStorage() {
+  localStorage.setItem("mydayapp-js", JSON.stringify(todos));
+}
+
+function getLocalStorage() {
+  const data = JSON.parse(localStorage.getItem("mydayapp-js"));
+  if (data) {
+    todos = data;
   }
 }
