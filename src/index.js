@@ -7,6 +7,7 @@ const main = document.querySelector(".main");
 const footer = document.querySelector(".footer");
 const todoList = document.querySelector(".todo-list");
 const newTodo = document.querySelector(".new-todo");
+let totalPendingItems = 0;
 
 console.log(sayHello("Hello"));
 
@@ -76,6 +77,7 @@ function showTodoList() {
 
     todoList.appendChild(listItem);
   });
+  updatePendingItems();
 }
 
 function listenForNewTodo() {
@@ -102,6 +104,7 @@ function addNewTodo() {
 
 function completeTodo(todoIndex) {
   todos[todoIndex].completed = !todos[todoIndex].completed;
+  updatePendingItems();
 }
 
 function saveTodoChange({ todoIndex, value, listItem, event }) {
@@ -117,4 +120,13 @@ function cancelTodoChanges(event, listItem) {
   if (event.keyCode === 27 || event.wich === 27) {
     listItem.classList.remove("editing");
   }
+}
+
+function updatePendingItems() {
+  const pendingItems = document.querySelector(".todo-count");
+  totalPendingItems = todos.filter((todo) => !todo.completed).length;
+  const labelItems = totalPendingItems === 1 ? "item left" : "items left";
+  pendingItems.innerHTML = `
+    <strong>${totalPendingItems}</strong> ${labelItems}
+  `;
 }
