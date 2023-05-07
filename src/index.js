@@ -12,7 +12,7 @@ console.log(sayHello("Hello"));
 
 showInitialInfo();
 showTodoList();
-listeForNewTodo();
+listenForNewTodo();
 
 function showInitialInfo() {
   if (!todos.length) {
@@ -31,15 +31,8 @@ function showTodoList() {
     const todoContainerInput = document.createElement("input");
     todoContainerInput.classList.add("toggle");
     todoContainerInput.setAttribute("type", "checkbox");
-    todoContainerInput.addEventListener("click", () => {
-      listItem.classList.toggle("completed");
-      completeTodo(index);
-    });
 
     const todoLabel = document.createElement("label");
-    todoLabel.addEventListener("dblclick", () =>
-      listItem.classList.add("editing")
-    );
     const todoText = document.createTextNode(todo.title);
 
     const todoButton = document.createElement("button");
@@ -48,6 +41,29 @@ function showTodoList() {
     const todoInput = document.createElement("input");
     todoInput.classList.add("edit");
     todoInput.setAttribute("value", todo.title);
+
+    todoContainerInput.addEventListener("click", () => {
+      listItem.classList.toggle("completed");
+      completeTodo(index);
+    });
+
+    todoInput.addEventListener("keypress", (event) =>
+      saveTodoChange({
+        todoIndex: index,
+        value: todoInput.value,
+        listItem,
+        event,
+      })
+    );
+
+    todoInput.addEventListener("keyup", (event) =>
+      cancelTodoChanges(event, listItem)
+    );
+
+    todoLabel.addEventListener("dblclick", () => {
+      listItem.classList.add("editing");
+      todoInput.focus();
+    });
 
     if (todo.completed) {
       listItem.classList.add("completed");
@@ -62,7 +78,7 @@ function showTodoList() {
   });
 }
 
-function listeForNewTodo() {
+function listenForNewTodo() {
   newTodo.addEventListener("keypress", (event) => {
     if ((event.keyCode === 13 || event.wich === 13) && !!newTodo.value) {
       addNewTodo();
@@ -86,4 +102,19 @@ function addNewTodo() {
 
 function completeTodo(todoIndex) {
   todos[todoIndex].completed = !todos[todoIndex].completed;
+}
+
+function saveTodoChange({ todoIndex, value, listItem, event }) {
+  if (event.keyCode === 13 || event.wich === 13) {
+    todos[todoIndex].title = value.trim();
+    listItem.classList.remove("editing");
+    todoList.innerHTML = "";
+    showTodoList();
+  }
+}
+
+function cancelTodoChanges(event, listItem) {
+  if (event.keyCode === 27 || event.wich === 27) {
+    listItem.classList.remove("editing");
+  }
 }
