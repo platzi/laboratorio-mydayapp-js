@@ -13,8 +13,10 @@ let totalPendingItems = 0;
 
 console.log(sayHello("Hello"));
 
+window.addEventListener("DOMContentLoaded", todoFilters, false);
+window.addEventListener("hashchange", todoFilters, false);
 getLocalStorage();
-showTodoList();
+showTodoList(todos);
 listenForNewTodo();
 listenForCleanAllCompletedtodos();
 
@@ -28,9 +30,9 @@ function showInitialInfo() {
   }
 }
 
-function showTodoList() {
+function showTodoList(todosToshow) {
   todoList.innerHTML = "";
-  todos.forEach((todo, index) => {
+  todosToshow.forEach((todo, index) => {
     const listItem = document.createElement("li");
 
     const todoContainer = document.createElement("div");
@@ -108,7 +110,7 @@ function addNewTodo() {
 
   todos.push(newTodoToAdd);
   newTodo.value = "";
-  showTodoList();
+  showTodoList(todos);
 }
 
 function completeTodo(todoIndex) {
@@ -122,7 +124,7 @@ function saveTodoChange({ todoIndex, value, listItem, event }) {
   if (event.keyCode === 13 || event.wich === 13) {
     todos[todoIndex].title = value.trim();
     listItem.classList.remove("editing");
-    showTodoList();
+    showTodoList(todos);
   }
 }
 
@@ -145,7 +147,8 @@ function listenForCleanAllCompletedtodos() {
   checkCompletedTodos();
   clearCompleteTodosButton.addEventListener("click", () => {
     todos = todos.filter((todo) => !todo.completed);
-    showTodoList();
+    showTodoList(todos);
+    location.hash = "#/";
   });
 }
 
@@ -167,4 +170,14 @@ function getLocalStorage() {
   if (data) {
     todos = data;
   }
+}
+
+function todoFilters() {
+  let filterTodos = todos;
+  if (location.hash === "#/pending") {
+    filterTodos = todos.filter((todo) => !todo.completed);
+  } else if (location.hash === "#/completed") {
+    filterTodos = todos.filter((todo) => todo.completed);
+  }
+  showTodoList(filterTodos);
 }
