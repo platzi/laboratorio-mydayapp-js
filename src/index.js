@@ -47,6 +47,9 @@ function showTodoList(todosToshow) {
 
     const todoButton = document.createElement("button");
     todoButton.classList.add("destroy");
+    todoButton.addEventListener("click", () => {
+      deleteTodo(index);
+    });
 
     const todoInput = document.createElement("input");
     todoInput.classList.add("edit");
@@ -197,4 +200,13 @@ function todoFilters() {
     pendingFooter.classList.remove("selected");
   }
   showTodoList(filterTodos);
+}
+
+function deleteTodo(todoIndex) {
+  todos.splice(todoIndex, 1);
+  updatePendingItems();
+  checkCompletedTodos();
+  saveLocalStorage();
+  showTodoList(todos);
+  todoFilters();
 }
