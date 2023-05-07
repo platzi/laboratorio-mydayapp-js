@@ -174,10 +174,27 @@ function getLocalStorage() {
 
 function todoFilters() {
   let filterTodos = todos;
+
+  const allFooter = document.querySelector("#all");
+  const completedFooter = document.querySelector("#completed");
+  const pendingFooter = document.querySelector("#pending");
+
   if (location.hash === "#/pending") {
     filterTodos = todos.filter((todo) => !todo.completed);
+
+    allFooter.classList.remove("selected");
+    completedFooter.classList.remove("selected");
+    pendingFooter.classList.add("selected");
   } else if (location.hash === "#/completed") {
     filterTodos = todos.filter((todo) => todo.completed);
+
+    allFooter.classList.remove("selected");
+    completedFooter.classList.add("selected");
+    pendingFooter.classList.remove("selected");
+  } else {
+    allFooter.classList.add("selected");
+    completedFooter.classList.remove("selected");
+    pendingFooter.classList.remove("selected");
   }
   showTodoList(filterTodos);
 }

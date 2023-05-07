@@ -27,35 +27,9 @@
         </div>
       </header>
       <div class="container todoapp-wrapper">
-        <!-- This section should be hidden by default and shown when there are todos -->
         <section class="main">
           <ul class="todo-list">
-            <!-- These are here just to show the structure of the list items -->
-            <!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
-            <!-- <li class="completed">
-              <div class="view">
-                <input class="toggle" type="checkbox" checked />
-                <label>Learn JavaScript</label>
-                <button class="destroy"></button>
-              </div>
-              <input class="edit" value="Learn JavaScript" />
-            </li>
-            <li>
-              <div class="view">
-                <input class="toggle" type="checkbox" />
-                <label>Buy a unicorn</label>
-                <button class="destroy"></button>
-              </div>
-              <input class="edit" value="Buy a unicorn" />
-            </li>
-            <li class="editing">
-              <div class="view">
-                <input class="toggle" type="checkbox" />
-                <label>Make dishes</label>
-                <button class="destroy"></button>
-              </div>
-              <input class="edit" value="Make dishes" />
-            </li> -->
+            <!-- These ul is for insert de li about todos -->
           </ul>
         </section>
         <!-- This footer should be hidden by default and shown when there are todos -->
@@ -65,13 +39,13 @@
           <!-- Remove this if you don't implement routing -->
           <ul class="filters">
             <li>
-              <a href="#/" class="selected">All</a>
+              <a id="all" href="#/" class="selected">All</a>
             </li>
             <li>
-              <a href="#/pending">Pending</a>
+              <a id="pending" href="#/pending">Pending</a>
             </li>
             <li>
-              <a href="#/completed">Completed</a>
+              <a id="completed" href="#/completed">Completed</a>
             </li>
           </ul>
           <!-- Hidden if no completed items are left ↓ -->
