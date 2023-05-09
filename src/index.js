@@ -1,29 +1,37 @@
 import "./css/base.css";
-
-import { cargar, crear, completar, filtrar, eliminar } from './js/utils.js';
+import { cargar, crear, editar, completar, filtrar, eliminar } from './js/utils.js';
 
 /*#########################################################
             CARGAR INICIO DE LA APLICACION
 #########################################################*/
 window.onload = () => {
-  if (localStorage.getItem("todo")) {
-    cargar();
-  } else {
-    localStorage.setItem("todo", JSON.stringify([]));
-  }
+  if (localStorage.getItem("mydayapp-js")) cargar();
+  else localStorage.setItem("mydayapp-js", JSON.stringify([]));
 }
 
 /*#########################################################
-             ESCUCHA EVENTO PRESIONAR TECLA
+             ESCUCHA EVENTO CAMBIO DE NAVEGACION
 #########################################################*/
-window.onkeypress = function (event, index) {
-  crear(event);
+window.onpopstate = () => {
+  switch (location.hash) {
+    case "#/":
+      cargar();
+      break;
+    case "#/pending":
+      cargar(false);
+      break;
+    case "#/completed":
+      cargar(true);
+      break;
+    default:
+      break;
+  }
 }
 
 /*#########################################################
              ESCUCHA EVENTO CLICK
 #########################################################*/
-window.onclick = function (event, index) {
+window.onclick = (event) => {
   switch (event.target.localName) {
     case "input":
       completar(event);
@@ -35,15 +43,21 @@ window.onclick = function (event, index) {
       eliminar(event);
       break;
     default:
-      console.log("evento no programado");
       break;
   }
 }
 
 /*#########################################################
+             ESCUCHA EVENTO PRESIONAR TECLA
+#########################################################*/
+document.onkeyup = (event) => {
+  crear(event);
+}
+
+/*#########################################################
              ESCUCHA EVENTO DOBLE CLICK
 #########################################################*/
-window.ondblclick = function (event) {
-  // console.log("double");
+window.ondblclick = (event) => {
+  editar(event);
 }
 
