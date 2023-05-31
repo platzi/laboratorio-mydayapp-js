@@ -1,13 +1,18 @@
 import "./css/base.css";
-import { addItem, removeItem, checkItem } from "./js/utils";
+import {
+  addItem,
+  removeItem,
+  checkItem,
+  clearCompletedItems,
+} from "./js/utils";
 
 const wrapper = document.querySelector(".todoapp-wrapper");
-const todoListItems = JSON.parse(localStorage.getItem("mydayapp-js")) ?? [];
+let todoListItems = JSON.parse(localStorage.getItem("mydayapp-js")) ?? [];
 
 const inputAddTodo = document.querySelector(".new-todo");
 const todoList = document.querySelector(".todo-list");
 const todoCount = document.querySelector(".todo-count");
-// const clearAllButton = document.querySelector("clear-completed")
+const clearAllButton = document.querySelector(".clear-completed");
 
 /* Functions */
 const updateTodoCount = () => {
@@ -17,12 +22,18 @@ const updateTodoCount = () => {
       : `<strong>1</strong> item left`;
 };
 
+const isListItemEmpy = () => {
+  if (todoListItems.length === 0) {
+    const children = Array.from(wrapper.children);
+    children.forEach((child) => {
+      child.classList.add("hidden");
+    });
+  }
+}
+
 /* First Render */
 if (todoListItems.length === 0) {
-  const children = Array.from(wrapper.children);
-  children.forEach((child) => {
-    child.classList.add("hidden");
-  });
+  isListItemEmpy()
 } else {
   const auxList = document.createDocumentFragment();
 
@@ -95,13 +106,7 @@ todoList.addEventListener("click", function (e) {
     removeItem(item.id, todoListItems);
     todoList.removeChild(item);
     updateTodoCount();
-
-    if (todoListItems.length === 0) {
-      const children = Array.from(wrapper.children);
-      children.forEach((child) => {
-        child.classList.add("hidden");
-      });
-    }
+    isListItemEmpy()
   }
 
   if (e.target.tagName === "INPUT" && e.target.classList.contains("toggle")) {
@@ -110,5 +115,20 @@ todoList.addEventListener("click", function (e) {
     e.target.checked
       ? item.classList.add("completed")
       : item.classList.remove("completed");
+  }
+});
+
+clearAllButton.addEventListener("click", function () {
+  const listItems = Array.from(todoList.children);
+
+  if (listItems.length > 0) {
+    listItems.forEach((item) => {
+      if (item.classList.contains("completed")) item.remove();
+    });
+
+    clearCompletedItems(todoListItems);
+    todoListItems = JSON.parse(localStorage.getItem("mydayapp-js"))
+    updateTodoCount();    
+    isListItemEmpy()
   }
 });
