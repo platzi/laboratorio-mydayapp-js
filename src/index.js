@@ -29,11 +29,11 @@ const isListItemEmpy = () => {
       child.classList.add("hidden");
     });
   }
-}
+};
 
 /* First Render */
 if (todoListItems.length === 0) {
-  isListItemEmpy()
+  isListItemEmpy();
 } else {
   const auxList = document.createDocumentFragment();
 
@@ -106,7 +106,7 @@ todoList.addEventListener("click", function (e) {
     removeItem(item.id, todoListItems);
     todoList.removeChild(item);
     updateTodoCount();
-    isListItemEmpy()
+    isListItemEmpy();
   }
 
   if (e.target.tagName === "INPUT" && e.target.classList.contains("toggle")) {
@@ -127,8 +127,8 @@ clearAllButton.addEventListener("click", function () {
     });
 
     clearCompletedItems(todoListItems);
-    todoListItems = JSON.parse(localStorage.getItem("mydayapp-js"))
-    updateTodoCount();    
-    isListItemEmpy()
+    todoListItems = JSON.parse(localStorage.getItem("mydayapp-js"));
+    updateTodoCount();
+    isListItemEmpy();
   }
 });
