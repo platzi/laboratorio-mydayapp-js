@@ -14,7 +14,7 @@
     "lint": "eslint ./src"
   },
   "keywords": [],
-  "author": "",
+  "author": "Esteban Solarte",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "7.18.6",
