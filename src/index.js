@@ -14,6 +14,7 @@ const inputAddTodo = document.querySelector(".new-todo");
 const todoList = document.querySelector(".todo-list");
 const todoCount = document.querySelector(".todo-count");
 const clearAllButton = document.querySelector(".clear-completed");
+const anchorElements = document.querySelectorAll("a");
 
 /* Functions */
 const updateTodoCount = (todoListItems) => {
@@ -35,21 +36,72 @@ const isListItemEmpy = () => {
 const createListItemTemplate = ({ id, text, completed }) => {
   const listItem = document.createElement("li");
   listItem.id = id;
-  if(completed) listItem.classList.add("completed")
+  if (completed) listItem.classList.add("completed");
 
   listItem.innerHTML = `
     <div class="view">
-      <input class="toggle" type="checkbox" ${
-        completed ? "checked" : ""
-      }>
+      <input class="toggle" type="checkbox" ${completed ? "checked" : ""}>
       <label>${text}</label>
       <button class="destroy"></button>
     </div>
     <input class="edit" value=${text}>
   `;
 
-  return listItem
-}
+  return listItem;
+};
+
+const renderAllList = () => {
+  const auxList = document.createDocumentFragment();
+
+  todoListItems.forEach((item) => {
+    const listItem = createListItemTemplate({
+      id: item.id,
+      text: item.title,
+      completed: item.completed,
+    });
+    auxList.appendChild(listItem);
+  });
+
+  todoList.innerHTML = `<ul class="todo-list"></ul>`;
+  todoList.appendChild(auxList);
+  updateTodoCount(todoListItems);
+};
+
+const renderPendingList = () => {
+  const auxList = document.createDocumentFragment();
+  const pendingListItems = todoListItems.filter((todo) => !todo.completed);
+
+  pendingListItems.forEach((item) => {
+    const listItem = createListItemTemplate({
+      id: item.id,
+      text: item.title,
+      completed: item.completed,
+    });
+    auxList.appendChild(listItem);
+  });
+
+  todoList.innerHTML = `<ul class="todo-list"></ul>`;
+  todoList.appendChild(auxList);
+  updateTodoCount(pendingListItems);
+};
+
+const renderCompletedList = () => {
+  const auxList = document.createDocumentFragment();
+  const completedListItems = todoListItems.filter((todo) => todo.completed);
+
+  completedListItems.forEach((item) => {
+    const listItem = createListItemTemplate({
+      id: item.id,
+      text: item.title,
+      completed: item.completed,
+    });
+    auxList.appendChild(listItem);
+  });
+
+  todoList.innerHTML = `<ul class="todo-list"></ul>`;
+  todoList.appendChild(auxList);
+  updateTodoCount(completedListItems);
+};
 
 /* First Render */
 if (todoListItems.length === 0) {
@@ -58,7 +110,11 @@ if (todoListItems.length === 0) {
   const auxList = document.createDocumentFragment();
 
   todoListItems.forEach((item) => {
-    const listItem = createListItemTemplate({ id: item.id, text: item.title, completed: item.completed})
+    const listItem = createListItemTemplate({
+      id: item.id,
+      text: item.title,
+      completed: item.completed,
+    });
     auxList.appendChild(listItem);
   });
 
@@ -88,7 +144,11 @@ inputAddTodo.addEventListener("keydown", function (e) {
       todoListItems
     );
 
-    const listItem = createListItemTemplate({ id: id, text: todoText, completed: false})
+    const listItem = createListItemTemplate({
+      id: id,
+      text: todoText,
+      completed: false,
+    });
 
     todoList.appendChild(listItem);
     inputAddTodo.value = "";
@@ -129,5 +189,42 @@ clearAllButton.addEventListener("click", function () {
     todoListItems = JSON.parse(localStorage.getItem("mydayapp-js"));
     updateTodoCount(todoListItems);
     isListItemEmpy();
+  }
+});
+
+anchorElements.forEach((anchor) => {
+  anchor.addEventListener("click", handleAnchorClick);
+});
+
+function handleAnchorClick(e) {
+  const href = e.target.getAttribute("href");
+
+  anchorElements.forEach((anchor) => anchor.classList.remove("selected"));
+  e.target.classList.add("selected");
+
+  switch (href) {
+    case "#/":
+      renderAllList();
+      break;
+    case "#/pending":
+      renderPendingList();
+      break;
+    case "#/completed":
+      renderCompletedList();
+      break;
+  }
+}
+
+window.addEventListener("popstate", function (e) {
+  switch (e.target.location.hash) {
+    case "#/":
+      renderAllList();
+      break;
+    case "#/pending":
+      renderPendingList();
+      break;
+    case "#/completed":
+      renderCompletedList();
+      break;
   }
 });
