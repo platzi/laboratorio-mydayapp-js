@@ -1,0 +1,4 @@
+ul .completed {
+    background-color: rgb(185, 255, 183);
+    animation-timeline: 2s;
+}

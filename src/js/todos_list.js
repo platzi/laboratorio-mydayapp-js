@@ -4,7 +4,7 @@ let listTodos = [];
 const todos_list =  () => {
 
  
-    if (localStorage.getItem("todos")) {
+    if (localStorage.getItem("mydayapp-js")) {
 
          getTodo();
         
@@ -16,11 +16,11 @@ const todos_list =  () => {
 
 
      function setTodos(){
-        localStorage.setItem("todos" , JSON.stringify(listTodos))
+        localStorage.setItem("mydayapp-js" , JSON.stringify(listTodos))
      }
 
      function getTodo(){
-        listTodos = JSON.parse(localStorage.getItem("todos"))
+        listTodos = JSON.parse(localStorage.getItem("mydayapp-js"))
      }
 
 
@@ -38,7 +38,7 @@ function addTodo( tl, completed){
     
 
     listTodos.push({id:idtodo,title:tl, completed:completed})
-    localStorage.setItem("todos" , JSON.stringify(listTodos))
+    localStorage.setItem("mydayapp-js" , JSON.stringify(listTodos))
 
     
 }
