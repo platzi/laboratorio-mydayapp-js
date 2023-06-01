@@ -50,6 +50,14 @@ const createListItemTemplate = ({ id, text, completed }) => {
   return listItem;
 };
 
+const hideClearAllButton = (todoListItems) => {
+  const completedListItems = todoListItems.filter((todo) => todo.completed);
+  console.log(completedListItems);
+
+  if (completedListItems.length === 0) clearAllButton.classList.add("hidden");
+  else clearAllButton.classList.remove("hidden");
+};
+
 const renderAllList = () => {
   const auxList = document.createDocumentFragment();
 
@@ -65,6 +73,7 @@ const renderAllList = () => {
   todoList.innerHTML = `<ul class="todo-list"></ul>`;
   todoList.appendChild(auxList);
   updateTodoCount(todoListItems);
+  hideClearAllButton(todoListItems);
 };
 
 const renderPendingList = () => {
@@ -83,6 +92,7 @@ const renderPendingList = () => {
   todoList.innerHTML = `<ul class="todo-list"></ul>`;
   todoList.appendChild(auxList);
   updateTodoCount(pendingListItems);
+  hideClearAllButton(pendingListItems);
 };
 
 const renderCompletedList = () => {
@@ -101,6 +111,7 @@ const renderCompletedList = () => {
   todoList.innerHTML = `<ul class="todo-list"></ul>`;
   todoList.appendChild(auxList);
   updateTodoCount(completedListItems);
+  hideClearAllButton(completedListItems);
 };
 
 /* First Render */
@@ -120,6 +131,7 @@ if (todoListItems.length === 0) {
 
   todoList.appendChild(auxList);
   updateTodoCount(todoListItems);
+  hideClearAllButton(todoListItems);
 }
 
 /* Event Listener */
@@ -154,6 +166,7 @@ inputAddTodo.addEventListener("keydown", function (e) {
     inputAddTodo.value = "";
     todoCount.children[0].textContent = todoListItems.length;
     updateTodoCount(todoListItems);
+    hideClearAllButton(todoListItems);
   }
 });
 
@@ -164,6 +177,7 @@ todoList.addEventListener("click", function (e) {
     removeItem(item.id, todoListItems);
     todoList.removeChild(item);
     updateTodoCount(todoListItems);
+    hideClearAllButton(todoListItems);
     isListItemEmpy();
   }
 
@@ -174,6 +188,7 @@ todoList.addEventListener("click", function (e) {
     e.target.checked
       ? item.classList.add("completed")
       : item.classList.remove("completed");
+    hideClearAllButton(todoListItems);
   }
 });
 
@@ -188,6 +203,7 @@ clearAllButton.addEventListener("click", function () {
     clearCompletedItems(todoListItems);
     todoListItems = JSON.parse(localStorage.getItem("mydayapp-js"));
     updateTodoCount(todoListItems);
+    hideClearAllButton(todoListItems);
     isListItemEmpy();
   }
 });
