@@ -1,30 +1,7 @@
-let listTodos = [];
+import { showTodos } from "./showTodos";
 
+const listTodos =  JSON.parse(localStorage.getItem("mydayapp-js")) || [];
 
-const todos_list =  () => {
-
- 
-    if (localStorage.getItem("mydayapp-js")) {
-
-         getTodo();
-        
-       
-     }else{
-
-        setTodos();
-     }
-
-
-     function setTodos(){
-        localStorage.setItem("mydayapp-js" , JSON.stringify(listTodos))
-     }
-
-     function getTodo(){
-        listTodos = JSON.parse(localStorage.getItem("mydayapp-js"))
-     }
-
-
-};
 
 
 function pushTodo( tl, completed){
@@ -38,13 +15,24 @@ function pushTodo( tl, completed){
     
 
     listTodos.push({id:idtodo,title:tl, completed:completed})
-    localStorage.setItem("mydayapp-js" , JSON.stringify(listTodos))
+    setListTodos(listTodos);
 
     
 }
 
+function getListTodos(){
+   
+
+    return listTodos
+
+}
+
+function setListTodos(list){
+    localStorage.setItem("mydayapp-js" , JSON.stringify(list))
+    showTodos();
+}
 
 
 
-export {todos_list, pushTodo}
+export { pushTodo, getListTodos, setListTodos}
 

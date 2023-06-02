@@ -1,5 +1,4 @@
-import { showTodos } from "./showTodos";
-import { pushTodo, todos_list } from "./todos_list";
+import { pushTodo} from "./todos_list";
 
 
 const addTodo = ()=>{
@@ -16,17 +15,14 @@ htmlInputAddTodo.addEventListener("keyup" , (event)=>{
         if(!(title ==="" || null || undefined)){
 
             htmlInputAddTodo.value = "";
-            todos_list();
+           
             pushTodo(title, false);
         
         
             htmlFooter.classList.remove("hidden");
             htmlMenu.classList.remove("hidden");
         
-            console.log(title)
-        
-            
-            showTodos();
+           
         }
         
    
