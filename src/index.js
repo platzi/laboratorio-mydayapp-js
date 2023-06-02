@@ -3,6 +3,7 @@ import {
   addItem,
   removeItem,
   checkItem,
+  editItem,
   clearCompletedItems,
 } from "./js/utils";
 
@@ -44,7 +45,7 @@ const createListItemTemplate = ({ id, text, completed }) => {
       <label>${text}</label>
       <button class="destroy"></button>
     </div>
-    <input class="edit" value=${text}>
+    <input class="edit" value="${text}">
   `;
 
   return listItem;
@@ -52,7 +53,6 @@ const createListItemTemplate = ({ id, text, completed }) => {
 
 const hideClearAllButton = (todoListItems) => {
   const completedListItems = todoListItems.filter((todo) => todo.completed);
-  console.log(completedListItems);
 
   if (completedListItems.length === 0) clearAllButton.classList.add("hidden");
   else clearAllButton.classList.remove("hidden");
@@ -189,6 +189,25 @@ todoList.addEventListener("click", function (e) {
       ? item.classList.add("completed")
       : item.classList.remove("completed");
     hideClearAllButton(todoListItems);
+  }
+});
+
+todoList.addEventListener("dblclick", function (e) {
+  if (e.target.tagName === "LABEL") {
+    const label = e.target;
+    const item = e.target.parentNode.parentNode;
+    let inputEdit = item.children[1];
+
+    item.classList.add("editing");
+
+    inputEdit.addEventListener("change", function (e) {
+      const text = e.target.value.trim();
+      label.textContent = text;
+
+      item.classList.remove("editing");
+
+      editItem(item.id, todoListItems, text);
+    });
   }
 });
 

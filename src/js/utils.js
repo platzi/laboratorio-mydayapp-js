@@ -18,7 +18,12 @@ const checkItem = (id, todoList, value) => {
   localStorage.setItem("mydayapp-js", JSON.stringify(todoList));
 };
 
-const editItem = () => {};
+const editItem = (id, todoList, text) => {
+  const index = todoList.findIndex((todo) => todo.id === id);
+
+  todoList[index].title = text;
+  localStorage.setItem("mydayapp-js", JSON.stringify(todoList));
+};
 
 const clearCompletedItems = (todoList) => {
   const todoListFiltered = todoList.filter((todo) => !todo.completed);
