@@ -1,12 +1,12 @@
 import "./css/base.css";
 
-import { sayHello } from "./js/utils";
-import {todos_list, addTodo} from "./js/todos_list"
+
 
 import {showTodos} from "./js/showTodos"
 
+import { addTodo } from "./js/addTodo";
 
 
-const htmlTodoList = document.querySelector(".todo-list")
+showTodos()
+addTodo();
 
-htmlTodoList.innerHTML = showTodos();

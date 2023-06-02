@@ -27,7 +27,7 @@ const todos_list =  () => {
 };
 
 
-function addTodo( tl, completed){
+function pushTodo( tl, completed){
 
     let idtodo = 1000;
     if (listTodos.length === 0 ){
@@ -43,10 +43,8 @@ function addTodo( tl, completed){
     
 }
 
-function getTodos(){
-    return listTodos
-}
 
 
-export {todos_list, addTodo, getTodos}
+
+export {todos_list, pushTodo}
 
