@@ -61,8 +61,32 @@ if(itemLeft >= 2 ){
 }
 
 
-//
+// funcion de completed para todos los todos
 
+const htmlcheck = document.querySelectorAll(".toggle")
+
+htmlcheck.forEach((node)=>{
+  
+  node.addEventListener("change", (a)=>{
+
+    //cuando detecta un cambio guarda el padre del nodo
+    const parentElement = node.parentNode.parentNode
+
+    //si es checked cambiamos las clases segun corresponda 
+   if(node.checked){
+    parentElement.classList.remove("view")
+    parentElement.classList.add("completed")
+    console.log(parentElement.classList)
+   }else{
+    parentElement.classList.remove("completed")
+    parentElement.classList.add("view")
+   }
+
+
+  })
+  
+
+})
 
 
 
