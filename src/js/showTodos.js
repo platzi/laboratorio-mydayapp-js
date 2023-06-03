@@ -63,6 +63,7 @@ if(itemLeft >= 2 ){
 }
 
 
+// cuando se actualizan los todos tambien llamamos esta funcion que se encarga de marcar como completados
 checkPlugin();
 
 
