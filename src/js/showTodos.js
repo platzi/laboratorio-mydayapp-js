@@ -1,6 +1,7 @@
 
 import '../css/todos.css'
 import { checkPlugin } from './checkPugin';
+import { editTodoPlugin } from './editTodoPlugin';
 import { getListTodos } from './todos_list';
 
 
@@ -63,8 +64,10 @@ if(itemLeft >= 2 ){
 }
 
 
+//Todo plugins
 // cuando se actualizan los todos tambien llamamos esta funcion que se encarga de marcar como completados
 checkPlugin();
+editTodoPlugin();
 
 
 };
