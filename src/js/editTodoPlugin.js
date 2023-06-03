@@ -14,6 +14,7 @@ const editTodoPlugin = ()=>{
          //solo si tiene vista view pasa al modo editing, un completado no se puede ditar
             if(parentElement.classList[0]=== "view" || parentElement.classList[1] === "view" )
             {  
+               
 
               //antes de activar la vista de edicion verificamos si hay alguno en ese modo
                const editingNow = document.querySelectorAll(".editing")
@@ -24,10 +25,14 @@ const editTodoPlugin = ()=>{
                node.classList.add("view")
                 
                })
-              
+
+                           
                //ahora si ponemos nuestro todo en vista edicion
                parentElement.classList.remove("view")
                parentElement.classList.add("editing")
+
+               //seleccionamos el input que se activi y hacemos focus
+               document.querySelector(".editing .edit").focus();
             }
         })
     })
