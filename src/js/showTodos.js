@@ -5,15 +5,55 @@ import { editTodoPlugin } from './editTodoPlugin';
 import { getListTodos } from './todos_list';
 
 
-const showTodos = () => {
+const showTodos =  (hash = "") => {
 
+  
   //obtenemos los todos del localstorage para mostrarlos
-const listTodos =  getListTodos(); 
-    let view = /*html*/ `
-`;
+const listTodos = getListTodos() ; 
 
-//por cada todo lo mostramos cambiando la classe dependiendo de si estacompletado
-listTodos.map((item)=>{
+// ocultamos footer y main si no hay todos
+const htmlMenu = document.getElementById("main");
+const htmlFooter = document.getElementById("footer");
+
+if (listTodos.length === 0){
+  htmlFooter.classList.add("hidden");
+  htmlMenu.classList.add("hidden");
+}
+
+
+//showtodos dependiendo del routing
+if(hash === "" || hash === "all" ){
+
+  printTodos(listTodos)
+
+
+}else if(hash === "pending"){
+
+  let resultados = listTodos.filter(function(objeto) {
+    return objeto.completed === false;
+  });
+
+  printTodos(resultados)
+
+
+}else if(hash = "completed"){
+
+  let resultados = listTodos.filter(function(objeto) {
+    return objeto.completed === true;
+  });
+
+  printTodos(resultados);
+}
+
+
+
+
+//funcion que imprime los todos
+function printTodos (list){
+
+  let view = ``;
+
+  list.map((item)=>{
     let clas;
     let ck;
 if(item.completed){clas = "completed"; ck = "checked"}else{clas = "view"}
@@ -33,18 +73,15 @@ if(item.completed){clas = "completed"; ck = "checked"}else{clas = "view"}
     `
 })
 
-// ocultamos footer y main si no hay todos
-const htmlMenu = document.getElementById("main");
-const htmlFooter = document.getElementById("footer");
 
-if (listTodos.length === 0){
-  htmlFooter.classList.add("hidden");
-  htmlMenu.classList.add("hidden");
-}
 
 //agregamos el html de los todo
 const htmlTodoList = document.querySelector(".todo-list")
 htmlTodoList.innerHTML = view;
+}
+
+
+
 
 
 //contamos los elementos que no estan completos

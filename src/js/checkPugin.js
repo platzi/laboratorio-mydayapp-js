@@ -14,7 +14,7 @@ htmlcheck.forEach((node)=>{
   //agregamos una funcion que detecta el cambio a cada nodo
   node.addEventListener("change", (a)=>{
 
-   
+    
     //cuando detecta un cambio guarda el padre del nodo
     const parentElement = node.parentNode.parentNode
 

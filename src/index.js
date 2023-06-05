@@ -1,19 +1,17 @@
 import "./css/base.css";
-
-
-
-import {showTodos} from "./js/showTodos"
-
 import { addTodo } from "./js/addTodo";
-import { checkPlugin } from "./js/checkPugin";
-import { editTodoPlugin } from "./js/editTodoPlugin";
-import { clearCompleted } from "./js/clearCompleted";
+import { footerPlugins } from "./js/footerPlugins";
+import router from "./js/route";
 
 
-showTodos()
+
+
+
+//manejo de rutas
+document.addEventListener("DOMContentLoaded", router)
+window.addEventListener("hashchange",router)
+
+
+//plugins de una sola carga
 addTodo();
-clearCompleted();
-
-
-
-
+footerPlugins();

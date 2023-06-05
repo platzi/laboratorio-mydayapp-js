@@ -1,8 +1,28 @@
 import { getListTodos, setListTodos } from "./todos_list";
 
-const clearCompleted=()=>{
+
+const footerPlugins = ()=>{
+
+    //hacer qeu cambie el boton seleccionado segun corresponda
+    var filterLinks = document.querySelectorAll(".filters a");
+
+    filterLinks.forEach((link) => {
+      link.addEventListener("click", ()=> {
+      
+        // Quita la clase "selected" de todos los enlaces
+        filterLinks.forEach((link) => {
+          link.classList.remove("selected");
+        });
+    
+        // Establece la clase "selected" en el enlace actual
+        link.classList.add("selected");
+      });
+    });
 
 
+
+    // evento de eliminar completados
+    
     //eliminar completados
     const htmlClrCompleted = document.querySelector(".clear-completed")
     
@@ -21,4 +41,5 @@ const clearCompleted=()=>{
      })
 }
 
-export {clearCompleted}
+
+export {footerPlugins}
