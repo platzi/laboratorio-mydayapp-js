@@ -4,7 +4,7 @@ MyDayApp es una aplicación para gestionar tareas de forma sencilla, fácil y en
 
 ![preview](https://i.imgur.com/et5mmr7.png)
 
-estas son las funciones que implemente:
+# estas son las funciones que implemente:
 
 ### 1. Ocultar las secciones main y footer
 

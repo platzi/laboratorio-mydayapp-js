@@ -1,10 +1,10 @@
 import { showTodos } from "./showTodos";
 
-const listTodos =  JSON.parse(localStorage.getItem("mydayapp-js")) || [];
 
 
 // agrega un toto al localstorage adema de asignar un id unico
 function pushTodo( tl){
+    const listTodos =  JSON.parse(localStorage.getItem("mydayapp-js")) || [];
 
 
     //agrega id despues de 1000 teniendo en cuenta los ids que ya estan en localstorage
@@ -25,7 +25,7 @@ function pushTodo( tl){
 // devolvemos la lista de todos
 
 function getListTodos(){
-   
+    const listTodos =  JSON.parse(localStorage.getItem("mydayapp-js")) || [];
 
     return listTodos
 

@@ -67,8 +67,7 @@ if(itemLeft >= 2 ){
 //Todo plugins
 // cuando se actualizan los todos tambien llamamos esta funcion que se encarga de marcar como completados
 checkPlugin();
-editTodoPlugin();
-
+editTodoPlugin()
 
 };
 
