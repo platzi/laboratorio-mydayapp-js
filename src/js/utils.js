@@ -1,5 +1,5 @@
- const sayHello = (text) => {
+const sayHello = (text) => {
   return text;
 };
 
-export {sayHello}
+export { sayHello };

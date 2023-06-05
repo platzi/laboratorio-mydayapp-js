@@ -1,12 +1,9 @@
 import { showTodos } from "./showTodos";
 
-const router =  () => {
+const router = () => {
+  let hash = window.location.hash.substring(2);
 
-    
-    let hash = window.location.hash.substring(2);
-
-    showTodos(hash);
-
+  showTodos(hash);
 };
 
-export default router
+export default router;
