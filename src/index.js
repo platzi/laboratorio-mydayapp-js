@@ -1,5 +1,5 @@
 import "./css/base.css";
 
-import { sayHello } from "./js/utils";
+import { init } from "./js/utils";
 
-console.log(sayHello("Hello"));
+// console.log(sayHello("Hello"));
