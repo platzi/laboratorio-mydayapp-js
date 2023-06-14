@@ -173,17 +173,17 @@ body {
   border-bottom: none;
 }
 
-/* .todo-list li.editing {
+.todo-list li.editing {
   border-bottom: none;
   padding: 0;
-} */
+}
 
-/* .todo-list li.editing .edit {
+.todo-list li.editing .edit {
   display: block;
   width: calc(100% - 4rem);
   padding: 12px 16px;
   margin: 0 0 0 4rem;
-} */
+}
 
 .todo-list li.editing .view {
   display: block;
