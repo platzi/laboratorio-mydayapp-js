@@ -42,12 +42,14 @@ export const init = document.addEventListener("DOMContentLoaded", () => {
   // Render de la lista de tareas
   function renderTasks() {
     taskList.innerHTML = "";
+    clearCompletedBtn.style.display = "none";
 
     tasks.forEach((task) => {
       const taskItem = document.createElement("li");
       // console.log(taskItem);
 
       if (task.completed) {
+        clearCompletedBtn.style.display = "block";
         taskItem.classList.add("completed");
       } else {
         taskItem.classList.add("pending");
@@ -207,7 +209,7 @@ export const init = document.addEventListener("DOMContentLoaded", () => {
         divItem.appendChild(destroyBtn);
         taskList.appendChild(taskPending);
       });
-      const taskCountText = pendingTasks.length === 1 ? "1 tarea pendiente" : `${pendingTasks.length} tareas pendientes`;
+      const taskCountText = pendingTasks.length === 1 ? "1 tareas pendientes" : `${pendingTasks.length} tareas pendientes`;
       taskCount.textContent = taskCountText;
     });
 
@@ -303,7 +305,7 @@ export const init = document.addEventListener("DOMContentLoaded", () => {
       renderTasks();
     });
 
-    const taskCountText = taskList.length === 1 ? "1 tarea pendiente" : `${pendingTasks.length} tareas pendientes`;
+    const taskCountText = taskList.length === 1 ? "1 tareas pendientes" : `${pendingTasks.length} tareas pendientes`;
     taskCount.textContent = taskCountText;
 
     clearCompletedBtn.addEventListener("click", () => {
