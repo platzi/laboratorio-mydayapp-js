@@ -1,7 +1,7 @@
 {
-  "name": "mydayapp-js",
+  "name": "mydayapp",
   "version": "1.0.0",
-  "description": "",
+  "description": "MyDayApp es una aplicación para gestionar tareas de forma sencilla, fácil y en donde pondrás a pruebas tus conocimientos en JS.",
   "private": true,
   "main": "src/index.js",
   "scripts": {
