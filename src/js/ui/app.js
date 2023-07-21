@@ -9,6 +9,7 @@ const newTodo = document.querySelector(".new-todo");
 const btnClear = document.querySelector(".clear-completed");
 const main = document.querySelector("#main");
 const footer = document.querySelector("#footer");
+const todoCount = document.querySelector(".todo-count").querySelector("strong");
 
 
 let todoList = [];
@@ -17,6 +18,7 @@ function refreshUI() {
   const list = filters(todoList);
   showTasks(list);
   hideFooterMain();
+  taskCount();
 }
 
 
@@ -56,8 +58,6 @@ function clearLocation() {
   window.location.hash = "/";
 }
 
-
-
 function hideFooterMain() {
   if (todoList.length === 0) {
     main.style.display = "none";
@@ -67,6 +67,10 @@ function hideFooterMain() {
   main.style.display = "block";
   footer.style.display = "block";
 
+}
+
+function taskCount() {
+  todoCount.textContent = todoList.length;
 }
 
 
