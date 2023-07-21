@@ -26,6 +26,11 @@ function deleteTask(taskList, id) {
   refreshUI();
 }
 
+function editTask(taskList, id, title) {
+  taskService.editTask(taskList, id, title);
+  refreshUI();
+}
+
 
 newTodo.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
@@ -43,4 +48,9 @@ document.addEventListener("stateChanged", (event) => {
 document.addEventListener("deleteTask", (event) => {
   const { id } = event.detail;
   deleteTask(todoList, id);
+})
+
+document.addEventListener("editTask", (event) => {
+  const { id, newTitle } = event.detail;
+  editTask(todoList, id, newTitle);
 })

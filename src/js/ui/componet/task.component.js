@@ -22,6 +22,11 @@ function Task({ id, title, state }) {
 
   const label = document.createElement('label');
   label.textContent = title;
+  label.addEventListener('dblclick', () => {
+    view.style.display = 'none';
+    edit.style.display = 'block';
+    edit.focus();
+  })
 
   const destroy = document.createElement('button');
   destroy.className = 'destroy';
@@ -41,14 +46,21 @@ function Task({ id, title, state }) {
   const edit = document.createElement('input');
   edit.value = title;
   edit.className = 'edit';
-  edit.addEventListener('dblclick', () => {
+
+  edit.addEventListener('keydown', (e) => {
     const event = new CustomEvent('editTask', {
       detail: {
         id,
-        newTitle: edit.value
+        newTitle: edit.value.trim()
       }
     })
-    document.dispatchEvent(event);
+    if (e.key === "Enter") {
+      document.dispatchEvent(event);
+    }
+    if (e.key === "Escape") {
+      view.style.display = "block";
+      edit.style.display = "none";
+    }
   });
 
   taskItem.appendChild(view);
