@@ -7,13 +7,18 @@ import showFilter from "../adapters/showFilter.adapter";
 const taskService = new taskUseCase();
 const newTodo = document.querySelector(".new-todo");
 const btnClear = document.querySelector(".clear-completed");
+const main = document.querySelector("#main");
+const footer = document.querySelector("#footer");
+
 
 let todoList = [];
 
 function refreshUI() {
   const list = filters(todoList);
   showTasks(list);
+  hideFooterMain();
 }
+
 
 function addTask(taskList, task) {
   taskService.addTask(taskList, task);
@@ -52,6 +57,19 @@ function clearLocation() {
 }
 
 
+
+function hideFooterMain() {
+  if (todoList.length === 0) {
+    main.style.display = "none";
+    footer.style.display = "none";
+    return;
+  }
+  main.style.display = "block";
+  footer.style.display = "block";
+
+}
+
+
 newTodo.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
     if (event.target.value.trim() === "") return;
@@ -82,6 +100,7 @@ window.addEventListener("hashchange", () => {
 
 window.addEventListener("load", () => {
   clearLocation();
+  refreshUI();
 })
 
 btnClear.addEventListener("click", () => {
