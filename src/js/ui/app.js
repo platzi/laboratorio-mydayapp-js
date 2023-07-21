@@ -21,6 +21,11 @@ function taskChageState(taskList, id) {
   refreshUI();
 }
 
+function deleteTask(taskList, id) {
+  taskService.deleteTask(taskList, id);
+  refreshUI();
+}
+
 
 newTodo.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
@@ -33,4 +38,9 @@ newTodo.addEventListener("keypress", (event) => {
 document.addEventListener("stateChanged", (event) => {
   const { id } = event.detail;
   taskChageState(todoList, id);
+})
+
+document.addEventListener("deleteTask", (event) => {
+  const { id } = event.detail;
+  deleteTask(todoList, id);
 })

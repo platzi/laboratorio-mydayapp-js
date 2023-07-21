@@ -14,6 +14,13 @@ class Task {
     taskList[taskIndex].state = taskList[taskIndex].state === "pending" ? "completed" : "pending";
   }
 
+  deleteTask(taskList, id) {
+    const taskIndex = taskList.findIndex(task => {
+      return task.id === id
+    });
+    taskList.splice(taskIndex, 1);
+  }
+
 }
 
 function generateUniqueId() {
