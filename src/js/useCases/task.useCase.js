@@ -7,6 +7,12 @@ class Task {
     return newTask;
 
   }
+  chageState(taskList, id) {
+    const taskIndex = taskList.findIndex(task => {
+      return task.id === id
+    });
+    taskList[taskIndex].state = taskList[taskIndex].state === "pending" ? "completed" : "pending";
+  }
 
 }
 

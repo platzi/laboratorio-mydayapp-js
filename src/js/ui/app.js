@@ -16,6 +16,11 @@ function addTask(taskList, task) {
   refreshUI();
 }
 
+function taskChageState(taskList, id) {
+  taskService.chageState(taskList, id);
+  refreshUI();
+}
+
 
 newTodo.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
@@ -23,4 +28,9 @@ newTodo.addEventListener("keypress", (event) => {
     event.target.value = "";
     addTask(todoList, task);
   }
+});
+
+document.addEventListener("stateChanged", (event) => {
+  const { id } = event.detail;
+  taskChageState(todoList, id);
 })

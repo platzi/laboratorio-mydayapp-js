@@ -2,20 +2,19 @@
 
 function Task({ id, title, state }) {
   const taskItem = document.createElement('li');
-  taskItem.className = 'pending';
+  taskItem.className = state;
 
   const view = document.createElement('div');
   view.className = 'view';
 
   const checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
-  checkbox.checked = false;
+  checkbox.checked = state === 'completed' ? true : false;
   checkbox.className = 'toggle';
   checkbox.addEventListener('change', () => {
     const event = new CustomEvent('stateChanged', {
       detail: {
-        id,
-        state: checkbox.checked ? 'completed' : 'pending'
+        id
       }
     })
     document.dispatchEvent(event);
