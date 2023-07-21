@@ -1,13 +1,14 @@
 import showTasks from "../adapters/showTasks.adapter";
 import taskUseCase from "../useCases/task.useCase";
-import { filterUses } from "../useCases/filter.useCase";
+import { filterUses, clearCompleted } from "../useCases/filter.useCase";
 import getHash from "../utility/getHash";
 import showFilter from "../adapters/showFilter.adapter";
 
 const taskService = new taskUseCase();
 const newTodo = document.querySelector(".new-todo");
+const btnClear = document.querySelector(".clear-completed");
 
-const todoList = [];
+let todoList = [];
 
 function refreshUI() {
   const list = filters(todoList);
@@ -41,6 +42,11 @@ function filters(taskList) {
   return list;
 }
 
+function clearTasks(taskList) {
+  todoList = clearCompleted(taskList);
+  refreshUI();
+}
+
 function clearLocation() {
   window.location.hash = "/";
 }
@@ -48,6 +54,7 @@ function clearLocation() {
 
 newTodo.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
+    if (event.target.value.trim() === "") return;
     const task = event.target.value.trim();
     event.target.value = "";
     addTask(todoList, task);
@@ -76,3 +83,8 @@ window.addEventListener("hashchange", () => {
 window.addEventListener("load", () => {
   clearLocation();
 })
+
+btnClear.addEventListener("click", () => {
+  clearTasks(todoList);
+})
+

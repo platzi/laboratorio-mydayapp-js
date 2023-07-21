@@ -12,6 +12,10 @@ function filterUses(taskList, filter) {
 }
 
 
+function clearCompleted(taskList) {
+  taskList = taskList.filter(task => task.state !== "completed");
+  return taskList
+}
 
 
-export { filterUses };
+export { filterUses, clearCompleted };
