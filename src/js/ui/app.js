@@ -10,7 +10,7 @@ const newTodo = document.querySelector(".new-todo");
 const btnClear = document.querySelector(".clear-completed");
 const main = document.querySelector("#main");
 const footer = document.querySelector("#footer");
-const todoCount = document.querySelector(".todo-count").querySelector("strong");
+const todoCount = document.querySelector(".todo-count");
 
 
 let todoList = [];
@@ -76,7 +76,8 @@ function hideFooterMain() {
 }
 
 function taskCount() {
-  todoCount.textContent = todoList.length;
+  const itemText = todoList.length > 1 ? "items" : "item";
+  todoCount.innerHTML = `<strong>${todoList.length}</strong> ${itemText} left`;
 
 }
 
