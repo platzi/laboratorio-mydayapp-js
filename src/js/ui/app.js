@@ -3,6 +3,7 @@ import taskUseCase from "../useCases/task.useCase";
 import { filterUses, clearCompleted } from "../useCases/filter.useCase";
 import getHash from "../utility/getHash";
 import showFilter from "../adapters/showFilter.adapter";
+import { getStorage, setStorage } from "../localStorage/localStorage";
 
 const taskService = new taskUseCase();
 const newTodo = document.querySelector(".new-todo");
@@ -24,21 +25,25 @@ function refreshUI() {
 
 function addTask(taskList, task) {
   taskService.addTask(taskList, task);
+  onChangeTodoListHandler();
   refreshUI();
 }
 
 function taskChageState(taskList, id) {
   taskService.chageState(taskList, id);
+  onChangeTodoListHandler();
   refreshUI();
 }
 
 function deleteTask(taskList, id) {
   taskService.deleteTask(taskList, id);
+  onChangeTodoListHandler();
   refreshUI();
 }
 
 function editTask(taskList, id, title) {
   taskService.editTask(taskList, id, title);
+  onChangeTodoListHandler();
   refreshUI();
 }
 
@@ -51,6 +56,7 @@ function filters(taskList) {
 
 function clearTasks(taskList) {
   todoList = clearCompleted(taskList);
+  onChangeTodoListHandler();
   refreshUI();
 }
 
@@ -71,9 +77,23 @@ function hideFooterMain() {
 
 function taskCount() {
   todoCount.textContent = todoList.length;
+
 }
 
+function getFromStorage(key) {
+  return getStorage(key);
+}
 
+function setToStorage(key, value) {
+  setStorage(key, value);
+}
+
+function onChangeTodoListHandler() {
+  setToStorage("mydayapp-js", todoList);
+  return true;
+}
+
+//add Task Listener
 newTodo.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
     if (event.target.value.trim() === "") return;
@@ -104,6 +124,7 @@ window.addEventListener("hashchange", () => {
 
 window.addEventListener("load", () => {
   clearLocation();
+  todoList = getFromStorage("mydayapp-js") || [];
   refreshUI();
 })
 
