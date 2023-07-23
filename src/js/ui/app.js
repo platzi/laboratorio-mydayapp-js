@@ -19,6 +19,7 @@ function refreshUI() {
   const list = filters(todoList);
   showTasks(list);
   hideFooterMain();
+  hideClearBtn();
   taskCount();
 }
 
@@ -73,6 +74,13 @@ function hideFooterMain() {
   main.style.display = "block";
   footer.style.display = "block";
 
+}
+function hideClearBtn() {
+  if (todoList.filter(task => task.completed).length === 0) {
+    btnClear.style.display = "none";
+    return;
+  }
+  btnClear.style.display = "block";
 }
 
 function taskCount() {
