@@ -12,7 +12,6 @@ const main = document.querySelector("#main");
 const footer = document.querySelector("#footer");
 const todoCount = document.querySelector(".todo-count");
 
-
 let todoList = [];
 
 function refreshUI() {
@@ -22,7 +21,6 @@ function refreshUI() {
   hideClearBtn();
   taskCount();
 }
-
 
 function addTask(taskList, task) {
   taskService.addTask(taskList, task);
@@ -73,10 +71,9 @@ function hideFooterMain() {
   }
   main.style.display = "block";
   footer.style.display = "block";
-
 }
 function hideClearBtn() {
-  if (todoList.filter(task => task.completed).length === 0) {
+  if (todoList.filter((task) => task.completed).length === 0) {
     btnClear.style.display = "none";
     return;
   }
@@ -86,7 +83,6 @@ function hideClearBtn() {
 function taskCount() {
   const itemText = todoList.length > 1 ? "items" : "item";
   todoCount.innerHTML = `<strong>${todoList.length}</strong> ${itemText} left`;
-
 }
 
 function getFromStorage(key) {
@@ -115,17 +111,17 @@ newTodo.addEventListener("keypress", (event) => {
 document.addEventListener("stateChanged", (event) => {
   const { id } = event.detail;
   taskChageState(todoList, id);
-})
+});
 
 document.addEventListener("deleteTask", (event) => {
   const { id } = event.detail;
   deleteTask(todoList, id);
-})
+});
 
 document.addEventListener("editTask", (event) => {
   const { id, newTitle } = event.detail;
   editTask(todoList, id, newTitle);
-})
+});
 
 window.addEventListener("hashchange", () => {
   refreshUI();
@@ -135,9 +131,8 @@ window.addEventListener("load", () => {
   clearLocation();
   todoList = getFromStorage("mydayapp-js") || [];
   refreshUI();
-})
+});
 
 btnClear.addEventListener("click", () => {
   clearTasks(todoList);
-})
-
+});

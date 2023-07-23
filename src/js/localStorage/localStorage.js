@@ -1,4 +1,3 @@
-
 function setStorage(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
 }
@@ -11,8 +10,4 @@ function removeItem(key) {
   localStorage.removeItem(key);
 }
 
-export {
-  setStorage,
-  getStorage,
-  removeItem
-}
+export { setStorage, getStorage, removeItem };

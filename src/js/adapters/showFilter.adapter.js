@@ -1,4 +1,3 @@
-
 const filters = document.getElementsByClassName("filters")[0];
 
 function showFilter() {
@@ -11,7 +10,6 @@ function showFilter() {
     }
     anchor.classList.remove("selected");
   }
-
 }
 
 export default showFilter;
