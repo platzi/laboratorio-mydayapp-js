@@ -1,8 +1,8 @@
 class Task {
-  constructor(id, title, state) {
+  constructor(id, title, completed) {
     this.id = id;
     this.title = title;
-    this.state = state;
+    this.completed = completed;
   }
 }
 

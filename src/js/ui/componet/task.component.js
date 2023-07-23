@@ -1,15 +1,15 @@
 
 
-function Task({ id, title, state }) {
+function Task({ id, title, completed }) {
   const taskItem = document.createElement('li');
-  taskItem.className = state;
+  taskItem.className = completed ? 'completed' : '';
 
   const view = document.createElement('div');
   view.className = 'view';
 
   const checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
-  checkbox.checked = state === 'completed' ? true : false;
+  checkbox.checked = completed ? true : false;
   checkbox.className = 'toggle';
   checkbox.addEventListener('change', () => {
     const event = new CustomEvent('stateChanged', {

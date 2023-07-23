@@ -4,16 +4,16 @@ function filterUses(taskList, filter) {
     return taskList;
   }
   if (filter === "pending") {
-    return taskList.filter(task => task.state === "pending");
+    return taskList.filter(task => task.completed === false);
   }
   if (filter === "completed") {
-    return taskList.filter(task => task.state === "completed");
+    return taskList.filter(task => task.completed === true);
   }
 }
 
 
 function clearCompleted(taskList) {
-  taskList = taskList.filter(task => task.state !== "completed");
+  taskList = taskList.filter(task => task.completed !== true);
   return taskList
 }
 

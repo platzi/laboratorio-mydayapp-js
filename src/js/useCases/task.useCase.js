@@ -2,7 +2,7 @@ import task from "../entities/task.entitie"
 
 class Task {
   addTask(taskList, title) {
-    const newTask = new task(generateUniqueId(), title, "pending");
+    const newTask = new task(generateUniqueId(), title, false);
     taskList.push(newTask);
     return newTask;
 
@@ -11,7 +11,7 @@ class Task {
     const taskIndex = taskList.findIndex(task => {
       return task.id === id
     });
-    taskList[taskIndex].state = taskList[taskIndex].state === "pending" ? "completed" : "pending";
+    taskList[taskIndex].completed = taskList[taskIndex].completed ? false : true;
   }
 
   deleteTask(taskList, id) {
