@@ -34,4 +34,15 @@ export default class View {
       target.value = "";
     });
   }
+
+  handleRemoveTask(handler) {
+    this.todoListEl.addEventListener("click", ({ target }) => {
+      const li = target.closest("li");
+      const { id } = li.dataset;
+
+      handler(id);
+
+      li.remove();
+    });
+  }
 }

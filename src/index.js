@@ -21,9 +21,15 @@ const controlAddTask = function (value) {
   view.renderTasks(store.getTasks());
 };
 
+const controlRemoveTask = function (id) {
+  // 1) Remove data
+  store.remove(id);
+};
+
 const init = function () {
   window.addEventListener("load", controlTasks);
   window.addEventListener("hashchange", controlTasks);
   view.handleAddTask(controlAddTask);
+  view.handleRemoveTask(controlRemoveTask);
 };
 init();
