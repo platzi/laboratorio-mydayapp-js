@@ -78,5 +78,43 @@ export default class View {
 
       target.classList.add("selected");
     });
+
+    window.addEventListener("load", () => {
+      const { hash } = location;
+
+      this.filtersEl
+        .querySelectorAll("a")
+        .forEach((el) => el.classList.remove("selected"));
+
+      this.filtersEl
+        .querySelector(`a[href='${hash}']`)
+        .classList.add("selected");
+    });
+  }
+
+  handleEditMode(handler) {
+    this.todoListEl.addEventListener("dblclick", ({ target }) => {
+      Array.from(this.todoListEl.children).forEach((el) =>
+        el.classList.remove("editing")
+      );
+      if (!target.closest("label")) return;
+      const li = target.closest("li");
+      const { id } = li.dataset;
+      const inputEdit = li.querySelector(".edit");
+      if (!li) return;
+      li.classList.add("editing");
+      inputEdit.focus();
+
+      inputEdit.addEventListener(
+        "change",
+        (e) => {
+          const value = e.target.value.trim();
+          if (value === "") return;
+          handler(id, value);
+          li.classList.remove("editing");
+        },
+        { once: true }
+      );
+    });
   }
 }

@@ -45,7 +45,7 @@ export default class Store {
   update(id, task) {
     const index = this._tasks.findIndex((t) => t.id.toString() === id);
     if (index === -1) return;
-    this._tasks[index] = task;
+    this._tasks[index] = { ...this._tasks[index], ...task };
     this._updateLocalStorage();
   }
 

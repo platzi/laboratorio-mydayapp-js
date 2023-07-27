@@ -31,7 +31,7 @@ const controlAddTask = function (value) {
   store.insert({ title: value });
 
   // 2) Render data UI
-  view.renderTasks(store.getTasks(), store.count());
+  view.renderTasks(filteredTasks[filter].call(store), store.count());
 
   // 3) Update counter
   view.updateCounter(store.pendingTasksSize());
@@ -58,7 +58,18 @@ const controlRemoveCompletedTasks = function () {
   store.removeCompletedTasks();
 
   // 2) Render tasks UI
-  view.renderTasks(store.getTasks(), store.count());
+  view.renderTasks(filteredTasks[filter].call(store), store.count());
+
+  // 3) Update counter
+  view.updateCounter(store.pendingTasksSize());
+};
+
+const controlEditTask = function (id, value) {
+  // 1) Update task
+  store.update(id, { title: value });
+
+  // 2) Render tasks
+  view.renderTasks(filteredTasks[filter].call(store), store.count());
 };
 
 const init = function () {
@@ -69,5 +80,6 @@ const init = function () {
   view.handleToggleTask(controlToggleTask);
   view.handleRemoveCompletedTasks(controlRemoveCompletedTasks);
   view.handleFilterTasks();
+  view.handleEditMode(controlEditTask);
 };
 init();
