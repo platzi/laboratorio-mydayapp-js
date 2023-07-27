@@ -13,6 +13,10 @@ export default class Store {
     return this._tasks;
   }
 
+  pendingTasksSize() {
+    return this._tasks.filter((t) => !t.completed).length;
+  }
+
   find(id) {
     const task = this._taskstasks.find((t) => t.id.toString() === id);
     return task;

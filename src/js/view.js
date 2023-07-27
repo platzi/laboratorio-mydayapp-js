@@ -6,6 +6,7 @@ export default class View {
     this.footerEl = document.querySelector(".footer");
     this.todoListEl = document.querySelector(".todo-list");
     this.newTodoInputEl = document.querySelector(".new-todo");
+    this.todoCountEl = document.querySelector(".todo-count");
   }
 
   renderTasks(tasks) {
@@ -24,6 +25,12 @@ export default class View {
       const taskItem = createTaskItem(task);
       this.todoListEl.appendChild(taskItem);
     });
+  }
+
+  updateCounter(counter) {
+    this.todoCountEl.innerHTML = `<strong>${counter}</strong> item${
+      counter === 1 ? "" : "s"
+    } left`;
   }
 
   handleAddTask(handler) {

@@ -11,6 +11,9 @@ const controlTasks = function () {
 
   // 2) Render data UI
   view.renderTasks(data);
+
+  // 3) Update counter
+  view.updateCounter(store.pendingTasksSize());
 };
 
 const controlAddTask = function (value) {
@@ -19,16 +22,25 @@ const controlAddTask = function (value) {
 
   // 2) Render data UI
   view.renderTasks(store.getTasks());
+
+  // 3) Update counter
+  view.updateCounter(store.pendingTasksSize());
 };
 
 const controlRemoveTask = function (id) {
   // 1) Remove data
   store.remove(id);
+
+  // 2) Update counter
+  view.updateCounter(store.pendingTasksSize());
 };
 
 const controlToggleTask = function (id) {
   // 1) Update completed state
   store.toggleTask(id);
+
+  // 2) Update counter
+  view.updateCounter(store.pendingTasksSize());
 };
 
 const init = function () {
