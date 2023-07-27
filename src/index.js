@@ -26,10 +26,16 @@ const controlRemoveTask = function (id) {
   store.remove(id);
 };
 
+const controlToggleTask = function (id) {
+  // 1) Update completed state
+  store.toggleTask(id);
+};
+
 const init = function () {
   window.addEventListener("load", controlTasks);
   window.addEventListener("hashchange", controlTasks);
   view.handleAddTask(controlAddTask);
   view.handleRemoveTask(controlRemoveTask);
+  view.handlerToggleTask(controlToggleTask);
 };
 init();

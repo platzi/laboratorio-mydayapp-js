@@ -37,12 +37,23 @@ export default class View {
 
   handleRemoveTask(handler) {
     this.todoListEl.addEventListener("click", ({ target }) => {
+      if (!target.classList.contains("destroy")) return;
       const li = target.closest("li");
       const { id } = li.dataset;
 
       handler(id);
 
       li.remove();
+    });
+  }
+
+  handlerToggleTask(handler) {
+    this.todoListEl.addEventListener("click", ({ target }) => {
+      if (!target.classList.contains("toggle")) return;
+      const li = target.closest("li");
+      const { id } = li.dataset;
+      handler(id);
+      li.classList.toggle("completed");
     });
   }
 }
