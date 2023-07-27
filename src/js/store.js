@@ -13,6 +13,14 @@ export default class Store {
     return this._tasks;
   }
 
+  pendingTasks() {
+    return this._tasks.filter((t) => !t.completed);
+  }
+
+  completedTasks() {
+    return this._tasks.filter((t) => t.completed);
+  }
+
   pendingTasksSize() {
     return this._tasks.filter((t) => !t.completed).length;
   }
@@ -45,6 +53,12 @@ export default class Store {
     const task = this._tasks.find((t) => t.id.toString() === id);
     if (!task) return;
     task.completed = !task.completed;
+    this._updateLocalStorage();
+  }
+
+  removeCompletedTasks() {
+    const newTasks = this._tasks.filter((t) => !t.completed);
+    this._tasks = newTasks;
     this._updateLocalStorage();
   }
 

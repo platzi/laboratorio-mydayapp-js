@@ -7,11 +7,12 @@ export default class View {
     this.todoListEl = document.querySelector(".todo-list");
     this.newTodoInputEl = document.querySelector(".new-todo");
     this.todoCountEl = document.querySelector(".todo-count");
+    this.clearCompletedEl = document.querySelector(".clear-completed");
+    this.filtersEl = document.querySelector(".filters");
   }
 
-  renderTasks(tasks) {
-    console.log(tasks);
-    if (!tasks.length) {
+  renderTasks(tasks, show = true) {
+    if (!show) {
       this.mainEl.classList.add("hidden");
       this.footerEl.classList.add("hidden");
       return;
@@ -54,13 +55,28 @@ export default class View {
     });
   }
 
-  handlerToggleTask(handler) {
+  handleToggleTask(handler) {
     this.todoListEl.addEventListener("click", ({ target }) => {
       if (!target.classList.contains("toggle")) return;
       const li = target.closest("li");
       const { id } = li.dataset;
       handler(id);
       li.classList.toggle("completed");
+    });
+  }
+
+  handleRemoveCompletedTasks(handler) {
+    this.clearCompletedEl.addEventListener("click", handler);
+  }
+
+  handleFilterTasks() {
+    this.filtersEl.addEventListener("click", ({ target }) => {
+      if (!target.closest("li")) return;
+      this.filtersEl
+        .querySelectorAll("a")
+        .forEach((el) => el.classList.remove("selected"));
+
+      target.classList.add("selected");
     });
   }
 }
