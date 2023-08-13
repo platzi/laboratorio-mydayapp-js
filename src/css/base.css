@@ -36,19 +36,17 @@ body {
 }
 
 .header {
-  background-image: linear-gradient(
-    224deg,
-    hsl(240deg 100% 50%) 2%,
-    hsl(249deg 100% 59%) 63%,
-    hsl(252deg 99% 64%) 78%,
-    hsl(253deg 98% 68%) 87%,
-    hsl(254deg 96% 73%) 92%,
-    hsl(253deg 93% 77%) 96%,
-    hsl(251deg 89% 81%) 98%,
-    hsl(246deg 81% 85%) 99%,
-    hsl(232deg 68% 88%) 100%,
-    hsl(200deg 53% 90%) 100%
-  );
+  background-image: linear-gradient(224deg,
+      hsl(240deg 100% 50%) 2%,
+      hsl(249deg 100% 59%) 63%,
+      hsl(252deg 99% 64%) 78%,
+      hsl(253deg 98% 68%) 87%,
+      hsl(254deg 96% 73%) 92%,
+      hsl(253deg 93% 77%) 96%,
+      hsl(251deg 89% 81%) 98%,
+      hsl(246deg 81% 85%) 99%,
+      hsl(232deg 68% 88%) 100%,
+      hsl(200deg 53% 90%) 100%);
   padding-bottom: 4rem;
 }
 
@@ -92,7 +90,7 @@ body {
   margin: 0;
 }
 
-.header h1 + p {
+.header h1+p {
   margin: 0;
   color: white;
   padding-bottom: 1.2rem;
@@ -142,7 +140,7 @@ body {
   bottom: 100%;
 }
 
-.toggle-all + label {
+.toggle-all+label {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -154,7 +152,7 @@ body {
   left: -0;
 }
 
-.toggle-all + label:before {
+.toggle-all+label:before {
   content: "❯";
   display: inline-block;
   font-size: 22px;
@@ -164,7 +162,7 @@ body {
   transform: rotate(90deg);
 }
 
-.toggle-all:checked + label:before {
+.toggle-all:checked+label:before {
   color: #484848;
 }
 
@@ -220,7 +218,7 @@ body {
   opacity: 0;
 }
 
-.todo-list li .toggle + label {
+.todo-list li .toggle+label {
   /*
 		Firefox requires `#` to be escaped - https://bugzilla.mozilla.org/show_bug.cgi?id=922433
 		IE and Edge requires *everything* to be escaped to render, so we do that instead of just the `#` - https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/7157459/
@@ -230,7 +228,7 @@ body {
   background-position: center left;
 }
 
-.todo-list li .toggle:checked + label {
+.todo-list li .toggle:checked+label {
   background-image: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%22-10%20-18%20100%20135%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2250%22%20fill%3D%22none%22%20stroke%3D%22%2359A193%22%20stroke-width%3D%223%22%2F%3E%3Cpath%20fill%3D%22%233EA390%22%20d%3D%22M72%2025L42%2071%2027%2056l-4%204%2020%2020%2034-52z%22%2F%3E%3C%2Fsvg%3E");
 }
 
@@ -374,6 +372,7 @@ html .clear-completed:active {
 	Can't use it globally since it destroys checkboxes in Firefox
 */
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
+
   .toggle-all,
   .todo-list li .toggle {
     background: none;
@@ -395,5 +394,5 @@ html .clear-completed:active {
 }
 
 :focus {
-  outline: 0;
+  outline: 1;
 }
