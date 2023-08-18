@@ -226,11 +226,53 @@ function countTodos(items) {
 
   anchors.forEach((element) => {
     if (element.getAttribute("href") === "#/pending") {
-      // let newStrongTag = document.createElement("strong");
-      // newStrongTag.textContent = pendingTodos;
       element.innerHTML = `<strong>${pendingTodos}</strong> Pending`;
     } else if (element.getAttribute("href") === "#/completed") {
       element.innerHTML = `<strong>${completedTodos}</strong> Completed`;
     }
   });
+}
+
+const deleteCompletedButton = document.getElementsByClassName("clear-completed")[0];
+
+deleteCompletedButton.addEventListener("click", deleteCompletedTodos);
+
+function deleteCompletedTodos() {
+  const pendingTodos = todosList.filter((todo) => {
+    return todo.completed === false;
+  });
+  todosList = pendingTodos;
+  console.log(todosList);
+  localStorage.setItem("mydayapp-js", JSON.stringify(todosList));
+  updateTodos(todosList);
+  countTodos(todosList);
+}
+
+const pendingLink = document.querySelector('li a[href="#/pending"]');
+const completedLink = document.querySelector('li a[href="#/completed"]');
+const allLink = document.querySelector('li a[href="#/"]');
+
+// pendingLink.addEventListener("click", filterTodos);
+// completedLink.addEventListener("click", filterTodos);
+// allLink.addEventListener("click", filterTodos);
+
+window.addEventListener("hashchange", () => {
+  const route = location.hash;
+  filterTodos(route);
+});
+
+function filterTodos(filter) {
+  if (filter === "#/pending") {
+    const pendingTodos = todosList.filter((todo) => {
+      return todo.completed === false;
+    });
+    updateTodos(pendingTodos);
+  } else if (filter === "#/completed") {
+    const completedTodos = todosList.filter((todo) => {
+      return todo.completed === true;
+    });
+    updateTodos(completedTodos);
+  } else {
+    updateTodos(todosList);
+  }
 }
