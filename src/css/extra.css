@@ -1,0 +1,19 @@
+.extraHeader{
+  background-image: linear-gradient(45deg, rgba(72,31,255,1) 0%, rgba(29,101,253,1) 50%, rgba(72,31,255,1) 100%) !important;
+}
+.background{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: -1;
+  background-color: #ffffff;
+  opacity: 0.4;
+  background-size: 30px 30px;
+  background-image:  repeating-linear-gradient(0deg, #3ebafd, #3ebafd 1.5px, #ffffff 1.5px, #ffffff);
+}
+
+.pointer{
+  cursor: pointer;
+}

@@ -1,5 +1,9 @@
 import "./css/base.css";
 
-import { sayHello } from "./js/utils";
+import Store from "./js/store";
+import { firstRender } from "./js/renderSystem";
 
-console.log(sayHello("Hello"));
+const store = new Store();
+firstRender(store);
+
+export { store };
