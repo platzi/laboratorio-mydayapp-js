@@ -5,22 +5,19 @@ import { sayHello } from "./js/utils";
 console.log(sayHello("Hello"));
 
 const input = document.getElementById("inputTodo");
-const mainContainer = document.getElementById("main");
-const footer = document.getElementById("footer");
+const mainContainer = document.getElementsByClassName("main")[0];
+const footer = document.getElementsByClassName("footer")[0];
 const ul = document.getElementById("todoList");
-// window.addEventListener("hashchange", () => countTodos(todosList));
 let todosList = [];
 const localStorageData = localStorage.getItem("mydayapp-js");
 if (localStorageData) {
   todosList = JSON.parse(localStorageData);
   updateTodos(todosList);
   countTodos(todosList);
-} else {
+} else if (todosList.length < 1) {
   mainContainer.style.display = "none";
   footer.style.display = "none";
 }
-
-console.log(todosList);
 
 //verificar si lo que se escribe en el input es una entrada valida:
 const verifyInputValue = (event) => {
@@ -30,13 +27,17 @@ const verifyInputValue = (event) => {
     alert("por favor, escribe una tarea.");
   } else {
     saveTodo(inputValue);
+    if (todosList.length > 0) {
+      mainContainer.style.display = "block";
+      footer.style.display = "block";
+    }
   }
 };
+
 input.addEventListener("change", verifyInputValue);
 
-//proceso para guardar los todos en el localStorage:
+//proceso para guardar los Todos en el localStorage:
 function saveTodo(todoName) {
-  let newsTodos = [];
   const newTodo = {
     id: todoName,
     title: todoName,
@@ -44,11 +45,9 @@ function saveTodo(todoName) {
   };
 
   todosList.push(newTodo);
-  console.log(newsTodos);
   localStorage.setItem("mydayapp-js", JSON.stringify(todosList));
   updateTodos(todosList);
   input.value = "";
-  console.log(localStorage.getItem("mydayapp-js"));
   countTodos(todosList);
 }
 
@@ -81,14 +80,10 @@ ul.addEventListener("click", function (event) {
 });
 
 function changeTodoState(item) {
-  console.log(item);
-  console.log(todosList);
   let li = document.querySelectorAll("li.pending, li.completed");
   li = [...li];
-  console.log(li);
   const current = li.find((element) => element.id === item.target.id);
 
-  console.log(item.target.checked);
   const todosStateToggle = todosList.map((todo) => {
     if (todo.id === item.target.id) {
       if (todo.completed === true) {
@@ -120,7 +115,6 @@ labels.forEach((item) => {
 
 function editTodo(element) {
   const label = element.target;
-  console.log(label.textContent);
 
   let li = document.querySelectorAll("li.pending, li.completed");
   li = [...li];
@@ -128,11 +122,9 @@ function editTodo(element) {
   const todoClicked = li.filter((element) => element.id === label.id);
   const todoClickedId = todoClicked[0].id;
   const todo = document.getElementById(todoClickedId);
-  console.log(todo);
   const labelText = label.textContent;
   const inputEdit = todo.querySelector(".edit");
   inputEdit.value = labelText;
-  console.log(todosList);
 
   if (todo.classList.contains("completed")) {
     todo.classList.remove("completed");
@@ -149,7 +141,6 @@ function editTodo(element) {
           }
           return item;
         });
-        console.log(todosList);
         localStorage.setItem("mydayapp-js", JSON.stringify(todosList));
         todo.classList.remove("editing");
         todo.classList.add("completed");
@@ -174,7 +165,6 @@ function editTodo(element) {
           }
           return item;
         });
-        console.log(todosList);
         localStorage.setItem("mydayapp-js", JSON.stringify(todosList));
         todo.classList.remove("editing");
         todo.classList.add("pending");
@@ -188,13 +178,10 @@ function editTodo(element) {
 }
 
 function deleteItem(element) {
-  console.log(element);
   const previousElementId = element.target.previousElementSibling.textContent;
-  console.log(previousElementId);
   const todoIndex = todosList.findIndex((todo) => {
     return todo.id === previousElementId;
   });
-  console.log(todoIndex);
   todosList.splice(todoIndex, 1);
   localStorage.setItem("mydayapp-js", JSON.stringify(todosList));
   updateTodos(todosList);
@@ -222,8 +209,6 @@ function countTodos(items) {
   anchors = [...anchors];
   const pendingTodos = items.filter((item) => item.completed === false).length;
   const completedTodos = items.filter((item) => item.completed === true).length;
-  console.log(anchors, pendingTodos, completedTodos);
-
   anchors.forEach((element) => {
     if (element.getAttribute("href") === "#/pending") {
       element.innerHTML = `<strong>${pendingTodos}</strong> Pending`;
@@ -242,19 +227,10 @@ function deleteCompletedTodos() {
     return todo.completed === false;
   });
   todosList = pendingTodos;
-  console.log(todosList);
   localStorage.setItem("mydayapp-js", JSON.stringify(todosList));
   updateTodos(todosList);
   countTodos(todosList);
 }
-
-const pendingLink = document.querySelector('li a[href="#/pending"]');
-const completedLink = document.querySelector('li a[href="#/completed"]');
-const allLink = document.querySelector('li a[href="#/"]');
-
-// pendingLink.addEventListener("click", filterTodos);
-// completedLink.addEventListener("click", filterTodos);
-// allLink.addEventListener("click", filterTodos);
 
 window.addEventListener("hashchange", () => {
   const route = location.hash;
