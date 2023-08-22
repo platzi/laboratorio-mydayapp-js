@@ -199,6 +199,14 @@ function destoy(task) {
   location.reload();
 
 }
+
+function checkIsFirstTask() {
+  let itemsInLS = JSON.parse(localStorage.getItem('mydayapp-js'));
+  console.log(itemsInLS)
+  if (itemsInLS.length == 1) {
+    location.reload();
+  }
+}
 //--------------------------------------------------------------------------------
 function insertTaskinList(task, conteiner) {
   const liTask = document.createElement('li');
@@ -269,10 +277,11 @@ function insertTaskinList(task, conteiner) {
 
   showPendingShurkut();
 
+
 }
 
 
 
 
-export { createTask, haveTask, createId, insertTaskinList, filterTask, clearCompleted, showPendingShurkut, showTaskForHash }
+export { createTask, haveTask, createId, insertTaskinList, filterTask, clearCompleted, showPendingShurkut, showTaskForHash, checkIsFirstTask }
 
