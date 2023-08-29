@@ -51,7 +51,6 @@ function ChangeTaskTitle(id, title) {
 
 function DeleteTask(id) {
   const TasksList = GetTasks();
-  console.log(id);
   if (TasksList.length > 1) {
     const NewTasksList = TasksList.filter((task) => task.id !== id);
     SaveTasks(NewTasksList);
@@ -96,61 +95,89 @@ function SaveTasks(Tasks) {
   localStorage.setItem("mydayapp-js", JSON.stringify(Tasks));
   CountPendingTasks();
   ToggleClearButton();
-  RenderTasks();
+  SetFilters();
 }
 
-export function RenderTasks() {
-  const TaskList = GetTasks();
-
+export function RenderTasks(TaskList) {
   todoList.innerHTML = "";
-  if (TaskList.length <= 0) {
-    mainSection.style.display = "none";
-    footer.style.display = "none";
-  } else {
-    mainSection.style.display = "block";
-    footer.style.display = "block";
-    TaskList.forEach((task) => {
-      const taskItem = document.createElement("li");
-      const taskView = document.createElement("div");
-      taskView.classList.add("view");
 
-      const taskInput = document.createElement("input");
-      taskInput.classList.add("toggle");
-      taskInput.type = "checkbox";
-      task.completed ? (taskInput.checked = true) : (taskInput.checked = false);
-      taskInput.addEventListener("click", () => ToggleStateTask(task.id));
+  mainSection.style.display = "block";
+  footer.style.display = "block";
+  TaskList.forEach((task) => {
+    const taskItem = document.createElement("li");
+    const taskView = document.createElement("div");
+    taskView.classList.add("view");
 
-      const taskLabel = document.createElement("label");
-      taskLabel.innerText = task.title;
-      taskLabel.addEventListener("dblclick", () => {
-        taskItem.classList.add("editing");
-        taskEditInput.value = task.title;
-        taskEditInput.focus();
-      });
+    const taskInput = document.createElement("input");
+    taskInput.classList.add("toggle");
+    taskInput.type = "checkbox";
+    task.completed ? (taskInput.checked = true) : (taskInput.checked = false);
+    taskInput.addEventListener("click", () => ToggleStateTask(task.id));
 
-      const taskButton = document.createElement("button");
-      taskButton.classList.add("destroy");
-      taskButton.addEventListener("click", () => DeleteTask(task.id));
+    const taskLabel = document.createElement("label");
+    taskLabel.innerText = task.title;
+    taskLabel.addEventListener("dblclick", () => {
+      taskItem.classList.add("editing");
+      taskEditInput.value = task.title;
+      taskEditInput.focus();
+    });
 
-      taskView.append(taskInput, taskLabel, taskButton);
+    const taskButton = document.createElement("button");
+    taskButton.classList.add("destroy");
+    taskButton.addEventListener("click", () => DeleteTask(task.id));
 
-      const taskEditInput = document.createElement("input");
-      taskEditInput.classList.add("edit");
-      taskEditInput.addEventListener("keydown", function (e) {
-        if (e.key === "Enter") {
-          ChangeTaskTitle(task.id, taskEditInput.value.trim());
-          taskItem.classList.remove("editing");
-        } else if (e.key === "Escape") {
-          taskItem.classList.remove("editing");
-        }
-      });
+    taskView.append(taskInput, taskLabel, taskButton);
 
-      taskItem.append(taskView, taskEditInput);
-      todoList.appendChild(taskItem);
-
-      if (task.completed === true) {
-        taskItem.classList.add("completed");
+    const taskEditInput = document.createElement("input");
+    taskEditInput.classList.add("edit");
+    taskEditInput.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        ChangeTaskTitle(task.id, taskEditInput.value.trim());
+        taskItem.classList.remove("editing");
+      } else if (e.key === "Escape") {
+        taskItem.classList.remove("editing");
       }
     });
+
+    taskItem.append(taskView, taskEditInput);
+    todoList.appendChild(taskItem);
+
+    if (task.completed === true) {
+      taskItem.classList.add("completed");
+    }
+  });
+}
+
+function ToggleSelectedFilterHighlight(Hash) {
+  const elements = document.querySelectorAll(".filters li a");
+  elements.forEach((element) => {
+    if (element.textContent === Hash.toString()) {
+      element.classList.add("selected");
+    } else {
+      element.classList.remove("selected");
+    }
+  });
+}
+
+export function SetFilters() {
+  const CurrentHash = window.location.hash;
+  const TasksList = GetTasks();
+
+  if (CurrentHash === "#/all" || CurrentHash === "#/" || CurrentHash === "") {
+    if (TasksList.length <= 0) {
+      mainSection.style.display = "none";
+      footer.style.display = "none";
+    } else {
+      mainSection.style.display = "block";
+      footer.style.display = "block";
+      ToggleSelectedFilterHighlight("All");
+      RenderTasks(TasksList);
+    }
+  } else if (CurrentHash === "#/pending") {
+    ToggleSelectedFilterHighlight("Pending");
+    RenderTasks(TasksList.filter((task) => task.completed === false));
+  } else if (CurrentHash === "#/completed") {
+    ToggleSelectedFilterHighlight("Completed");
+    RenderTasks(TasksList.filter((task) => task.completed === true));
   }
 }

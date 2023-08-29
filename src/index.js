@@ -7,6 +7,8 @@ console.log(Utils.sayHello("Hello"));
 const mainInput = document.querySelector(".new-todo");
 const clearButton = document.querySelector(".clear-completed");
 
+window.addEventListener("hashchange", Utils.SetFilters);
+
 mainInput.addEventListener("keydown", function (e) {
   if (e.key === "Enter") {
     if (mainInput.value !== "") {
@@ -27,6 +29,6 @@ class Task {
   }
 }
 
-Utils.RenderTasks();
+Utils.SetFilters();
 Utils.CountPendingTasks();
 Utils.ToggleClearButton();
