@@ -6,8 +6,8 @@ console.log(Utils.sayHello("Hello"));
 
 const mainInput = document.querySelector(".new-todo");
 
-mainInput.addEventListener("keyup", function (e) {
-  if (e.keyCode === 13) {
+mainInput.addEventListener("keydown", function (e) {
+  if (e.key === "Enter") {
     if (mainInput.value !== "") {
       const NewTask = new Task(mainInput.value.trim());
       Utils.SetTask(NewTask);
@@ -22,10 +22,8 @@ class Task {
   }
 
   SetID() {
-    const Tasks = Utils.GetTasks();
-
-    const MaxID = Object.keys(Tasks).length;
-    return MaxID + 1;
+    const TasksList = Utils.GetTasks();
+    return TasksList.length;
   }
 
   ToggleState() {
@@ -34,3 +32,4 @@ class Task {
 }
 
 Utils.RenderTasks();
+Utils.CountPendingTasks();
