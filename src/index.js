@@ -1,29 +1,32 @@
 import "./css/base.css";
 
-import { sayHello } from "./js/utils";
+import * as Utils from "./js/utils";
 
-console.log(sayHello("Hello"));
+console.log(Utils.sayHello("Hello"));
 
-const mainSection = document.getElementById("main");
-const footer = document.getElementById("footer");
+const mainInput = document.querySelector(".new-todo");
 
-function GetTasks() {
-  const TaskList = JSON.parse(localStorage.getItem("Task-List"));
+mainInput.addEventListener("keyup", function (e) {
+  if (e.keyCode === 13) {
+    if (mainInput.value !== "") {
+      const NewTask = new Task(mainInput.value.trim());
+      Utils.SetTask(NewTask);
+      mainInput.value = "";
+    }
+  }
+});
 
-  if (TaskList) {
-    return TaskList;
-  } else {
-    return {};
+class Task {
+  constructor(title) {
+    (this.id = this.SetID()), (this.title = title), (this.completed = false);
+  }
+
+  SetID() {
+    const Tasks = Utils.GetTasks();
+
+    const MaxID = Object.keys(Tasks).length;
+    return MaxID + 1;
   }
 }
 
-function RenderTasks() {
-  const TaskList = GetTasks();
-
-  if (Object.keys(TaskList).length === 0) {
-    mainSection.style.display = "none";
-    footer.style.display = "none";
-  }
-}
-
-RenderTasks();
+Utils.RenderTasks();
