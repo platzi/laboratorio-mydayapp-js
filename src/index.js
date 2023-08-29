@@ -27,6 +27,10 @@ class Task {
     const MaxID = Object.keys(Tasks).length;
     return MaxID + 1;
   }
+
+  ToggleState() {
+    this.completed = this.completed !== true;
+  }
 }
 
 Utils.RenderTasks();
