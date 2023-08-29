@@ -5,6 +5,7 @@ import * as Utils from "./js/utils";
 console.log(Utils.sayHello("Hello"));
 
 const mainInput = document.querySelector(".new-todo");
+const clearButton = document.querySelector(".clear-completed");
 
 mainInput.addEventListener("keydown", function (e) {
   if (e.key === "Enter") {
@@ -16,20 +17,16 @@ mainInput.addEventListener("keydown", function (e) {
   }
 });
 
+clearButton.addEventListener("click", Utils.ClearCompletedTasks);
+
 class Task {
   constructor(title) {
-    (this.id = this.SetID()), (this.title = title), (this.completed = false);
-  }
-
-  SetID() {
-    const TasksList = Utils.GetTasks();
-    return TasksList.length;
-  }
-
-  ToggleState() {
-    this.completed = this.completed !== true;
+    (this.id = Math.floor(Math.random() * 100000)),
+      (this.title = title),
+      (this.completed = false);
   }
 }
 
 Utils.RenderTasks();
 Utils.CountPendingTasks();
+Utils.ToggleClearButton();

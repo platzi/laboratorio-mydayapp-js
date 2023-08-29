@@ -6,6 +6,7 @@ const mainSection = document.getElementById("main");
 const footer = document.getElementById("footer");
 const todoList = document.querySelector(".todo-list");
 const todoCount = document.querySelector(".todo-count");
+const clearButton = document.querySelector(".clear-completed");
 
 export function GetTasks() {
   const TaskList = localStorage.getItem("mydayapp-js");
@@ -15,12 +16,6 @@ export function GetTasks() {
   } else {
     return [];
   }
-}
-
-function SaveTasks(Tasks) {
-  localStorage.setItem("mydayapp-js", JSON.stringify(Tasks));
-  RenderTasks();
-  CountPendingTasks();
 }
 
 export function SetTask(Task) {
@@ -36,14 +31,21 @@ export function SetTask(Task) {
 
 function ToggleStateTask(id) {
   const TasksList = GetTasks();
-  TasksList[id].completed = TasksList[id].completed !== true;
+  TasksList.forEach((task) => {
+    if (task.id === id) {
+      task.completed = task.completed !== true;
+    }
+  });
   SaveTasks(TasksList);
 }
 
 function ChangeTaskTitle(id, title) {
   const TasksList = GetTasks();
-  console.log(TasksList[id]);
-  TasksList[id].title = title;
+  TasksList.forEach((task) => {
+    if (task.id === id) {
+      task.title = title;
+    }
+  });
   SaveTasks(TasksList);
 }
 
@@ -51,12 +53,50 @@ function DeleteTask(id) {
   const TasksList = GetTasks();
   console.log(id);
   if (TasksList.length > 1) {
-    TasksList.splice(id, 1);
+    const NewTasksList = TasksList.filter((task) => task.id !== id);
+    SaveTasks(NewTasksList);
   } else {
     TasksList.pop();
-    console.log("Popeado", TasksList);
+    SaveTasks(TasksList);
   }
-  SaveTasks(TasksList);
+}
+
+export function CountPendingTasks() {
+  const TasksList = GetTasks();
+
+  todoCount.innerHTML = "";
+
+  const numberOfTasks = document.createElement("strong");
+  numberOfTasks.innerText = TasksList.filter(
+    (task) => task.completed === false
+  ).length.toString();
+
+  todoCount.append(numberOfTasks);
+  TasksList.filter((task) => task.completed === false).length > 1
+    ? (todoCount.innerText += " items left")
+    : (todoCount.innerText += " item left");
+}
+
+export function ClearCompletedTasks() {
+  const TasksList = GetTasks();
+  const NewTaskList = TasksList.filter((task) => task.completed === false);
+  SaveTasks(NewTaskList);
+}
+
+export function ToggleClearButton() {
+  const TasksList = GetTasks();
+  if (TasksList.filter((task) => task.completed === true).length > 0) {
+    clearButton.style.display = "block";
+  } else {
+    clearButton.style.display = "none";
+  }
+}
+
+function SaveTasks(Tasks) {
+  localStorage.setItem("mydayapp-js", JSON.stringify(Tasks));
+  CountPendingTasks();
+  ToggleClearButton();
+  RenderTasks();
 }
 
 export function RenderTasks() {
@@ -69,7 +109,7 @@ export function RenderTasks() {
   } else {
     mainSection.style.display = "block";
     footer.style.display = "block";
-    TaskList.sort((a, b) => a.id - b.id).forEach((task) => {
+    TaskList.forEach((task) => {
       const taskItem = document.createElement("li");
       const taskView = document.createElement("div");
       taskView.classList.add("view");
@@ -113,18 +153,4 @@ export function RenderTasks() {
       }
     });
   }
-}
-
-export function CountPendingTasks() {
-  const TasksList = GetTasks();
-
-  todoCount.innerHTML = "";
-
-  const numberOfTasks = document.createElement("strong");
-  numberOfTasks.innerText = TasksList.length.toString();
-
-  todoCount.append(numberOfTasks);
-  TasksList.length > 1
-    ? (todoCount.innerText += " items left")
-    : (todoCount.innerText += " item left");
 }
