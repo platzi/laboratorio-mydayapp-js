@@ -27,13 +27,15 @@ export const addTodoController = (text) => {
 }
 
 export const updateTodoText = (todoId, text) => {
+  // Validacion de texto
+  const newTodoText = text.trim();
   // Actualiza TODO en el estado global
-  updateTodo(todoId, { text });
+  updateTodo(todoId, { text: newTodoText });
   // Actualiza TODO en el HTML y deshabilita modo edicion
   const $todoContainer =  document.querySelector(`li[data-todo-id="${todoId}"]`);
   const $todoLabel =  $todoContainer.querySelector(`label`);
   const $todoEditInput =  $todoContainer.querySelector(`input.edit`);
-  $todoLabel.innerHTML = text;
+  $todoLabel.innerHTML = newTodoText;
   $todoEditInput.blur();
 }
 
