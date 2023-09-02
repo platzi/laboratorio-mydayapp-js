@@ -1,5 +1,5 @@
-import { getTodo, addTodo, updateTodo } from "./store"
-import { todoTemplateCreator } from "./templates"
+import { TODOS, getTodo, addTodo, updateTodo } from "./store"
+import { todoTemplateCreator, todoCounterTemplateCreator } from "./templates"
 
 export const addTodoController = (text) => {
   // Validacion de texto
@@ -25,6 +25,8 @@ export const addTodoController = (text) => {
   // Agrega nodo al HTML
   const $todoList = document.querySelector(".todo-list");
   $todoList.appendChild($todoElement.firstElementChild);
+  // Actualiza contador de TODOS
+  updateTodoCounter();
 }
 
 export const updateTodoText = (todoId, text) => {
@@ -64,4 +66,11 @@ export const disableTodoEditMode = (todoId) => {
   // Modificando estilos de HTML
   const $todoContainer =  document.querySelector(`li[data-todo-id="${todoId}"]`);
   $todoContainer.classList.remove("editing");
+}
+
+export const updateTodoCounter = () => {
+  // Crea plantilla para el contador de TODOS y actualiza su contenedor HTML
+  const $todoCounterLabel = document.querySelector(".todo-count");
+  const todoCounterTemplate = todoCounterTemplateCreator(TODOS.length);
+  $todoCounterLabel.innerHTML = todoCounterTemplate
 }

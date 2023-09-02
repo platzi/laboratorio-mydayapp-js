@@ -11,3 +11,8 @@ export const todoTemplateCreator = (TODO) => {
 
   return template;
 }
+
+export const todoCounterTemplateCreator = (totalTodos) => {
+  const template = `<strong>${totalTodos}</strong> ${totalTodos == 1 ? "item" : 'items'} left`;
+  return template;
+}
