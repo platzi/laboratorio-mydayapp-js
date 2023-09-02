@@ -63,7 +63,7 @@ export const updateTodoText = (todoId, text) => {
   const newTodoText = text.trim();
   if (!newTodoText) return;
   // Actualiza TODO en el estado global
-  updateTodo(todoId, { text: newTodoText });
+  updateTodo(todoId, { title: newTodoText });
   // Actualiza TODO en el HTML y deshabilita modo edicion
   const $todoContainer =  document.querySelector(`li[data-todo-id="${todoId}"]`);
   const $todoLabel =  $todoContainer.querySelector(`label`);
@@ -87,7 +87,7 @@ export const activateTodoEditMode = (todoId) => {
   $todoContainer.classList.add("editing");
   // Establece foco en input de edicion y como valor el texto actual del TODO
   const $todoEditInput = $todoContainer.querySelector("input.edit");
-  $todoEditInput.value = getTodo(todoId).text;
+  $todoEditInput.value = getTodo(todoId).title;
   $todoEditInput.focus();
 }
 

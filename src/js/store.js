@@ -4,10 +4,10 @@ export const getTodo = (id) => {
   return TODOS.find(TODO => TODO.id == id);
 }
 
-export const addTodo = (text) => {
+export const addTodo = (title) => {
   const newTodo = {
     id: Date.now(),
-    text,
+    title,
     completed: false
   }
   TODOS.push(newTodo)
