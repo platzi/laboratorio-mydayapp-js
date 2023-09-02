@@ -1,4 +1,4 @@
-import { addTodo, updateTodo } from "./store"
+import { getTodo, addTodo, updateTodo } from "./store"
 import { todoTemplateCreator } from "./templates"
 
 export const addTodoController = (text) => {
@@ -54,8 +54,9 @@ export const activateTodoEditMode = (todoId) => {
   /// Modificando estilos de HTML
   const $todoContainer = document.querySelector(`li[data-todo-id="${todoId}"]`);
   $todoContainer.classList.add("editing");
-  // Estableciendo foco en input de edicion
+  // Establece foco en input de edicion y como valor el texto actual del TODO
   const $todoEditInput = $todoContainer.querySelector("input.edit");
+  $todoEditInput.value = getTodo(todoId).text;
   $todoEditInput.focus();
 }
 
