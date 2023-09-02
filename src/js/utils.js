@@ -20,6 +20,7 @@ export const addTodoController = (text) => {
   $todoEditInput.addEventListener("focusout", () => disableTodoEditMode(newTodo.id));
   $todoEditInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter") updateTodoText(newTodo.id, e.target.value);
+    if (e.key === "Escape") $todoEditInput.blur();
   })
   // Agrega nodo al HTML
   const $todoList = document.querySelector(".todo-list");
