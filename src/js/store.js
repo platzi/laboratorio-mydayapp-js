@@ -28,3 +28,8 @@ export const updateTodo = (id, data) => {
   };
   return TODOS[todoIndex];
 }
+
+export const deleteTodo = (id) => {
+  const todoIndex = TODOS.findIndex(TODO => TODO.id == id);
+  return TODOS.splice(todoIndex, 1);
+}

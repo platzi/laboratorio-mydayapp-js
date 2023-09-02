@@ -1,4 +1,4 @@
-import { TODOS, getTodo, addTodo, updateTodo } from "./store"
+import { TODOS, getTodo, addTodo, updateTodo, deleteTodo } from "./store"
 import { todoTemplateCreator, todoCounterTemplateCreator } from "./templates"
 
 export const addTodoController = (text) => {
@@ -15,6 +15,7 @@ export const addTodoController = (text) => {
   const $todoStatusCheckbox = $todoElement.querySelector("input.toggle");
   const $todoLabel = $todoElement.querySelector("label");
   const $todoEditInput = $todoElement.querySelector("input.edit");
+  const $todoDeleteButton = $todoElement.querySelector("button.destroy");
   $todoStatusCheckbox.addEventListener("change", (e) => updateTodoStatus(newTodo.id, e.target.checked));
   $todoLabel.addEventListener("dblclick", () => activateTodoEditMode(newTodo.id));
   $todoEditInput.addEventListener("focusout", () => disableTodoEditMode(newTodo.id));
@@ -22,9 +23,20 @@ export const addTodoController = (text) => {
     if (e.key === "Enter") updateTodoText(newTodo.id, e.target.value);
     if (e.key === "Escape") $todoEditInput.blur();
   })
+  $todoDeleteButton.addEventListener("click", () => deleteTodoController(newTodo.id));
   // Agrega nodo al HTML
   const $todoList = document.querySelector(".todo-list");
   $todoList.appendChild($todoElement.firstElementChild);
+  // Actualiza contador de TODOS
+  updateTodoCounter();
+}
+
+export const deleteTodoController = (todoId) => {
+  // Elimina TODO del estado global
+  deleteTodo(todoId);
+  // ElImina elemento HTML correspondiente al TODO
+  const $todoContainer =  document.querySelector(`li[data-todo-id="${todoId}"]`);
+  $todoContainer.remove();
   // Actualiza contador de TODOS
   updateTodoCounter();
 }
