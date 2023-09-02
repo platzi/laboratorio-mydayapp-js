@@ -1,29 +1,24 @@
 import { TODOS, getTodo, addTodo, updateTodo, deleteTodo } from "./store"
 import { todoTemplateCreator, todoCounterTemplateCreator } from "./templates"
 
-export const addTodoController = (text) => {
-  // Validacion de texto
-  const newTodoText = text.trim();
-  if (!newTodoText) return;
-  // Agrega TODO al estado global
-  const newTodo = addTodo(newTodoText);
+export const renderTodo = (TODO) => {
   // Creacion de nodo
   const $todoElement = document.createElement(null);
-  const todoTemplate = todoTemplateCreator(newTodo);
+  const todoTemplate = todoTemplateCreator(TODO);
   $todoElement.innerHTML = todoTemplate;
   // Agrega eventos al nodo
   const $todoStatusCheckbox = $todoElement.querySelector("input.toggle");
   const $todoLabel = $todoElement.querySelector("label");
   const $todoEditInput = $todoElement.querySelector("input.edit");
   const $todoDeleteButton = $todoElement.querySelector("button.destroy");
-  $todoStatusCheckbox.addEventListener("change", (e) => updateTodoStatus(newTodo.id, e.target.checked));
-  $todoLabel.addEventListener("dblclick", () => activateTodoEditMode(newTodo.id));
-  $todoEditInput.addEventListener("focusout", () => disableTodoEditMode(newTodo.id));
+  $todoStatusCheckbox.addEventListener("change", (e) => updateTodoStatus(TODO.id, e.target.checked));
+  $todoLabel.addEventListener("dblclick", () => activateTodoEditMode(TODO.id));
+  $todoEditInput.addEventListener("focusout", () => disableTodoEditMode(TODO.id));
   $todoEditInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") updateTodoText(newTodo.id, e.target.value);
+    if (e.key === "Enter") updateTodoText(TODO.id, e.target.value);
     if (e.key === "Escape") $todoEditInput.blur();
   })
-  $todoDeleteButton.addEventListener("click", () => deleteTodoController(newTodo.id));
+  $todoDeleteButton.addEventListener("click", () => deleteTodoController(TODO.id));
   // Agrega nodo al HTML
   const $todoList = document.querySelector(".todo-list");
   $todoList.appendChild($todoElement.firstElementChild);
@@ -32,6 +27,16 @@ export const addTodoController = (text) => {
   if ($todosContainer.classList.contains("hidden")) $todosContainer.classList.remove("hidden");
   // Actualiza contador de TODOS
   updateTodoCounter();
+}
+
+export const addTodoController = (text) => {
+  // Validacion de texto
+  const newTodoText = text.trim();
+  if (!newTodoText) return;
+  // Agrega TODO al estado global
+  const newTodo = addTodo(newTodoText);
+  // Renderizar TODO
+  renderTodo(newTodo)
 }
 
 export const deleteTodoController = (todoId) => {
