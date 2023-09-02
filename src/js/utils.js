@@ -27,6 +27,9 @@ export const addTodoController = (text) => {
   // Agrega nodo al HTML
   const $todoList = document.querySelector(".todo-list");
   $todoList.appendChild($todoElement.firstElementChild);
+  // Hacer visible contenedor HTML de TODOS
+  const $todosContainer = document.querySelector(".todoapp-wrapper")
+  if ($todosContainer.classList.contains("hidden")) $todosContainer.classList.remove("hidden");
   // Actualiza contador de TODOS
   updateTodoCounter();
 }
@@ -37,6 +40,9 @@ export const deleteTodoController = (todoId) => {
   // ElImina elemento HTML correspondiente al TODO
   const $todoContainer =  document.querySelector(`li[data-todo-id="${todoId}"]`);
   $todoContainer.remove();
+  // Ocultar contenedor HTML de TODOS (si no hay tareas)
+  const $todosContainer = document.querySelector(".todoapp-wrapper")
+  if (TODOS.length == 0) $todosContainer.classList.add("hidden");
   // Actualiza contador de TODOS
   updateTodoCounter();
 }
