@@ -29,6 +29,7 @@ export const addTodoController = (text) => {
 export const updateTodoText = (todoId, text) => {
   // Validacion de texto
   const newTodoText = text.trim();
+  if (!newTodoText) return;
   // Actualiza TODO en el estado global
   updateTodo(todoId, { text: newTodoText });
   // Actualiza TODO en el HTML y deshabilita modo edicion
