@@ -25,7 +25,7 @@ export const renderTodo = (TODO) => {
   // Hacer visible contenedor HTML de TODOS
   const $todosContainer = document.querySelector(".todoapp-wrapper")
   if ($todosContainer.classList.contains("hidden")) $todosContainer.classList.remove("hidden");
-  // Actualiza contador de TODOS
+  // Actualiza contador de TODOS pendientes
   updateTodoCounter();
 }
 
@@ -50,7 +50,7 @@ export const deleteTodoController = (todoId) => {
   // Ocultar contenedor HTML de TODOS (si no hay tareas)
   const $todosContainer = document.querySelector(".todoapp-wrapper")
   if (TODOS.length == 0) $todosContainer.classList.add("hidden");
-  // Actualiza contador de TODOS
+  // Actualiza contador de TODOS pendientes
   updateTodoCounter();
   // Gestiona la visibilidad del boton "clear completed"
   visibilityToClearCompletedTodos()
@@ -83,6 +83,8 @@ export const updateTodoStatus = (todoId, isCompleted) => {
   const $todoContainer = document.querySelector(`li[data-todo-id="${todoId}"]`);
   if (isCompleted) $todoContainer.classList.add("completed");
   else $todoContainer.classList.remove("completed");
+  // Actualiza contador de TODOS pendientes
+  updateTodoCounter();
   // Gestiona la visibilidad del boton "clear completed"
   visibilityToClearCompletedTodos()
 }
@@ -106,7 +108,8 @@ export const disableTodoEditMode = (todoId) => {
 export const updateTodoCounter = () => {
   // Crea plantilla para el contador de TODOS y actualiza su contenedor HTML
   const $todoCounterLabel = document.querySelector(".todo-count");
-  const todoCounterTemplate = todoCounterTemplateCreator(TODOS.length);
+  const pendingTodos = TODOS.filter(TODO => !TODO.completed);
+  const todoCounterTemplate = todoCounterTemplateCreator(pendingTodos.length);
   $todoCounterLabel.innerHTML = todoCounterTemplate
 }
 
