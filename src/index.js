@@ -1,9 +1,15 @@
 import "./css/base.css";
 import { router } from "./js/router";
-import { addTodoController, deleteCompletedTodos, visibilityToClearCompletedTodos } from "./js/utils"
+import { addTodoController, deleteCompletedTodos, visibilityToClearCompletedTodos, setfilterLinkActive } from "./js/utils"
 
-window.addEventListener('DOMContentLoaded', router);
-window.addEventListener('hashchange', router);
+window.addEventListener('DOMContentLoaded', () => {
+  router();
+  setfilterLinkActive();
+});
+window.addEventListener('hashchange', () => {
+  router();
+  setfilterLinkActive();
+});
 
 const $newTodoInput = document.querySelector(".new-todo")
 $newTodoInput.addEventListener("keydown", (e) => {

@@ -126,3 +126,22 @@ export const visibilityToClearCompletedTodos = () => {
   if (completedTodos.length == 0) $clearCompletedTodosButton.classList.add("hidden")
   else $clearCompletedTodosButton.classList.remove("hidden")
 }
+
+export const setfilterLinkActive = () => {
+  // Aplica estilos al enlace actualmente activo
+  let islinkActivated = false;
+  const $filterLinks = Array.from(document.querySelectorAll(".filters a"));
+  $filterLinks.forEach($link => {
+    if ($link.href == location.href) {
+      islinkActivated = true;
+      $link.classList.add("selected")
+    } else {
+      $link.classList.remove("selected")
+    }
+  })
+  // En caso la ruta actual no corresponda a ningun enlace se establece como activo el enlace por defecto
+  if (!islinkActivated) {
+    const $linkByDefault = document.querySelector(".filters a[href='#/']");
+    $linkByDefault.classList.add("selected")
+  }
+}
