@@ -29,6 +29,12 @@ export const renderTodo = (TODO) => {
   updateTodoCounter();
 }
 
+export const renderTodos = (TODOS) => {
+  // Renderiza todos los TODOS que recibe y vacia su contenedor HTML
+  document.querySelector(".todo-list").innerHTML = "";
+  TODOS.forEach(TODO => renderTodo(TODO));
+};
+
 export const addTodoController = (text) => {
   // Validacion de texto
   const newTodoText = text.trim();

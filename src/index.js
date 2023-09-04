@@ -1,10 +1,9 @@
 import "./css/base.css";
-import { TODOS } from "./js/store";
-import { renderTodo, addTodoController, deleteCompletedTodos, visibilityToClearCompletedTodos } from "./js/utils"
+import { router } from "./js/router";
+import { addTodoController, deleteCompletedTodos, visibilityToClearCompletedTodos } from "./js/utils"
 
-(function loadData() {
-  TODOS.forEach(TODO => renderTodo(TODO))
-})();
+window.addEventListener('DOMContentLoaded', router);
+window.addEventListener('hashchange', router);
 
 const $newTodoInput = document.querySelector(".new-todo")
 $newTodoInput.addEventListener("keydown", (e) => {
