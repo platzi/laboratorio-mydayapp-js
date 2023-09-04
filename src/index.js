@@ -1,6 +1,6 @@
 import "./css/base.css";
 import { TODOS } from "./js/store";
-import { renderTodo, addTodoController, deleteCompletedTodos } from "./js/utils"
+import { renderTodo, addTodoController, deleteCompletedTodos, visibilityToClearCompletedTodos } from "./js/utils"
 
 (function loadData() {
   TODOS.forEach(TODO => renderTodo(TODO))
@@ -15,4 +15,5 @@ $newTodoInput.addEventListener("keydown", (e) => {
 })
 
 const $clearCompletedTodosButton = document.querySelector(".clear-completed");
-$clearCompletedTodosButton.addEventListener("click", deleteCompletedTodos)
+$clearCompletedTodosButton.addEventListener("click", deleteCompletedTodos);
+visibilityToClearCompletedTodos();
