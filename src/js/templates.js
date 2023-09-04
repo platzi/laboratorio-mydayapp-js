@@ -1,8 +1,8 @@
 export const todoTemplateCreator = (TODO) => {
   const template = 
-  `<li data-todo-id=${TODO.id}>
+  `<li data-todo-id=${TODO.id} class="${TODO.completed ? 'completed' : ''}">
     <div class="view">
-      <input class="toggle" type="checkbox" />
+      <input class="toggle" type="checkbox" ${TODO.completed ? 'checked' : ''}/>
       <label>${TODO.title}</label>
       <button class="destroy"></button>
     </div>
