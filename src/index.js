@@ -1,5 +1,24 @@
 import "./css/base.css";
+import { router } from "./js/router";
+import { addTodoController, deleteCompletedTodos, visibilityToClearCompletedTodos, setfilterLinkActive } from "./js/utils"
 
-import { sayHello } from "./js/utils";
+window.addEventListener('DOMContentLoaded', () => {
+  router();
+  setfilterLinkActive();
+});
+window.addEventListener('hashchange', () => {
+  router();
+  setfilterLinkActive();
+});
 
-console.log(sayHello("Hello"));
+const $newTodoInput = document.querySelector(".new-todo")
+$newTodoInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    addTodoController(e.target.value);
+    e.target.value = "";
+  }
+})
+
+const $clearCompletedTodosButton = document.querySelector(".clear-completed");
+$clearCompletedTodosButton.addEventListener("click", deleteCompletedTodos);
+visibilityToClearCompletedTodos();
