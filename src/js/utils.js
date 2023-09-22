@@ -17,3 +17,13 @@ export const validarListaTareas = () => {
     footer.classList.remove("inactive");
   }
 };
+export const listernerCheckboxComplete = () => {
+  const checkboxCompletedList = document.querySelectorAll(".toggle");
+  checkboxCompletedList.forEach((checkbox) => {
+    checkbox.addEventListener("click", () => {
+      const checkboxPadre = checkbox.parentNode.parentNode;
+      checkboxPadre.classList.toggle("completed");
+      console.log("hola mundo");
+    });
+  });
+};

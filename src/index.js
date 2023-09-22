@@ -1,5 +1,5 @@
 import "./css/base.css";
-import { validarListaTareas } from "./js/utils";
+import { validarListaTareas, listernerCheckboxComplete } from "./js/utils";
 
 // import { sayHello } from "./js/utils";
 //#1 Ocultar las secciones main y footer
@@ -14,7 +14,7 @@ document.addEventListener("keyup", (event) => {
     inputNuevaTarea = inputNuevaTarea.trim();
     inputTarea.value = "";
     if (inputNuevaTarea.length > 0) {
-      const htmlNuevoElemento = `<li>
+      const htmlNuevoElemento = `<li class = "tarea" >
       <div class="view">
         <input class="toggle" type="checkbox" />
         <label>${inputNuevaTarea}</label>
@@ -24,6 +24,10 @@ document.addEventListener("keyup", (event) => {
     </li>`;
       listaTareas.innerHTML = listaTareas.innerHTML + htmlNuevoElemento;
       validarListaTareas();
+      listernerCheckboxComplete();
     }
   }
 });
+//3 marcar tarea como completada al hacer click en el checkbox
+
+listernerCheckboxComplete();
