@@ -23,7 +23,16 @@ export const listernerCheckboxComplete = () => {
     checkbox.addEventListener("click", () => {
       const checkboxPadre = checkbox.parentNode.parentNode;
       checkboxPadre.classList.toggle("completed");
-      console.log("hola mundo");
+    });
+  });
+};
+
+export const listennerDobleClick = () => {
+  const editTareaList = document.querySelectorAll(".nombre-tarea");
+  editTareaList.forEach((tarea) => {
+    tarea.addEventListener("dblclick", () => {
+      const contenedorTarea = tarea.parentNode.parentNode;
+      contenedorTarea.classList.toggle("editing");
     });
   });
 };

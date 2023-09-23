@@ -1,5 +1,9 @@
 import "./css/base.css";
-import { validarListaTareas, listernerCheckboxComplete } from "./js/utils";
+import {
+  validarListaTareas,
+  listernerCheckboxComplete,
+  listennerDobleClick,
+} from "./js/utils";
 
 // import { sayHello } from "./js/utils";
 //#1 Ocultar las secciones main y footer
@@ -17,7 +21,7 @@ document.addEventListener("keyup", (event) => {
       const htmlNuevoElemento = `<li class = "tarea" >
       <div class="view">
         <input class="toggle" type="checkbox" />
-        <label>${inputNuevaTarea}</label>
+        <label class = "nombre-tarea">${inputNuevaTarea}</label>
         <button class="destroy"></button>
       </div>
       <input class="edit" value="${inputNuevaTarea}" />
@@ -25,9 +29,12 @@ document.addEventListener("keyup", (event) => {
       listaTareas.innerHTML = listaTareas.innerHTML + htmlNuevoElemento;
       validarListaTareas();
       listernerCheckboxComplete();
+      listennerDobleClick();
     }
   }
 });
 //3 marcar tarea como completada al hacer click en el checkbox
 
 listernerCheckboxComplete();
+//Editar Label despues de dar doble click
+listennerDobleClick();
