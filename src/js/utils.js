@@ -33,6 +33,10 @@ export const listennerDobleClick = () => {
     tarea.addEventListener("dblclick", () => {
       const contenedorTarea = tarea.parentNode.parentNode;
       contenedorTarea.classList.toggle("editing");
+      const edicion = contenedorTarea.querySelector(".edit");
+      const end = edicion.value.length;
+      edicion.setSelectionRange(end, end);
+      edicion.focus();
     });
   });
 };
