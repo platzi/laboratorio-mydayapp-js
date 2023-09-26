@@ -3,6 +3,7 @@ import {
   validarListaTareas,
   listernerCheckboxComplete,
   listennerDobleClick,
+  contadorFooter,
 } from "./js/utils";
 
 // import { sayHello } from "./js/utils";
@@ -18,7 +19,7 @@ document.addEventListener("keyup", (event) => {
     inputNuevaTarea = inputNuevaTarea.trim();
     inputTarea.value = "";
     if (inputNuevaTarea.length > 0) {
-      const htmlNuevoElemento = `<li class = "tarea" >
+      const htmlNuevoElemento = `<li class = "tarea pendiente" >
       <div class="view">
         <input class="toggle" type="checkbox" />
         <label class = "nombre-tarea">${inputNuevaTarea}</label>
@@ -30,11 +31,13 @@ document.addEventListener("keyup", (event) => {
       validarListaTareas();
       listernerCheckboxComplete();
       listennerDobleClick();
+      contadorFooter();
     }
   }
 });
 //3 marcar tarea como completada al hacer click en el checkbox
 
 listernerCheckboxComplete();
-//Editar Label despues de dar doble click
+//4 Editar Label despues de dar doble click
 listennerDobleClick();
+contadorFooter();

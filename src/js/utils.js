@@ -23,6 +23,8 @@ export const listernerCheckboxComplete = () => {
     checkbox.addEventListener("click", () => {
       const checkboxPadre = checkbox.parentNode.parentNode;
       checkboxPadre.classList.toggle("completed");
+      checkboxPadre.classList.toggle("pendiente");
+      contadorFooter();
     });
   });
 };
@@ -55,4 +57,14 @@ export const listennerDobleClick = () => {
       });
     });
   });
+};
+//Agregar contador al footer
+
+export const contadorFooter = () => {
+  const tareasPendientes = document.querySelectorAll(".pendiente");
+  const numeroTareas = tareasPendientes.length;
+  const tareasFooter = document.querySelector(".todo-count");
+  tareasFooter.innerHTML = `<strong>${numeroTareas}</strong> ${
+    numeroTareas == 1 ? "item" : "items"
+  } left`;
 };
