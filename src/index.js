@@ -1,4 +1,5 @@
 import "./css/base.css";
+import { v4 as uuidv4 } from "uuid";
 import {
   validarListaTareas,
   listernerCheckboxComplete,
@@ -20,6 +21,15 @@ document.addEventListener("keyup", (event) => {
     inputNuevaTarea = inputNuevaTarea.trim();
     inputTarea.value = "";
     if (inputNuevaTarea.length > 0) {
+      const objetoTarea = {
+        id: uuidv4(),
+        title: inputNuevaTarea,
+        completed: false,
+      };
+      const keyTarea = localStorage.getItem("mydayapp-js") || "[]";
+      const storageTareas = JSON.parse(keyTarea);
+      storageTareas.push(objetoTarea);
+      localStorage.setItem("mydayapp-js", JSON.stringify(storageTareas));
       const htmlNuevoElemento = `<li class = "tarea pendiente" >
       <div class="view">
         <input class="toggle" type="checkbox" />
