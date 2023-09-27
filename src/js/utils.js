@@ -68,3 +68,16 @@ export const contadorFooter = () => {
     numeroTareas == 1 ? "item" : "items"
   } left`;
 };
+
+//Quitar tareas completas
+
+export const quitarTarea = () => {
+  const botonLimpiar = document.querySelector(".clear-completed");
+  botonLimpiar.addEventListener("click", () => {
+    const tareasCompletas = document.querySelectorAll(".completed");
+    tareasCompletas.forEach((tarea) => {
+      tarea.remove();
+      validarListaTareas();
+    });
+  });
+};

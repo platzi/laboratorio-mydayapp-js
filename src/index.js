@@ -4,6 +4,7 @@ import {
   listernerCheckboxComplete,
   listennerDobleClick,
   contadorFooter,
+  quitarTarea,
 } from "./js/utils";
 
 // import { sayHello } from "./js/utils";
@@ -32,6 +33,7 @@ document.addEventListener("keyup", (event) => {
       listernerCheckboxComplete();
       listennerDobleClick();
       contadorFooter();
+      quitarTarea();
     }
   }
 });
@@ -41,3 +43,5 @@ listernerCheckboxComplete();
 //4 Editar Label despues de dar doble click
 listennerDobleClick();
 contadorFooter();
+//5 Remover tareas completas
+quitarTarea();
