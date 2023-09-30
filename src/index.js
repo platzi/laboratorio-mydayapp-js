@@ -6,14 +6,16 @@ import {
   listennerDobleClick,
   contadorFooter,
   quitarTarea,
+  getTareas,
+  renderizarTarea,
 } from "./js/utils";
 
-// import { sayHello } from "./js/utils";
+//Llamar trae el objeto del local storage
+getTareas();
 //#1 Ocultar las secciones main y footer
 validarListaTareas();
 //2 agregar tarea nueva y dejarla en pendiente.
 const inputTarea = document.querySelector("#new-todo");
-const listaTareas = document.querySelector("#todo-list");
 
 document.addEventListener("keyup", (event) => {
   if (event.key === "Enter") {
@@ -30,20 +32,7 @@ document.addEventListener("keyup", (event) => {
       const storageTareas = JSON.parse(keyTarea);
       storageTareas.push(objetoTarea);
       localStorage.setItem("mydayapp-js", JSON.stringify(storageTareas));
-      const htmlNuevoElemento = `<li class = "tarea pendiente" >
-      <div class="view">
-        <input class="toggle" type="checkbox" />
-        <label class = "nombre-tarea">${inputNuevaTarea}</label>
-        <button class="destroy"></button>
-      </div>
-      <input class="edit" value="${inputNuevaTarea}" />
-    </li>`;
-      listaTareas.innerHTML = listaTareas.innerHTML + htmlNuevoElemento;
-      validarListaTareas();
-      listernerCheckboxComplete();
-      listennerDobleClick();
-      contadorFooter();
-      quitarTarea();
+      renderizarTarea(inputNuevaTarea);
     }
   }
 });

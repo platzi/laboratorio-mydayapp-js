@@ -81,3 +81,32 @@ export const quitarTarea = () => {
     });
   });
 };
+//Obtener tareas del storage//
+
+export const getTareas = () => {
+  const tareas = localStorage.getItem("mydayapp-js");
+  const objetoTareas = JSON.parse(tareas);
+  objetoTareas.forEach((tarea) => {
+    renderizarTarea(tarea.title, tarea.completed);
+  });
+};
+
+export const renderizarTarea = (inputNuevaTarea, completa) => {
+  const htmlNuevoElemento = `<li class = "tarea ${
+    completa ? "completed" : "pending"
+  }" >
+      <div class="view">
+        <input class="toggle" type="checkbox" ${completa ? "checked" : ""} />
+        <label class = "nombre-tarea">${inputNuevaTarea}</label>
+        <button class="destroy"></button>
+      </div>
+      <input class="edit" value="${inputNuevaTarea}" />
+    </li>`;
+  const listaTareas = document.querySelector("#todo-list");
+  listaTareas.innerHTML = listaTareas.innerHTML + htmlNuevoElemento;
+  validarListaTareas();
+  listernerCheckboxComplete();
+  listennerDobleClick();
+  contadorFooter();
+  quitarTarea();
+};
