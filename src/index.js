@@ -8,6 +8,7 @@ import {
   quitarTarea,
   getTareas,
   renderizarTarea,
+  eliminarTarea,
 } from "./js/utils";
 
 //Llamar trae el objeto del local storage
@@ -32,7 +33,7 @@ document.addEventListener("keyup", (event) => {
       const storageTareas = JSON.parse(keyTarea);
       storageTareas.push(objetoTarea);
       localStorage.setItem("mydayapp-js", JSON.stringify(storageTareas));
-      renderizarTarea(inputNuevaTarea);
+      renderizarTarea(inputNuevaTarea, false, objetoTarea.id);
     }
   }
 });
@@ -44,3 +45,4 @@ listennerDobleClick();
 contadorFooter();
 //5 Remover tareas completas
 quitarTarea();
+eliminarTarea();

@@ -87,14 +87,14 @@ export const getTareas = () => {
   const tareas = localStorage.getItem("mydayapp-js");
   const objetoTareas = JSON.parse(tareas);
   objetoTareas.forEach((tarea) => {
-    renderizarTarea(tarea.title, tarea.completed);
+    renderizarTarea(tarea.title, tarea.completed, tarea.id);
   });
 };
 
-export const renderizarTarea = (inputNuevaTarea, completa) => {
+export const renderizarTarea = (inputNuevaTarea, completa, idTarea) => {
   const htmlNuevoElemento = `<li class = "tarea ${
     completa ? "completed" : "pending"
-  }" >
+  }" id = "${idTarea}" >
       <div class="view">
         <input class="toggle" type="checkbox" ${completa ? "checked" : ""} />
         <label class = "nombre-tarea">${inputNuevaTarea}</label>
@@ -109,4 +109,22 @@ export const renderizarTarea = (inputNuevaTarea, completa) => {
   listennerDobleClick();
   contadorFooter();
   quitarTarea();
+  eliminarTarea();
+};
+//eliminar tarea//
+
+export const eliminarTarea = () => {
+  const botonesEliminar = document.querySelectorAll(".destroy");
+
+  botonesEliminar.forEach((boton) => {
+    boton.addEventListener("click", () => {
+      const selectorTarea = boton.parentNode.parentNode;
+      const tareaId = selectorTarea.id;
+      const tareaString = localStorage.getItem("mydayapp-js");
+      let tareasArray = JSON.parse(tareaString);
+      tareasArray = tareasArray.filter((tarea) => tarea.id !== tareaId);
+      localStorage.setItem("mydayapp-js", JSON.stringify(tareasArray));
+      selectorTarea.remove();
+    });
+  });
 };
