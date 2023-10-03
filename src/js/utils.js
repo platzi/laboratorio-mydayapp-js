@@ -24,6 +24,17 @@ export const listernerCheckboxComplete = () => {
       const checkboxPadre = checkbox.parentNode.parentNode;
       checkboxPadre.classList.toggle("completed");
       checkboxPadre.classList.toggle("pendiente");
+
+      const tareaId = checkboxPadre.id;
+      const tareaString = localStorage.getItem("mydayapp-js");
+      let tareasArray = JSON.parse(tareaString);
+      tareasArray = tareasArray.map((tarea) => {
+        if (tarea.id === tareaId) {
+          tarea.completed = !tarea.completed;
+        }
+        return tarea;
+      });
+      localStorage.setItem("mydayapp-js", JSON.stringify(tareasArray));
       contadorFooter();
     });
   });
@@ -84,7 +95,7 @@ export const quitarTarea = () => {
 //Obtener tareas del storage//
 
 export const getTareas = () => {
-  const tareas = localStorage.getItem("mydayapp-js");
+  const tareas = localStorage.getItem("mydayapp-js") || "[]";
   const objetoTareas = JSON.parse(tareas);
   objetoTareas.forEach((tarea) => {
     renderizarTarea(tarea.title, tarea.completed, tarea.id);
