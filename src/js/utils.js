@@ -22,20 +22,30 @@ export const listernerCheckboxComplete = () => {
   checkboxCompletedList.forEach((checkbox) => {
     checkbox.addEventListener("click", () => {
       const checkboxPadre = checkbox.parentNode.parentNode;
-      checkboxPadre.classList.toggle("completed");
-      checkboxPadre.classList.toggle("pendiente");
+      const valorCheckbox = checkbox.checked;
+      if (valorCheckbox === true) {
+        checkboxPadre.classList.remove("pendiente");
+        checkboxPadre.classList.add("completed");
+      } else {
+        checkboxPadre.classList.add("pendiente");
+        checkboxPadre.classList.remove("completed");
+      }
 
       const tareaId = checkboxPadre.id;
       const tareaString = localStorage.getItem("mydayapp-js");
       let tareasArray = JSON.parse(tareaString);
+      let contadorTareasPendientes = 0;
       tareasArray = tareasArray.map((tarea) => {
         if (tarea.id === tareaId) {
-          tarea.completed = !tarea.completed;
+          tarea.completed = valorCheckbox;
+        }
+        if (valorCheckbox === false) {
+          contadorTareasPendientes++;
         }
         return tarea;
       });
       localStorage.setItem("mydayapp-js", JSON.stringify(tareasArray));
-      contadorFooter();
+      contadorFooter(contadorTareasPendientes);
     });
   });
 };
@@ -71,9 +81,12 @@ export const listennerDobleClick = () => {
 };
 //Agregar contador al footer
 
-export const contadorFooter = () => {
-  const tareasPendientes = document.querySelectorAll(".pendiente");
-  const numeroTareas = tareasPendientes.length;
+export const contadorFooter = (numeroTareas) => {
+  const tareaString = localStorage.getItem("mydayapp-js");
+  console.log(numeroTareas);
+  let tareasArray = JSON.parse(tareaString);
+  tareasArray = tareasArray.filter((tarea) => tarea.completed === false);
+  numeroTareas = numeroTareas || tareasArray.length;
   const tareasFooter = document.querySelector(".todo-count");
   tareasFooter.innerHTML = `<strong>${numeroTareas}</strong> ${
     numeroTareas == 1 ? "item" : "items"
@@ -100,6 +113,7 @@ export const getTareas = () => {
   objetoTareas.forEach((tarea) => {
     renderizarTarea(tarea.title, tarea.completed, tarea.id);
   });
+  contadorFooter();
 };
 
 export const renderizarTarea = (inputNuevaTarea, completa, idTarea) => {
@@ -134,8 +148,10 @@ export const eliminarTarea = () => {
       const tareaString = localStorage.getItem("mydayapp-js");
       let tareasArray = JSON.parse(tareaString);
       tareasArray = tareasArray.filter((tarea) => tarea.id !== tareaId);
+      contadorFooter(tareasArray.length);
       localStorage.setItem("mydayapp-js", JSON.stringify(tareasArray));
       selectorTarea.remove();
+      validarListaTareas();
     });
   });
 };
