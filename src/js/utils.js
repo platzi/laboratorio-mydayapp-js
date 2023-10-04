@@ -1,3 +1,4 @@
+const TodosList = new Map();
 const list = document.querySelector('.todo-list');
 export const sayHello = (text) => {
   console.log(list.childElementCount);
@@ -12,30 +13,49 @@ function createTodo(){
       const word = event.target.value.trim();
       setTimeout(newTodo(word, false), 0)
       event.target.value = '';
-      console.log('object');
 
     }
     // console.log(event.key);
   })
 }
-function newTodo(tarea, status){
-const li = document.createElement('li');
+function newTodo(work, status = false){
+  return ()=>{
+    const li = document.createElement('li');
   const todo = `
-  <li class="${status ? 'completed' : ''}">
   <div class="view">
     <input class="toggle" type="checkbox"  />
-    <label>${tarea}</label>
+    <label>${work}</label>
     <button class="destroy"></button>
   </div>
   <input class="edit" value="Learn JavaScript"  />
-</li>
   `
-
+  if(status){
+    li.classList.add('completed')
+  }
   li.innerHTML = todo;
-  document.querySelector('label').addEventListener('click', ()=>{
-    alert('hola mundo');
+    TodosList.set(work, {
+      work: work,
+      status: status
+    })
+
+
+
+  console.log(TodosList);
+  list.appendChild(li);
+  document.querySelectorAll('.toggle').forEach(e => {
+    e.addEventListener('click', ()=>{
+      // e.classList
+      e.parentNode.parentNode.classList.toggle('completed')
+
+    });
+
   })
-  list.appendChild(li)
+  document.querySelectorAll('.destroy').forEach(dest => {
+    dest.addEventListener('click', ()=>{
+      dest.parentNode.parentNode.remove()
+    })
+  })
+  }
 }
 function withoutTodo(){
   if(list.childElementCount < 1){
@@ -45,8 +65,10 @@ function withoutTodo(){
 }
 
 export function main(){
+  const totalTodos = []
   createTodo()
   withoutTodo();
+
 
   // newTodo('Escribir poema', true);
   // newTodo('Hablar frances', false);
