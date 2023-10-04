@@ -5,6 +5,17 @@ export const sayHello = (text) => {
   return text;
 
 };
+function createStorageData(){
+  window.addEventListener('load', ()=>{
+    if(window.localStorage.key('mydayapp-js')){
+      const Todos = (JSON.parse(String(window.localStorage.getItem('mydayapp-js'))));
+      console.log(Todos);
+      Todos.forEach(todo => newTodo(todo.work));
+    }else{
+      console.log('without localstorage');
+    }
+  })
+}
 // Funcion que crea el todo
 function createTodo(){
   document.querySelector('.new-todo').addEventListener('keydown', (event)=>{
@@ -30,7 +41,7 @@ function newTodo(work, status = false){
   <input class="edit" value="Learn JavaScript"  />
   `
   if(status){
-    li.classList.add('completed')
+    li.classList.toggle('completed')
   }
   li.innerHTML = todo;
     TodosList.set(work, {
@@ -45,16 +56,24 @@ function newTodo(work, status = false){
   document.querySelectorAll('.toggle').forEach(e => {
     e.addEventListener('click', ()=>{
       // e.classList
-      e.parentNode.parentNode.classList.toggle('completed')
+      e.parentNode.parentNode.classList.toggle('completed');
+      status = !status;
 
     });
 
   })
   document.querySelectorAll('.destroy').forEach(dest => {
-    dest.addEventListener('click', ()=>{
+    dest.addEventListener('click', (event)=>{
+      TodosList.delete(event.target.parentNode.children[1].textContent)
       dest.parentNode.parentNode.remove()
+      console.log(TodosList);
+      window.localStorage.setItem('mydayapp-js', JSON.stringify(Array.from(TodosList.values())))
+
+      // console.log(event.target.parentNode.children[1].textContent);
     })
   })
+  window.localStorage.setItem('mydayapp-js', JSON.stringify(Array.from(TodosList.values())))
+
   }
 }
 function withoutTodo(){
@@ -64,8 +83,9 @@ function withoutTodo(){
   }
 }
 
+
 export function main(){
-  const totalTodos = []
+  createStorageData();
   createTodo()
   withoutTodo();
 
@@ -74,3 +94,4 @@ export function main(){
   // newTodo('Hablar frances', false);
 
 }
+
