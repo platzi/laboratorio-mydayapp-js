@@ -113,10 +113,20 @@ export const quitarTarea = () => {
 //Obtener tareas del storage//
 
 export const getTareas = () => {
+  const urlActual = window.location.href;
+  const partirUrl = urlActual.split("#");
+  const filtro = partirUrl[1];
   const tareas = localStorage.getItem("mydayapp-js") || "[]";
   const objetoTareas = JSON.parse(tareas);
   objetoTareas.forEach((tarea) => {
-    renderizarTarea(tarea.title, tarea.completed, tarea.id);
+    if (
+      (filtro === "/completed" && tarea.completed === true) ||
+      (filtro === "/pending" && tarea.completed === false) ||
+      filtro === "/all" ||
+      !filtro
+    ) {
+      renderizarTarea(tarea.title, tarea.completed, tarea.id);
+    }
   });
   contadorFooter();
 };
