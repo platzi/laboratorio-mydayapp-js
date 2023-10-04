@@ -83,7 +83,6 @@ export const listennerDobleClick = () => {
 
 export const contadorFooter = (numeroTareas) => {
   const tareaString = localStorage.getItem("mydayapp-js");
-  console.log(numeroTareas);
   let tareasArray = JSON.parse(tareaString);
   tareasArray = tareasArray.filter((tarea) => tarea.completed === false);
   numeroTareas = numeroTareas || tareasArray.length;
@@ -103,6 +102,12 @@ export const quitarTarea = () => {
       tarea.remove();
       validarListaTareas();
     });
+    const tareaString = localStorage.getItem("mydayapp-js");
+    let tareasArray = JSON.parse(tareaString);
+    tareasArray = tareasArray.filter((tarea) => tarea.completed === false);
+    const numeroTareas = tareasArray.length;
+    localStorage.setItem("mydayapp-js", JSON.stringify(tareasArray));
+    contadorFooter(numeroTareas);
   });
 };
 //Obtener tareas del storage//
