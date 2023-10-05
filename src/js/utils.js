@@ -116,7 +116,11 @@ export const getTareas = () => {
   const urlActual = window.location.href;
   const partirUrl = urlActual.split("#");
   const filtro = partirUrl[1];
-  const tareas = localStorage.getItem("mydayapp-js") || "[]";
+  let tareas = localStorage.getItem("mydayapp-js");
+  if (tareas === null) {
+    tareas = "[]";
+    localStorage.setItem("mydayapp-js", tareas);
+  }
   const objetoTareas = JSON.parse(tareas);
   objetoTareas.forEach((tarea) => {
     if (

@@ -11,6 +11,9 @@ import {
   eliminarTarea,
 } from "./js/utils";
 
+window.addEventListener("hashchange", () => {
+  location.reload();
+});
 //Llamar trae el objeto del local storage
 getTareas();
 //#1 Ocultar las secciones main y footer
