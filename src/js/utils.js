@@ -45,6 +45,7 @@ export const listernerCheckboxComplete = () => {
         return tarea;
       });
       localStorage.setItem("mydayapp-js", JSON.stringify(tareasArray));
+      ocultarMostrar(tareasArray);
       contadorFooter(contadorTareasPendientes);
     });
   });
@@ -107,6 +108,7 @@ export const quitarTarea = () => {
     tareasArray = tareasArray.filter((tarea) => tarea.completed === false);
     const numeroTareas = tareasArray.length;
     localStorage.setItem("mydayapp-js", JSON.stringify(tareasArray));
+    ocultarMostrar(tareasArray);
     contadorFooter(numeroTareas);
   });
 };
@@ -132,6 +134,7 @@ export const getTareas = () => {
       renderizarTarea(tarea.title, tarea.completed, tarea.id);
     }
   });
+  ocultarMostrar(objetoTareas);
   contadorFooter();
 };
 
@@ -139,13 +142,13 @@ export const renderizarTarea = (inputNuevaTarea, completa, idTarea) => {
   const htmlNuevoElemento = `<li class = "tarea ${
     completa ? "completed" : "pending"
   }" id = "${idTarea}" >
-      <div class="view">
-        <input class="toggle" type="checkbox" ${completa ? "checked" : ""} />
-        <label class = "nombre-tarea">${inputNuevaTarea}</label>
-        <button class="destroy"></button>
-      </div>
-      <input class="edit" value="${inputNuevaTarea}" />
-    </li>`;
+  <div class="view">
+  <input class="toggle" type="checkbox" ${completa ? "checked" : ""} />
+  <label class = "nombre-tarea">${inputNuevaTarea}</label>
+  <button class="destroy"></button>
+  </div>
+  <input class="edit" value="${inputNuevaTarea}" />
+  </li>`;
   const listaTareas = document.querySelector("#todo-list");
   listaTareas.innerHTML = listaTareas.innerHTML + htmlNuevoElemento;
   validarListaTareas();
@@ -173,4 +176,17 @@ export const eliminarTarea = () => {
       validarListaTareas();
     });
   });
+};
+//Mostrar u ocultar boton "Clear completed"//
+
+export const ocultarMostrar = (listaTareas) => {
+  const hayTareasCompletas = listaTareas.some((tarea) => {
+    return tarea.completed === true;
+  });
+  const botonCompleted = document.querySelector(".clear-completed");
+  if (hayTareasCompletas === true) {
+    botonCompleted.classList.remove("inactive");
+  } else {
+    botonCompleted.classList.add("inactive");
+  }
 };
