@@ -134,6 +134,14 @@ export const getTareas = () => {
       renderizarTarea(tarea.title, tarea.completed, tarea.id);
     }
   });
+  let filtroId = "#filtro-all";
+  if (filtro === "/completed") {
+    filtroId = "#filtro-completed";
+  } else if (filtro === "/pending") {
+    filtroId = "#filtro-pending";
+  }
+  const filtroSelector = document.querySelector(filtroId);
+  filtroSelector.classList.add("selected");
   ocultarMostrar(objetoTareas);
   contadorFooter();
 };
