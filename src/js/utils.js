@@ -24,10 +24,8 @@ export const listernerCheckboxComplete = () => {
       const checkboxPadre = checkbox.parentNode.parentNode;
       const valorCheckbox = checkbox.checked;
       if (valorCheckbox === true) {
-        checkboxPadre.classList.remove("pendiente");
         checkboxPadre.classList.add("completed");
       } else {
-        checkboxPadre.classList.add("pendiente");
         checkboxPadre.classList.remove("completed");
       }
 
@@ -55,10 +53,11 @@ export const listennerDobleClick = () => {
   const editTareaList = document.querySelectorAll(".nombre-tarea");
   editTareaList.forEach((tarea) => {
     const contenedorTarea = tarea.parentNode.parentNode;
+    const tareaId = contenedorTarea.id;
     const edicion = contenedorTarea.querySelector(".edit");
     const valorOriginal = edicion.value;
     tarea.addEventListener("dblclick", () => {
-      contenedorTarea.classList.toggle("editing");
+      contenedorTarea.classList.add("editing");
       const end = edicion.value.length;
       edicion.setSelectionRange(end, end);
       edicion.focus();
@@ -70,6 +69,15 @@ export const listennerDobleClick = () => {
           if (tareaEditada.length > 0) {
             tarea.innerText = tareaEditada;
             contenedorTarea.classList.remove("editing");
+            const tareaString = localStorage.getItem("mydayapp-js");
+            let tareasArray = JSON.parse(tareaString);
+            tareasArray = tareasArray.map((tarea) => {
+              if (tarea.id === tareaId) {
+                tarea.title = tareaEditada;
+              }
+              return tarea;
+            });
+            localStorage.setItem("mydayapp-js", JSON.stringify(tareasArray));
           }
         } else if (event.key === "Escape") {
           //al presionar "Escape" sale del modo edición y se retorna el valor original//
@@ -147,8 +155,8 @@ export const getTareas = () => {
 };
 
 export const renderizarTarea = (inputNuevaTarea, completa, idTarea) => {
-  const htmlNuevoElemento = `<li class = "tarea ${
-    completa ? "completed" : "pending"
+  const htmlNuevoElemento = `<li class = "${
+    completa ? "completed" : ""
   }" id = "${idTarea}" >
   <div class="view">
   <input class="toggle" type="checkbox" ${completa ? "checked" : ""} />

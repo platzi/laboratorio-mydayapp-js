@@ -8,7 +8,9 @@
     "start": "http-server ./dist -p 8080",
     "dev": "webpack-dev-server --mode development --open",
     "build": "webpack",
-    "e2e": "npm run build && playwright test --ui",
+    "e2e": "npm run build && playwright test",
+    "e2e:ui": "npm run build && playwright test --ui",
+
     "e2e:install": "playwright install",
     "format": "prettier ./src -w",
     "lint": "eslint ./src"
