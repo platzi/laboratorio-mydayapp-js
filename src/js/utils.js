@@ -1,5 +1,4 @@
 // @ts-check
-import { listElement} from "./list-element";
 const TodosList = new Map();
 const list = document.querySelector('.todo-list');
 export const sayHello = (text) => {
@@ -12,12 +11,9 @@ function createStorageData(){
   window.addEventListener('load', ()=>{
     if(window.localStorage.getItem('mydayapp-js')){
       const todo = (JSON.parse(String(window.localStorage.getItem('mydayapp-js'))));
-      console.log('todo' + {todo});
       let content = ``;
       const ul = document.querySelector('.todo-list');
-      console.log(todo.length);
       console.log(todo);
-      console.log(content);
       todo.forEach(di => {
         TodosList.set(di.work, di);
         content +=  `
@@ -27,7 +23,7 @@ function createStorageData(){
           <label>${di.work}</label>
           <button class="destroy"></button>
         </div>
-        <input class="edit" value="Learn JavaScript" />
+        <input class="edit" value="${di.work}" />
       </li>
         `
       })
@@ -36,6 +32,9 @@ function createStorageData(){
       ul.innerHTML = content;
       createEvents();
       withoutTodo();
+      for(let li of ul?.children){
+        editingWork(li);
+      }
     }else{
       console.log('without localstorage');
     }
@@ -63,7 +62,7 @@ function newTodo(work, status = false){
     <label>${work}</label>
     <button class="destroy"></button>
   </div>
-  <input class="edit" value="Learn JavaScript"  />
+  <input class="edit" value="${work}"  />
   `
   if(status){
     li.classList.toggle('completed')
@@ -77,9 +76,10 @@ function newTodo(work, status = false){
 
   console.log(TodosList);
   list.appendChild(li);
-  createEvents();
+  createEvents({work: work, status: status});
   withoutTodo();
-  window.localStorage.setItem('mydayapp-js', JSON.stringify(Array.from(TodosList.values())))
+  editingWork(li)
+  uploadStorage();
 
   }
 }
@@ -95,12 +95,17 @@ function withoutTodo(){
 
   }
 }
-function createEvents(){
+function createEvents(obj){
   document.querySelectorAll('.toggle').forEach(e => {
     e.addEventListener('click', ()=>{
       // e.classList
-      if(e.parentNode?.parentNode)
+      if(e.parentNode?.parentNode){
       e.parentNode.parentNode.classList.toggle('completed');
+      obj.status = !obj.status;
+      TodosList.set(obj.work, obj);
+      console.log(TodosList);
+      uploadStorage()
+      }
 
     });
 
@@ -110,7 +115,7 @@ function createEvents(){
       TodosList.delete(event.target.parentNode.children[1].textContent)
       dest.parentNode.parentNode.remove()
       console.log(TodosList);
-      window.localStorage.setItem('mydayapp-js', JSON.stringify(Array.from(TodosList.values())))
+      uploadStorage()
       withoutTodo();
 
       // console.log(event.target.parentNode.children[1].textContent);
@@ -123,18 +128,72 @@ function clearboton(){
     document.querySelectorAll('.completed').forEach(event => {
       TodosList.delete(event.children[0].children[1].textContent);
       event.remove()
-      window.localStorage.setItem('mydayapp-js', JSON.stringify(Array.from(TodosList.values())))
+      uploadStorage()
 
 
       withoutTodo();
     })
   })
 }
+function editingWork(element){
+  element.children[0].addEventListener('dblclick', (event)=>{
+    event.target.parentNode.parentNode.classList.add('editing');
+
+  })
+  element.children[1].addEventListener('keydown', (event)=>{
+    if(event.key == 'Enter'){
+
+      TodosList.set(element.children[1].value.trim(), {
+        work: element.children[1].value.trim(),
+      })
+      element.children[0].children[1].textContent = element.children[1].value.trim();
+      element.classList.remove('editing');
+      uploadStorage();
+    }
+  })
+}
+function routes(){
+  document.querySelector('.filters > li a[href="#/pending"]')?.addEventListener('click', (event)=>{
+    event.stopPropagation();
+    for(let chill of document.querySelectorAll('.todo-list li')){
+      if(chill.classList.contains('completed')){
+        chill.classList.add('hidden');
+      }
+      if(!chill.classList.contains('completed') &&  chill.classList.contains('hidden')){
+        chill.classList.remove('hidden');
+
+      }
+    }
+
+  })
+  document.querySelector('.filters > li a[href="#/completed"]')?.addEventListener('click', (event)=>{
+    event.stopPropagation();
+    for(let chill of document.querySelectorAll('.todo-list li')){
+      if(!chill.classList.contains('completed')){
+        chill.classList.add('hidden');
+      }
+      if(chill.classList.contains('completed') && chill.classList.contains('hidden')){
+        chill.classList.remove('hidden');
+
+      }
+    }
+  })
+  document.querySelector('.filters > li a[href="#/"]')?.addEventListener('click', (event)=>{
+    event.stopPropagation();
+    for(let list of document.querySelectorAll('.todo-list li') ){
+      if(list.classList.contains('hidden')) list.classList.remove('hidden');
+    }
+  })
+}
+function uploadStorage(){
+  window.localStorage.setItem('mydayapp-js', JSON.stringify(Array.from(TodosList.values())))
+}
 export function main(){
   createStorageData();
   createTodo();
   withoutTodo();
   clearboton();
+  routes();
 
   // newTodo('Escribir poema', true);
   // newTodo('Hablar frances', false);
