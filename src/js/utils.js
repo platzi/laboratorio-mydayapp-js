@@ -102,7 +102,7 @@ function createEvents(obj){
       if(e.parentNode?.parentNode){
       e.parentNode.parentNode.classList.toggle('completed');
       obj.status = !obj.status;
-      TodosList.set(obj.work, obj);
+      TodosList.set(obj.work,obj);
       console.log(TodosList);
       uploadStorage()
       }
@@ -168,12 +168,12 @@ function routes(){
   })
   document.querySelector('.filters > li a[href="#/completed"]')?.addEventListener('click', (event)=>{
     event.stopPropagation();
-    for(let chill of document.querySelectorAll('.todo-list li')){
-      if(!chill.classList.contains('completed')){
-        chill.classList.add('hidden');
+    for(let list of document.querySelectorAll('.todo-list li')){
+      if(!list.classList.contains('completed')){
+        list.classList.add('hidden');
       }
-      if(chill.classList.contains('completed') && chill.classList.contains('hidden')){
-        chill.classList.remove('hidden');
+      if(list.classList.contains('completed') && list.classList.contains('hidden')){
+        list.classList.remove('hidden');
 
       }
     }
