@@ -1,4 +1,5 @@
 // @ts-check
+import { listElement} from "./list-element";
 const TodosList = new Map();
 const list = document.querySelector('.todo-list');
 export const sayHello = (text) => {
@@ -83,7 +84,8 @@ function newTodo(work, status = false){
   }
 }
 function withoutTodo(){
-  console.log('size' + TodosList.size);
+  document.querySelector('.todo-count').children[0].textContent = TodosList.size
+
   if(TodosList.size <= 0){
     document.querySelector('.main')?.classList.add('hidden');
     document.querySelector('.footer')?.classList.add('hidden');
@@ -116,12 +118,23 @@ function createEvents(){
   })
 
 }
+function clearboton(){
+  document.querySelector('.clear-completed')?.addEventListener('click', ()=>{
+    document.querySelectorAll('.completed').forEach(event => {
+      TodosList.delete(event.children[0].children[1].textContent);
+      event.remove()
+      window.localStorage.setItem('mydayapp-js', JSON.stringify(Array.from(TodosList.values())))
 
+
+      withoutTodo();
+    })
+  })
+}
 export function main(){
   createStorageData();
-  createTodo()
+  createTodo();
   withoutTodo();
-
+  clearboton();
 
   // newTodo('Escribir poema', true);
   // newTodo('Hablar frances', false);
