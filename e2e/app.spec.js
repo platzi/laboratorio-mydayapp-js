@@ -226,7 +226,7 @@ test.describe("Persistence", () => {
     await expect(todoItems).toHaveClass(["completed", ""]);
 
     // Ensure there is 1 completed item.
-    checkNumberOfCompletedTodosInLocalStorage(page, 1);
+    await checkNumberOfCompletedTodosInLocalStorage(page, 1);
 
     // Now reload.
     await page.reload();
