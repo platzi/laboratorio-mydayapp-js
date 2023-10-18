@@ -11,6 +11,7 @@ const todoList = document.getElementsByClassName("todo-list")[0];
 const inputText = document.getElementsByClassName("new-todo")[0];
 inputText.autofocus = true;
 const todoCount = document.getElementsByClassName("todo-count")[0];
+const clearButton = document.getElementsByClassName("clear-completed")[0];
 
 // Read the local storage
 const arrayTasks = loadStorage();
@@ -52,6 +53,13 @@ function keydownDispacher(event) {
     default:
       break;
   }
+}
+
+// Clear button event listener:
+clearButton.addEventListener("click", clearCompletedTasks);
+function clearCompletedTasks() {
+  taskList.clearCompletedTask();
+  updateApplication();
 }
 
 // Update the application state:
