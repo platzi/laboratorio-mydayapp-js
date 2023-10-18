@@ -10,6 +10,7 @@ const footer = document.getElementById("footer");
 const todoList = document.getElementsByClassName("todo-list")[0];
 const inputText = document.getElementsByClassName("new-todo")[0];
 inputText.autofocus = true;
+const todoCount = document.getElementsByClassName("todo-count")[0];
 
 // Read the local storage
 const arrayTasks = loadStorage();
@@ -33,7 +34,10 @@ function keydownDispacher(event) {
           taskList.addTask(task);
         }
       }
-      if (selectedTask.childNodes[1] === document.activeElement) {
+      if (
+        selectedTask &&
+        selectedTask.childNodes[1] === document.activeElement
+      ) {
         let taskId = taskList.getTaskById(selectedTask.id);
         let newValue = selectedTask.childNodes[1].value.trim();
         taskId.setTitle(newValue);
@@ -60,9 +64,15 @@ const updateApplication = () => {
   } else {
     main.removeAttribute("hidden", true);
     footer.removeAttribute("hidden", true);
+
     // Render task list:
     renderTaskList(tasks, todoList, updateApplication);
   }
+  // update the pending task:
+  const pendingTasks = taskList.getPendingTasks().length;
+  todoCount.childNodes[0].innerText = pendingTasks;
+  let textItem = pendingTasks == 1 ? " item left" : " items left";
+  todoCount.childNodes[1].textContent = textItem;
 };
 
 updateApplication();
