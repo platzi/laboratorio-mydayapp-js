@@ -1,14 +1,15 @@
 export let selectedTask;
 
-export const renderTaskList = (tasks, todoList, updateView) => {
+export const renderTaskList = (taskList, todoList, updateView) => {
   todoList.innerHTML = "";
+  const tasks = taskList.getAllTasks();
   tasks.forEach((task) => {
-    todoList.appendChild(createTask(task, updateView));
+    todoList.appendChild(createTask(task, taskList, updateView));
   });
 };
 
 // Create the tasks into the list:
-const createTask = (task, updateView) => {
+const createTask = (task, taskList, updateView) => {
   const taskItem = document.createElement("li");
   const divLi = document.createElement("div");
   const inputDiv = document.createElement("input");
@@ -36,6 +37,10 @@ const createTask = (task, updateView) => {
     selectedTask.childNodes[1].focus();
   });
   buttonDiv.className = "destroy";
+  buttonDiv.addEventListener("click", () => {
+    taskList.deleteTask(task.id);
+    updateView();
+  });
 
   divLi.appendChild(inputDiv);
   divLi.appendChild(labelDiv);

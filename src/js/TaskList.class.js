@@ -1,7 +1,7 @@
 export default class TaskList {
   constructor(arrayTasks = []) {
     this._taskList = [];
-    if (arrayTasks.length > 1) arrayTasks.map((task) => this.addTask(task));
+    if (arrayTasks.length >= 1) arrayTasks.map((task) => this.addTask(task));
   }
   addTask(task) {
     this._taskList.push(task);

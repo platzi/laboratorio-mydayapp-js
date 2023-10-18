@@ -12,13 +12,13 @@ export const saveStorage = (arrayTasks) => {
     );
     tasksInfo = JSON.stringify(tasksInfo);
   }
-  localStorage.setItem("TASKS", tasksInfo);
+  localStorage.setItem("mydayapp-js", tasksInfo);
 };
 
 export const loadStorage = () => {
   let tasksInfo = [];
   try {
-    let data = localStorage.getItem("TASKS");
+    let data = localStorage.getItem("mydayapp-js");
     let parsedTask = data ? JSON.parse(data) : [];
     if (parsedTask.length > 0) {
       parsedTask.forEach((task) => {

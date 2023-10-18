@@ -13,7 +13,7 @@ inputText.autofocus = true;
 const todoCount = document.getElementsByClassName("todo-count")[0];
 const clearButton = document.getElementsByClassName("clear-completed")[0];
 
-// Read the local storage
+// Load the local storage:
 const arrayTasks = loadStorage();
 const taskList = new TaskList(arrayTasks);
 
@@ -44,7 +44,6 @@ function keydownDispacher(event) {
         taskId.setTitle(newValue);
         selectedTask.removeAttribute("class");
       }
-      // saveStorage(taskList.getAllTasks());
       updateApplication();
       break;
     case "Escape":
@@ -64,9 +63,9 @@ function clearCompletedTasks() {
 
 // Update the application state:
 const updateApplication = () => {
-  const tasks = taskList.getAllTasks();
   //Ask if there are task in the list:
-  if (!(tasks.length > 0)) {
+  console.log(taskList);
+  if (!(taskList.getAllTasks().length > 0)) {
     main.setAttribute("hidden", true);
     footer.setAttribute("hidden", true);
   } else {
@@ -74,13 +73,16 @@ const updateApplication = () => {
     footer.removeAttribute("hidden", true);
 
     // Render task list:
-    renderTaskList(tasks, todoList, updateApplication);
+    renderTaskList(taskList, todoList, updateApplication);
   }
   // update the pending task:
   const pendingTasks = taskList.getPendingTasks().length;
   todoCount.childNodes[0].innerText = pendingTasks;
   let textItem = pendingTasks == 1 ? " item left" : " items left";
   todoCount.childNodes[1].textContent = textItem;
+
+  // Save data in local storage:
+  saveStorage(taskList.getAllTasks());
 };
 
 updateApplication();
