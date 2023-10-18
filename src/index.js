@@ -2,6 +2,7 @@ import "./css/base.css";
 import Task from "./js/Task.class";
 import TaskList from "./js/TaskList.class";
 import { loadStorage, saveStorage } from "./js/store";
+import { renderTaskList } from "./js/utils";
 
 // Get elements from DOM:
 const main = document.getElementById("main");
@@ -42,43 +43,18 @@ function keydownDispacher(event) {
 
 // Update the application state:
 const updateApplication = () => {
+  const tasks = taskList.getAllTasks();
   //Ask if there are task in the list:
-  if (!(taskList.getAllTasks().length > 0)) {
+  if (!(tasks.length > 0)) {
     main.setAttribute("hidden", true);
     footer.setAttribute("hidden", true);
   } else {
     main.removeAttribute("hidden", true);
     footer.removeAttribute("hidden", true);
-    renderTask(taskList.getAllTasks()[0]);
+    // Render task list:
+    renderTaskList(tasks, todoList, updateApplication);
   }
 };
-
-// Render the tasks into the list:
-function renderTask(task) {
-  const li = document.createElement("li");
-  const divLi = document.createElement("div");
-  const inputDiv = document.createElement("input");
-  const labelDiv = document.createElement("label");
-  const buttonDiv = document.createElement("button");
-  const inputLi = document.createElement("input");
-
-  if (task.completed) li.className = "completed";
-  divLi.className = "view";
-  inputDiv.className = "toggle";
-  inputDiv.type = "checkbox";
-  if (task.completed) inputDiv.setAttribute("checked", true);
-  labelDiv.innerText = task.title;
-  buttonDiv.className = "destroy";
-  divLi.appendChild(inputDiv);
-  divLi.appendChild(labelDiv);
-  divLi.appendChild(buttonDiv);
-  inputLi.className = "edit";
-  inputLi.value = "Buy a unicorn";
-  li.appendChild(divLi);
-  li.appendChild(inputLi);
-  todoList.append(li);
-}
-
 
 updateApplication();
 
@@ -86,7 +62,6 @@ updateApplication();
 // console.log(taskList.getPendingTasks());
 // console.log(taskList.getCompletedTasks());
 
-// console.log(taskList.getAllTasks());
 //taskList.clearCompletedTask();
 //console.log(taskList.getAllTasks());
 // saveStorage(taskList.getAllTasks());
