@@ -1,3 +1,5 @@
+export let selectedTask;
+
 export const renderTaskList = (tasks, todoList, updateView) => {
   todoList.innerHTML = "";
   tasks.forEach((task) => {
@@ -28,8 +30,10 @@ const createTask = (task, updateView) => {
   });
   labelDiv.innerText = task.title;
   labelDiv.addEventListener("dblclick", () => {
-    let ref = document.getElementById(task.id);
-    ref.className = "editing";
+    if (selectedTask) selectedTask.removeAttribute("class");
+    selectedTask = document.getElementById(task.id);
+    selectedTask.className = "editing";
+    selectedTask.childNodes[1].focus();
   });
   buttonDiv.className = "destroy";
 

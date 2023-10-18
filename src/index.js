@@ -2,14 +2,13 @@ import "./css/base.css";
 import Task from "./js/Task.class";
 import TaskList from "./js/TaskList.class";
 import { loadStorage, saveStorage } from "./js/store";
-import { renderTaskList } from "./js/utils";
+import { renderTaskList, selectedTask } from "./js/utils";
 
 // Get elements from DOM:
 const main = document.getElementById("main");
 const footer = document.getElementById("footer");
 const todoList = document.getElementsByClassName("todo-list")[0];
 const inputText = document.getElementsByClassName("new-todo")[0];
-console.log(inputText);
 inputText.autofocus = true;
 
 // Read the local storage
@@ -19,6 +18,7 @@ const taskList = new TaskList(arrayTasks);
 // Events listener:
 window.addEventListener("keydown", keydownDispacher);
 function keydownDispacher(event) {
+  //console.log(event.code);
   switch (event.code) {
     case "Enter":
     case "NumpadEnter":
@@ -32,9 +32,18 @@ function keydownDispacher(event) {
           inputText.value = "";
           taskList.addTask(task);
         }
-        // saveStorage(taskList.getAllTasks());
-        updateApplication();
       }
+      if (selectedTask.childNodes[1] === document.activeElement) {
+        let taskId = taskList.getTaskById(selectedTask.id);
+        let newValue = selectedTask.childNodes[1].value.trim();
+        taskId.setTitle(newValue);
+        selectedTask.removeAttribute("class");
+      }
+      // saveStorage(taskList.getAllTasks());
+      updateApplication();
+      break;
+    case "Escape":
+      if (selectedTask) selectedTask.removeAttribute("class");
       break;
     default:
       break;

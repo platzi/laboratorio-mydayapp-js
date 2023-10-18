@@ -7,4 +7,7 @@ export default class Task {
   toggleState() {
     this.completed = !this.completed;
   }
+  setTitle(title) {
+    this.title = title;
+  }
 }

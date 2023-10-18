@@ -12,6 +12,9 @@ export default class TaskList {
   clearCompletedTask() {
     this._taskList = this._taskList.filter((task) => !task.completed);
   }
+  getTaskById(id) {
+    return this._taskList.filter((task) => task.id == id)[0];
+  }
   getNextID() {
     return String(this._taskList.length + 1);
   }
