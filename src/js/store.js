@@ -1,4 +1,4 @@
-import Task from "./Task.class";
+import { Task } from "./utils";
 
 export const saveStorage = (arrayTasks) => {
   let tasksInfo = [];

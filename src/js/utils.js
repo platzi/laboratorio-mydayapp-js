@@ -132,4 +132,11 @@ const addHtmlTask = (task, updateView) => {
   return taskItem;
 };
 
-export { todoList, createNewTask, updateTask, cancelActions, addHtmlTask };
+export {
+  Task,
+  todoList,
+  createNewTask,
+  updateTask,
+  cancelActions,
+  addHtmlTask,
+};
