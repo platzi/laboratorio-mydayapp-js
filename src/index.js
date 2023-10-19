@@ -22,6 +22,35 @@ const filterButtons = document
 // Load the local storage and set the initial state:
 inputText.autofocus = true;
 todoList.addTaskList(loadStorage());
+// change URL listener:
+let tasksURL;
+let prevUrl = undefined;
+setInterval(() => {
+  const URLhash = window.location.hash;
+  if (URLhash != prevUrl) {
+    // URL changed
+    prevUrl = URLhash;
+    switch (URLhash) {
+      case "#/":
+        tasksURL = todoList.getAllTasks();
+        filterButtons[0].click();
+        break;
+      case "#/pending":
+        tasksURL = todoList.getPendingTasks();
+        filterButtons[1].click();
+        break;
+      case "#/completed":
+        tasksURL = todoList.getCompletedTasks();
+        filterButtons[2].click();
+        break;
+      default:
+        tasksURL = todoList.getAllTasks();
+        filterButtons[0].click();
+        break;
+    }
+    updateApplication();
+  }
+}, 60);
 
 // Update the application state:
 const updateApplication = () => {
@@ -33,27 +62,9 @@ const updateApplication = () => {
     main.removeAttribute("hidden", true);
     footer.removeAttribute("hidden", true);
 
-    // Get the Url of the page:
-    const URLhash = window.location.hash;
-    let tasks;
-    switch (URLhash) {
-      case "#/":
-        tasks = todoList.getAllTasks();
-        break;
-      case "#/pending":
-        tasks = todoList.getPendingTasks();
-        break;
-      case "#/completed":
-        tasks = todoList.getCompletedTasks();
-        break;
-      default:
-        tasks = todoList.getAllTasks();
-        break;
-    }
-
     // Render task list:
     todoDOM.innerHTML = "";
-    tasks.forEach((task) => {
+    tasksURL.forEach((task) => {
       todoDOM.appendChild(addHtmlTask(task, updateApplication));
     });
   }
@@ -72,12 +83,6 @@ const updateApplication = () => {
   // Save data in local storage:
   saveStorage(todoList.getAllTasks());
 };
-
-updateApplication();
-
-// console.log(taskList.getFilteredTasks("HaCeR"));
-// console.log(taskList.getPendingTasks());
-// console.log(taskList.getCompletedTasks());
 
 // --- Events listener:
 // Actions key pressed:
@@ -104,7 +109,6 @@ for (const btn of filterButtons) {
       btn2.classList.remove("selected");
     }
     btn.classList.add("selected");
-    setTimeout(() => updateApplication(), 100);
   });
 }
 
@@ -112,5 +116,5 @@ for (const btn of filterButtons) {
 clearButton.addEventListener("click", clearCompletedTasks);
 function clearCompletedTasks() {
   todoList.clearCompletedTask();
-  updateApplication();
+  prevUrl = undefined;
 }
