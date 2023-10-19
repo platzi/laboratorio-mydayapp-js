@@ -1,15 +1,93 @@
-export let selectedTask;
+class Task {
+  constructor({ id, title, completed = false }) {
+    this.id = id;
+    this.title = title;
+    this.completed = completed;
+  }
+  setId(id) {
+    this.id = String(id);
+  }
+  setTitle(title) {
+    this.title = title;
+  }
+  toggleState() {
+    this.completed = !this.completed;
+  }
+}
+class TaskList {
+  constructor() {
+    this._taskList = [];
+  }
+  addTask(task) {
+    task.setId(this._taskList.length);
+    this._taskList.push(task);
+  }
+  addTaskList(arrayTasks = []) {
+    this._taskList = [];
+    if (arrayTasks.length >= 1) {
+      arrayTasks.forEach((task, index) => {
+        task.setId(index);
+        this.addTask(task);
+      });
+    }
+  }
+  deleteTask(id) {
+    let newArrayTasks = this._taskList.filter((task) => task.id != id);
+    this.addTaskList(newArrayTasks);
+  }
+  clearCompletedTask() {
+    let newArrayTasks = this._taskList.filter((task) => !task.completed);
+    this.addTaskList(newArrayTasks);
+  }
+  getTaskById(id) {
+    return this._taskList.filter((task) => task.id == id)[0];
+  }
+  getAllTasks() {
+    return this._taskList;
+  }
+  getPendingTasks() {
+    return this._taskList.filter((task) => !task.completed);
+  }
+  getCompletedTasks() {
+    return this._taskList.filter((task) => task.completed);
+  }
+  getFilteredTasks(title) {
+    let filteredTask = this._taskList.filter((task) => {
+      let taskTitle = task.title.toUpperCase();
+      return taskTitle.includes(title.toUpperCase());
+    });
+    return filteredTask;
+  }
+}
+const todoList = new TaskList();
+let selectedTask;
 
-export const renderTaskList = (taskList, todoList, updateView) => {
-  todoList.innerHTML = "";
-  const tasks = taskList.getAllTasks();
-  tasks.forEach((task) => {
-    todoList.appendChild(createTask(task, taskList, updateView));
-  });
+const createNewTask = (inputText) => {
+  let data = inputText.value.trim();
+  if (data.length > 2) {
+    const task = new Task({
+      title: data,
+    });
+    inputText.value = "";
+    todoList.addTask(task);
+  }
+};
+
+const updateTask = () => {
+  if (selectedTask && selectedTask.childNodes[1] === document.activeElement) {
+    let taskId = todoList.getTaskById(selectedTask.id);
+    let newValue = selectedTask.childNodes[1].value.trim();
+    taskId.setTitle(newValue);
+    selectedTask.removeAttribute("class");
+  }
+};
+
+const cancelActions = () => {
+  if (selectedTask) selectedTask.removeAttribute("class");
 };
 
 // Create the tasks into the list:
-const createTask = (task, taskList, updateView) => {
+const addHtmlTask = (task, updateView) => {
   const taskItem = document.createElement("li");
   const divLi = document.createElement("div");
   const inputDiv = document.createElement("input");
@@ -38,7 +116,7 @@ const createTask = (task, taskList, updateView) => {
   });
   buttonDiv.className = "destroy";
   buttonDiv.addEventListener("click", () => {
-    taskList.deleteTask(task.id);
+    todoList.deleteTask(task.id);
     updateView();
   });
 
@@ -53,3 +131,5 @@ const createTask = (task, taskList, updateView) => {
 
   return taskItem;
 };
+
+export { todoList, createNewTask, updateTask, cancelActions, addHtmlTask };
