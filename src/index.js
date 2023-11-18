@@ -1,7 +1,7 @@
 import "./css/base.css";
-import { fetchTodos, addTodo, editTodo, toggleCompleteTodo, deleteTodo } from "./js/utils";
+import { fetch, add, edit, toggleComplete, remove } from "./js/storage";
 
-function renderTodo(todo) {
+function renderTodo(todo, todos) {
   let li_todo = document.createElement("li");
   let todo_view = document.createElement("div");
   let todo_input = document.createElement("input");
@@ -32,16 +32,22 @@ function renderTodo(todo) {
 
   todo_input.addEventListener("click", ()=>{
     li_todo.classList.toggle("completed");
-    toggleCompleteTodo(API, todo.id);
+    toggleComplete(localStorageKey, todo.id);
     if(todo.completed === false) updateCounter(-1);
     else updateCounter(1);
     todo.completed = !todo.completed;
+
+    let todoIndex = todos.findIndex((todo)=>todo.id === todo.id);
+    todo[todoIndex].completed = !todo[todoIndex].completed;
   });
 
   todo_button.addEventListener("click", async ()=>{
-    await deleteTodo(API, todo.id);
+    await remove(localStorageKey, todo.id);
     document.querySelector(".todo-list").removeChild(li_todo);
     if(todo.completed === false) updateCounter(-1);
+
+    let todoIndex = todos.findIndex((todo)=>todo.id === todo.id);
+    todos.splice(todoIndex, 1);
   });
 
   todo_label.addEventListener("click", ()=>{
@@ -54,9 +60,12 @@ function renderTodo(todo) {
   edit_todo_input.addEventListener("keydown", (e)=>{
     if(e.key === "Enter") {
       if(e.target.value.trim() !== "") {
+        let todoIndex = todos.findIndex((todo)=>todo.id === todo.id);
+        todo[todoIndex].title = e.target.value.trim();
+
         todo_label.innerText = e.target.value.trim();
         edit_todo_input.style.display = "none";
-        editTodo(API, todo.id, e.target.value.trim());
+        edit(localStorageKey, todo.id, e.target.value.trim());
         li_todo.classList.remove("editing");
     };
     }
@@ -78,9 +87,11 @@ async function createNewTodo(e, todos) {
     };
 
     renderTodo(todo, todos);
-    await addTodo(API, todo);
+    await add(localStorageKey, todo);
     updateCounter(1);
     e.target.value = "";
+
+    todos.push(todo);
   }
 }
 
@@ -91,10 +102,10 @@ function updateCounter(num) {
 }
 
 async function main() {
-  let todos = await fetchTodos(API);
+  let todos = await fetch(localStorageKey);
 
   todos.forEach(todo => {
-    renderTodo(todo);
+    renderTodo(todo, todos);
     if(todo.completed === false) updateCounter(1);
   });
 
@@ -105,7 +116,7 @@ async function main() {
   });
 }
 
-const API = "mydayapp-js";
+const localStorageKey = "mydayapp-js";
 let counter = 0;
 
 main();
