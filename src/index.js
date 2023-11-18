@@ -1,52 +1,7 @@
 import "./css/base.css";
+import { fetchTodos, addTodo, editTodo, toggleCompleteTodo, deleteTodo } from "./js/utils";
 
-async function fetchTodos(API) {
-  let todos = localStorage.getItem(API);
-  if(todos !== null) {
-    return JSON.parse(todos);
-  }
-  localStorage.setItem(API, '[]');
-  return [];
-}
-
-async function addTodo(API, todo) {
-  let todos = localStorage.getItem(API);
-  todos = JSON.parse(todos);
-  todos.push(todo);
-  localStorage.setItem(API, JSON.stringify(todos));
-}
-
-async function deleteTodo(API, todoid) {
-  let todos = localStorage.getItem(API);
-  todos = JSON.parse(todos);
-  let todoIndex = todos.findIndex((todo)=>todo.id == todoid);
-  if (todoIndex !== -1) {
-    todos.splice(todoIndex, 1);
-    localStorage.setItem(API, JSON.stringify(todos));
-  }
-}
-
-async function toggleCompleteTodo(API, todoid) {
-  let todos = localStorage.getItem(API);
-  todos = JSON.parse(todos);
-  let todoIndex = todos.findIndex((todo)=>todo.id === todoid);
-  if (todoIndex !== -1) {
-    todos[todoIndex].completed = !todos[todoIndex].completed;
-    localStorage.setItem(API, JSON.stringify(todos));
-  }
-}
-
-async function editTodo(API, todoid, text) {
-  let todos = localStorage.getItem(API);
-  todos = JSON.parse(todos);
-  let todoIndex = todos.findIndex((todo)=>todo.id === todoid);
-  if (todoIndex !== -1) {
-    todos[todoIndex].title = text;
-    localStorage.setItem(API, JSON.stringify(todos));
-  }
-}
-
-function renderTodo(todo) {
+async function renderTodo(todo) {
   let li_todo = document.createElement('li');
   let todo_view = document.createElement('div');
   let todo_input = document.createElement('input');
@@ -68,6 +23,8 @@ function renderTodo(todo) {
 
   edit_todo_input.classList.add('edit');
 
+  todo_view.classList.add('view');
+
   todo_view.append(todo_input, todo_label, todo_button);
   li_todo.append(todo_view, edit_todo_input);
 
@@ -84,22 +41,24 @@ function renderTodo(todo) {
   });
 
   todo_label.addEventListener('click', ()=>{
-    todo_view.style.display = 'none';
     edit_todo_input.style.display = 'block';
     edit_todo_input.value = todo_label.innerText;
     edit_todo_input.focus();
+    li_todo.classList.add('editing');
   });
 
   edit_todo_input.addEventListener('keydown', (e)=>{
     if(e.key === 'Enter') {
-      if(e.target.value.trim() !== '') todo_label.innerText = e.target.value;
-      edit_todo_input.style.display = 'none';
-      todo_view.style.display = 'block';
-      editTodo(API, todo.id, e.target.value);
+      if(e.target.value.trim() !== '') {
+        todo_label.innerText = e.target.value.trim();
+        edit_todo_input.style.display = 'none';
+        editTodo(API, todo.id, e.target.value.trim());
+        li_todo.classList.remove('editing');
+    };
     }
     else if(e.key === 'Escape') {
       edit_todo_input.style.display = 'none';
-      todo_view.style.display = 'block';
+      li_todo.classList.remove('editing');
     }
   })
 }
@@ -107,16 +66,16 @@ function renderTodo(todo) {
 async function main() {
   let todos = await fetchTodos(API);
 
-  todos.forEach(todo => {
-    renderTodo(todo);
+  todos.forEach(async todo => {
+    await renderTodo(todo);
   });
 
-  document.querySelector('.new-todo').addEventListener('keydown', (e)=>{
+  document.querySelector('.new-todo').addEventListener('keydown', async (e)=>{
     if(e.key === 'Enter'){
       if(e.target.value.trim() !== ''){
         let todo = {id:todos[todos.length-1].id + 1, title:e.target.value, completed: false};
         renderTodo(todo);
-        addTodo(API, todo);
+        await addTodo(API, todo);
         e.target.value = '';
       }
     }
