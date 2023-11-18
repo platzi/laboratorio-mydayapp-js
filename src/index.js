@@ -83,8 +83,8 @@ async function createNewTodo(e, todos) {
 
 function updateCounter(num) {
   counter += num;
-  if(counter <= 1) document.querySelector(".todo-count").innerText = `${counter} item left`;
-  else document.querySelector(".todo-count").innerText = `${counter} items left`
+  if(counter === 1) document.querySelector(".todo-count").innerHTML = `<strong>${counter}</strong> item left`;
+  else document.querySelector(".todo-count").innerHTML = `<strong>${counter}</strong> items left`
 }
 
 async function main() {
