@@ -1,9 +1,9 @@
 async function fetchTodos(API) {
-  let todos = await localStorage.getItem(API);
+  let todos = localStorage.getItem(API);
   if(todos !== null) {
     return JSON.parse(todos);
   }
-  await localStorage.setItem(API, '[]');
+  localStorage.setItem(API, "[]");
   return [];
 }
 
