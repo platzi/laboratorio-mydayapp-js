@@ -1,7 +1,7 @@
 import "./css/base.css";
 import { fetchTodos, addTodo, editTodo, toggleCompleteTodo, deleteTodo } from "./js/utils";
 
-function renderTodo(todo, counter) {
+function renderTodo(todo) {
   let li_todo = document.createElement("li");
   let todo_view = document.createElement("div");
   let todo_input = document.createElement("input");
@@ -33,12 +33,15 @@ function renderTodo(todo, counter) {
   todo_input.addEventListener("click", ()=>{
     li_todo.classList.toggle("completed");
     toggleCompleteTodo(API, todo.id);
+    if(todo.completed === false) updateCounter(-1);
+    else updateCounter(1);
+    todo.completed = !todo.completed;
   });
 
   todo_button.addEventListener("click", async ()=>{
     await deleteTodo(API, todo.id);
     document.querySelector(".todo-list").removeChild(li_todo);
-    updateCounter(-1, counter);
+    if(todo.completed === false) updateCounter(-1);
   });
 
   todo_label.addEventListener("click", ()=>{
@@ -74,7 +77,7 @@ async function createNewTodo(e, todos) {
       completed: false
     };
 
-    renderTodo(todo);
+    renderTodo(todo, todos);
     await addTodo(API, todo);
     updateCounter(1);
     e.target.value = "";
@@ -84,15 +87,15 @@ async function createNewTodo(e, todos) {
 function updateCounter(num) {
   counter += num;
   if(counter === 1) document.querySelector(".todo-count").innerHTML = `<strong>${counter}</strong> item left`;
-  else document.querySelector(".todo-count").innerHTML = `<strong>${counter}</strong> items left`
+  else document.querySelector(".todo-count").innerHTML = `<strong>${counter}</strong> items left`;
 }
 
 async function main() {
   let todos = await fetchTodos(API);
-  counter = todos.length;
 
   todos.forEach(todo => {
     renderTodo(todo);
+    if(todo.completed === false) updateCounter(1);
   });
 
   document.querySelector(".new-todo").addEventListener("keydown", async (e)=>{
@@ -100,10 +103,9 @@ async function main() {
       await createNewTodo(e, todos);
     }
   });
-  updateCounter(0)
 }
 
 const API = "mydayapp-js";
-let counter;
+let counter = 0;
 
 main();
