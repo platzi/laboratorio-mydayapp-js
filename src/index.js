@@ -76,6 +76,7 @@ async function createNewTodo(e, todos) {
 
     renderTodo(todo);
     await addTodo(API, todo);
+    updateCounter(1);
     e.target.value = "";
   }
 }
@@ -97,7 +98,6 @@ async function main() {
   document.querySelector(".new-todo").addEventListener("keydown", async (e)=>{
     if(e.key === 'Enter'){
       await createNewTodo(e, todos);
-      updateCounter(1);
     }
   });
   updateCounter(0)
