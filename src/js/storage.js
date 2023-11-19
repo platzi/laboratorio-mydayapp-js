@@ -18,7 +18,7 @@ function add(localStorageKey, todo) {
 function remove(localStorageKey, todoid) {
   let todos = localStorage.getItem(localStorageKey);
   todos = JSON.parse(todos);
-  let todoIndex = todos.findIndex((todo)=>todo.id == todoid);
+  let todoIndex = todos.findIndex((todo)=>todo.id === todoid);
   if (todoIndex !== -1) {
     todos.splice(todoIndex, 1);
     localStorage.setItem(localStorageKey, JSON.stringify(todos));

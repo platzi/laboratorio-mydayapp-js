@@ -13,13 +13,43 @@ function getRoute() {
 
 function render(todos) {
 
+  if(todos.some((todo)=>todo.completed)) document.querySelector('.clear-completed').style.display = 'block';
+  else document.querySelector('.clear-completed').style.display = 'none';
+  
+  if(todos.length === 0) {
+    document.querySelector('.main').style.display = 'none';
+    document.querySelector('.footer').style.display = 'none';
+    return;
+  } else {
+    document.querySelector('.main').style.display = 'block';
+    document.querySelector('.footer').style.display = 'block';
+  }
+
   let list = document.querySelector('.todo-list');
   let route = getRoute();
 
   while(list.hasChildNodes()) list.removeChild(list.lastChild);
+  
+  updateCounter(todos.filter((todo)=>!todo.completed).length);
+  
+  if(route === '/') {
+    document.querySelector("a[href='#/pending']").classList.remove('selected');
+    document.querySelector("a[href='#/']").classList.add('selected');
+    document.querySelector("a[href='#/completed']").classList.remove('selected');
+  }
+  else if(route === '/pending') {
+    todos = todos.filter((todo)=>!todo.completed);
+    document.querySelector("a[href='#/pending']").classList.add('selected');
+    document.querySelector("a[href='#/']").classList.remove('selected');
+    document.querySelector("a[href='#/completed']").classList.remove('selected');
+  }
+  else if(route === '/completed') {
+    todos = todos.filter((todo)=>todo.completed);
+    document.querySelector("a[href='#/pending']").classList.remove('selected');
+    document.querySelector("a[href='#/']").classList.remove('selected');
+    document.querySelector("a[href='#/completed']").classList.add('selected');
+  }
 
-  if(route === '/pending') todos = todos.filter((todo)=>!todo.completed);
-  else if(route === '/completed') todos = todos.filter((todo)=>todo.completed);
 
   todos.forEach((todo)=>{
     let liTodo = document.createElement("li");
@@ -63,7 +93,7 @@ function render(todos) {
       }
     });
 
-    title.addEventListener("click", ()=>{
+    title.addEventListener("dblclick", ()=>{
       editInput.style.display = "block";
       editInput.value = title.innerText;
       editInput.focus();
@@ -73,8 +103,6 @@ function render(todos) {
     list.appendChild(liTodo);
     
   });
-
-  updateCounter(todos.filter((todo)=>!todo.completed).length);
 }
 
 function updateCounter(count) {
@@ -90,11 +118,6 @@ function main() {
 
   render(todos);
   
-  window.addEventListener("storage", () => {
-    todos = fetch(localStorageKey);
-    render(todos);
-  });
-
   createTodoInput.addEventListener("keydown", (e)=>{
     if(e.key === "Enter") {
         if(e.target.value.trim() !== "") { 
@@ -102,13 +125,27 @@ function main() {
           todos = fetch(localStorageKey);
           id = todos.length > 0 ? todos[todos.length-1].id + 1 : 0;
           add(localStorageKey, {id, title: e.target.value.trim(), completed: false });
+          e.target.value = '';
         }
     }
   });
 
+  window.addEventListener("storage", () => {
+    todos = fetch(localStorageKey);
+    render(todos);
+  });
+
+
   window.addEventListener('hashchange', (e)=>{
     todos = fetch(localStorageKey);
     render(todos);
+  });
+
+  document.querySelector('.clear-completed').addEventListener('click', ()=>{
+    todos = fetch(localStorageKey);
+    todos.forEach(todo=>{
+      if(todo.completed) remove(localStorageKey, todo.id);
+    })
   });
 }
 
