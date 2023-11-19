@@ -1,73 +1,87 @@
 import "./css/base.css";
 import { fetch, add, edit, toggleComplete, remove } from "./js/storage";
 
+function getRoute() {
+  let re = /(?<=#)\/.*$/g;
+  let url = window.location.hash
+  let route;
+  if(window.location.hash === '') route = '/';
+  else route = url.slice(re.exec(url).index, url.length);
+
+  return route;
+}
+
 function render(todos) {
 
   let list = document.querySelector('.todo-list');
-  while(list.hasChildNodes()) {
-    list.removeChild(list.lastChild);
-  }
+  let route = getRoute();
+
+  while(list.hasChildNodes()) list.removeChild(list.lastChild);
+
+  if(route === '/pending') todos = todos.filter((todo)=>!todo.completed);
+  else if(route === '/completed') todos = todos.filter((todo)=>todo.completed);
 
   todos.forEach((todo)=>{
-    let li_todo = document.createElement("li");
-    let todo_view = document.createElement("div");
-    let todo_input = document.createElement("input");
-    let todo_label = document.createElement("label"); 
-    let todo_button = document.createElement("button");
-    let edit_todo_input = document.createElement("input");
+    let liTodo = document.createElement("li");
+    let view = document.createElement("div");
+    let completeButton = document.createElement("input");
+    let title = document.createElement("label"); 
+    let destroyButton = document.createElement("button");
+    let editInput = document.createElement("input");
   
-    todo_input.type = "checkbox";
-    todo_input.classList.add("toggle");
+    completeButton.type = "checkbox";
+    completeButton.classList.add("toggle");
   
-    todo_label.innerText = todo.title;
+    title.innerText = todo.title;
   
     if(todo.completed) {
-      li_todo.classList.add("completed");
-      todo_input.checked = true;
+      liTodo.classList.add("completed");
+      completeButton.checked = true;
     };
   
-    todo_button.classList.add("destroy");
+    destroyButton.classList.add("destroy");
   
-    edit_todo_input.classList.add("edit");
+    editInput.classList.add("edit");
   
-    todo_view.classList.add("view");
+    view.classList.add("view");
   
-    todo_view.append(todo_input, todo_label, todo_button);
-    li_todo.append(todo_view, edit_todo_input);
+    view.append(completeButton, title, destroyButton);
+    liTodo.append(view, editInput);
   
   
-    todo_input.addEventListener("click", ()=>toggleComplete(localStorageKey, todo.id));
+    completeButton.addEventListener("click", ()=> toggleComplete(localStorageKey, todo.id));
   
-    todo_button.addEventListener("click", ()=> remove(localStorageKey, todo.id));
+    destroyButton.addEventListener("click", ()=> remove(localStorageKey, todo.id));
   
-    edit_todo_input.addEventListener("keydown", (e)=>{
+    editInput.addEventListener("keydown", (e)=>{
       if(e.key === "Enter") {
-        if(e.target.value.trim() !== "") {
-          edit(localStorageKey, todo.id, e.target.value.trim());
-      };
+        if(e.target.value.trim() !== "") edit(localStorageKey, todo.id, e.target.value.trim());
       }
       else if(e.key === "Escape") {
-        edit_todo_input.style.display = "none";
-        li_todo.classList.remove("editing");
+        editInput.style.display = "none";
+        liTodo.classList.remove("editing");
       }
     });
 
-    todo_label.addEventListener("click", ()=>{
-      edit_todo_input.style.display = "block";
-      edit_todo_input.value = todo_label.innerText;
-      edit_todo_input.focus();
-      li_todo.classList.add("editing");
+    title.addEventListener("click", ()=>{
+      editInput.style.display = "block";
+      editInput.value = title.innerText;
+      editInput.focus();
+      liTodo.classList.add("editing");
     });
   
-    list.appendChild(li_todo);
+    list.appendChild(liTodo);
     
   });
+
   updateCounter(todos.filter((todo)=>!todo.completed).length);
 }
 
 function updateCounter(count) {
-  if(count === 1) document.querySelector(".todo-count").innerHTML = `<strong>${count}</strong> item left`;
-  else document.querySelector(".todo-count").innerHTML = `<strong>${count}</strong> items left`;
+  let todoCount = document.querySelector(".todo-count");
+
+  if(count === 1) todoCount.innerHTML = `<strong>${count}</strong> item left`;
+  else todoCount.innerHTML = `<strong>${count}</strong> items left`;
 }
 
 function main() {
@@ -75,22 +89,27 @@ function main() {
   let createTodoInput = document.querySelector(".new-todo");
 
   render(todos);
-
+  
   window.addEventListener("storage", () => {
     todos = fetch(localStorageKey);
     render(todos);
   });
 
   createTodoInput.addEventListener("keydown", (e)=>{
-      if(e.key === "Enter") {
-          if(e.target.value.trim() !== "") { 
+    if(e.key === "Enter") {
+        if(e.target.value.trim() !== "") { 
           let id;
           todos = fetch(localStorageKey);
           id = todos.length > 0 ? todos[todos.length-1].id + 1 : 0;
           add(localStorageKey, {id, title: e.target.value.trim(), completed: false });
         }
-      }
-    });
+    }
+  });
+
+  window.addEventListener('hashchange', (e)=>{
+    todos = fetch(localStorageKey);
+    render(todos);
+  });
 }
 
 const localStorageKey = "mydayapp-js";
