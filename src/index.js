@@ -1,57 +1,30 @@
 import "./css/base.css";
 import { fetch, add, edit, toggleComplete, remove } from "./js/storage";
+import { showMain, showFooter, showClearCompleted, showCounter, filterTodos } from "./js/render";
 
 function getRoute() {
   let re = /(?<=#)\/.*$/g;
   let url = window.location.hash
   let route;
-  if(window.location.hash === '') route = '/';
+  if(window.location.hash === "") route = "/";
   else route = url.slice(re.exec(url).index, url.length);
 
   return route;
 }
 
 function render(todos) {
-
-  if(todos.some((todo)=>todo.completed)) document.querySelector('.clear-completed').style.display = 'block';
-  else document.querySelector('.clear-completed').style.display = 'none';
   
-  if(todos.length === 0) {
-    document.querySelector('.main').style.display = 'none';
-    document.querySelector('.footer').style.display = 'none';
-    return;
-  } else {
-    document.querySelector('.main').style.display = 'block';
-    document.querySelector('.footer').style.display = 'block';
-  }
-
-  let list = document.querySelector('.todo-list');
+  let list = document.querySelector(".todo-list");
   let route = getRoute();
 
+  showMain(todos.length === 0 ? "none" : "block");
+  showFooter(todos.length === 0 ? "none" : "block");
+  showClearCompleted(todos.some(todo=>todo.completed) ? "block" : "none");
+  showCounter(todos.filter((todo)=>!todo.completed).length);
+
   while(list.hasChildNodes()) list.removeChild(list.lastChild);
-  
-  updateCounter(todos.filter((todo)=>!todo.completed).length);
-  
-  if(route === '/') {
-    document.querySelector("a[href='#/pending']").classList.remove('selected');
-    document.querySelector("a[href='#/']").classList.add('selected');
-    document.querySelector("a[href='#/completed']").classList.remove('selected');
-  }
-  else if(route === '/pending') {
-    todos = todos.filter((todo)=>!todo.completed);
-    document.querySelector("a[href='#/pending']").classList.add('selected');
-    document.querySelector("a[href='#/']").classList.remove('selected');
-    document.querySelector("a[href='#/completed']").classList.remove('selected');
-  }
-  else if(route === '/completed') {
-    todos = todos.filter((todo)=>todo.completed);
-    document.querySelector("a[href='#/pending']").classList.remove('selected');
-    document.querySelector("a[href='#/']").classList.remove('selected');
-    document.querySelector("a[href='#/completed']").classList.add('selected');
-  }
 
-
-  todos.forEach((todo)=>{
+  filterTodos(todos, route).forEach((todo)=>{
     let liTodo = document.createElement("li");
     let view = document.createElement("div");
     let completeButton = document.createElement("input");
@@ -105,16 +78,12 @@ function render(todos) {
   });
 }
 
-function updateCounter(count) {
-  let todoCount = document.querySelector(".todo-count");
 
-  if(count === 1) todoCount.innerHTML = `<strong>${count}</strong> item left`;
-  else todoCount.innerHTML = `<strong>${count}</strong> items left`;
-}
 
 function main() {
   let todos = fetch(localStorageKey);
   let createTodoInput = document.querySelector(".new-todo");
+  let clearCompleted = document.querySelector(".clear-completed");
 
   render(todos);
   
@@ -125,7 +94,7 @@ function main() {
           todos = fetch(localStorageKey);
           id = todos.length > 0 ? todos[todos.length-1].id + 1 : 0;
           add(localStorageKey, {id, title: e.target.value.trim(), completed: false });
-          e.target.value = '';
+          e.target.value = "";
         }
     }
   });
@@ -136,16 +105,14 @@ function main() {
   });
 
 
-  window.addEventListener('hashchange', (e)=>{
+  window.addEventListener("hashchange", (e)=>{
     todos = fetch(localStorageKey);
     render(todos);
   });
 
-  document.querySelector('.clear-completed').addEventListener('click', ()=>{
+  clearCompleted.addEventListener("click", ()=>{
     todos = fetch(localStorageKey);
-    todos.forEach(todo=>{
-      if(todo.completed) remove(localStorageKey, todo.id);
-    })
+    todos.forEach(todo => todo.completed ? remove(localStorageKey, todo.id) : false);
   });
 }
 
