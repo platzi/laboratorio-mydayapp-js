@@ -1,5 +1,10 @@
 import "./css/base.css";
+import { newTodo } from "./js/nodes.js";
 
-import { sayHello } from "./js/utils";
+import { loadState, refreshList, addTodoItems, selectFilter } from "./js/utils.js";
 
-console.log(sayHello("Hello"));
+loadState();
+refreshList();
+
+newTodo.addEventListener('change', addTodoItems);
+window.addEventListener('hashchange', selectFilter, false);
