@@ -1,5 +1,18 @@
 import "./css/base.css";
+import {
+  addEventToToDoInput,
+  addHashListenerToDocument,
+  addCompletedCleanerListenerToButton,
+} from "./js/eventsAssigner";
+import { routeTo } from "./js/routes";
+import { ToDos } from "./js/models/toDos";
 
-import { sayHello } from "./js/utils";
+const TODOS = new ToDos();
+TODOS.loadAll();
 
-console.log(sayHello("Hello"));
+addHashListenerToDocument(TODOS);
+addCompletedCleanerListenerToButton(TODOS);
+addEventToToDoInput(TODOS);
+
+const newHash = new URL(document.URL).hash;
+routeTo(newHash, TODOS);
