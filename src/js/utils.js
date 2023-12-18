@@ -19,4 +19,5 @@ const handleNewToDoInput = (event, toDos) => {
   if (title == '') return;
   
   createTodo(title, toDos);
+  event.target.value = '';
 }

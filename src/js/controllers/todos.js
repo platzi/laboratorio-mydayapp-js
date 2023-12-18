@@ -1,14 +1,16 @@
-import * as todoList from '../views/todoList';
+import * as view from '../views/todoList';
+import { COMPLETED_FILTER } from '../models/todo'
 
 export const index = (filter, toDos) => {
   toDos.loadAll();
   toDos.filterBy(filter);
-  console.log(filter)
 
-  console.log(toDos)
-  todoList.renderNewList(toDos.filteredToDos);
+  view.renderNewList(toDos.filteredToDos);
 }
 
 export const create = (title, toDos) => {
-  toDos.addTodo(title);
+  const toDo = toDos.addTodo(title);
+  if (toDos.filter === COMPLETED_FILTER) return;
+
+  view.renderAppendList(toDo);
 }

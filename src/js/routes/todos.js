@@ -4,7 +4,6 @@ import { ALL_FILTER, COMPLETED_FILTER, PENDING_FILTER } from '../models/todo';
 const KNOWN_HASHES = { filters: [ALL_FILTER, COMPLETED_FILTER, PENDING_FILTER] }
 
 export const routeTo = (hash, toDos) => {
-  console.log(toDos)
   if (hash == '' || KNOWN_HASHES.filters.includes(hash)){
     controller.index(hash, toDos);
 

@@ -33,8 +33,11 @@ export class ToDos {
   }
 
   addTodo(title) {
+    const toDo = new ToDo(title)
+
     this.toDos.push(new ToDo(title));
     storage.writeAllToDos(this.toDos);
+    return toDo;
   }
 }
 

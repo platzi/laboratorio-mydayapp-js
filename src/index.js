@@ -6,7 +6,6 @@ import { ToDos } from './js/models/todo';
 const TODOS = new ToDos();
 TODOS.loadAll();
 
-console.log(TODOS)
 addHashListenerToDocument(TODOS);
 addEventToToDoInput(TODOS);
 
