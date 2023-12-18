@@ -18,7 +18,7 @@ export const writeAllToDos = (toDos) => {
   const toDosToAdd = toDos.map(toDo => (
     {
       id: toDo.id,
-      title: toDo.description,
+      title: toDo.title,
       completed: toDo.completed
     }
   ));

@@ -1,4 +1,4 @@
-import { listenHashChange } from "./routes/todos";
+import { listenHashChange, createTodo } from "./routes/todos";
 
 const INPUT_TODO_TEXT_BOX = "new_todo_description";
 
@@ -18,6 +18,5 @@ const handleNewToDoInput = (event, toDos) => {
   if (event.key != 'Enter') return;
   if (title == '') return;
   
-  toDos.addTodo(title);
-  console.log(title);
+  createTodo(title, toDos);
 }
