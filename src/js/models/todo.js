@@ -32,6 +32,13 @@ export class ToDos {
     this.filteredToDos = this.toDos;
   }
 
+  destroyById(id) {
+    this.toDos = this.toDos.filter(todo => todo.id !== id);
+    storage.writeAllToDos(this.toDos);
+
+    this.filterBy(this.filter);
+  }
+
   addTodo(title) {
     const toDo = new ToDo(title)
 
