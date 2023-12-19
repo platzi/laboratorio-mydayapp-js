@@ -30,15 +30,5 @@ function renderSections() {
                 <input class="edit" value="Learn JavaScript" />
             </li>`
         ))
-
-        const renderCount = () => {
-            if (getTasks().length !== 1) {
-                return `<strong>${getTasks().length}</strong> items left`
-            } else {
-                return `<strong>${getTasks().length}</strong> item left`
-            }
-        }
-
-        todoCount.innerHTML = renderCount()
     }
 }
