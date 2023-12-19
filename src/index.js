@@ -32,3 +32,22 @@ function renderSections() {
         ))
     }
 }
+
+function addTask() {
+    const mainInput = document.querySelector(".new-todo");
+
+    mainInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+            const task = {
+                id: `${getTasks().length + 1}`,
+                title: (e.target.value).trim(),
+                completed: false
+            }
+            setTask(task)
+            e.target.value = "";
+            renderSections()
+        }
+    })
+}
+
+addTask()
