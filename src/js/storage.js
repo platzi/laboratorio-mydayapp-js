@@ -10,7 +10,7 @@ export function setTask(task) {
 }
 
 export function removeTask(task) {
-    const data = localStorage.getItem('mydayapp-js');
+    const data = JSON.parse(localStorage.getItem('mydayapp-js'));
     const itemRemoved = data.filter((item) => item.id !== task.id);
     localStorage.setItem('mydayapp-js', JSON.stringify(itemRemoved));
 }
