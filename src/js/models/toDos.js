@@ -1,5 +1,5 @@
 import * as storage from "../storage.js";
-import { ToDo } from "./rodo.js";
+import { ToDo } from "./toDo.js";
 
 export const ALL_FILTER = "#/all";
 export const COMPLETED_FILTER = "#/completed";
