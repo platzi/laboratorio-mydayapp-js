@@ -2,19 +2,17 @@ import "./css/base.css";
 import { getTasks, setTask, removeTask } from "./js/storage";
 import { itemChage, numbersItemsLeft } from "./js/utils";
 
-
 const todoList = document.querySelector(".todo-list");
 const footer = document.querySelector(".footer");
 const todoCount = document.querySelector(".todo-count");
+const clearCompleted = document.querySelector(".clear-completed");
 const load = document.querySelector("body").onload = renderSections();
 
-function renderCount() {
-    if (getTasks().length !== 1) {
-        return `<strong>${numbersItemsLeft()}</strong> items left`
-    } else {
-        return `<strong>${numbersItemsLeft()}</strong> item left`
-    }
-}
+clearCompleted.addEventListener("click", () => {
+    const itemsCompleted = getTasks().filter((item) => item.completed === true)
+    itemsCompleted.forEach((item) => removeTask(item))
+    renderSections()
+})
 
 function renderSections() {
     todoList.innerHTML = ""
@@ -33,11 +31,16 @@ function renderSections() {
                     <label>${task.title}</label>
                     <button class="destroy"></button>
                 </div>
-                <input class="edit" value="${task.title}"/>
+                <input class="edit ${task.id}" value="${task.title}"/>
             </li>`
         ))
 
-        todoCount.innerHTML = renderCount()
+        clearCompleted.innerHTML = getTasks().filter((item) => item.completed === true).length > 0 ? "Clear completed" : ""
+
+        completedTask()
+        editTask()
+
+        todoCount.innerHTML = `${numbersItemsLeft() === 1 ? `<strong>${numbersItemsLeft()}</strong> item left` : `<strong>${numbersItemsLeft()}</strong> items left`}`
     }
 }
 
@@ -56,34 +59,47 @@ function addTask() {
             renderSections()
         }
     })
-
-    todoCount.innerHTML = renderCount()
 }
 
 function completedTask() {
     const toggle = document.querySelectorAll(".toggle");
     toggle.forEach((item) => {
         item.addEventListener("click", (e) => {
-            if (e.target.checked) {
-                itemChage(e.target, true)
-                todoCount.innerHTML = renderCount()
-            } else {
-                itemChage(e.target, false);
-                todoCount.innerHTML = renderCount()
-            }
+            itemChage(e.target, e.target.checked)
+            renderSections()
         })
     })
 }
 
-function editedTask() {
-    const edit = document.querySelectorAll(".view label");
-    edit.forEach((item) => {
+function editTask() {
+    const labels = document.querySelectorAll("label");
+    labels.forEach(item => {
         item.addEventListener("dblclick", (e) => {
-            e.target.parentElement.parentElement.classList.add("editing")
+            e.target.parentElement.parentElement.classList.add("editing");
+            const edit = e.target.parentElement.nextElementSibling;
+            edit.focus()
+            edit.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") {
+                    const itemEdited = getTasks().find((item) => {
+                        if (item.id === e.target.classList[1]) {
+                            item.title = (e.target.value).trim()
+                            item.completed = false
+                            removeTask(item)
+                            return item
+                        }
+                    })
+                    setTask(itemEdited)
+                    renderSections()
+                    // completedTask()
+                } else if (e.key === " ") {
+                    //Leave editing mode
+                    renderSections()
+                }
+            })
         })
     })
 }
 
 addTask()
 completedTask()
-editedTask()
+editTask()
