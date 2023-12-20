@@ -6,25 +6,27 @@ const todoList = document.querySelector(".todo-list");
 const footer = document.querySelector(".footer");
 const todoCount = document.querySelector(".todo-count");
 const clearCompleted = document.querySelector(".clear-completed");
-const load = document.querySelector("body").onload = renderSections();
+const load = document.querySelector("body").onload = renderSections(getTasks());
+
+window.addEventListener("hashchange", locationHashNavigator, false)
 
 clearCompleted.addEventListener("click", () => {
     const itemsCompleted = getTasks().filter((item) => item.completed === true)
     itemsCompleted.forEach((item) => removeTask(item))
-    renderSections()
+    renderSections(getTasks())
 })
 
-function renderSections() {
+function renderSections(taskList) {
     todoList.innerHTML = ""
 
-    if (getTasks().length === 0) {
+    if (getTasks()?.length === 0) {
         todoList.classList.add("hidden");
         footer.classList.add("hidden");
     } else {
         todoList.classList.remove("hidden");
         footer.classList.remove("hidden");
 
-        todoList.innerHTML += getTasks().map((task) => (
+        todoList.innerHTML += taskList?.map((task) => (
             `<li ${task.completed ? 'class="completed"' : ""}>
                 <div class="view">
                     <input class="toggle ${task.id}" type="checkbox" ${task.completed ? "checked" : ""}/>
@@ -35,12 +37,12 @@ function renderSections() {
             </li>`
         ))
 
-        clearCompleted.innerHTML = getTasks().filter((item) => item.completed === true).length > 0 ? "Clear completed" : ""
+        clearCompleted.innerHTML = taskList?.filter((item) => item.completed === true).length > 0 ? "Clear completed" : ""
 
         completedTask()
         editTask()
 
-        todoCount.innerHTML = `${numbersItemsLeft() === 1 ? `<strong>${numbersItemsLeft()}</strong> item left` : `<strong>${numbersItemsLeft()}</strong> items left`}`
+        todoCount.innerHTML = `${numbersItemsLeft(taskList) === 1 ? `<strong>${numbersItemsLeft(taskList)}</strong> item left` : `<strong>${numbersItemsLeft(taskList)}</strong> items left`}`
     }
 }
 
@@ -56,7 +58,7 @@ function addTask() {
             }
             setTask(task)
             e.target.value = "";
-            renderSections()
+            renderSections(getTasks())
         }
     })
 }
@@ -66,7 +68,7 @@ function completedTask() {
     toggle.forEach((item) => {
         item.addEventListener("click", (e) => {
             itemChage(e.target, e.target.checked)
-            renderSections()
+            renderSections(getTasks())
         })
     })
 }
@@ -89,15 +91,34 @@ function editTask() {
                         }
                     })
                     setTask(itemEdited)
-                    renderSections()
+                    renderSections(getTasks())
                     // completedTask()
                 } else if (e.key === " ") {
                     //Leave editing mode
-                    renderSections()
+                    renderSections(getTasks())
                 }
             })
         })
     })
+}
+
+export function locationHashNavigator() {
+    const hash = window.location.hash.substring(1)
+
+    switch (hash) {
+        case "/":
+            renderSections(getTasks())
+            break;
+        case "/pending":
+            const taskPending = getTasks().filter((item) => item.completed === false)
+            renderSections(taskPending)
+            break;
+
+        case "/completed":
+            const taskCompleted = getTasks().filter((item) => item.completed === true)
+            renderSections(taskCompleted)
+            break;
+    }
 }
 
 addTask()

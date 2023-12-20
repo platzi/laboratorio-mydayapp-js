@@ -16,7 +16,7 @@ export function itemChage(e, state) {
   setTask(itemCompletedState)
 }
 
-export function numbersItemsLeft() {
-  const itemsLeft = getTasks().filter((item) => item.completed === false)
+export function numbersItemsLeft(taskList) {
+  const itemsLeft = taskList.filter((item) => item.completed === false)
   return itemsLeft.length
 }
