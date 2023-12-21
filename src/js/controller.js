@@ -1,34 +1,34 @@
 import * as listView from "./views/todoList";
 import * as containerView from "./views/container";
 
-export const index = (filter, toDos) => {
-  toDos.loadAll();
-  toDos.filterBy(filter);
+export const index = (filter, toDosCollection) => {
+  toDosCollection.loadAll();
+  toDosCollection.filterBy(filter);
 
-  renderNewList(toDos);
+  renderNewList(toDosCollection);
 };
 
-export const create = (title, toDos) => {
-  toDos.addTodo(title);
-  renderNewList(toDos);
+export const create = (title, toDosCollection) => {
+  toDosCollection.addTodo(title);
+  renderNewList(toDosCollection);
 };
 
-export const destroy = (id, toDos) => {
-  toDos.destroyById(id);
-  renderNewList(toDos);
+export const destroy = (id, toDosCollection) => {
+  toDosCollection.destroyById(id);
+  renderNewList(toDosCollection);
 };
 
-export const destroyCompleted = (toDos) => {
-  toDos.destroyCompleted();
-  renderNewList(toDos);
+export const destroyCompleted = (toDosCollection) => {
+  toDosCollection.destroyCompleted();
+  renderNewList(toDosCollection);
 };
 
-export const update = (id, payload, toDos) => {
-  toDos.updateById(id, payload);
-  renderNewList(toDos);
+export const update = (id, payload, toDosCollection) => {
+  toDosCollection.updateById(id, payload);
+  renderNewList(toDosCollection);
 };
 
-const renderNewList = (toDos) => {
-  containerView.renderContent(toDos);
-  listView.renderNewList(toDos);
+const renderNewList = (toDosCollection) => {
+  containerView.renderContent(toDosCollection);
+  listView.renderNewList(toDosCollection);
 };

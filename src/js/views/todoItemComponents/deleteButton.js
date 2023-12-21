@@ -1,8 +1,8 @@
 import * as controller from "../../controller";
 
-export const deleteButton = (toDo, toDos) => {
+export const deleteButton = (toDo, toDosCollection) => {
   const deleteItem = (id) => {
-    controller.destroy(id, toDos);
+    controller.destroy(id, toDosCollection);
   };
 
   const button = document.createElement("button");

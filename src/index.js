@@ -5,14 +5,14 @@ import {
   addCompletedCleanerListenerToButton,
 } from "./js/eventsAssigner";
 import { routeTo } from "./js/routes";
-import { ToDos } from "./js/models/toDos";
+import { ToDosCollection } from "./js/models/toDosCollection";
 
-const TODOS = new ToDos();
-TODOS.loadAll();
+const toDosCollection = new ToDosCollection();
+toDosCollection.loadAll();
 
-addHashListenerToDocument(TODOS);
-addCompletedCleanerListenerToButton(TODOS);
-addEventToToDoInput(TODOS);
+addHashListenerToDocument(toDosCollection);
+addCompletedCleanerListenerToButton(toDosCollection);
+addEventToToDoInput(toDosCollection);
 
 const newHash = new URL(document.URL).hash;
-routeTo(newHash, TODOS);
+routeTo(newHash, toDosCollection);

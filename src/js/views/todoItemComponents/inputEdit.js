@@ -1,10 +1,10 @@
 import * as controller from "../../controller";
 
-export const inputEdit = (toDo, toDos, li) => {
+export const inputEdit = (toDo, toDosCollection, li) => {
   const updateTitle = (id, title) => {
     if (toDo.title === title || title == "") return;
 
-    controller.update(id, { title }, toDos);
+    controller.update(id, { title }, toDosCollection);
   };
 
   const input = document.createElement("input");

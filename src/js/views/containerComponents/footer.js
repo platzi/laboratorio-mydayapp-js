@@ -1,10 +1,10 @@
 import { filterLink } from "./filterLink";
 import { clearCompletedButton } from "./clearCompletedButton";
 
-export const footer = (toDos, controller) => {
-  if (toDos.toDos.length === 0) return;
+export const footer = (toDosCollection, controller) => {
+  if (toDosCollection.toDos.length === 0) return;
 
-  const pendingTodos = toDos.countPending();
+  const pendingTodos = toDosCollection.countPending();
 
   const footer = document.createElement("footer");
   footer.classList.add("footer");
@@ -18,10 +18,14 @@ export const footer = (toDos, controller) => {
   const ul = document.createElement("ul");
   ul.classList.add("filters");
 
-  const all = filterLink("#/all", "All", toDos.filter);
-  const pending = filterLink("#/pending", "Pending", toDos.filter);
-  const completed = filterLink("#/completed", "Completed", toDos.filter);
-  const button = clearCompletedButton(toDos, controller);
+  const all = filterLink("#/all", "All", toDosCollection.filter);
+  const pending = filterLink("#/pending", "Pending", toDosCollection.filter);
+  const completed = filterLink(
+    "#/completed",
+    "Completed",
+    toDosCollection.filter
+  );
+  const button = clearCompletedButton(toDosCollection, controller);
 
   ul.appendChild(all);
   ul.appendChild(pending);

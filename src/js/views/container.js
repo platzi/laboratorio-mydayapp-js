@@ -4,15 +4,15 @@ import * as controller from "../controller";
 
 const ID = "container";
 
-export const renderContent = (toDos) => {
+export const renderContent = (toDosCollection) => {
   const container = document.getElementById(ID);
   if (!container) return;
 
   container.innerHTML = "";
 
-  const mainSection = main(toDos);
+  const mainSection = main(toDosCollection);
   if (mainSection) container.appendChild(mainSection);
 
-  const footerSection = footer(toDos, controller);
+  const footerSection = footer(toDosCollection, controller);
   if (footerSection) container.appendChild(footerSection);
 };

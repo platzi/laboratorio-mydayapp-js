@@ -5,7 +5,7 @@ export const ALL_FILTER = "#/all";
 export const COMPLETED_FILTER = "#/completed";
 export const PENDING_FILTER = "#/pending";
 
-export class ToDos {
+export class ToDosCollection {
   constructor() {
     this.toDos = [];
     this.filter = "";

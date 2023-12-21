@@ -1,8 +1,8 @@
 import * as controller from "../../controller";
 
-export const checkbox = (toDo, toDos) => {
+export const checkbox = (toDo, toDosCollection) => {
   const toggleCompletedState = (id, completedState) => {
-    controller.update(id, { completed: !completedState }, toDos);
+    controller.update(id, { completed: !completedState }, toDosCollection);
   };
 
   const checkbox = document.createElement("input");

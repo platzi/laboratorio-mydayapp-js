@@ -3,16 +3,16 @@ import { deleteButton } from "./todoItemComponents/deleteButton";
 import { inputEdit } from "./todoItemComponents/inputEdit";
 import { label } from "./todoItemComponents/label";
 
-export const todoItem = (toDo, toDos) => {
+export const todoItem = (toDo, toDosCollection) => {
   const li = document.createElement("li");
   toDo.completed ? li.classList.add("completed") : null;
 
   const div = document.createElement("div");
   div.classList.add("view");
 
-  const checkboxComponent = checkbox(toDo, toDos);
-  const button = deleteButton(toDo, toDos);
-  const input = inputEdit(toDo, toDos, li);
+  const checkboxComponent = checkbox(toDo, toDosCollection);
+  const button = deleteButton(toDo, toDosCollection);
+  const input = inputEdit(toDo, toDosCollection, li);
   const labelComponent = label(toDo, li, input);
 
   div.appendChild(checkboxComponent);

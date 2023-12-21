@@ -1,7 +1,7 @@
 const ID = "todo-list";
 
-export const main = (toDos) => {
-  if (toDos.filteredToDos.length === 0) return;
+export const main = (toDosCollection) => {
+  if (toDosCollection.filteredToDos.length === 0) return;
 
   const main = document.createElement("section");
   main.classList.add("main");

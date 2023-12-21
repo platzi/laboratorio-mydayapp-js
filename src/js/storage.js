@@ -14,8 +14,8 @@ export const readAllToDos = () => {
   return [];
 };
 
-export const writeAllToDos = (toDos) => {
-  const toDosToAdd = toDos.map((toDo) => ({
+export const writeAllToDos = (toDosCollection) => {
+  const toDosToAdd = toDosCollection.map((toDo) => ({
     id: toDo.id,
     title: toDo.title,
     completed: toDo.completed,
