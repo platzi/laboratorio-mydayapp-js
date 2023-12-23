@@ -5,6 +5,16 @@ import { nodes } from "./js/nodes";
 
 const taskManager = new TaskManager();
 
+function navigator() {
+  if (location.hash.startsWith("#/completed")) {
+    renderTasks(taskManager.getCompletedTasks());
+  } else if (location.hash.startsWith("#/pending")) {
+    renderTasks(taskManager.getPendingTasks());
+  } else {
+    renderTasks();
+  }
+}
+
 function addNewTask(event) {
   const taskTitle = event.target.value.trim();
 
@@ -75,10 +85,10 @@ function createTaskNode({ id, title, completed }) {
   return listItem;
 }
 
-function renderTasks() {
+function renderTasks(tasks = taskManager.getTasks()) {
   nodes.taskList.innerHTML = "";
 
-  taskManager.getTasks().forEach((task) => {
+  tasks.forEach((task) => {
     const taskItem = createTaskNode(task);
     nodes.taskList.appendChild(taskItem);
   });
@@ -122,5 +132,22 @@ nodes.clearButton.addEventListener("click", () => {
   renderTasks();
 });
 
+nodes.links.forEach(function (link) {
+  link.addEventListener("click", () => {
+    const hasSelectedClass = link.classList.contains("selected");
+
+    if (hasSelectedClass) {
+      link.classList.remove("selected");
+    } else {
+      nodes.links.forEach(function (otherLink) {
+        otherLink.classList.remove("selected");
+      });
+
+      link.classList.add("selected");
+    }
+  });
+});
+
+window.addEventListener("hashchange", navigator, false);
+
 renderTasks();
-console.log(taskManager.getTasks());

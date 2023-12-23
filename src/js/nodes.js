@@ -4,4 +4,5 @@ export const nodes = {
   footer: document.querySelector(".footer"),
   counter: document.querySelector(".todo-count"),
   clearButton: document.querySelector(".clear-completed"),
+  links: document.querySelectorAll("a"),
 };
