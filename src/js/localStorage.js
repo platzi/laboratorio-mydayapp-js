@@ -41,4 +41,13 @@ export class TaskManager {
       this.saveTasks(tasks);
     }
   }
+
+  updateTaskStatus(id) {
+    const tasks = this.getTasks();
+    const index = tasks.findIndex((task) => task.id === id);
+    if (index !== -1) {
+      tasks[index]["completed"] = !tasks[index]["completed"];
+      this.saveTasks(tasks);
+    }
+  }
 }

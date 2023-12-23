@@ -32,7 +32,7 @@ function addNewTask(event) {
   }
 }
 
-function createTaskNode({ title, completed }) {
+function createTaskNode({ id, title, completed }) {
   const listItem = document.createElement("li");
   const taskDiv = document.createElement("div");
   const taskInput = document.createElement("input");
@@ -48,9 +48,25 @@ function createTaskNode({ title, completed }) {
   editTaskInput.classList.add("edit");
   editTaskInput.setAttribute("value", title);
 
+  taskInput.addEventListener("click", () => {
+    if (taskInput.hasAttribute("checked")) {
+      taskInput.removeAttribute("checked");
+    } else {
+      taskInput.setAttribute("checked", "checked");
+    }
+
+    taskManager.updateTaskStatus(id);
+    renderTasks();
+  });
+
+  taskLabel.addEventListener("dblclick", () => {
+    // listItem.classList.remove(...listItem.classList);
+    listItem.classList.add("editing");
+  });
+
   if (completed) {
     listItem.classList.add("completed");
-    taskInput.checked = true;
+    taskInput.setAttribute("checked", "checked");
   }
 
   taskDiv.append(taskInput, taskLabel, taskButton);
@@ -77,3 +93,5 @@ nodes.newTaskInput.addEventListener("keydown", (event) => {
 });
 
 renderTasks();
+console.log(taskManager.getTasks());
+console.log(nodes.taskList.classList);
