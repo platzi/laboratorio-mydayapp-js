@@ -5,20 +5,6 @@ import { nodes } from "./js/nodes";
 
 const taskManager = new TaskManager();
 
-// taskManager.addTask({ id: "123", title: "New Task", completed: true });
-// taskManager.addTask({ id: "124", title: "New Task 1", completed: true });
-// taskManager.addTask({ id: "125", title: "New Task 2", completed: true });
-// taskManager.addTask({ id: "126", title: "New Task 3", completed: false });
-// taskManager.addTask({ id: "129", title: "New Task 4", completed: false });
-// taskManager.addTask({ id: "130", title: "New Task 5", completed: false });
-// taskManager.deleteTask("123");
-// taskManager.deleteTask("124");
-// taskManager.deleteTask("125");
-// taskManager.updateTask("129", "Updated");
-// taskManager.updateTask("130", "New");
-// taskManager.updateTask("130", "Another text");
-// console.log(taskManager.getTasks());
-
 function addNewTask(event) {
   const taskTitle = event.target.value.trim();
 
@@ -60,7 +46,6 @@ function createTaskNode({ id, title, completed }) {
   });
 
   taskLabel.addEventListener("dblclick", () => {
-    // listItem.classList.remove(...listItem.classList);
     listItem.classList.add("editing");
     editTaskInput.focus();
   });
@@ -97,6 +82,21 @@ function renderTasks() {
     const taskItem = createTaskNode(task);
     nodes.taskList.appendChild(taskItem);
   });
+
+  setCounter();
+}
+
+function setCounter() {
+  nodes.counter.innerHTML = "";
+
+  const tasksCount = taskManager.getTasks().length;
+  const strongElement = document.createElement("strong");
+  let textNode, text;
+
+  strongElement.textContent = tasksCount;
+  text = tasksCount === 1 ? " item left" : " items left";
+  textNode = document.createTextNode(text);
+  nodes.counter.append(strongElement, textNode);
 }
 
 nodes.newTaskInput.addEventListener("keydown", (event) => {
