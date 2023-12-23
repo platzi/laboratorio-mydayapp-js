@@ -37,14 +37,14 @@ function createTaskNode({ id, title, completed }) {
   const taskDiv = document.createElement("div");
   const taskInput = document.createElement("input");
   const taskLabel = document.createElement("label");
-  const taskButton = document.createElement("button");
+  const deleteTaskButton = document.createElement("button");
   const editTaskInput = document.createElement("input");
 
   taskDiv.classList.add("view");
   taskInput.type = "checkbox";
   taskInput.classList.add("toggle");
   taskLabel.textContent = title;
-  taskButton.classList.add("destroy");
+  deleteTaskButton.classList.add("destroy");
   editTaskInput.classList.add("edit");
   editTaskInput.setAttribute("value", title);
 
@@ -62,6 +62,21 @@ function createTaskNode({ id, title, completed }) {
   taskLabel.addEventListener("dblclick", () => {
     // listItem.classList.remove(...listItem.classList);
     listItem.classList.add("editing");
+    editTaskInput.focus();
+  });
+
+  editTaskInput.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      listItem.classList.remove("editing");
+    } else if (event.key === "Enter") {
+      taskManager.updateTask(id, event.target.value.trim());
+      renderTasks();
+    }
+  });
+
+  deleteTaskButton.addEventListener("click", () => {
+    taskManager.deleteTask(id);
+    renderTasks();
   });
 
   if (completed) {
@@ -69,7 +84,7 @@ function createTaskNode({ id, title, completed }) {
     taskInput.setAttribute("checked", "checked");
   }
 
-  taskDiv.append(taskInput, taskLabel, taskButton);
+  taskDiv.append(taskInput, taskLabel, deleteTaskButton);
   listItem.append(taskDiv, editTaskInput);
 
   return listItem;
@@ -94,4 +109,3 @@ nodes.newTaskInput.addEventListener("keydown", (event) => {
 
 renderTasks();
 console.log(taskManager.getTasks());
-console.log(nodes.taskList.classList);
