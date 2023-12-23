@@ -3,4 +3,5 @@ export const nodes = {
   taskList: document.querySelector(".todo-list"),
   footer: document.querySelector(".footer"),
   counter: document.querySelector(".todo-count"),
+  clearButton: document.querySelector(".clear-completed"),
 };

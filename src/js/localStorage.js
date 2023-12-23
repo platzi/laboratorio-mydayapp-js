@@ -50,4 +50,16 @@ export class TaskManager {
       this.saveTasks(tasks);
     }
   }
+
+  getCompletedTasks() {
+    return this.getTasks().filter((task) => task.completed === true);
+  }
+
+  getPendingTasks() {
+    return this.getTasks().filter((task) => task.completed === false);
+  }
+
+  deleteCompletedTasks() {
+    this.saveTasks(this.getPendingTasks());
+  }
 }

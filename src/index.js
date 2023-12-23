@@ -84,6 +84,7 @@ function renderTasks() {
   });
 
   setCounter();
+  updateClearButtonVisibility();
 }
 
 function setCounter() {
@@ -93,10 +94,19 @@ function setCounter() {
   const strongElement = document.createElement("strong");
   let textNode, text;
 
-  strongElement.textContent = tasksCount;
   text = tasksCount === 1 ? " item left" : " items left";
+  strongElement.textContent = tasksCount;
   textNode = document.createTextNode(text);
   nodes.counter.append(strongElement, textNode);
+}
+
+function updateClearButtonVisibility() {
+  const completedTasks = taskManager.getCompletedTasks();
+  if (completedTasks.length > 0) {
+    nodes.clearButton.classList.remove("hidden");
+  } else {
+    nodes.clearButton.classList.add("hidden");
+  }
 }
 
 nodes.newTaskInput.addEventListener("keydown", (event) => {
@@ -105,6 +115,11 @@ nodes.newTaskInput.addEventListener("keydown", (event) => {
     renderTasks();
     nodes.newTaskInput.value = "";
   }
+});
+
+nodes.clearButton.addEventListener("click", () => {
+  taskManager.deleteCompletedTasks();
+  renderTasks();
 });
 
 renderTasks();
