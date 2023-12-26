@@ -1,5 +1,7 @@
-import "./css/base.css";
+// @ts-check
+import './css/base.css';
 
-import { sayHello } from "./js/utils";
+import { sayHello } from './js/utils';
 
-console.log(sayHello("Hello"));
+// eslint-disable-next-line no-console
+console.log(sayHello('Hello'));

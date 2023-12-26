@@ -1,0 +1,7 @@
+**/*_normalize.scss
+/node_modules/*
+/**/main.css
+/**/index.css
+
+# Concrate project
+/src/css/base.css

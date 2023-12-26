@@ -1,0 +1,18 @@
+name: 💅 Lint
+on: push
+jobs:
+    lint:
+        runs-on: ubuntu-latest
+        name: Eslint - Stylelint
+        steps:
+            - name: 👍 Checkout
+              uses: actions/checkout@v2
+
+            - name: 📥 Install Dependencies
+              run: npm install
+
+            - name: 🌹 ESLint
+              run: npm run lint
+
+            - name: 💄 StyleLint
+              run: npm run stylelint
