@@ -14,7 +14,7 @@
 		"lint": "eslint ./src",
 		"lint:fix": "npx eslint --fix ./src/*.{js,mjs,cjs}",
 		"stylelint": "npx stylelint \"**/*.css\"",
-		"stylelint:fix": "npx stylelint --fix \"**/*.css\"",
+		"stylelint:fix": "npx stylelint --fix \"**/*.css\" --allow-empty-input",
 		"prepare": "husky install"
 	},
 	"keywords": [],
