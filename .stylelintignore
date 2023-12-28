@@ -1,5 +1,7 @@
-**/*_normalize.scss
+/dist/*
+/build/*
 /node_modules/*
+**/*_normalize.scss
 /**/main.css
 /**/index.css
 
