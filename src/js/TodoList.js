@@ -58,7 +58,10 @@ export class TodoList {
 	 */
 	editTask(label) {
 		const VIEW = label.parentElement;
-		const LIST_ITEM = VIEW.parentElement;
+		const LIST_ITEM = /** @type {HTMLLIElement} */ (VIEW.parentElement);
+		const TASK_CONTAINER = /** @type {HTMLUListElement} */ (
+			LIST_ITEM.parentElement
+		);
 		const INPUT_EDIT = /** @type {HTMLInputElement} */ (
 			LIST_ITEM.children[1]
 		);
@@ -67,6 +70,7 @@ export class TodoList {
 		LIST_ITEM.classList.add('editing');
 		INPUT_EDIT.setSelectionRange(END, END);
 		INPUT_EDIT.focus();
+		this.#hiddenOrShowAnotherTasks(TASK_CONTAINER);
 	}
 
 	/**
@@ -82,6 +86,9 @@ export class TodoList {
 
 		const VIEW = LABEL.parentElement;
 		const LIST_ITEM = VIEW.parentElement;
+		const TASK_CONTAINER = /** @type {HTMLUListElement} */ (
+			LIST_ITEM.parentElement
+		);
 		const INPUT_EDIT = /** @type {HTMLInputElement} */ (
 			LIST_ITEM.children[1]
 		);
@@ -94,7 +101,8 @@ export class TodoList {
 			return;
 		}
 
-		LABEL.innerText = INPUT_EDIT.value;
+		LABEL.innerText = INPUT_EDIT.value.trim();
+		this.#hiddenOrShowAnotherTasks(TASK_CONTAINER);
 		LIST_ITEM.classList.remove('editing');
 	}
 
@@ -130,5 +138,27 @@ export class TodoList {
 	#resetMainInput() {
 		this.#newTaskInput.value = '';
 		this.#newTaskInput.focus();
+	}
+
+	/**
+	 * Hides the elements if they do not contain the "hidden" class and shows them if they do contain the "hidden" class.
+	 * @param {HTMLUListElement} taskContainer Unordered List tag that contains the tasks.
+	 */
+	#hiddenOrShowAnotherTasks(taskContainer) {
+		const LIST_ITEMS = Array.from(taskContainer.children);
+
+		for (const ITEM of LIST_ITEMS) {
+			if (ITEM.classList.contains('editing')) {
+				continue;
+			}
+
+			if (ITEM.classList.contains('hidden')) {
+				ITEM.classList.remove('hidden');
+
+				continue;
+			}
+
+			ITEM.classList.add('hidden');
+		}
 	}
 }
