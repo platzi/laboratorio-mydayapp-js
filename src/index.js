@@ -62,22 +62,22 @@ class TodoList {
 		this.#resetMainInput();
 	}
 
-	// /**
-	//  * @param {HTMLInputElement} checkbox Input checkbox clicked
-	//  */
-	// completedTask(checkbox) {
-	// 	const IS_CHECKED = checkbox.checked;
-	// 	const VIEW = checkbox.parentElement;
-	// 	const LIST_ITEM = VIEW.parentElement;
+	/**
+	 * @param {HTMLInputElement} checkbox Input checkbox clicked
+	 */
+	completedTask(checkbox) {
+		const IS_CHECKED = checkbox.checked;
+		const VIEW = checkbox.parentElement;
+		const LIST_ITEM = VIEW.parentElement;
 
-	// 	if (IS_CHECKED) {
-	// 		LIST_ITEM.classList.add('completed');
-	// 		LIST_ITEM.classList.remove('pending');
-	// 	} else {
-	// 		LIST_ITEM.classList.remove('completed');
-	// 		LIST_ITEM.classList.add('pending');
-	// 	}
-	// }
+		if (IS_CHECKED) {
+			LIST_ITEM.classList.add('completed');
+			LIST_ITEM.classList.remove('pending');
+		} else {
+			LIST_ITEM.classList.remove('completed');
+			LIST_ITEM.classList.add('pending');
+		}
+	}
 
 	/**
 	 * @param {string} task - The task to be added to the list.
@@ -126,13 +126,13 @@ document.addEventListener('keyup', (event) => {
 	}
 });
 
-// document.addEventListener('click', (event) => {
-// 	const { target } = event;
-// 	const IS_CHECKBOX =
-// 		target instanceof HTMLInputElement &&
-// 		target.classList.contains('toggle');
+document.addEventListener('click', (event) => {
+	const { target } = event;
+	const IS_CHECKBOX =
+		target instanceof HTMLInputElement &&
+		target.classList.contains('toggle');
 
-// 	if (IS_CHECKBOX) {
-// 		TODO.completedTask(target);
-// 	}
-// });
+	if (IS_CHECKBOX) {
+		TODO.completedTask(target);
+	}
+});
