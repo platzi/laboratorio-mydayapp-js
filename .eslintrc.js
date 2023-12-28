@@ -19,6 +19,7 @@ const plugins = [
 	'unused-imports',
 	'check-file',
 	'editorconfig',
+	'sort-class-members',
 ];
 const overrides = [
 	// TSDoc
@@ -285,6 +286,21 @@ const rules = {
 		{ blankLine: 'always', prev: 'export', next: '*' },
 		{ blankLine: 'always', prev: '*', next: 'export' },
 		{ blankLine: 'always', prev: 'if', next: '*' },
+	],
+	'sort-class-members/sort-class-members': [
+		2,
+		{
+			order: [
+				'[properties]',
+				'[conventional-private-properties]',
+				'[static-properties]',
+				'constructor',
+				'[methods]',
+				'[conventional-private-methods]',
+				'[static-methods]',
+			],
+			accessorPairPositioning: 'getThenSet',
+		},
 	],
 
 	// plugins
