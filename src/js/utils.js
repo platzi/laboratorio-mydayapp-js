@@ -1,6 +1,4 @@
-export const sayHello = (text) => {
-	return text;
-};
+import { Keys } from './types';
 
 /**
  * @param {string[]} keys Receive an array of string.
@@ -16,3 +14,5 @@ export function createMirrorObject(keys) {
 
 	return NEW_OBJECT;
 }
+
+export const ENTER_KEYS = [Keys.ENTER, Keys.NUMPADENTER];
