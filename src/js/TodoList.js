@@ -1,12 +1,11 @@
-import { hiddenShowMainAndFooter } from '../index';
-
 /**
  * The TodoList class is responsible for managing the todo list.
  * @public
  * @class
  */
 export class TodoList {
-	#todoList = /** @type {HTMLUListElement} */ (
+	/** @type {HTMLUListElement} */
+	#todoListContainer = /** @type {HTMLUListElement} */ (
 		document.querySelector('.todo-list')
 	);
 
@@ -15,9 +14,20 @@ export class TodoList {
 		document.querySelector('.new-todo')
 	);
 
+	/** @type {HTMLElement} */
+	#mainContainer = /** @type {HTMLElement} */ (
+		document.querySelector('.main')
+	);
+
+	/** @type {HTMLElement} */
+	#footerContainer = /** @type {HTMLElement} */ (
+		document.querySelector('.footer')
+	);
+
 	/**
 	 * Add new task to todo list.
-	  @public */
+	 * @public
+	 */
 	addNewTask() {
 		const INPUT_VALUE = this.#newTaskInput.value;
 
@@ -25,11 +35,11 @@ export class TodoList {
 			return;
 		}
 
-		const NEW_TASK = this.#templateTask(INPUT_VALUE);
+		const NEW_TASK = this.#templateTask(INPUT_VALUE.trim());
 
-		this.#todoList.innerHTML += NEW_TASK;
+		this.#todoListContainer.innerHTML += NEW_TASK;
 		this.#resetMainInput();
-		hiddenShowMainAndFooter();
+		this.hiddenShowMainAndFooter();
 	}
 
 	/**
@@ -39,8 +49,7 @@ export class TodoList {
 	 */
 	markTask(checkbox) {
 		const IS_CHECKED = checkbox.checked;
-		const VIEW = checkbox.parentElement;
-		const LIST_ITEM = VIEW.parentElement;
+		const LIST_ITEM = this.#getListItem(checkbox);
 
 		if (IS_CHECKED) {
 			LIST_ITEM.classList.add('completed');
@@ -57,45 +66,99 @@ export class TodoList {
 	 * @param {HTMLLabelElement} label Label doble clicked.
 	 */
 	editTask(label) {
-		const VIEW = label.parentElement;
-		const LIST_ITEM = VIEW.parentElement;
-		const INPUT_EDIT = /** @type {HTMLInputElement} */ (
-			LIST_ITEM.children[1]
-		);
+		const LIST_ITEM = this.#getListItem(label);
+		const INPUT_EDIT = this.#getInputEditing(label);
 		const END = INPUT_EDIT.value.length;
 
 		LIST_ITEM.classList.add('editing');
 		INPUT_EDIT.setSelectionRange(END, END);
 		INPUT_EDIT.focus();
+		this.#hiddenOrShowAnotherTasks();
 	}
 
 	/**
-	 * Exit editing of the selected task.
+	 * Exit editing of the selected task and save changes.
 	 * @public
 	 */
-	exitEditing() {
+	exitEditingSave() {
 		const LABEL = document.querySelector('.editing label');
 
 		if (!(LABEL instanceof HTMLLabelElement)) {
 			return;
 		}
 
-		const VIEW = LABEL.parentElement;
-		const LIST_ITEM = VIEW.parentElement;
-		const INPUT_EDIT = /** @type {HTMLInputElement} */ (
-			LIST_ITEM.children[1]
-		);
+		const LIST_ITEM = this.#getListItem(LABEL);
+		const INPUT_EDIT = this.#getInputEditing(LABEL);
 
 		if (INPUT_EDIT.value.length === 0) {
 			//! Código provisorio hasta hacer el método que elimina las tareas
 			LIST_ITEM.remove();
-			hiddenShowMainAndFooter();
+			this.#hiddenOrShowAnotherTasks();
+			this.hiddenShowMainAndFooter();
 
 			return;
 		}
 
-		LABEL.innerText = INPUT_EDIT.value;
+		LABEL.innerText = INPUT_EDIT.value.trim();
+		this.#hiddenOrShowAnotherTasks();
 		LIST_ITEM.classList.remove('editing');
+	}
+
+	/**
+	 * Exit and cancel editing of the selected task.
+	 * @public
+	 */
+	exitEditingCancel() {
+		const LABEL = document.querySelector('.editing label');
+
+		if (!(LABEL instanceof HTMLLabelElement)) {
+			return;
+		}
+
+		const LIST_ITEM = this.#getListItem(LABEL);
+		const INPUT_EDIT = this.#getInputEditing(LABEL);
+
+		this.#hiddenOrShowAnotherTasks();
+		INPUT_EDIT.value = LABEL.innerText;
+		LIST_ITEM.classList.remove('editing');
+	}
+
+	/**
+	 * Hides or shows .main and .footer if there are not or are elements in todo list as appropriate.
+	 */
+	hiddenShowMainAndFooter() {
+		const IS_EMPTY = this.#isTodoListEmpty();
+
+		this.#mainContainer.style.display = IS_EMPTY ? 'none' : 'block';
+		this.#footerContainer.style.display = IS_EMPTY ? 'none' : 'block';
+	}
+
+	/**
+	 * Check if .todo-list class is empty.
+	 * @returns {boolean} If there are elements return true.
+	 */
+	#isTodoListEmpty() {
+		return this.#todoListContainer.children.length === 0;
+	}
+
+	/**
+	 * @param {HTMLInputElement | HTMLLabelElement} children
+	 * @returns {HTMLLIElement} List item of the task.
+	 */
+	#getListItem(children) {
+		const DIV_VIEW = /** @type {HTMLDivElement}*/ (children.parentElement);
+
+		return /** @type {HTMLLIElement}*/ (DIV_VIEW.parentElement);
+	}
+
+	/**
+	 * @param {HTMLInputElement | HTMLLabelElement} children
+	 * @returns {HTMLInputElement}
+	 */
+	#getInputEditing(children) {
+		const LIST_ITEM = this.#getListItem(children);
+
+		return /** @type {HTMLInputElement} */ (LIST_ITEM.children[1]);
 	}
 
 	/**
@@ -104,7 +167,6 @@ export class TodoList {
 	 * @returns {string} Template task.
 	 */
 	#templateTask(task) {
-		const TASK = task.trim();
 		const TEMPLATE = /*html*/ `
 			<li class="pending">
 				<div class="view">
@@ -112,13 +174,13 @@ export class TodoList {
 						class="toggle"
 						type="checkbox"
 					/>
-					<label>${TASK}</label>
+					<label>${task}</label>
 					<button class="destroy"></button>
 				</div>
 				<input
 					type="text"
 					class="edit"
-					value="${TASK}"
+					value="${task}"
 				/>
 			</li>
 		`;
@@ -130,5 +192,23 @@ export class TodoList {
 	#resetMainInput() {
 		this.#newTaskInput.value = '';
 		this.#newTaskInput.focus();
+	}
+
+	#hiddenOrShowAnotherTasks() {
+		const LIST_ITEMS = Array.from(this.#todoListContainer.children);
+
+		for (const ITEM of LIST_ITEMS) {
+			if (ITEM.classList.contains('editing')) {
+				continue;
+			}
+
+			if (ITEM.classList.contains('hidden')) {
+				ITEM.classList.remove('hidden');
+
+				continue;
+			}
+
+			ITEM.classList.add('hidden');
+		}
 	}
 }

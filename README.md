@@ -20,11 +20,11 @@ MyDayApp es una aplicación para gestionar tareas de forma sencilla, fácil y en
 1. Comprobar ambiente de desarrollo, con el comando `npm run dev`
 
 ---
+
 ### Instalación de ambiente para pruebas e2e
 
 1. Instalar requerimientos para pruebas e2e, con el comando  `npm run e2e:install`
 1. Comprobar que se corran pruebas e2e, con el comando  `npm run e2e`
-
 
 ## Configuración
 
@@ -115,7 +115,6 @@ Sin embargo esto es solo un ejemplo, si para tu implementación manejas el rende
 
 ### Scripts
 
-
 - El comando `npm run start` inicia un servidor usando `http-server` con la carpeta de `/dist` que es la carpeta en donde quedan los archivos para producción, recuerda antes de correr este comando asegurarte de correr `npm run build`.
 - El comando `npm run dev` genera un servidor en modo desarrollo el cual tiene livereload.
 - El comando `npm run build` corre webpack en modo producción y deja los archivos de producción en la carpeta `/dist`.
@@ -135,7 +134,7 @@ Para crear una aplicación de tareas consistente y útil para los usuarios, la a
 
 - Cuando no hay tareas, los elementos con ID `#main` y `#footer` deberían estar ocultos.
 
-### 2. Crear una nueva tarea.
+### 2. Crear una nueva tarea
 
 - Se debe crear una nueva tarea se debe usar el input principal de la aplicación.
 - Este input debe enfocarse cuando se cargue la página, preferiblemente utilizando el atributo `autofocus` en el input.

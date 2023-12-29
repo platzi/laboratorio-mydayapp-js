@@ -1,22 +1,31 @@
 import { TODO } from '../index';
+import { Keys } from './types';
 import { ENTER_KEYS } from './utils';
 
 document.addEventListener('keyup', (event) => {
 	const { code } = event;
 	const IS_KEY_ENTER = ENTER_KEYS.includes(code);
+	const IS_KEY_ESC = code === Keys.ESCAPE;
 
-	if (!IS_KEY_ENTER) {
+	if (!IS_KEY_ENTER && !IS_KEY_ESC) {
 		return;
 	}
 
 	const { target } = event;
-	const IS_INPUT_EDIT =
-		target instanceof HTMLInputElement && target.classList.contains('edit');
+	const IS_NEW_TASK =
+		target instanceof HTMLInputElement &&
+		target.classList.contains('new-todo');
 
-	if (IS_INPUT_EDIT) {
-		TODO.exitEditing();
-	} else {
+	if (IS_KEY_ESC) {
+		TODO.exitEditingCancel();
+
+		return;
+	}
+
+	if (IS_NEW_TASK) {
 		TODO.addNewTask();
+	} else {
+		TODO.exitEditingSave();
 	}
 });
 
@@ -41,5 +50,5 @@ document.addEventListener('dblclick', (event) => {
 });
 
 document.addEventListener('click', () => {
-	TODO.exitEditing();
+	TODO.exitEditingSave();
 });
