@@ -6,6 +6,7 @@
 export const Keys = {
 	ENTER: 'Enter',
 	NUMPADENTER: 'NumpadEnter',
+	ESCAPE: 'Escape',
 };
 
 Object.freeze(Keys);
