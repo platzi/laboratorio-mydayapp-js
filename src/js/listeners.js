@@ -32,11 +32,20 @@ document.addEventListener('keyup', (event) => {
 document.addEventListener('click', (event) => {
 	const { target } = event;
 	const IS_CHECKBOX =
-		target instanceof HTMLInputElement &&
-		target.classList.contains('toggle');
+		target instanceof HTMLInputElement && target.type === 'checkbox';
+	const IS_DELETE_TASK =
+		target instanceof HTMLButtonElement &&
+		target.classList.contains('destroy');
+	const IS_CLEAR_COMPLETED_BUTTON =
+		target instanceof HTMLButtonElement &&
+		target.classList.contains('clear-completed');
 
-	if (IS_CHECKBOX) {
+	if (IS_DELETE_TASK) {
+		TODO.deleteTask(target);
+	} else if (IS_CHECKBOX) {
 		TODO.markTask(target);
+	} else if (IS_CLEAR_COMPLETED_BUTTON) {
+		TODO.clearCompletedTasks();
 	}
 });
 

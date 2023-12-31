@@ -33,9 +33,17 @@ export class TodoList {
 
 	/**
 	 * Counter of pending tasks
-	 * @type {number} +
+	 * @type {number} Number of pending tasks.
 	 */
 	#counter = 0;
+
+	/**
+	 * Counter of pending tasks
+	 * @type {HTMLButtonElement} Number of pending tasks.
+	 */
+	#clearCompletedButton = /** @type {HTMLButtonElement} */ (
+		document.querySelector('footer > button')
+	);
 
 	/**
 	 * Add new task to todo list.
@@ -50,7 +58,7 @@ export class TodoList {
 
 		const NEW_TASK = this.#templateTask(INPUT_VALUE.trim());
 
-		this.#todoListContainer.innerHTML += NEW_TASK;
+		this.#todoListContainer.append(NEW_TASK);
 		this.#resetMainInput();
 		this.hiddenShowMainAndFooter();
 		this.#addMinusCounter(Operation.Plus);
@@ -74,6 +82,8 @@ export class TodoList {
 			LIST_ITEM.classList.add('pending');
 			this.#addMinusCounter(Operation.Plus);
 		}
+
+		this.#hiddenShowClearCompletedButton();
 	}
 
 	/**
@@ -107,11 +117,9 @@ export class TodoList {
 		const INPUT_EDIT = this.#getInputEditing(LABEL);
 
 		if (INPUT_EDIT.value.length === 0) {
-			//! Código provisorio hasta hacer el método que elimina las tareas
-			LIST_ITEM.remove();
 			this.#hiddenOrShowAnotherTasks();
-			this.hiddenShowMainAndFooter();
-			this.#addMinusCounter(Operation.Minus);
+
+			this.deleteTask(LABEL);
 
 			return;
 		}
@@ -151,6 +159,39 @@ export class TodoList {
 	}
 
 	/**
+	 * Hides or shows .main and .footer if there are not or are elements in todo list as appropriate.
+	 * @param {HTMLButtonElement | HTMLLabelElement} element Child element from li tag.
+	 */
+	deleteTask(element) {
+		const LIST_ITEM = this.#getListItem(element);
+
+		LIST_ITEM.remove();
+		this.hiddenShowMainAndFooter();
+
+		if (LIST_ITEM.classList.contains('completed')) {
+			return;
+		}
+
+		this.#addMinusCounter(Operation.Minus);
+	}
+
+	/**
+	 * When de user press "Clear completed" button, all completed task will be deleted.
+	 */
+	clearCompletedTasks() {
+		const COMPLETED_TASKS = Array.from(
+			this.#todoListContainer.querySelectorAll('.completed'),
+		);
+
+		for (const TASK of COMPLETED_TASKS) {
+			TASK.remove();
+		}
+
+		this.hiddenShowMainAndFooter();
+		this.#hiddenShowClearCompletedButton();
+	}
+
+	/**
 	 * Check if .todo-list class is empty.
 	 * @returns {boolean} If there are elements return true.
 	 */
@@ -159,7 +200,7 @@ export class TodoList {
 	}
 
 	/**
-	 * @param {HTMLInputElement | HTMLLabelElement} children It is tag to use for search li tag.
+	 * @param {HTMLInputElement | HTMLLabelElement | HTMLButtonElement} children It is tag to use for search li tag.
 	 * @returns {HTMLLIElement} List item of the task that contains div.class and input.edit.
 	 */
 	#getListItem(children) {
@@ -169,7 +210,7 @@ export class TodoList {
 	}
 
 	/**
-	 * @param {HTMLInputElement | HTMLLabelElement} children It is tag to use for search li tag.
+	 * @param {HTMLInputElement | HTMLLabelElement | HTMLButtonElement} children It is tag to use for search li tag.
 	 * @returns {HTMLInputElement} The input for editing a current task.
 	 */
 	#getInputEditing(children) {
@@ -181,28 +222,36 @@ export class TodoList {
 	/**
 	 * Template task to be added to the list.
 	 * @param {string} task - The task to be added to the list.
-	 * @returns {string} Template task.
+	 * @returns {HTMLLIElement} Template task.
 	 */
 	#templateTask(task) {
-		const TEMPLATE = /*html*/ `
-			<li class="pending">
-				<div class="view">
-					<input
-						class="toggle"
-						type="checkbox"
-					/>
-					<label>${task}</label>
-					<button class="destroy"></button>
-				</div>
-				<input
-					type="text"
-					class="edit"
-					value="${task}"
-				/>
-			</li>
-		`;
+		// Create elements
+		const LIST_ITEM = document.createElement('li');
+		const DIV_VIEW = document.createElement('div');
+		const TOGGLE = document.createElement('input');
+		const LABEL = document.createElement('label');
+		const DESTROY_BUTTON = document.createElement('button');
+		const EDIT = document.createElement('input');
 
-		return TEMPLATE;
+		// Add attribute class
+		LIST_ITEM.classList.add('pending');
+		DIV_VIEW.classList.add('view');
+		TOGGLE.classList.add('toggle');
+		DESTROY_BUTTON.classList.add('destroy');
+		EDIT.classList.add('edit');
+
+		// Add type input
+		TOGGLE.type = 'checkbox';
+		EDIT.type = 'text';
+
+		// Add content
+		LABEL.innerText = task;
+		EDIT.value = task;
+
+		DIV_VIEW.append(TOGGLE, LABEL, DESTROY_BUTTON);
+		LIST_ITEM.append(DIV_VIEW, EDIT);
+
+		return LIST_ITEM;
 	}
 
 	/** When the user adds a new task, the main input is cleared */
@@ -211,6 +260,7 @@ export class TodoList {
 		this.#newTaskInput.focus();
 	}
 
+	/** Hide all tasks that not have "editing" class, and show all tasks have "hidden" class. */
 	#hiddenOrShowAnotherTasks() {
 		const LIST_ITEMS = Array.from(this.#todoListContainer.children);
 
@@ -236,11 +286,34 @@ export class TodoList {
 	#addMinusCounter(operation) {
 		operation === Operation.Plus ? this.#counter++ : this.#counter--;
 
+		if (this.#counter < 0) {
+			this.#counterFooterContainer.innerHTML = `<strong>0</strong> item left`;
+			this.#counter = 0;
+
+			return;
+		}
+
 		const COUNTER = `<strong>${this.#counter}</strong>`;
 		const IS_UNIQUE_ITEM = this.#counter === 1;
 
 		this.#counterFooterContainer.innerHTML = IS_UNIQUE_ITEM
 			? `${COUNTER} item left`
 			: `${COUNTER} items left`;
+	}
+
+	/** Hide "clear completed" button when do not have tasks with "completed" class. */
+	#hiddenShowClearCompletedButton() {
+		const COMPLETED_TASKS = Array.from(
+			this.#todoListContainer.querySelectorAll('.completed'),
+		);
+
+		if (COMPLETED_TASKS.length === 0) {
+			this.#clearCompletedButton.classList.add('hidden');
+
+			return;
+		}
+
+		this.#clearCompletedButton.classList.remove('hidden');
+		this.#clearCompletedButton.classList.add('clear-completed');
 	}
 }
