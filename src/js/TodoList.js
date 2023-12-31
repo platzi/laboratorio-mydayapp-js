@@ -50,7 +50,7 @@ export class TodoList {
 
 		const NEW_TASK = this.#templateTask(INPUT_VALUE.trim());
 
-		this.#todoListContainer.innerHTML += NEW_TASK;
+		this.#todoListContainer.append(NEW_TASK);
 		this.#resetMainInput();
 		this.hiddenShowMainAndFooter();
 		this.#addMinusCounter(Operation.Plus);
@@ -107,11 +107,9 @@ export class TodoList {
 		const INPUT_EDIT = this.#getInputEditing(LABEL);
 
 		if (INPUT_EDIT.value.length === 0) {
-			//! Código provisorio hasta hacer el método que elimina las tareas
-			LIST_ITEM.remove();
 			this.#hiddenOrShowAnotherTasks();
-			this.hiddenShowMainAndFooter();
-			this.#addMinusCounter(Operation.Minus);
+
+			this.deleteTask(LABEL);
 
 			return;
 		}
@@ -150,6 +148,19 @@ export class TodoList {
 		this.#footerContainer.style.display = IS_EMPTY ? 'none' : 'block';
 	}
 
+	deleteTask(button) {
+		const LIST_ITEM = this.#getListItem(button);
+
+		LIST_ITEM.remove();
+		this.hiddenShowMainAndFooter();
+
+		if (LIST_ITEM.classList.contains('completed')) {
+			return;
+		}
+
+		this.#addMinusCounter(Operation.Minus);
+	}
+
 	/**
 	 * Check if .todo-list class is empty.
 	 * @returns {boolean} If there are elements return true.
@@ -181,28 +192,36 @@ export class TodoList {
 	/**
 	 * Template task to be added to the list.
 	 * @param {string} task - The task to be added to the list.
-	 * @returns {string} Template task.
+	 * @returns {HTMLLIElement} Template task.
 	 */
 	#templateTask(task) {
-		const TEMPLATE = /*html*/ `
-			<li class="pending">
-				<div class="view">
-					<input
-						class="toggle"
-						type="checkbox"
-					/>
-					<label>${task}</label>
-					<button class="destroy"></button>
-				</div>
-				<input
-					type="text"
-					class="edit"
-					value="${task}"
-				/>
-			</li>
-		`;
+		// Create elements
+		const LIST_ITEM = document.createElement('li');
+		const DIV_VIEW = document.createElement('div');
+		const TOGGLE = document.createElement('input');
+		const LABEL = document.createElement('label');
+		const DESTROY_BUTTON = document.createElement('button');
+		const EDIT = document.createElement('input');
 
-		return TEMPLATE;
+		// Add attribute class
+		LIST_ITEM.classList.add('pending');
+		DIV_VIEW.classList.add('view');
+		TOGGLE.classList.add('toggle');
+		DESTROY_BUTTON.classList.add('destroy');
+		EDIT.classList.add('edit');
+
+		// Add type input
+		TOGGLE.type = 'checkbox';
+		EDIT.type = 'text';
+
+		// Add content
+		LABEL.innerText = task;
+		EDIT.value = task;
+
+		DIV_VIEW.append(TOGGLE, LABEL, DESTROY_BUTTON);
+		LIST_ITEM.append(DIV_VIEW, EDIT);
+
+		return LIST_ITEM;
 	}
 
 	/** When the user adds a new task, the main input is cleared */
@@ -235,6 +254,13 @@ export class TodoList {
 	 */
 	#addMinusCounter(operation) {
 		operation === Operation.Plus ? this.#counter++ : this.#counter--;
+
+		if (this.#counter < 0) {
+			this.#counterFooterContainer.innerHTML = `<strong>0</strong> item left`;
+			this.#counter = 0;
+
+			return;
+		}
 
 		const COUNTER = `<strong>${this.#counter}</strong>`;
 		const IS_UNIQUE_ITEM = this.#counter === 1;

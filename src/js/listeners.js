@@ -32,8 +32,14 @@ document.addEventListener('keyup', (event) => {
 document.addEventListener('click', (event) => {
 	const { target } = event;
 	const IS_CHECKBOX =
-		target instanceof HTMLInputElement &&
-		target.classList.contains('toggle');
+		target instanceof HTMLInputElement && target.type === 'checkbox';
+	const IS_DELETE =
+		target instanceof HTMLButtonElement &&
+		target.classList.contains('destroy');
+
+	if (IS_DELETE) {
+		TODO.deleteTask(target);
+	}
 
 	if (IS_CHECKBOX) {
 		TODO.markTask(target);
