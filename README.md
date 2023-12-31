@@ -34,7 +34,7 @@ El proyecto ya viene con una configuración inicial, la cual ya incluye empaquet
 
 Debes mantener la estructura de carpetas y archivos de la siguiente manera:
 
-```
+```bash
 ├── README.md
 ├── e2e
 │   └── example.spec.js
@@ -50,7 +50,7 @@ Debes mantener la estructura de carpetas y archivos de la siguiente manera:
 
 Puedes agregar tus propios archivos de JavaScript en la carpeta `src/js` en donde podrás crear los archivos que veas necesarios, por ejemplo:
 
-```
+```bash
 js/
 ├── utils.js
 └── store.js

@@ -15,4 +15,4 @@ export function createMirrorObject(keys) {
 	return NEW_OBJECT;
 }
 
-export const ENTER_KEYS = [Keys.ENTER, Keys.NUMPADENTER];
+export const ENTER_KEYS = [Keys.Enter, Keys.NumpadEnter];

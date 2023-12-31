@@ -5,7 +5,7 @@ import { ENTER_KEYS } from './utils';
 document.addEventListener('keyup', (event) => {
 	const { code } = event;
 	const IS_KEY_ENTER = ENTER_KEYS.includes(code);
-	const IS_KEY_ESC = code === Keys.ESCAPE;
+	const IS_KEY_ESC = code === Keys.Escape;
 
 	if (!IS_KEY_ENTER && !IS_KEY_ESC) {
 		return;

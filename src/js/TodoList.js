@@ -1,3 +1,5 @@
+import { Operation } from './types';
+
 /**
  * The TodoList class is responsible for managing the todo list.
  * @public
@@ -24,6 +26,17 @@ export class TodoList {
 		document.querySelector('.footer')
 	);
 
+	/** @type {HTMLSpanElement} */
+	#counterFooterContainer = /** @type {HTMLSpanElement} */ (
+		document.querySelector('.todo-count')
+	);
+
+	/**
+	 * Counter of pending tasks
+	 * @type {number} +
+	 */
+	#counter = 0;
+
 	/**
 	 * Add new task to todo list.
 	 * @public
@@ -40,6 +53,7 @@ export class TodoList {
 		this.#todoListContainer.innerHTML += NEW_TASK;
 		this.#resetMainInput();
 		this.hiddenShowMainAndFooter();
+		this.#addMinusCounter(Operation.Plus);
 	}
 
 	/**
@@ -54,9 +68,11 @@ export class TodoList {
 		if (IS_CHECKED) {
 			LIST_ITEM.classList.add('completed');
 			LIST_ITEM.classList.remove('pending');
+			this.#addMinusCounter(Operation.Minus);
 		} else {
 			LIST_ITEM.classList.remove('completed');
 			LIST_ITEM.classList.add('pending');
+			this.#addMinusCounter(Operation.Plus);
 		}
 	}
 
@@ -95,6 +111,7 @@ export class TodoList {
 			LIST_ITEM.remove();
 			this.#hiddenOrShowAnotherTasks();
 			this.hiddenShowMainAndFooter();
+			this.#addMinusCounter(Operation.Minus);
 
 			return;
 		}
@@ -142,8 +159,8 @@ export class TodoList {
 	}
 
 	/**
-	 * @param {HTMLInputElement | HTMLLabelElement} children
-	 * @returns {HTMLLIElement} List item of the task.
+	 * @param {HTMLInputElement | HTMLLabelElement} children It is tag to use for search li tag.
+	 * @returns {HTMLLIElement} List item of the task that contains div.class and input.edit.
 	 */
 	#getListItem(children) {
 		const DIV_VIEW = /** @type {HTMLDivElement}*/ (children.parentElement);
@@ -152,8 +169,8 @@ export class TodoList {
 	}
 
 	/**
-	 * @param {HTMLInputElement | HTMLLabelElement} children
-	 * @returns {HTMLInputElement}
+	 * @param {HTMLInputElement | HTMLLabelElement} children It is tag to use for search li tag.
+	 * @returns {HTMLInputElement} The input for editing a current task.
 	 */
 	#getInputEditing(children) {
 		const LIST_ITEM = this.#getListItem(children);
@@ -210,5 +227,20 @@ export class TodoList {
 
 			ITEM.classList.add('hidden');
 		}
+	}
+
+	/**
+	 * Increase or decrease the counter of pending tasks.
+	 * @param {Operation} operation If you want increase or decrease the counter.
+	 */
+	#addMinusCounter(operation) {
+		operation === Operation.Plus ? this.#counter++ : this.#counter--;
+
+		const COUNTER = `<strong>${this.#counter}</strong>`;
+		const IS_UNIQUE_ITEM = this.#counter === 1;
+
+		this.#counterFooterContainer.innerHTML = IS_UNIQUE_ITEM
+			? `${COUNTER} item left`
+			: `${COUNTER} items left`;
 	}
 }
