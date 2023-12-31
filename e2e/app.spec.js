@@ -200,7 +200,6 @@ test.describe("Clear completed button", () => {
     const todoItems = page.locator(".todo-list li");
     await todoItems.nth(1).locator(".toggle").check();
     await page.locator(".clear-completed").click();
-	debugger
     await expect(todoItems).toHaveCount(2);
     await expect(todoItems).toHaveText([TODO_ITEMS[0], TODO_ITEMS[2]]);
   });
