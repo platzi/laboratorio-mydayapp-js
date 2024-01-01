@@ -1,4 +1,5 @@
-import { Operation } from './types';
+import { TODO_STORE } from '../index';
+import { Operation, StatusTask } from './types';
 
 /**
  * The TodoList class is responsible for managing the todo list.
@@ -35,7 +36,7 @@ export class TodoList {
 	 * Counter of pending tasks
 	 * @type {number} Number of pending tasks.
 	 */
-	#counter = 0;
+	#counter = TODO_STORE.getNumberOfTasks();
 
 	/**
 	 * Counter of pending tasks
@@ -56,12 +57,14 @@ export class TodoList {
 			return;
 		}
 
-		const NEW_TASK = this.#templateTask(INPUT_VALUE.trim());
+		const NEW_VALUE = INPUT_VALUE.trim();
+		const NEW_TASK = this.#templateTask(NEW_VALUE);
 
 		this.#todoListContainer.append(NEW_TASK);
 		this.#resetMainInput();
 		this.hiddenShowMainAndFooter();
 		this.#addMinusCounter(Operation.Plus);
+		TODO_STORE.addNewTask(NEW_VALUE);
 	}
 
 	/**
@@ -71,18 +74,19 @@ export class TodoList {
 	 */
 	markTask(checkbox) {
 		const IS_CHECKED = checkbox.checked;
-		const LIST_ITEM = this.#getListItem(checkbox);
+		const LIST_ITEM = this.#getTaskContainer(checkbox);
 
 		if (IS_CHECKED) {
-			LIST_ITEM.classList.add('completed');
-			LIST_ITEM.classList.remove('pending');
+			LIST_ITEM.classList.add(StatusTask.Completed);
+			LIST_ITEM.classList.remove(StatusTask.Pending);
 			this.#addMinusCounter(Operation.Minus);
 		} else {
-			LIST_ITEM.classList.remove('completed');
-			LIST_ITEM.classList.add('pending');
+			LIST_ITEM.classList.remove(StatusTask.Completed);
+			LIST_ITEM.classList.add(StatusTask.Pending);
 			this.#addMinusCounter(Operation.Plus);
 		}
 
+		TODO_STORE.markTask(LIST_ITEM, IS_CHECKED);
 		this.#hiddenShowClearCompletedButton();
 	}
 
@@ -92,7 +96,7 @@ export class TodoList {
 	 * @param {HTMLLabelElement} label Label doble clicked.
 	 */
 	editTask(label) {
-		const LIST_ITEM = this.#getListItem(label);
+		const LIST_ITEM = this.#getTaskContainer(label);
 		const INPUT_EDIT = this.#getInputEditing(label);
 		const END = INPUT_EDIT.value.length;
 
@@ -113,18 +117,22 @@ export class TodoList {
 			return;
 		}
 
-		const LIST_ITEM = this.#getListItem(LABEL);
+		const LIST_ITEM = this.#getTaskContainer(LABEL);
 		const INPUT_EDIT = this.#getInputEditing(LABEL);
 
 		if (INPUT_EDIT.value.length === 0) {
 			this.#hiddenOrShowAnotherTasks();
 
 			this.deleteTask(LABEL);
+			TODO_STORE.deleteTask(LIST_ITEM);
 
 			return;
 		}
 
-		LABEL.innerText = INPUT_EDIT.value.trim();
+		const NEW_TEXT = INPUT_EDIT.value.trim();
+
+		TODO_STORE.editTask(LABEL, NEW_TEXT);
+		LABEL.innerText = NEW_TEXT;
 		this.#hiddenOrShowAnotherTasks();
 		LIST_ITEM.classList.remove('editing');
 	}
@@ -140,7 +148,7 @@ export class TodoList {
 			return;
 		}
 
-		const LIST_ITEM = this.#getListItem(LABEL);
+		const LIST_ITEM = this.#getTaskContainer(LABEL);
 		const INPUT_EDIT = this.#getInputEditing(LABEL);
 
 		this.#hiddenOrShowAnotherTasks();
@@ -159,14 +167,15 @@ export class TodoList {
 	}
 
 	/**
-	 * Hides or shows .main and .footer if there are not or are elements in todo list as appropriate.
+	 * Delete task from todo list.
 	 * @param {HTMLButtonElement | HTMLLabelElement} element Child element from li tag.
 	 */
 	deleteTask(element) {
-		const LIST_ITEM = this.#getListItem(element);
+		const LIST_ITEM = this.#getTaskContainer(element);
 
 		LIST_ITEM.remove();
 		this.hiddenShowMainAndFooter();
+		TODO_STORE.deleteTask(LIST_ITEM);
 
 		if (LIST_ITEM.classList.contains('completed')) {
 			return;
@@ -203,7 +212,7 @@ export class TodoList {
 	 * @param {HTMLInputElement | HTMLLabelElement | HTMLButtonElement} children It is tag to use for search li tag.
 	 * @returns {HTMLLIElement} List item of the task that contains div.class and input.edit.
 	 */
-	#getListItem(children) {
+	#getTaskContainer(children) {
 		const DIV_VIEW = /** @type {HTMLDivElement}*/ (children.parentElement);
 
 		return /** @type {HTMLLIElement}*/ (DIV_VIEW.parentElement);
@@ -214,7 +223,7 @@ export class TodoList {
 	 * @returns {HTMLInputElement} The input for editing a current task.
 	 */
 	#getInputEditing(children) {
-		const LIST_ITEM = this.#getListItem(children);
+		const LIST_ITEM = this.#getTaskContainer(children);
 
 		return /** @type {HTMLInputElement} */ (LIST_ITEM.children[1]);
 	}

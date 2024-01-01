@@ -6,5 +6,5 @@
 /**/googleAnalytics.js
 
 # Concrate project
-/e2e/app.spec.js
+# /e2e/app.spec.js
 /src/css/base.css

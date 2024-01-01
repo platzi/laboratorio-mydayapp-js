@@ -21,4 +21,14 @@ export const Operation = {
 	Minus: 'Minus',
 };
 
-Object.freeze(Operation);
+/**
+ * Enum for keys code.
+ * @readonly
+ * @enum {string}
+ */
+export const StatusTask = {
+	Completed: 'completed',
+	Pending: 'pending',
+};
+
+Object.freeze(StatusTask);
