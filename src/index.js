@@ -8,5 +8,7 @@ export const TODO_STORE = new TodoListStore();
 
 export const TODO = new TodoList();
 
+TODO.init();
 TODO.hiddenShowMainAndFooter();
 // globalThis.localStorage.removeItem('mydayapp-js');
+// globalThis.localStorage.removeItem('mydayapp-js-counter');

@@ -17,7 +17,13 @@ export class TodoListStore {
 	#TASKS_KEY = 'mydayapp-js';
 
 	/** @typedef {string} */
+	#COUNTER_KEY = 'mydayapp-js-counter';
+
+	/** @typedef {string} */
 	#TASKS_STORE = this.#STORE.getItem(this.#TASKS_KEY) ?? '[]';
+
+	/** @typedef {string} */
+	#COUNTER = this.#STORE.getItem(this.#COUNTER_KEY) ?? '0';
 
 	constructor() {
 		this.#checkStore();
@@ -37,7 +43,7 @@ export class TodoListStore {
 
 		TASKS.push(NEW_TASK);
 		this.#setNewValues(TASKS);
-		this.getNumberOfTasks();
+		this.#increaseCounter();
 	}
 
 	/**
@@ -57,6 +63,7 @@ export class TodoListStore {
 
 		TASKS[MARKED_TASK_INDEX].completed = status;
 		this.#setNewValues(TASKS);
+		this.#decreaseCounter();
 	}
 
 	/**
@@ -75,6 +82,10 @@ export class TodoListStore {
 
 		TASKS.splice(DELETED_TASK_INDEX, 1);
 		this.#setNewValues(TASKS);
+
+		if (listItem.classList.contains('pending')) {
+			this.#decreaseCounter();
+		}
 	}
 
 	/**
@@ -95,11 +106,20 @@ export class TodoListStore {
 	}
 
 	/**
+	 * Get all tasks in storage location.
+	 * @returns {Task[]} Task from local storage.
+	 */
+	getTasks() {
+		/** @type {Task[]} */
+		return JSON.parse(this.#TASKS_STORE);
+	}
+
+	/**
 	 * Get the count of task in the todo list according to storage location.
 	 * @returns {number} Count of task in the todo list.
 	 */
-	getNumberOfTasks() {
-		return /** @type {Task[]} */ (JSON.parse(this.#TASKS_STORE)).length;
+	getNumberOfPendingTasks() {
+		return Number(this.#COUNTER);
 	}
 
 	/**
@@ -130,6 +150,25 @@ export class TodoListStore {
 			return;
 		}
 
+		this.#STORE.setItem(this.#COUNTER_KEY, '0');
 		this.#STORE.setItem(this.#TASKS_KEY, '[]');
+	}
+
+	/** Increase counter of pending tasks. */
+	#increaseCounter() {
+		let counter = /** @type {number} */ (JSON.parse(this.#COUNTER));
+
+		counter++;
+		this.#STORE.setItem(this.#COUNTER_KEY, JSON.stringify(counter));
+		this.#COUNTER = this.#STORE.getItem(this.#COUNTER_KEY);
+	}
+
+	/** Decrease counter of pending tasks. */
+	#decreaseCounter() {
+		let counter = /** @type {number} */ (JSON.parse(this.#COUNTER));
+
+		counter--;
+		this.#STORE.setItem(this.#COUNTER_KEY, JSON.stringify(counter));
+		this.#COUNTER = this.#STORE.getItem(this.#COUNTER_KEY);
 	}
 }

@@ -1,10 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable jsdoc/require-returns */
 /* eslint-disable no-await-in-loop */
-/* eslint-disable jsdoc/require-param-description */
-/* eslint-disable jsdoc/require-param-type */
 // @ts-check
 const { test, expect } = require('@playwright/test');
+const exp = require('constants');
 
 test.beforeEach(async ({ page }) => {
 	await page.goto('/');
@@ -245,7 +244,7 @@ test.describe('Persistence', () => {
 		await expect(todoItems).toHaveClass(['completed', 'pending']);
 
 		// Ensure there is 1 completed item.
-		checkNumberOfCompletedTodosInLocalStorage(page, 1);
+		await checkNumberOfCompletedTodosInLocalStorage(page, 1);
 
 		// Now reload.
 		await page.reload();

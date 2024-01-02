@@ -36,7 +36,7 @@ export class TodoList {
 	 * Counter of pending tasks
 	 * @type {number} Number of pending tasks.
 	 */
-	#counter = TODO_STORE.getNumberOfTasks();
+	#counter = TODO_STORE.getNumberOfPendingTasks();
 
 	/**
 	 * Counter of pending tasks
@@ -58,9 +58,11 @@ export class TodoList {
 		}
 
 		const NEW_VALUE = INPUT_VALUE.trim();
-		const NEW_TASK = this.#templateTask(NEW_VALUE);
+		/** @type {import('./TodoListStore').Task} task */
+		const NEW_TASK = { title: NEW_VALUE, completed: false };
+		const NEW_TASK_HTML = this.#templateTask(NEW_TASK);
 
-		this.#todoListContainer.append(NEW_TASK);
+		this.#todoListContainer.append(NEW_TASK_HTML);
 		this.#resetMainInput();
 		this.hiddenShowMainAndFooter();
 		this.#addMinusCounter(Operation.Plus);
@@ -201,6 +203,27 @@ export class TodoList {
 	}
 
 	/**
+	 * Print all task in local storage.
+	 */
+	init() {
+		const HAS_TASK = TODO_STORE.getNumberOfPendingTasks() > 0;
+
+		if (!HAS_TASK) {
+			return;
+		}
+
+		const TASKS = TODO_STORE.getTasks();
+
+		const TASKS_HTML = TASKS.map((task) => this.#templateTask(task));
+
+		this.#todoListContainer.append(...TASKS_HTML);
+
+		/** @type {HTMLElement} */ (
+			this.#counterFooterContainer.children[0]
+		).innerText = this.#counter.toString();
+	}
+
+	/**
 	 * Check if .todo-list class is empty.
 	 * @returns {boolean} If there are elements return true.
 	 */
@@ -230,7 +253,7 @@ export class TodoList {
 
 	/**
 	 * Template task to be added to the list.
-	 * @param {string} task - The task to be added to the list.
+	 * @param {import('./TodoListStore').Task} task - The task to be added to the list.
 	 * @returns {HTMLLIElement} Template task.
 	 */
 	#templateTask(task) {
@@ -243,7 +266,7 @@ export class TodoList {
 		const EDIT = document.createElement('input');
 
 		// Add attribute class
-		LIST_ITEM.classList.add('pending');
+		LIST_ITEM.classList.add(task.completed ? 'completed' : 'pending');
 		DIV_VIEW.classList.add('view');
 		TOGGLE.classList.add('toggle');
 		DESTROY_BUTTON.classList.add('destroy');
@@ -254,8 +277,9 @@ export class TodoList {
 		EDIT.type = 'text';
 
 		// Add content
-		LABEL.innerText = task;
-		EDIT.value = task;
+		LABEL.innerText = task.title;
+		EDIT.value = task.title;
+		TOGGLE.checked = task.completed;
 
 		DIV_VIEW.append(TOGGLE, LABEL, DESTROY_BUTTON);
 		LIST_ITEM.append(DIV_VIEW, EDIT);
