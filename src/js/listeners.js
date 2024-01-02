@@ -58,6 +58,12 @@ document.addEventListener('dblclick', (event) => {
 	}
 });
 
-document.addEventListener('click', () => {
-	TODO.exitEditingSave();
+document.addEventListener('click', (event) => {
+	const { target } = event;
+	const IS_INPUT_EDIT =
+		target instanceof HTMLInputElement && target.classList.contains('edit');
+
+	if (!IS_INPUT_EDIT) {
+		TODO.exitEditingSave();
+	}
 });
