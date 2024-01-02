@@ -12,7 +12,7 @@ export const Keys = {
 Object.freeze(Keys);
 
 /**
- * Enum for keys code.
+ * Enum for type operation.
  * @readonly
  * @enum {string}
  */
@@ -22,7 +22,7 @@ export const Operation = {
 };
 
 /**
- * Enum for keys code.
+ * Enum for status tasks.
  * @readonly
  * @enum {string}
  */
@@ -32,3 +32,15 @@ export const StatusTask = {
 };
 
 Object.freeze(StatusTask);
+
+/**
+ * Enum for footer counter suffixes.
+ * @readonly
+ * @enum {string}
+ */
+export const SuffixesCounterItems = {
+	one: 'item left',
+	other: 'items left',
+};
+
+Object.freeze(SuffixesCounterItems);

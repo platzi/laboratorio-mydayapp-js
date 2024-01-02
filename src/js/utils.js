@@ -16,3 +16,22 @@ export function createMirrorObject(keys) {
 }
 
 export const ENTER_KEYS = [Keys.Enter, Keys.NumpadEnter];
+
+/**
+ * @typedef {object} Pluralize
+ * @property {Intl.PluralRules} pluralize Pluralize rule.
+ * @property {{[x: string]: string}} suffixes Suffixes for the pluralize.
+ * @property {number} number Guide for use pluralize rule as appropriate.
+ */
+/**
+ * @typedef {function(Pluralize): string} FormatTextPluralize
+ */
+/**
+ * @type {FormatTextPluralize}
+ */
+export function formatTextPluralize({ pluralize, suffixes, number }) {
+	const rule = pluralize.select(number);
+	const suffix = suffixes[rule];
+
+	return `<strong>${number}</strong> ${suffix}`;
+}
