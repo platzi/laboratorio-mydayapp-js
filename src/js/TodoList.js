@@ -1,5 +1,6 @@
 import { TODO_STORE } from '../index';
-import { Operation, StatusTask } from './types';
+import { Operation, StatusTask, SuffixesCounterItems } from './types';
+import { formatTextPluralize } from './utils';
 
 /**
  * The TodoList class is responsible for managing the todo list.
@@ -47,6 +48,11 @@ export class TodoList {
 	);
 
 	/**
+	 * Rule to pluralize footer counter.
+	 */
+	#PLURALIZE_RULE = new Intl.PluralRules('es-AR');
+
+	/**
 	 * Add new task to todo list.
 	 * @public
 	 */
@@ -60,12 +66,13 @@ export class TodoList {
 		const NEW_VALUE = INPUT_VALUE.trim();
 		/** @type {import('./TodoListStore').Task} task */
 		const NEW_TASK = { title: NEW_VALUE, completed: false };
-		const NEW_TASK_HTML = this.#templateTask(NEW_TASK);
+		const NEW_TASK_HTML = this.templateTask(NEW_TASK);
 
 		this.#todoListContainer.append(NEW_TASK_HTML);
 		this.#resetMainInput();
 		this.hiddenShowMainAndFooter();
 		this.#addMinusCounter(Operation.Plus);
+		this.#pluralizeCounterFooter();
 		TODO_STORE.addNewTask(NEW_VALUE);
 	}
 
@@ -82,10 +89,12 @@ export class TodoList {
 			LIST_ITEM.classList.add(StatusTask.Completed);
 			LIST_ITEM.classList.remove(StatusTask.Pending);
 			this.#addMinusCounter(Operation.Minus);
+			this.#pluralizeCounterFooter();
 		} else {
 			LIST_ITEM.classList.remove(StatusTask.Completed);
 			LIST_ITEM.classList.add(StatusTask.Pending);
 			this.#addMinusCounter(Operation.Plus);
+			this.#pluralizeCounterFooter();
 		}
 
 		TODO_STORE.markTask(LIST_ITEM, IS_CHECKED);
@@ -184,6 +193,7 @@ export class TodoList {
 		}
 
 		this.#addMinusCounter(Operation.Minus);
+		this.#pluralizeCounterFooter();
 	}
 
 	/**
@@ -203,6 +213,42 @@ export class TodoList {
 	}
 
 	/**
+	 * Template task to be added to the list.
+	 * @param {import('./TodoListStore').Task} task - The task to be added to the list.
+	 * @returns {HTMLLIElement} Template task.
+	 */
+	templateTask(task) {
+		// Create elements
+		const LIST_ITEM = document.createElement('li');
+		const DIV_VIEW = document.createElement('div');
+		const TOGGLE = document.createElement('input');
+		const LABEL = document.createElement('label');
+		const DESTROY_BUTTON = document.createElement('button');
+		const EDIT = document.createElement('input');
+
+		// Add attribute class
+		LIST_ITEM.classList.add(task.completed ? 'completed' : 'pending');
+		DIV_VIEW.classList.add('view');
+		TOGGLE.classList.add('toggle');
+		DESTROY_BUTTON.classList.add('destroy');
+		EDIT.classList.add('edit');
+
+		// Add type input
+		TOGGLE.type = 'checkbox';
+		EDIT.type = 'text';
+
+		// Add content
+		LABEL.innerText = task.title;
+		EDIT.value = task.title;
+		TOGGLE.checked = task.completed;
+
+		DIV_VIEW.append(TOGGLE, LABEL, DESTROY_BUTTON);
+		LIST_ITEM.append(DIV_VIEW, EDIT);
+
+		return LIST_ITEM;
+	}
+
+	/**
 	 * Print all task in local storage.
 	 */
 	init() {
@@ -214,7 +260,7 @@ export class TodoList {
 
 		const TASKS = TODO_STORE.getTasks();
 
-		const TASKS_HTML = TASKS.map((task) => this.#templateTask(task));
+		const TASKS_HTML = TASKS.map((task) => this.templateTask(task));
 
 		this.#todoListContainer.append(...TASKS_HTML);
 
@@ -251,42 +297,6 @@ export class TodoList {
 		return /** @type {HTMLInputElement} */ (LIST_ITEM.children[1]);
 	}
 
-	/**
-	 * Template task to be added to the list.
-	 * @param {import('./TodoListStore').Task} task - The task to be added to the list.
-	 * @returns {HTMLLIElement} Template task.
-	 */
-	#templateTask(task) {
-		// Create elements
-		const LIST_ITEM = document.createElement('li');
-		const DIV_VIEW = document.createElement('div');
-		const TOGGLE = document.createElement('input');
-		const LABEL = document.createElement('label');
-		const DESTROY_BUTTON = document.createElement('button');
-		const EDIT = document.createElement('input');
-
-		// Add attribute class
-		LIST_ITEM.classList.add(task.completed ? 'completed' : 'pending');
-		DIV_VIEW.classList.add('view');
-		TOGGLE.classList.add('toggle');
-		DESTROY_BUTTON.classList.add('destroy');
-		EDIT.classList.add('edit');
-
-		// Add type input
-		TOGGLE.type = 'checkbox';
-		EDIT.type = 'text';
-
-		// Add content
-		LABEL.innerText = task.title;
-		EDIT.value = task.title;
-		TOGGLE.checked = task.completed;
-
-		DIV_VIEW.append(TOGGLE, LABEL, DESTROY_BUTTON);
-		LIST_ITEM.append(DIV_VIEW, EDIT);
-
-		return LIST_ITEM;
-	}
-
 	/** When the user adds a new task, the main input is cleared */
 	#resetMainInput() {
 		this.#newTaskInput.value = '';
@@ -318,20 +328,19 @@ export class TodoList {
 	 */
 	#addMinusCounter(operation) {
 		operation === Operation.Plus ? this.#counter++ : this.#counter--;
+	}
 
-		if (this.#counter < 0) {
-			this.#counterFooterContainer.innerHTML = `<strong>0</strong> item left`;
-			this.#counter = 0;
+	/**
+	 * Pluralize the counter of pending tasks (item or items).
+	 */
+	#pluralizeCounterFooter() {
+		const TEXT = formatTextPluralize({
+			pluralize: this.#PLURALIZE_RULE,
+			suffixes: SuffixesCounterItems,
+			number: this.#counter,
+		});
 
-			return;
-		}
-
-		const COUNTER = `<strong>${this.#counter}</strong>`;
-		const IS_UNIQUE_ITEM = this.#counter === 1;
-
-		this.#counterFooterContainer.innerHTML = IS_UNIQUE_ITEM
-			? `${COUNTER} item left`
-			: `${COUNTER} items left`;
+		this.#counterFooterContainer.innerHTML = TEXT;
 	}
 
 	/** Hide "clear completed" button when do not have tasks with "completed" class. */

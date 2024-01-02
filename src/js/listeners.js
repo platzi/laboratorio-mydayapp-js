@@ -1,4 +1,10 @@
 import { TODO } from '../index';
+import {
+	filterAll,
+	filterCompleted,
+	filterPending,
+	highlightFilter,
+} from './filter';
 import { Keys } from './types';
 import { ENTER_KEYS } from './utils';
 
@@ -39,6 +45,7 @@ document.addEventListener('click', (event) => {
 	const IS_CLEAR_COMPLETED_BUTTON =
 		target instanceof HTMLButtonElement &&
 		target.classList.contains('clear-completed');
+	const IS_FILTERS = target instanceof HTMLAnchorElement;
 
 	if (IS_DELETE_TASK) {
 		TODO.deleteTask(target);
@@ -46,6 +53,8 @@ document.addEventListener('click', (event) => {
 		TODO.markTask(target);
 	} else if (IS_CLEAR_COMPLETED_BUTTON) {
 		TODO.clearCompletedTasks();
+	} else if (IS_FILTERS) {
+		highlightFilter(target);
 	}
 });
 
@@ -66,4 +75,14 @@ document.addEventListener('click', (event) => {
 	if (!IS_INPUT_EDIT) {
 		TODO.exitEditingSave();
 	}
+});
+
+window.addEventListener('hashchange', () => {
+	const HASHES = {
+		'#/': filterAll,
+		'#/pending': filterPending,
+		'#/completed': filterCompleted,
+	};
+
+	HASHES[location.hash]();
 });
