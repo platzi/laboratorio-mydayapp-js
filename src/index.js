@@ -1,5 +1,14 @@
-import "./css/base.css";
+import './css/base.css';
+import './js/listeners';
 
-import { sayHello } from "./js/utils";
+import { TodoList } from './js/TodoList';
+import { TodoListStore } from './js/TodoListStore';
 
-console.log(sayHello("Hello"));
+export const TODO_STORE = new TodoListStore();
+
+export const TODO = new TodoList();
+
+TODO.init();
+TODO.hiddenShowMainAndFooter();
+// globalThis.localStorage.removeItem('mydayapp-js');
+// globalThis.localStorage.removeItem('mydayapp-js-counter');

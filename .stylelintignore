@@ -1,0 +1,9 @@
+/dist/*
+/build/*
+/node_modules/*
+**/*_normalize.scss
+/**/main.css
+/**/index.css
+
+# Concrate project
+/src/css/base.css

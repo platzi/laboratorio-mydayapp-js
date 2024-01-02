@@ -1,0 +1,9 @@
+/dist/*
+/build/*
+/node_modules/*
+/**/*.bundle.*.js
+/**/index.bundle.*.js
+/**/googleAnalytics.js
+
+# Concrate project
+# /e2e/app.spec.js
