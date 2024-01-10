@@ -73,7 +73,6 @@ nodes.ulListTodo.addEventListener("click", (event) => {
   const liClosest = target.closest("li");
 
   if (button) {
-    console.log("Se preciono la X de ", liClosest);
     nodes.ulListTodo.removeChild(liClosest);
 
     const checkListArray = [];
@@ -82,7 +81,6 @@ nodes.ulListTodo.addEventListener("click", (event) => {
     for (let element of liList) {
       const elementString = element.outerHTML;
       checkListArray.push(elementString);
-      console.log(checkListArray);
     }
 
     localStorage.setItem("mydayapp-js", JSON.stringify(checkListArray));
@@ -153,6 +151,27 @@ nodes.ulListTodo.addEventListener("dblclick", (event) => {
       }
     });
   }
+});
+
+nodes.clearCompletedBtn.addEventListener("click", () => {
+  const ulListTodoElements = nodes.ulListTodo.querySelectorAll("li");
+  console.log("Se eliminaron todas las tareas completas");
+  for (const element of ulListTodoElements) {
+    console.log(element);
+    if (element.classList == "completed") {
+      nodes.ulListTodo.removeChild(element);
+    }
+  }
+  const checkListArray = [];
+  const liList = nodes.ulListTodo.querySelectorAll("li");
+
+  for (let element of liList) {
+    const elementString = element.outerHTML;
+    checkListArray.push(elementString);
+  }
+
+  localStorage.setItem("mydayapp-js", JSON.stringify(checkListArray));
+  displayTasks();
 });
 
 function taskCounter() {
