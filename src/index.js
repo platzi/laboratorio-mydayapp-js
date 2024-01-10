@@ -49,7 +49,7 @@ nodes.ulListTodo.addEventListener("click", (event) => {
       listItem.classList.add("completed");
       target.setAttribute("checked", "checked");
     } else if (listItem.classList == "completed") {
-      listItem.classList.remove("completed");
+      listItem.removeAttribute("class");
       target.removeAttribute("checked");
     }
 
@@ -63,6 +63,29 @@ nodes.ulListTodo.addEventListener("click", (event) => {
     }
 
     localStorage.setItem("mydayapp-js", JSON.stringify(checkList));
+    displayTasks();
+  }
+});
+
+nodes.ulListTodo.addEventListener("click", (event) => {
+  const target = event.target;
+  const button = target.closest("button");
+  const liClosest = target.closest("li");
+
+  if (button) {
+    console.log("Se preciono la X de ", liClosest);
+    nodes.ulListTodo.removeChild(liClosest);
+
+    const checkListArray = [];
+    const liList = nodes.ulListTodo.querySelectorAll("li");
+
+    for (let element of liList) {
+      const elementString = element.outerHTML;
+      checkListArray.push(elementString);
+      console.log(checkListArray);
+    }
+
+    localStorage.setItem("mydayapp-js", JSON.stringify(checkListArray));
     displayTasks();
   }
 });
@@ -132,6 +155,24 @@ nodes.ulListTodo.addEventListener("dblclick", (event) => {
   }
 });
 
+function taskCounter() {
+  const pendingItems = nodes.ulListTodo.querySelectorAll("li");
+
+  const pendingWithoutCompleted = Array.from(pendingItems).filter((li) => {
+    return !li.classList.contains("completed");
+  });
+
+  const countPendingWithoutCompleted = pendingWithoutCompleted.length;
+
+  nodes.strong.innerText = countPendingWithoutCompleted;
+
+  if (countPendingWithoutCompleted != 1) {
+    nodes.taskCounter.innerHTML = `<strong>${countPendingWithoutCompleted}</strong> items left`;
+  } else {
+    nodes.taskCounter.innerHTML = `<strong>${countPendingWithoutCompleted}</strong> item left`;
+  }
+}
+
 function saveTask(item) {
   const checkListString = item.outerHTML;
 
@@ -158,6 +199,7 @@ function displayTasks() {
       divTemporal.innerHTML = element;
 
       nodes.ulListTodo.appendChild(divTemporal.firstChild);
+      taskCounter();
     });
   }
 }
