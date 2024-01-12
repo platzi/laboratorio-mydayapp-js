@@ -174,6 +174,45 @@ nodes.clearCompletedBtn.addEventListener("click", () => {
   displayTasks();
 });
 
+nodes.ulFilters.addEventListener("click", (event) => {
+  const target = event.target;
+  const filter = target.closest("a");
+  const checkList = nodes.ulListTodo.querySelectorAll("li");
+
+  // Restaurar el estilo de borde de todos los elementos
+  for (let element of checkList) {
+    element.style.display = "none";
+  }
+
+  // Restaurar el estilo de borde de todos los filtros
+  const allFilters = nodes.ulFilters.querySelectorAll("a");
+  for (let filterElement of allFilters) {
+    filterElement.style.borderColor = "transparent";
+  }
+
+  // Aplicar el estilo de borde al elemento clicado
+  filter.style.borderColor = "#4c33b1";
+
+  if (filter.classList[0] == "all-filter") {
+    console.log("Cambiaste de filtro a all");
+    displayTasks();
+  } else if (filter.classList[0] == "pending-filter") {
+    console.log("Cambiaste de filtro a pending");
+    for (let element of checkList) {
+      if (element.classList != "completed") {
+        element.style.display = "block";
+      }
+    }
+  } else if (filter.classList[0] == "completed-filter") {
+    console.log("Cambiaste de filtro a completed");
+    for (let element of checkList) {
+      if (element.classList == "completed") {
+        element.style.display = "block";
+      }
+    }
+  }
+});
+
 function taskCounter() {
   const pendingItems = nodes.ulListTodo.querySelectorAll("li");
 
