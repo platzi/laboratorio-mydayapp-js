@@ -155,7 +155,6 @@ nodes.ulListTodo.addEventListener("dblclick", (event) => {
 
 nodes.clearCompletedBtn.addEventListener("click", () => {
   const ulListTodoElements = nodes.ulListTodo.querySelectorAll("li");
-  console.log("Se eliminaron todas las tareas completas");
   for (const element of ulListTodoElements) {
     console.log(element);
     if (element.classList == "completed") {
@@ -165,13 +164,17 @@ nodes.clearCompletedBtn.addEventListener("click", () => {
   const checkListArray = [];
   const liList = nodes.ulListTodo.querySelectorAll("li");
 
-  for (let element of liList) {
-    const elementString = element.outerHTML;
-    checkListArray.push(elementString);
-  }
+  if (liList[0] == undefined) {
+    localStorage.removeItem("mydayapp-js");
+  } else {
+    for (let element of liList) {
+      const elementString = element.outerHTML;
+      checkListArray.push(elementString);
 
-  localStorage.setItem("mydayapp-js", JSON.stringify(checkListArray));
-  displayTasks();
+      localStorage.setItem("mydayapp-js", JSON.stringify(checkListArray));
+      displayTasks();
+    }
+  }
 });
 
 nodes.ulFilters.addEventListener("click", (event) => {
