@@ -4,13 +4,14 @@ import { inputEvent } from './js/utils';
 import { newTodoInput } from "./js/selectors";
 
 
-window.onload = function() {
-    newTodoInput.focus();
-};
+// window.onload = function() {
+//     newTodoInput.focus();
+// };
 
 
-
+//constantes
 const toDoList = document.querySelector('.todo-list');
+
 
 newTodoInput.addEventListener('change', () => {
     const li = document.createElement('li');
@@ -19,10 +20,10 @@ newTodoInput.addEventListener('change', () => {
     div.classList.add('view');
     li.appendChild(div);
 
-    const input = document.createElement('input');
-    input.classList.add('toggle');
-    input.setAttribute('type', 'checkbox');
-    div.appendChild(input);
+    const checkbox = document.createElement('input');
+    checkbox.classList.add('toggle');
+    checkbox.setAttribute('type', 'checkbox');
+    div.appendChild(checkbox);
 
     const label = document.createElement('label');
     label.innerText = newTodoInput.value;
@@ -34,10 +35,41 @@ newTodoInput.addEventListener('change', () => {
 
     const outerInput = document.createElement('input');
     outerInput.classList.add('edit');
-    outerInput.value = newTodoInput.value;
+    outerInput.setAttribute('value', newTodoInput.value);
+    outerInput.addEventListener('keypress', function (event) {
+        if (event.key === 'Enter') {
+            li.classList.toggle('editing');
+            if (outerInput.value) {
+                label.innerText = outerInput.value;
+            } else {
+                li.remove();
+            }
+        }
+    })
     li.appendChild(outerInput);
+
+    label.addEventListener('dblclick', () => {
+        li.classList.toggle('editing');
+        outerInput.focus();
+    })
+
+    button.addEventListener('click', () => {
+        li.remove();
+    })
 
     toDoList.appendChild(li);
 
+    isCheckboxCheck(li);
+
     newTodoInput.value = '';
 })
+
+
+function isCheckboxCheck(li) {
+        const checkbox = li.querySelector('.toggle');
+        checkbox.addEventListener('change', () => {
+            if (checkbox.checked) li.classList.add('completed');
+            else li.classList.remove('completed');
+        })
+}
+
