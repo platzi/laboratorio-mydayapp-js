@@ -8,13 +8,17 @@ import { newTodoInput } from "./js/selectors";
 //     newTodoInput.focus();
 // };
 
+let toDoCount = 0;
 
 //constantes
 const toDoList = document.querySelector('.todo-list');
-
+const toDoCountSpan = document.querySelector('.todo-count');
 
 newTodoInput.addEventListener('change', () => {
+    const text = newTodoInput.value.trim();
+
     const li = document.createElement('li');
+    li.classList.add('pending');
 
     const div = document.createElement('div');
     div.classList.add('view');
@@ -26,7 +30,7 @@ newTodoInput.addEventListener('change', () => {
     div.appendChild(checkbox);
 
     const label = document.createElement('label');
-    label.innerText = newTodoInput.value;
+    label.innerText = text;
     div.appendChild(label);
 
     const button = document.createElement('button');
@@ -35,12 +39,20 @@ newTodoInput.addEventListener('change', () => {
 
     const outerInput = document.createElement('input');
     outerInput.classList.add('edit');
-    outerInput.setAttribute('value', newTodoInput.value);
-    outerInput.addEventListener('keypress', function (event) {
-        if (event.key === 'Enter') {
+    outerInput.setAttribute('value', label.innerText.trim());
+    outerInput.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
             li.classList.toggle('editing');
-            if (outerInput.value) {
-                label.innerText = outerInput.value;
+            label.innerText = text;
+            outerInput.value = text;
+        }
+
+        if (event.key === 'Enter') {
+            const editedText = outerInput.value.trim();
+            li.classList.toggle('editing');
+            if (editedText) {
+                label.innerText = editedText;
+                outerInput.value = editedText;
             } else {
                 li.remove();
             }
@@ -55,21 +67,57 @@ newTodoInput.addEventListener('change', () => {
 
     button.addEventListener('click', () => {
         li.remove();
+        substractCounter();
     })
 
     toDoList.appendChild(li);
 
     isCheckboxCheck(li);
 
+    counter();
+
     newTodoInput.value = '';
 })
+
+function counter() {
+    toDoCountSpan.innerText = '';
+    toDoCount++;
+    if (toDoCount == 1) {
+        toDoCountSpan.innerHTML = `
+            <strong>${toDoCount}</strong> item left
+        `
+    } else {
+        toDoCountSpan.innerHTML = `
+            <strong>${toDoCount}</strong> items left
+        `
+    }
+}
+
+function substractCounter() {
+    toDoCountSpan.innerText = '';
+    toDoCount--;
+    if (toDoCount == 1) {
+        toDoCountSpan.innerHTML = `
+            <strong>${toDoCount}</strong> item left
+        `
+    } else {
+        toDoCountSpan.innerHTML = `
+            <strong>${toDoCount}</strong> items left
+        `
+    }
+}
 
 
 function isCheckboxCheck(li) {
         const checkbox = li.querySelector('.toggle');
         checkbox.addEventListener('change', () => {
-            if (checkbox.checked) li.classList.add('completed');
-            else li.classList.remove('completed');
+            if (checkbox.checked) {
+                substractCounter();
+                li.classList.add('completed');
+            }
+            else {
+                li.classList.remove('completed');
+                counter();
+            }     
         })
 }
-
