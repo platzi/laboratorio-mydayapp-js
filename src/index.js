@@ -9,6 +9,7 @@ import { main, footer, newTodoInput, firstLi } from './js/selectors';
 // };
 
 let toDoCount = 0;
+
 let tasksList = [];
 //constantes
 const toDoList = document.querySelector('.todo-list');
@@ -38,23 +39,22 @@ function loadSavedTasks() {
             main.classList.remove('hidden');
             footer.classList.remove('hidden');
 
-
             const li = document.createElement('li');
-            li.classList.add('pending');
-        
+            li.classList.add(task.completed ? 'completed' : 'pending');
+
             const div = document.createElement('div');
             div.classList.add('view');
             li.appendChild(div);
-        
+
             const checkbox = document.createElement('input');
             checkbox.classList.add('toggle');
             checkbox.setAttribute('type', 'checkbox');
             div.appendChild(checkbox);
-        
+
             const label = document.createElement('label');
             label.innerText = task.text;
             div.appendChild(label);
-        
+
             const button = document.createElement('button');
             button.classList.add('destroy');
             div.appendChild(button);
@@ -65,18 +65,20 @@ function loadSavedTasks() {
             outerInput.addEventListener('keydown', function (event) {
                 if (event.key === 'Escape') {
                     li.classList.toggle('editing');
-                    label.innerText = task.text;
-                    outerInput.value = task.text;
+                    label.innerText = task.text.trim();
+                    outerInput.value = task.text.trim();
                 }
         
                 if (event.key === 'Enter') {
                     const editedText = outerInput.value.trim();
                     li.classList.toggle('editing');
                     if (editedText) {
-                        label.innerText = editedText;
-                        outerInput.value = editedText;
+                        label.innerText = editedText.trim();
+                        outerInput.value = editedText.trim();
                     } else {
                         li.remove();
+                        substractCounter();
+                        deleteTask(task.text);
                     }
                 }
             })
@@ -95,9 +97,11 @@ function loadSavedTasks() {
         
             toDoList.appendChild(li);
         
-            isCheckboxCheck(li);
-
-            counter();
+            isCheckboxCheck(li, task);
+            
+            if (!task.completed) {
+                counter();
+            }
         });
 
         toDoCount = tasksList.filter(tarea => !tarea.completed).length;
@@ -109,11 +113,12 @@ function loadSavedTasks() {
             main.classList.add('hidden');
             footer.classList.add('hidden');
         }   
-    }
-
+    } 
     
 }
 loadSavedTasks();
+
+
 
 
 newTodoInput.addEventListener('change', () => {
@@ -122,10 +127,12 @@ newTodoInput.addEventListener('change', () => {
 
     const text = newTodoInput.value.trim();
 
-    tasksList.push({
+    const newTask = {
         text: text,
         completed: false
-    });
+    };
+
+    tasksList.push(newTask);
 
     saveTask();
 
@@ -154,26 +161,31 @@ newTodoInput.addEventListener('change', () => {
     outerInput.setAttribute('value', label.innerText.trim());
     outerInput.addEventListener('keydown', function (event) {
         if (event.key === 'Escape') {
-            li.classList.toggle('editing');
-            label.innerText = text;
-            outerInput.value = text;
+            li.classList.remove('editing');
+            li.classList.add('pending');
+            label.innerText = text.trim();
+            outerInput.value = text.trim();
         }
 
         if (event.key === 'Enter') {
             const editedText = outerInput.value.trim();
-            li.classList.toggle('editing');
+            li.classList.remove('editing');
+            li.classList.add('pending');
             if (editedText) {
-                label.innerText = editedText;
-                outerInput.value = editedText;
+                label.innerText = editedText.trim();
+                outerInput.value = editedText.trim();
             } else {
                 li.remove();
+                substractCounter();
+                deleteTask(newTask.text);
             }
         }
     })
     li.appendChild(outerInput);
 
     label.addEventListener('dblclick', () => {
-        li.classList.toggle('editing');
+        li.classList.remove('pending');
+        li.classList.add('editing');
         outerInput.focus();
     })
 
@@ -185,9 +197,11 @@ newTodoInput.addEventListener('change', () => {
 
     toDoList.appendChild(li);
 
-    isCheckboxCheck(li);
+    isCheckboxCheck(li, newTask);
 
-    counter();
+    if (!newTask.completed) {
+        counter();
+    }
 
     newTodoInput.value = '';
 
@@ -212,12 +226,12 @@ function substractCounter() {
     toDoCount--;
 
     if (toDoCount <= 0) {
-
-        const hasPendingTasks = tasksList.some(task => !task.completed);
-
+        const hasPendingTasks = tasksList.some(task => task.completed);
+        console.log(!hasPendingTasks);
         if (!hasPendingTasks) {
             main.classList.add('hidden');
             footer.classList.add('hidden');
+            toDoCount = 0;
             return;
         }
     }
@@ -233,34 +247,33 @@ function substractCounter() {
     }
 }
 
-function isCheckboxCheck(li) {
-        const checkbox = li.querySelector('.toggle');
-        checkbox.addEventListener('change', () => {
-            if (checkbox.checked) {
-                substractCounter();
-                li.classList.add('completed');
-                li.classList.remove('pending');
-            }
-            else {
-                li.classList.add('pending');
-                li.classList.remove('completed');
-                counter();
-            }     
-        })
+function isCheckboxCheck(li, task) {
+    const checkbox = li.querySelector('.toggle');
+    checkbox.checked = task.completed;
+    checkbox.addEventListener('change', () => {
+        task.completed = checkbox.checked;
+        if (task.completed) {
+            li.classList.add('completed');
+            li.classList.remove('pending');
+            substractCounter();
+        } else {
+            li.classList.add('pending');
+            li.classList.remove('completed');
+            counter();
+        }
+        saveTask();
+    });
 }
 
 function clearCompleted() {
     const toDoListLi = document.querySelectorAll('ul.todo-list li');
 
-    toDoListLi.forEach(elem => {
+    toDoListLi.forEach((elem) => {
         if (elem.classList.contains('completed')) {
             deleteTask(elem.querySelector('label').innerText);
             elem.remove();
-        } else {
-            return
         }
     })
 }
 clearCompletedButton.addEventListener('click', clearCompleted);
-
 
