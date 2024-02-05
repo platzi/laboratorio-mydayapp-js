@@ -1,4 +1,4 @@
-import { main, footer, newTodoInput, firstLi } from './selectors';
+import { main, footer, newTodoInput, firstLi } from './constants';
 
 main.classList.add('hidden');
 footer.classList.add('hidden');
