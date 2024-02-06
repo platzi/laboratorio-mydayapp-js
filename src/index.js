@@ -50,6 +50,13 @@ const  renderTodoList = () => {
         todoCounter.innerHTML = `<strong>${todoListPending.length}</strong> item left`
     }
 
+    clearCompletedElement = document.querySelector(".clear-completed")
+    if (todoListCompleted.length != 0) {
+        clearCompletedElement.hidden = false
+    } else {
+        clearCompletedElement.hidden = true
+    }
+
     // Task actions function
     taskActions()
 }
@@ -115,11 +122,8 @@ function taskActions() {
     });
 }
 
-const clearCompletedElement = document.querySelector(".clear-completed")
+let clearCompletedElement = document.querySelector(".clear-completed")
 clearCompletedElement.addEventListener('click', () => {
-    console.log("clear completed tasks")
-    console.log("Pending:", todoListPending)
-    console.log("Completed:", todoListCompleted)
     if (todoListCompleted.length != 0) {
         localStorage.setItem("mydayapp-js", JSON.stringify(todoListPending))
         renderTodoList()
