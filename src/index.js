@@ -7,9 +7,11 @@ localStorage.setItem("mydayapp-js", JSON.stringify(todoList));
 const mainSection = document.querySelector(".main")
 const footerSection = document.querySelector(".footer")
 
+let todoListLS = []
+
 const  renderTodoList = () => {
     const todoListContainer = document.querySelector(".todo-list")
-    const todoListLS = JSON.parse(localStorage.getItem("mydayapp-js"))
+    todoListLS = JSON.parse(localStorage.getItem("mydayapp-js"))
 
     if (todoListLS.length === 0) {
         mainSection.style.display = "none"
@@ -19,13 +21,12 @@ const  renderTodoList = () => {
         footerSection.style.display = "block"
     }
 
-    console.log("Rendering...")
     let todoListTem = ""
-    todoListLS.map(todo => {
+    todoListLS.map((todo, index) => {
         let todoItem = `
-            <li class=${todo.isCompleted ? "completed" : ""}>
+            <li id="todo-${index}" class=${todo.completed ? "completed" : ""}>
               <div class="view">
-                <input class="toggle" type="checkbox" ${todo.isCompleted ? "checked" : ""} />
+                <input class="toggle" type="checkbox" ${todo.completed ? "checked" : ""} />
                 <label>${todo.title}</label>
                 <button class="destroy"></button>
               </div>
@@ -36,9 +37,9 @@ const  renderTodoList = () => {
     })
     todoListContainer.innerHTML = todoListTem
     console.log("Rendered")
-}
 
-renderTodoList()
+    taskActions()
+}
 
 const newTodoInput = document.querySelector(".new-todo")
 
@@ -49,11 +50,56 @@ newTodoInput.addEventListener('keyup', (e) => {
     }
 })
 
-const createTask = (task) => {
+function createTask(task) {
     if (!!task) {
-        const todoListLS = JSON.parse(localStorage.getItem("mydayapp-js"))
-        const todoItem = { id: Math.floor(Math.random() * 1000), title: task.trim(), isCompleted: false}
+        const todoItem = { id: Math.floor(Math.random() * 1000), title: task.trim(), completed: false}
         localStorage.setItem("mydayapp-js", JSON.stringify([...todoListLS, todoItem]))
         renderTodoList()
     }
 }
+
+function taskActions() {
+    todoListLS.forEach((todo, index) => {
+        const todoItemElement = document.getElementById(`todo-${index}`);
+
+        // Checkbox
+        const checkboxElement = todoItemElement.querySelector('.toggle');
+        checkboxElement.addEventListener('click', () => {
+            todoListLS[index].completed = !todoListLS[index].completed
+        
+            localStorage.setItem("mydayapp-js", JSON.stringify(todoListLS))
+            renderTodoList()
+        });
+
+        // Edit
+        const labelElement = todoItemElement.querySelector("label")
+        labelElement.addEventListener('dblclick', () => {
+            todoItemElement.classList.toggle("editing")
+
+            const taskNewTitle = todoItemElement.querySelector(".edit")
+            taskNewTitle.focus()
+            
+            taskNewTitle.addEventListener('keyup', (e) => {
+                if (e.keyCode === 13 && !e.shiftKey) {
+                    todoListLS[index].title = taskNewTitle.value.trim()
+                    
+                    localStorage.setItem("mydayapp-js", JSON.stringify(todoListLS))
+                    renderTodoList()
+                } else if (e.keyCode === 27) {
+                    todoItemElement.classList.remove("editing")
+                    taskNewTitle.value = labelElement.innerText
+                }
+            })
+        })
+
+        // Delete
+        const deleteElement = todoItemElement.querySelector(".destroy")
+        deleteElement.addEventListener('click', () => {
+            todoListLS.splice(index, 1)
+            localStorage.setItem("mydayapp-js", JSON.stringify(todoListLS))
+            renderTodoList()
+        })
+    });
+}
+
+renderTodoList()
