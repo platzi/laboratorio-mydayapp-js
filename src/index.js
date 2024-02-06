@@ -1,15 +1,15 @@
 import "./css/base.css";
 
-let todoList = JSON.parse(localStorage.getItem("todoList")) || [];
+let todoList = JSON.parse(localStorage.getItem("mydayapp-js")) || [];
 
-localStorage.setItem("todoList", JSON.stringify(todoList));
+localStorage.setItem("mydayapp-js", JSON.stringify(todoList));
 
 const mainSection = document.querySelector(".main")
 const footerSection = document.querySelector(".footer")
 
 const  renderTodoList = () => {
     const todoListContainer = document.querySelector(".todo-list")
-    const todoListLS = JSON.parse(localStorage.getItem("todoList"))
+    const todoListLS = JSON.parse(localStorage.getItem("mydayapp-js"))
 
     if (todoListLS.length === 0) {
         mainSection.style.display = "none"
@@ -51,9 +51,9 @@ newTodoInput.addEventListener('keyup', (e) => {
 
 const createTask = (task) => {
     if (!!task) {
-        const todoListLS = JSON.parse(localStorage.getItem("todoList"))
+        const todoListLS = JSON.parse(localStorage.getItem("mydayapp-js"))
         const todoItem = { id: Math.floor(Math.random() * 1000), title: task.trim(), isCompleted: false}
-        localStorage.setItem("todoList", JSON.stringify([...todoListLS, todoItem]))
+        localStorage.setItem("mydayapp-js", JSON.stringify([...todoListLS, todoItem]))
         renderTodoList()
     }
 }
