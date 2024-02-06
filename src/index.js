@@ -1,23 +1,27 @@
 import "./css/base.css";
 
-import { todoList } from "./js/todoList";
+let todoList = JSON.parse(localStorage.getItem("todoList")) || [];
 
-console.log(todoList)
+localStorage.setItem("todoList", JSON.stringify(todoList));
 
 const mainSection = document.querySelector(".main")
 const footerSection = document.querySelector(".footer")
 
-if (todoList.length === 0) {
-    mainSection.style.display = "none"
-    footerSection.style.display = "none"
-}
+const  renderTodoList = () => {
+    const todoListContainer = document.querySelector(".todo-list")
+    const todoListLS = JSON.parse(localStorage.getItem("todoList"))
 
-const todoListContainer = document.querySelector(".todo-list")
+    if (todoListLS.length === 0) {
+        mainSection.style.display = "none"
+        footerSection.style.display = "none"
+    } else {
+        mainSection.style.display = "block"
+        footerSection.style.display = "block"
+    }
 
-function renderTodoList() {
-    console.log("Render")
+    console.log("Rendering...")
     let todoListTem = ""
-    todoList.map(todo => {
+    todoListLS.map(todo => {
         let todoItem = `
             <li class=${todo.isCompleted ? "completed" : ""}>
               <div class="view">
@@ -31,6 +35,7 @@ function renderTodoList() {
         todoListTem += todoItem
     })
     todoListContainer.innerHTML = todoListTem
+    console.log("Rendered")
 }
 
 renderTodoList()
@@ -39,11 +44,16 @@ const newTodoInput = document.querySelector(".new-todo")
 
 newTodoInput.addEventListener('keyup', (e) => {
     if (e.keyCode === 13 && !e.shiftKey) {
-        if (!!newTodoInput.value) {
-            todoList.push({ id: Symbol(Math.floor(Math.random() * 1000)), title: newTodoInput.value.trim(), isCompleted: false})
-            newTodoInput.value = ""
-            renderTodoList()
-        }
+        createTask(newTodoInput.value)
+        newTodoInput.value = ""
     }
 })
 
+const createTask = (task) => {
+    if (!!task) {
+        const todoListLS = JSON.parse(localStorage.getItem("todoList"))
+        const todoItem = { id: Math.floor(Math.random() * 1000), title: task.trim(), isCompleted: false}
+        localStorage.setItem("todoList", JSON.stringify([...todoListLS, todoItem]))
+        renderTodoList()
+    }
+}
