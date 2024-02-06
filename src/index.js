@@ -9,12 +9,14 @@ const footerSection = document.querySelector(".footer")
 
 let todoListLS = []
 let todoListPending = []
+let todoListCompleted = []
 
 const  renderTodoList = () => {
     const todoListContainer = document.querySelector(".todo-list")
     todoListLS = JSON.parse(localStorage.getItem("mydayapp-js"))
 
     todoListPending = todoListLS.filter(todo => todo.completed === false)
+    todoListCompleted = todoListLS.filter(todo => todo.completed === true)
 
     if (todoListLS.length === 0) {
         mainSection.style.display = "none"
@@ -112,5 +114,16 @@ function taskActions() {
         })
     });
 }
+
+const clearCompletedElement = document.querySelector(".clear-completed")
+clearCompletedElement.addEventListener('click', () => {
+    console.log("clear completed tasks")
+    console.log("Pending:", todoListPending)
+    console.log("Completed:", todoListCompleted)
+    if (todoListCompleted.length != 0) {
+        localStorage.setItem("mydayapp-js", JSON.stringify(todoListPending))
+        renderTodoList()
+    }
+})
 
 renderTodoList()
