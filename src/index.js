@@ -8,10 +8,13 @@ const mainSection = document.querySelector(".main")
 const footerSection = document.querySelector(".footer")
 
 let todoListLS = []
+let todoListPending = []
 
 const  renderTodoList = () => {
     const todoListContainer = document.querySelector(".todo-list")
     todoListLS = JSON.parse(localStorage.getItem("mydayapp-js"))
+
+    todoListPending = todoListLS.filter(todo => todo.completed === false)
 
     if (todoListLS.length === 0) {
         mainSection.style.display = "none"
@@ -38,6 +41,14 @@ const  renderTodoList = () => {
     todoListContainer.innerHTML = todoListTem
     console.log("Rendered")
 
+    const todoCounter = document.querySelector(".todo-count")
+    if (todoListPending.length != 1) {
+        todoCounter.innerHTML = `<strong>${todoListPending.length}</strong> items left`
+    } else {
+        todoCounter.innerHTML = `<strong>${todoListPending.length}</strong> item left`
+    }
+
+    // Task actions function
     taskActions()
 }
 
