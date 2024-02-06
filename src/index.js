@@ -1,5 +1,13 @@
 import "./css/base.css";
 
-import { sayHello } from "./js/utils";
+import { todoList } from "./js/todoList";
 
-console.log(sayHello("Hello"));
+console.log(todoList)
+
+const mainSection = document.querySelector(".main")
+const footerSection = document.querySelector(".footer")
+
+if (todoList.length === 0) {
+    mainSection.style.display = "none"
+    footerSection.style.display = "none"
+}
