@@ -1,5 +1,13 @@
 import "./css/base.css";
 
-import { sayHello } from "./js/utils";
+const footer = document.querySelector("footer");
+const list = document.querySelector(".todo-list");
+const main = document.querySelector(".main");
 
-console.log(sayHello("Hello"));
+console.log(footer);
+console.log(list);
+
+if (list.childElementCount === 0) {
+  footer.style.display = "none";
+  main.style.display = "none";
+}
