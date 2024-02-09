@@ -5,6 +5,7 @@ const list = document.querySelector(".todo-list");
 const main = document.querySelector(".main");
 const input = document.querySelector(".new-todo");
 const count = document.querySelector(".todo-count");
+const clearAll = document.querySelector(".clear-completed");
 console.log(count);
 const todos = [];
 
@@ -66,7 +67,6 @@ function edit(label) {
   label.parentElement.parentElement.classList.add("editing");
   label.parentElement.nextSibling.focus();
 }
-
 function editFinished(input) {
   const initialValue = input.target.previousSibling.childNodes[1].textContent;
   const text = input.target.value.trim();
@@ -85,7 +85,6 @@ function editFinished(input) {
     input.target.parentElement.classList.remove("editing");
   }
 }
-
 function createTodo(title, id, completed = false) {
   let todo = document.createElement("li");
   todo.id = id;
@@ -150,4 +149,28 @@ function destroyTodo(button) {
     list.appendChild(newtodo);
     count.innerHTML = `<strong>${todos.length}</strong> items left`;
   });
+  if (todos.length == 0) {
+    footer.style.display = "none";
+    main.style.display = "none";
+  }
 }
+
+function destroyAll() {
+  let todos = JSON.parse(localStorage.getItem("mydayapp-js"));
+  let uncompleted = todos.filter((todo) => todo.completed === false);
+  console.log(uncompleted);
+  localStorage.setItem("mydayapp-js", JSON.stringify([...uncompleted]));
+  list.innerHTML = "";
+  uncompleted.forEach((todo) => {
+    const newTodo = createTodo(todo.title, todo.title);
+    list.appendChild(newTodo);
+  });
+  if (uncompleted.length == 0) {
+    footer.style.display = "none";
+    main.style.display = "none";
+  }
+}
+
+clearAll.onclick = () => {
+  destroyAll();
+};
