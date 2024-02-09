@@ -4,17 +4,61 @@ const footer = document.querySelector("footer");
 const list = document.querySelector(".todo-list");
 const main = document.querySelector(".main");
 const input = document.querySelector(".new-todo");
+const count = document.querySelector(".todo-count");
+console.log(count);
+const todos = [];
 
-if (list.childElementCount === 0) {
+if (
+  localStorage.length === 0 ||
+  JSON.parse(localStorage.getItem("mydayapp-js")).length === 0
+) {
   footer.style.display = "none";
   main.style.display = "none";
 }
+window.onload = () => {
+  const todos = JSON.parse(localStorage.getItem("mydayapp-js"));
+  const uncompleted = todos.filter((todo) => todo.completed === false);
+  count.innerHTML = `<strong>${uncompleted.length}</strong> items left`;
+  todos.forEach((todo) => {
+    const newtodo = createTodo(todo.title, todo.id, todo.completed);
+    list.appendChild(newtodo);
+  });
+};
 
+input.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    footer.style.display = "block";
+    main.style.display = "block";
+    const title = input.value.trim();
+    const trimmedTitle = title.trim();
+    if (trimmedTitle !== "") {
+      if (!preventDuplicate(todos, title)) {
+        const newtodo = createTodo(trimmedTitle, title);
+        list.appendChild(newtodo);
+      }
+      count.innerHTML = `<strong>${todos.length}</strong> items left`;
+    }
+    input.value = "";
+    localStorage.setItem("mydayapp-js", JSON.stringify([...todos]));
+  }
+});
 function checked(input) {
+  const todos = JSON.parse(localStorage.getItem("mydayapp-js"));
+  const uncompleted = todos.filter((todo) => todo.completed === false);
+  const completed = todos.find(
+    (todo) => todo.title === input.parentElement.childNodes[1].textContent
+  );
   if (input.checked) {
     input.parentElement.parentElement.classList.add("completed");
+    console.log(completed);
+    completed.completed = true;
+    count.innerHTML = `<strong>${uncompleted.length - 1}</strong> items left`;
+    localStorage.setItem("mydayapp-js", JSON.stringify([...todos]));
   } else {
     input.parentElement.parentElement.classList.remove("completed");
+    count.innerHTML = `<strong>${uncompleted.length + 1}</strong> items left`;
+    completed.completed = false;
+    localStorage.setItem("mydayapp-js", JSON.stringify([...todos]));
   }
 }
 
@@ -24,10 +68,16 @@ function edit(label) {
 }
 
 function editFinished(input) {
+  const initialValue = input.target.previousSibling.childNodes[1].textContent;
   const text = input.target.value.trim();
+  const todos = JSON.parse(localStorage.getItem("mydayapp-js"));
+  const editing = todos.find((todo) => todo.title === initialValue);
   if (input.key === "Enter") {
     if (input.target.value !== "") {
       input.target.previousSibling.childNodes[1].textContent = text;
+      editing.title = input.target.value;
+      editing.id = input.target.value;
+      localStorage.setItem("mydayapp-js", JSON.stringify([...todos]));
       input.target.parentElement.classList.remove("editing");
     }
   }
@@ -36,22 +86,9 @@ function editFinished(input) {
   }
 }
 
-input.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    footer.style.display = "block";
-    main.style.display = "block";
-    const title = input.value;
-    const trimmedTitle = title.trim();
-    if (trimmedTitle !== "") {
-      const newtodo = createTodo(trimmedTitle);
-      list.appendChild(newtodo);
-    }
-    input.value = "";
-  }
-});
-
-function createTodo(title) {
+function createTodo(title, id, completed = false) {
   let todo = document.createElement("li");
+  todo.id = id;
   let div = document.createElement("div");
   div.classList.add("view");
   let mark = document.createElement("input");
@@ -60,13 +97,20 @@ function createTodo(title) {
   mark.onclick = (e) => {
     checked(e.target);
   };
+  if (completed) {
+    todo.classList.add("completed");
+    mark.checked = true;
+  }
   let label = document.createElement("label");
-  label.innerText = title;
+  label.innerText = title.trim();
   label.ondblclick = (e) => {
     edit(e.target);
   };
   let destroy = document.createElement("button");
   destroy.classList.add("destroy");
+  destroy.onclick = (e) => {
+    destroyTodo(e.target);
+  };
   let hiddenInput = document.createElement("input");
   hiddenInput.classList.add("edit");
   hiddenInput.value = title;
@@ -78,5 +122,32 @@ function createTodo(title) {
   div.appendChild(destroy);
   todo.appendChild(div);
   todo.appendChild(hiddenInput);
+  todos.push({
+    title: title,
+    id: title,
+    completed: false,
+  });
+
   return todo;
+}
+
+function preventDuplicate(actual, newItem) {
+  if (actual.find((item) => item.title === newItem)) {
+    return true;
+  }
+}
+
+function destroyTodo(button) {
+  let todos = JSON.parse(localStorage.getItem("mydayapp-js"));
+  const index = todos.findIndex(
+    (todo) => todo.id === button.parentElement.parentElement.id
+  );
+  todos.splice(index, 1);
+  localStorage.setItem("mydayapp-js", JSON.stringify([...todos]));
+  list.innerHTML = "";
+  todos.forEach((todo) => {
+    const newtodo = createTodo(todo.title, todo.title);
+    list.appendChild(newtodo);
+    count.innerHTML = `<strong>${todos.length}</strong> items left`;
+  });
 }
