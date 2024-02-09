@@ -8,6 +8,10 @@ const count = document.querySelector(".todo-count");
 const clearAll = document.querySelector(".clear-completed");
 console.log(count);
 const todos = [];
+console.log(todos);
+if (main.style.display != "none") {
+  clearAll.style.display = "block";
+}
 
 if (
   localStorage.length === 0 ||
@@ -16,11 +20,12 @@ if (
   footer.style.display = "none";
   main.style.display = "none";
 }
+
 window.onload = () => {
   const todos = JSON.parse(localStorage.getItem("mydayapp-js"));
   const uncompleted = todos.filter((todo) => todo.completed === false);
   count.innerHTML = `<strong>${uncompleted.length}</strong> items left`;
-  todos.forEach((todo) => {
+  uncompleted.forEach((todo) => {
     const newtodo = createTodo(todo.title, todo.id, todo.completed);
     list.appendChild(newtodo);
   });
@@ -32,7 +37,7 @@ input.addEventListener("keydown", (e) => {
     main.style.display = "block";
     const title = input.value.trim();
     const trimmedTitle = title.trim();
-    if (trimmedTitle !== "") {
+    if (title !== "") {
       if (!preventDuplicate(todos, title)) {
         const newtodo = createTodo(trimmedTitle, title);
         list.appendChild(newtodo);
@@ -41,9 +46,12 @@ input.addEventListener("keydown", (e) => {
     }
     input.value = "";
     localStorage.setItem("mydayapp-js", JSON.stringify([...todos]));
+    clearAll.style.display = "block";
+    console.log(todos);
   }
 });
 function checked(input) {
+  clearAll.style.display = "block";
   const todos = JSON.parse(localStorage.getItem("mydayapp-js"));
   const uncompleted = todos.filter((todo) => todo.completed === false);
   const completed = todos.find(
@@ -121,13 +129,14 @@ function createTodo(title, id, completed = false) {
   div.appendChild(destroy);
   todo.appendChild(div);
   todo.appendChild(hiddenInput);
-  todos.push({
-    title: title,
-    id: title,
-    completed: false,
-  });
-
-  return todo;
+  if (title != "") {
+    todos.push({
+      title: title,
+      id: title,
+      completed: false,
+    });
+    return todo;
+  }
 }
 
 function preventDuplicate(actual, newItem) {
@@ -152,10 +161,12 @@ function destroyTodo(button) {
   if (todos.length == 0) {
     footer.style.display = "none";
     main.style.display = "none";
+    localStorage.clear();
   }
 }
 
 function destroyAll() {
+  clearAll.style.display = "none";
   let todos = JSON.parse(localStorage.getItem("mydayapp-js"));
   let uncompleted = todos.filter((todo) => todo.completed === false);
   console.log(uncompleted);
@@ -165,6 +176,9 @@ function destroyAll() {
     const newTodo = createTodo(todo.title, todo.title);
     list.appendChild(newTodo);
   });
+  if (todos.length != 0) {
+    clearAll.style.display = "block";
+  }
   if (uncompleted.length == 0) {
     footer.style.display = "none";
     main.style.display = "none";
