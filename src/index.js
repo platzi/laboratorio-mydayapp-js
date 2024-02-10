@@ -6,68 +6,82 @@ const main = document.querySelector(".main");
 const input = document.querySelector(".new-todo");
 const count = document.querySelector(".todo-count");
 const clearAll = document.querySelector(".clear-completed");
-console.log(count);
-const todos = [];
-console.log(todos);
+
+let todos = [];
+setInterval(() => {
+  if (getTodosFromLocalStorage() === null) {
+    todos = [];
+  } else {
+    todos = getTodosFromLocalStorage();
+  }
+}, 1);
+
 if (main.style.display != "none") {
   clearAll.style.display = "block";
 }
 
-if (
-  localStorage.length === 0 ||
-  JSON.parse(localStorage.getItem("mydayapp-js")).length === 0
-) {
+if (localStorage.length === 0 || getTodosFromLocalStorage().length === 0) {
   footer.style.display = "none";
   main.style.display = "none";
 }
 
 window.onload = () => {
-  const todos = JSON.parse(localStorage.getItem("mydayapp-js"));
-  const uncompleted = todos.filter((todo) => todo.completed === false);
-  count.innerHTML = `<strong>${uncompleted.length}</strong> items left`;
-  uncompleted.forEach((todo) => {
-    const newtodo = createTodo(todo.title, todo.id, todo.completed);
-    list.appendChild(newtodo);
-  });
+  const todos = getTodosFromLocalStorage();
+  if (!todos || todos.length === 0) {
+    footer.style.display = "none";
+    main.style.display = "none";
+    clearAll.style.display = "none";
+  } else {
+    todos.forEach((todo) => {
+      const newtodo = createTodo(todo.title, todo.id, todo.completed);
+      list.appendChild(newtodo);
+    });
+    const uncompleted = todos.filter((todo) => !todo.completed);
+    const completed = todos.filter((todo) => todo.completed === true);
+    count.innerHTML = `<strong>${uncompleted.length}</strong> items left`;
+    if (completed.length === 0) {
+      clearAll.style.display = "none";
+    }
+  }
 };
 
 input.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
-    footer.style.display = "block";
-    main.style.display = "block";
     const title = input.value.trim();
     const trimmedTitle = title.trim();
     if (title !== "") {
       if (!preventDuplicate(todos, title)) {
         const newtodo = createTodo(trimmedTitle, title);
         list.appendChild(newtodo);
+        addTodoToStorage(trimmedTitle, trimmedTitle);
+        footer.style.display = "block";
+        main.style.display = "block";
+        clearAll.style.display = "block";
+        input.value = "";
       }
+      updateLocalStorage(todos);
       count.innerHTML = `<strong>${todos.length}</strong> items left`;
     }
-    input.value = "";
-    localStorage.setItem("mydayapp-js", JSON.stringify([...todos]));
-    clearAll.style.display = "block";
-    console.log(todos);
   }
 });
+
 function checked(input) {
   clearAll.style.display = "block";
-  const todos = JSON.parse(localStorage.getItem("mydayapp-js"));
+  const todos = getTodosFromLocalStorage();
   const uncompleted = todos.filter((todo) => todo.completed === false);
   const completed = todos.find(
     (todo) => todo.title === input.parentElement.childNodes[1].textContent
   );
   if (input.checked) {
     input.parentElement.parentElement.classList.add("completed");
-    console.log(completed);
     completed.completed = true;
     count.innerHTML = `<strong>${uncompleted.length - 1}</strong> items left`;
-    localStorage.setItem("mydayapp-js", JSON.stringify([...todos]));
+    updateLocalStorage(todos);
   } else {
     input.parentElement.parentElement.classList.remove("completed");
     count.innerHTML = `<strong>${uncompleted.length + 1}</strong> items left`;
     completed.completed = false;
-    localStorage.setItem("mydayapp-js", JSON.stringify([...todos]));
+    updateLocalStorage(todos);
   }
 }
 
@@ -75,17 +89,18 @@ function edit(label) {
   label.parentElement.parentElement.classList.add("editing");
   label.parentElement.nextSibling.focus();
 }
+
 function editFinished(input) {
   const initialValue = input.target.previousSibling.childNodes[1].textContent;
   const text = input.target.value.trim();
-  const todos = JSON.parse(localStorage.getItem("mydayapp-js"));
+  const todos = getTodosFromLocalStorage();
   const editing = todos.find((todo) => todo.title === initialValue);
   if (input.key === "Enter") {
     if (input.target.value !== "") {
       input.target.previousSibling.childNodes[1].textContent = text;
       editing.title = input.target.value;
       editing.id = input.target.value;
-      localStorage.setItem("mydayapp-js", JSON.stringify([...todos]));
+      updateLocalStorage(todos);
       input.target.parentElement.classList.remove("editing");
     }
   }
@@ -93,6 +108,7 @@ function editFinished(input) {
     input.target.parentElement.classList.remove("editing");
   }
 }
+
 function createTodo(title, id, completed = false) {
   let todo = document.createElement("li");
   todo.id = id;
@@ -130,11 +146,6 @@ function createTodo(title, id, completed = false) {
   todo.appendChild(div);
   todo.appendChild(hiddenInput);
   if (title != "") {
-    todos.push({
-      title: title,
-      id: title,
-      completed: false,
-    });
     return todo;
   }
 }
@@ -146,12 +157,12 @@ function preventDuplicate(actual, newItem) {
 }
 
 function destroyTodo(button) {
-  let todos = JSON.parse(localStorage.getItem("mydayapp-js"));
+  const todos = getTodosFromLocalStorage();
   const index = todos.findIndex(
     (todo) => todo.id === button.parentElement.parentElement.id
   );
   todos.splice(index, 1);
-  localStorage.setItem("mydayapp-js", JSON.stringify([...todos]));
+  updateLocalStorage(todos);
   list.innerHTML = "";
   todos.forEach((todo) => {
     const newtodo = createTodo(todo.title, todo.title);
@@ -167,9 +178,8 @@ function destroyTodo(button) {
 
 function destroyAll() {
   clearAll.style.display = "none";
-  let todos = JSON.parse(localStorage.getItem("mydayapp-js"));
+  let todos = getTodosFromLocalStorage();
   let uncompleted = todos.filter((todo) => todo.completed === false);
-  console.log(uncompleted);
   localStorage.setItem("mydayapp-js", JSON.stringify([...uncompleted]));
   list.innerHTML = "";
   uncompleted.forEach((todo) => {
@@ -188,3 +198,19 @@ function destroyAll() {
 clearAll.onclick = () => {
   destroyAll();
 };
+
+function updateLocalStorage(todos) {
+  localStorage.setItem("mydayapp-js", JSON.stringify([...todos]));
+}
+
+function getTodosFromLocalStorage() {
+  return JSON.parse(localStorage.getItem("mydayapp-js"));
+}
+
+function addTodoToStorage(title, id) {
+  todos.push({
+    title: title,
+    id: id,
+    completed: false,
+  });
+}
