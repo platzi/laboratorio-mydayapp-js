@@ -133,7 +133,7 @@ function editFinished(input) {
   if (input.key === "Enter") {
     if (input.target.value !== "") {
       input.target.previousSibling.childNodes[1].textContent = text;
-      editing.title = input.target.value;
+      editing.title = input.target.value.trim();
       editing.id = input.target.value;
       updateLocalStorage(todos);
       input.target.parentElement.classList.remove("editing");
