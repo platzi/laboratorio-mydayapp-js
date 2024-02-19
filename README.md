@@ -2,6 +2,8 @@
 
 MyDayApp es una aplicación para gestionar tareas de forma sencilla, fácil y en donde pondrás a pruebas tus conocimientos en JS.
 
+Live: https://mydayapp-platzi-lab.netlify.app/
+
 ![preview](https://i.imgur.com/et5mmr7.png)
 
 - [Instalación](#instalación)
