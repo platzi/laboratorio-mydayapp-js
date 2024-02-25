@@ -80,6 +80,7 @@ function createTodo(label) {
       !list.classList.contains("completed")
     ) {
       list.classList.add("editing");
+      editInput.focus();
     } else {
       return;
     }
@@ -94,6 +95,15 @@ function createTodo(label) {
     if (newTodo.length === 0) {
       list.classList.remove("editing");
     } else if (e.key === "Enter") {
+      labelElement.textContent = newTodo.trim();
+      list.classList.remove("editing");
+    }
+  });
+  window.addEventListener("keydown", (e) => {
+    const newTodo = editInput.value;
+    if (newTodo.length === 0) {
+      list.classList.remove("editing");
+    } else if (e.key === "Escape") {
       labelElement.textContent = newTodo.trim();
       list.classList.remove("editing");
     }
