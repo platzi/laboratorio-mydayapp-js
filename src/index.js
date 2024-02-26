@@ -1,7 +1,38 @@
 import "./css/base.css";
 import * as node from "./js/nodes.js";
 
-// feat main and footer should not be displayed when there's no todos
+function saveTodos() {
+  let textToSave = [];
+  let todoListsArr = document.querySelectorAll(".todo-list li");
+  console.log("🚀 ~ saveTodos ~ todoListsArr:", todoListsArr);
+  todoListsArr.forEach((element) => {
+    let label = element.querySelector(".view label");
+    textToSave.push(label.textContent);
+  });
+  console.log(textToSave);
+  return textToSave;
+}
+// LocalStorage(LS)
+function saveTodoToLS() {
+  let dataToSave = saveTodos();
+  let dataToLS = JSON.stringify(dataToSave);
+  return dataToLS;
+}
+
+function retrieveLS() {
+  let todosData = JSON.parse(localStorage.getItem("mydayapp-js"));
+  return todosData;
+}
+
+let retrievedTodos = retrieveLS();
+if (retrievedTodos) {
+  retrievedTodos.forEach((element) => {
+    createTodo(element);
+  });
+}
+
+console.log("🚀 ~ checkTodoTask ~ retrievedTodos:", retrievedTodos);
+
 function checkTodoTask(element) {
   const childrenArray = Array.from(element.children);
   if (childrenArray.length > 0) {
@@ -21,7 +52,10 @@ function unhideMainAndFooter() {
   node.footer.classList.remove("hidden");
 }
 
-checkTodoTask(node.todoList);
+window.document.addEventListener(
+  "DOMContentLoaded",
+  checkTodoTask(node.todoList)
+);
 
 // feat adding new task
 const newTodoInput = document.querySelector(
@@ -44,7 +78,6 @@ newTodoInput.addEventListener("keydown", (e) => {
     addNewTodo(newTodoText);
   }
 });
-
 function createTodo(label) {
   const list = document.createElement("li");
   const todoContainer = document.createElement("div");
@@ -88,6 +121,7 @@ function createTodo(label) {
 
   deleteButton.addEventListener("click", () => {
     list.remove();
+    localStorage.setItem("mydayapp-js", saveTodoToLS());
   });
   editInput.addEventListener("keydown", (e) => {
     const newTodo = editInput.value.trim();
@@ -105,4 +139,6 @@ function createTodo(label) {
       editInput.value = labelElement.textContent;
     }
   });
+
+  localStorage.setItem("mydayapp-js", saveTodoToLS());
 }
