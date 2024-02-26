@@ -91,21 +91,20 @@ function createTodo(label) {
   });
 
   editInput.addEventListener("keydown", (e) => {
-    const newTodo = editInput.value;
-    if (newTodo.length === 0) {
+    const newTodo = editInput.value.trim();
+
+    if (newTodo.length > 0 && e.key === "Enter") {
+      labelElement.textContent = newTodo.trim();
       list.classList.remove("editing");
     } else if (e.key === "Enter") {
-      labelElement.textContent = newTodo.trim();
       list.classList.remove("editing");
     }
   });
   window.addEventListener("keydown", (e) => {
-    const newTodo = editInput.value;
-    if (newTodo.length === 0) {
+    if (e.key === "Escape") {
       list.classList.remove("editing");
-    } else if (e.key === "Escape") {
-      labelElement.textContent = newTodo.trim();
-      list.classList.remove("editing");
+    } else {
+      return;
     }
   });
 }
