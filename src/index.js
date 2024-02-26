@@ -89,22 +89,20 @@ function createTodo(label) {
   deleteButton.addEventListener("click", () => {
     list.remove();
   });
-
   editInput.addEventListener("keydown", (e) => {
     const newTodo = editInput.value.trim();
-
     if (newTodo.length > 0 && e.key === "Enter") {
       labelElement.textContent = newTodo.trim();
       list.classList.remove("editing");
     } else if (e.key === "Enter") {
       list.classList.remove("editing");
+      editInput.value = labelElement.textContent;
     }
   });
   window.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
       list.classList.remove("editing");
-    } else {
-      return;
+      editInput.value = labelElement.textContent;
     }
   });
 }
