@@ -4,12 +4,19 @@ import * as node from "./js/nodes.js";
 function saveTodos() {
   let textToSave = [];
   let todoListsArr = document.querySelectorAll(".todo-list li");
-  console.log("🚀 ~ saveTodos ~ todoListsArr:", todoListsArr);
   todoListsArr.forEach((element) => {
-    let label = element.querySelector(".view label");
-    textToSave.push(label.textContent);
+    const label = element.querySelector(".view label");
+    const state = element.classList;
+
+    const todoObj = {
+      label: label.textContent,
+      state: state.value ? true : false,
+    };
+    console.log("🚀 ~ todoListsArr.forEach ~ todoObj:", todoObj);
+
+    textToSave.push(todoObj);
   });
-  console.log(textToSave);
+
   return textToSave;
 }
 // LocalStorage(LS)
@@ -20,18 +27,16 @@ function saveTodoToLS() {
 }
 
 function retrieveLS() {
-  let todosData = JSON.parse(localStorage.getItem("mydayapp-js"));
-  return todosData;
+  let todosData = localStorage.getItem("mydayapp-js");
+  return todosData ? JSON.parse(todosData) : [];
 }
 
 let retrievedTodos = retrieveLS();
 if (retrievedTodos) {
   retrievedTodos.forEach((element) => {
-    createTodo(element);
+    createTodo(element.label, element.state);
   });
 }
-
-console.log("🚀 ~ checkTodoTask ~ retrievedTodos:", retrievedTodos);
 
 function checkTodoTask(element) {
   const childrenArray = Array.from(element.children);
@@ -78,7 +83,9 @@ newTodoInput.addEventListener("keydown", (e) => {
     addNewTodo(newTodoText);
   }
 });
-function createTodo(label) {
+function createTodo(title, isComplete = false) {
+  let label = title.trim();
+
   const list = document.createElement("li");
   const todoContainer = document.createElement("div");
   const toggleInput = document.createElement("input");
@@ -94,6 +101,11 @@ function createTodo(label) {
   editInput.classList.add("edit");
   editInput.value = label;
 
+  if (isComplete) {
+    list.classList.add("completed");
+    toggleInput.checked = true;
+  }
+
   todoContainer.append(toggleInput, labelElement, deleteButton);
   list.append(todoContainer, editInput);
 
@@ -107,15 +119,16 @@ function createTodo(label) {
     }
   });
 
-  labelElement.addEventListener("dblclick", () => {
-    if (
-      !editInput.classList.contains("editing") &&
-      !list.classList.contains("completed")
-    ) {
+  labelElement.addEventListener("click", (e) => {
+    if (!list.classList.contains("editing")) {
       list.classList.add("editing");
       editInput.focus();
-    } else {
-      return;
+    }
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!labelElement.contains(e.target)) {
+      list.classList.remove("editing");
     }
   });
 
@@ -130,13 +143,13 @@ function createTodo(label) {
       list.classList.remove("editing");
     } else if (e.key === "Enter") {
       list.classList.remove("editing");
-      editInput.value = labelElement.textContent;
+      editInput.value = labelElement.textContent.trim();
     }
   });
   window.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
       list.classList.remove("editing");
-      editInput.value = labelElement.textContent;
+      editInput.value = labelElement.textContent.trim();
     }
   });
 
