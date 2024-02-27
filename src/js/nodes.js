@@ -4,7 +4,6 @@ const create = (element) => document.createElement(element);
 export const main = $(".main");
 export const todoList = $(".todo-list");
 export const footer = $(".footer");
-export const todoCount = $(".todo-count");
 export const filters = $(".filters");
 
 // buttons

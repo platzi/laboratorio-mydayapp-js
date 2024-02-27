@@ -12,7 +12,6 @@ function saveTodos() {
       label: label.textContent,
       state: state.value ? true : false,
     };
-    console.log("🚀 ~ todoListsArr.forEach ~ todoObj:", todoObj);
 
     textToSave.push(todoObj);
   });
