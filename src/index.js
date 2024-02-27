@@ -40,10 +40,15 @@ if (retrievedTodos) {
 function checkTodoTask(element) {
   const pendingTaskCounter = document.querySelector(".todo-count strong");
   const totalTask = document.querySelectorAll(".todo-list li");
-  const pendingTask = document.querySelectorAll(".todo-list .completed");
-  pendingTaskCounter.textContent = totalTask.length - pendingTask.length;
+  const completedTask = document.querySelectorAll(".todo-list .completed");
+  pendingTaskCounter.textContent = totalTask.length - completedTask.length;
   localStorage.setItem("mydayapp-js", saveTodoToLS());
   const childrenArray = Array.from(element.children);
+  if (completedTask.length === 0) {
+    node.clearCompleted.classList.add("hidden");
+  } else {
+    node.clearCompleted.classList.remove("hidden");
+  }
   if (childrenArray.length > 0) {
     unhideMainAndFooter();
   } else {
@@ -170,5 +175,69 @@ function cleanCompletedTask() {
   const completedTask = document.querySelectorAll(".todo-list .completed");
   completedTask.forEach((e) => {
     e.remove();
+  });
+}
+
+// filtering
+
+window.addEventListener("DOMContentLoaded", navigate, false);
+window.addEventListener("hashchange", navigate, false);
+
+const hashPages = {
+  "#/pending": pending,
+  "#/completed": completed,
+};
+
+function navigate() {
+  const hash = location.hash;
+  console.log("haschange");
+  if (hashPages[hash]) {
+    hashPages[hash]();
+  } else {
+    homePage();
+  }
+}
+
+function homePage() {
+  node.all.classList.add("selected");
+  node.pending.classList.remove("selected");
+  node.completed.classList.remove("selected");
+
+  const allTask = document.querySelectorAll(".todo-list li");
+  allTask.forEach((e) => {
+    e.classList.remove("hidden");
+  });
+}
+
+function pending() {
+  node.all.classList.remove("selected");
+  node.pending.classList.add("selected");
+  node.completed.classList.remove("selected");
+
+  const allTask = document.querySelectorAll(".todo-list li");
+  const allTaskArr = Array.from(allTask);
+  const pendingTask = allTaskArr.filter(
+    (e) => !e.classList.contains("completed")
+  );
+  allTask.forEach((e) => {
+    e.classList.add("hidden");
+  });
+  pendingTask.forEach((e) => {
+    e.classList.remove("hidden");
+  });
+}
+
+function completed() {
+  node.all.classList.remove("selected");
+  node.pending.classList.remove("selected");
+  node.completed.classList.add("selected");
+
+  const allTask = document.querySelectorAll(".todo-list li");
+  const completedTask = document.querySelectorAll(".todo-list .completed");
+  allTask.forEach((e) => {
+    e.classList.add("hidden");
+  });
+  completedTask.forEach((e) => {
+    e.classList.remove("hidden");
   });
 }
