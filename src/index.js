@@ -162,3 +162,13 @@ function createTodo(title, isComplete = false) {
 setInterval(() => {
   checkTodoTask(node.todoList);
 }, 500);
+
+// feat clean completed task button
+node.clearCompleted.addEventListener("click", cleanCompletedTask);
+
+function cleanCompletedTask() {
+  const completedTask = document.querySelectorAll(".todo-list .completed");
+  completedTask.forEach((e) => {
+    e.remove();
+  });
+}
