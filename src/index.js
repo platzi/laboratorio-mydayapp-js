@@ -39,6 +39,11 @@ if (retrievedTodos) {
 }
 
 function checkTodoTask(element) {
+  const pendingTaskCounter = document.querySelector(".todo-count strong");
+  const totalTask = document.querySelectorAll(".todo-list li");
+  const pendingTask = document.querySelectorAll(".todo-list .completed");
+  pendingTaskCounter.textContent = totalTask.length - pendingTask.length;
+  localStorage.setItem("mydayapp-js", saveTodoToLS());
   const childrenArray = Array.from(element.children);
   if (childrenArray.length > 0) {
     unhideMainAndFooter();
@@ -134,7 +139,6 @@ function createTodo(title, isComplete = false) {
 
   deleteButton.addEventListener("click", () => {
     list.remove();
-    localStorage.setItem("mydayapp-js", saveTodoToLS());
   });
   editInput.addEventListener("keydown", (e) => {
     const newTodo = editInput.value.trim();
@@ -155,3 +159,7 @@ function createTodo(title, isComplete = false) {
 
   localStorage.setItem("mydayapp-js", saveTodoToLS());
 }
+
+setInterval(() => {
+  checkTodoTask(node.todoList);
+}, 500);
