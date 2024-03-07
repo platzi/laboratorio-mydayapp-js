@@ -20,15 +20,15 @@ MyDayApp es una aplicación para gestionar tareas de forma sencilla, fácil y en
 1. Comprobar ambiente de desarrollo, con el comando `npm run dev`
 
 ---
+
 ### Instalación de ambiente para pruebas e2e
 
-1. Instalar requerimientos para pruebas e2e, con el comando  `npm run e2e:install`
-1. Comprobar que se corran pruebas e2e, con el comando  `npm run e2e`
-
+1. Instalar requerimientos para pruebas e2e, con el comando `npm run e2e:install`
+1. Comprobar que se corran pruebas e2e, con el comando `npm run e2e`
 
 ## Configuración
 
-El proyecto ya viene con una configuración inicial, la cual ya incluye empaquetado con *webpack* y una organización sencilla de archivos y carpetas para empezar a incorporar las funcionalidades en JavaScript.
+El proyecto ya viene con una configuración inicial, la cual ya incluye empaquetado con _webpack_ y una organización sencilla de archivos y carpetas para empezar a incorporar las funcionalidades en JavaScript.
 
 ### Estructura de carpetas
 
@@ -115,7 +115,6 @@ Sin embargo esto es solo un ejemplo, si para tu implementación manejas el rende
 
 ### Scripts
 
-
 - El comando `npm run start` inicia un servidor usando `http-server` con la carpeta de `/dist` que es la carpeta en donde quedan los archivos para producción, recuerda antes de correr este comando asegurarte de correr `npm run build`.
 - El comando `npm run dev` genera un servidor en modo desarrollo el cual tiene livereload.
 - El comando `npm run build` corre webpack en modo producción y deja los archivos de producción en la carpeta `/dist`.
@@ -131,18 +130,18 @@ El modelo de datos recomendado para una tarea es:
 
 Para crear una aplicación de tareas consistente y útil para los usuarios, la aplicación debe cumplir con la siguiente lista de 9 funcionalidades.
 
-### 1. Ocultar las secciones main y footer
+### 1. Ocultar las secciones main y footer ✅
 
 - Cuando no hay tareas, los elementos con ID `#main` y `#footer` deberían estar ocultos.
 
-### 2. Crear una nueva tarea.
+### 2. Crear una nueva tarea. ✅
 
 - Se debe crear una nueva tarea se debe usar el input principal de la aplicación.
 - Este input debe enfocarse cuando se cargue la página, preferiblemente utilizando el atributo `autofocus` en el input.
 - Al presionar la tecla Enter la tarea se crea con el estado **pending** y se agrega a la lista de tareas y el input debería quedar en limpio.
 - Asegúrate de usar métodos como `.trim()` para limpiar espacios al inicio o al final y verifica que la tarea no sea un `string` vacío.
 
-### 3. Una tarea
+### 3. Una tarea ✅
 
 Una tarea debería tener 3 posibles interacciones:
 
@@ -150,30 +149,30 @@ Una tarea debería tener 3 posibles interacciones:
 2. Si se hace doble clic en el  `<label>` se activa el modo edición.
 3. Si se hace la acción `:hover` en una tarea se debería mostrar el botón para eliminar (`.destroy`).
 
-### 4. Editando una tarea
+### 4. Editando una tarea ✅
 
 - Cuando el modo edición está activado, se deberían ocultar los otros elementos y se mostrará un input que contiene el título de la tarea pendiente, que debe estar enfocado (`.focus()`).
 - La edición debe guardarse cuando se presione la tecla Enter y salir del modo edición.
 - Asegúrate de usar métodos como `.trim()` limpiar espacios al inicio o al final.
 - Si se presiona la tecla Escape durante la edición, se debe salir del modo edición y descartar cualquier cambio.
 
-### 5. Contador
+### 5. Contador ✅
 
 - En el footer se debería mostrar el número de tareas en estado **pending**.
 - Asegúrese de que el número esté envuelto por una etiqueta `<strong>`.
 - También asegúrese de pluralizar la palabra `item` correctamente, por ejemplo: `0 items`, `1 item`, `2 items`.
 
-### 6. Botón de limpiar
+### 6. Botón de limpiar ✅
 
 - Debería existir un botón para eliminar todas las tareas que están con estado de **completed**.
 
-### 7. Persistencia
+### 7. Persistencia ✅
 
 - Cuando se recargue la aplicación se debe obtener las tareas, para esto tu aplicación debería guardar las tareas en LocalStorage.
 - El key que se debe usar para el LocalStorage debe ser `mydayapp-js`, esto es importante ya que las [pruebas e2e](#pruebas) van a verificar el LocalStorage con esta la key `mydayapp-js`.
 - NO es necesario persistir estados de la interfaz como por ejemplo guardar el modo de edición. Solo se debe guardar las tareas.
 
-### 8. Filtros y rutas
+### 8. Filtros y rutas ✅
 
 Deben existir tres filtros que funcione desde la URL y funcionan como links en el footer:
 
