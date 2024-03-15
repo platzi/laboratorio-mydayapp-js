@@ -1,4 +1,4 @@
-module.exports = {
+export const module = {
   env: {
     browser: true,
     es2021: true,
