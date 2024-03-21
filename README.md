@@ -1,5 +1,7 @@
 # MyDayApp - JavaScript
 
+Deploy: https://laboratorio-mydayapp-js-theta.vercel.app/
+
 MyDayApp es una aplicación para gestionar tareas de forma sencilla, fácil y en donde pondrás a pruebas tus conocimientos en JS.
 
 ![preview](https://i.imgur.com/et5mmr7.png)
