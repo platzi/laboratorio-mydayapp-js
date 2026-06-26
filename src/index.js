@@ -1,5 +1,17 @@
 import "./css/base.css";
 
-import { sayHello } from "./js/utils";
+let todo = localStorage.getItem('todo') || [];
+const main = document.querySelector('.main');
+const footer = document.querySelector('.footer');
 
-console.log(sayHello("Hello"));
+function renderTodo() {
+	if (todo.length === 0) {
+		main.style.display = 'none';
+		footer.style.display = 'none';
+	} else {
+		main.style.display = 'block';
+		footer.style.display = 'block';
+	}
+}
+
+renderTodo();
