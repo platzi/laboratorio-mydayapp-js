@@ -22,10 +22,11 @@ function renderTodo() {
 		listItem.className = task.completed ? 'completed' : '';
 		listItem.innerHTML = `
 		<div class="view">
-			<input class="toggle" type="checkbox" ${task.completed ?? 'checked'} />
+			<input class="toggle" type="checkbox" ${task.completed ? 'checked' : ''} />
 			<label>${task.title}</label>
 			<button class="destroy"></button>
-		</div>`;
+		</div>
+		<input class="edit" value="${task.title}" />`;
 
 		todoList.appendChild(listItem);
 	});
@@ -58,6 +59,75 @@ function createTodo() {
 
 document.addEventListener('keydown', (e) => {
 	if (e.key === 'Enter') {
-		createTodo();
+		const focusElement = document.activeElement;
+
+		if (focusElement.classList.contains('new-todo')) {
+			createTodo();
+			return;
+		}
+
+		if (focusElement.classList.contains('edit')) {
+			const id = focusElement.closest('li').id;
+			const text = focusElement.value.trim();
+
+			editTodo(id, text);
+			return;
+		}
+	}
+
+	if (e.key === 'Escape') {
+		renderTodo();
+	}
+});
+
+function completeTodo(id) {
+	const item = todo.find(item => item.id === id);
+	item.completed = !item.completed;
+
+	localStorage.setItem('todo', JSON.stringify(todo));
+	renderTodo();
+}
+
+function editTodo(id, text) {
+	const item = todo.find(item => item.id === id);
+	item.title = text;
+
+	localStorage.setItem('todo', JSON.stringify(todo));
+	renderTodo();
+}
+
+function deleteTodo(id) {
+	const item = todo.findIndex(item => item.id === id);
+	todo.splice(1, item);
+
+	console.log(id);
+	
+
+	localStorage.setItem('todo', JSON.stringify(todo));
+	renderTodo();
+}
+
+document.addEventListener('click', e => {
+	const target = e.target;
+
+	if (target.classList.contains('toggle')) {
+		const id = target.closest('li').id;
+
+		completeTodo(id);
+	}
+
+	if (target.classList.contains('destroy')) {
+		const id = target.closest('li').id;
+		deleteTodo(id);
+	}
+});
+
+document.addEventListener('dblclick', e => {
+	const target = e.target;
+
+	if (target.tagName === 'LABEL') {
+		const item = target.closest('li');
+		item.classList.add('editing');
+		item.querySelector('.edit').focus();
 	}
 });
