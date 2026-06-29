@@ -1,9 +1,11 @@
 import "./css/base.css";
 
-let todo = JSON.parse(localStorage.getItem('todo')) || [];
-const main = document.querySelector('.main');
-const footer = document.querySelector('.footer');
+let todo = JSON.parse(localStorage.getItem('mydayapp-js')) || [];
+let currentRoute = '#/';
+const main = document.querySelector('#main');
+const footer = document.querySelector('#footer');
 const todoList = document.querySelector('.todo-list');
+const clearCompleted = document.querySelector('.clear-completed');
 
 function renderTodo() {
 	if (todo.length === 0) {
@@ -14,9 +16,16 @@ function renderTodo() {
 		footer.style.display = 'block';
 	}
 
+	let filteredTodos = todo;
+	if (currentRoute === '#/pending') {
+		filteredTodos = todo.filter(item => !item.completed);
+	} else if (currentRoute === '#/completed') {
+		filteredTodos = todo.filter(item => item.completed);
+	}
+
 	todoList.innerHTML = '';
 
-	todo.forEach(task => {
+	filteredTodos.forEach(task => {
 		const listItem = document.createElement('li');
 		listItem.id = task.id;
 		listItem.className = task.completed ? 'completed' : '';
@@ -30,16 +39,35 @@ function renderTodo() {
 
 		todoList.appendChild(listItem);
 	});
-}
 
-renderTodo();
+	const pending = todo.filter(item => !item.completed);
+	const completed = todo.filter(item => item.completed);
+	const todoCount = document.querySelector('.todo-count');
+
+	todoCount.innerHTML = `<strong>${pending.length}</strong> item${pending.length !== 1 ? 's' : ''} left`;
+
+	document.querySelectorAll('.filters a').forEach(link => {
+		if (link.getAttribute('href') === currentRoute) {
+			link.className = 'selected';
+		} else {
+			link.className = '';
+		}
+	});
+
+	if (completed.length === 0) {
+		clearCompleted.style.display = 'none';
+	} else {
+		clearCompleted.style.display = 'block';
+	}
+
+	localStorage.setItem('mydayapp-js', JSON.stringify(todo));
+}
 
 function createTodo() {
 	const newTodoInput = document.querySelector('.new-todo');
 	const newTodoValue = newTodoInput.value.trim();
 
 	if (!newTodoValue) {
-		alert('El input no puede estar vacío');
 		return;
 	}
 
@@ -50,8 +78,6 @@ function createTodo() {
 	};
 
 	todo.push(newTodo);
-	localStorage.setItem('todo', JSON.stringify(todo));
-
 	newTodoInput.value = '';
 
 	renderTodo();
@@ -84,7 +110,6 @@ function completeTodo(id) {
 	const item = todo.find(item => item.id === id);
 	item.completed = !item.completed;
 
-	localStorage.setItem('todo', JSON.stringify(todo));
 	renderTodo();
 }
 
@@ -92,18 +117,15 @@ function editTodo(id, text) {
 	const item = todo.find(item => item.id === id);
 	item.title = text;
 
-	localStorage.setItem('todo', JSON.stringify(todo));
 	renderTodo();
 }
 
 function deleteTodo(id) {
-	const item = todo.findIndex(item => item.id === id);
-	todo.splice(1, item);
+	const index = todo.findIndex(item => item.id === id);
+	if (index !== -1) {
+		todo.splice(index, 1);
+	}
 
-	console.log(id);
-	
-
-	localStorage.setItem('todo', JSON.stringify(todo));
 	renderTodo();
 }
 
@@ -131,3 +153,24 @@ document.addEventListener('dblclick', e => {
 		item.querySelector('.edit').focus();
 	}
 });
+
+clearCompleted.addEventListener('click', () => {
+	todo = todo.filter(item => !item.completed);
+
+	renderTodo();
+});
+
+function handleRoute() {
+	const hash = window.location.hash || '#/';
+
+	if (hash === '#/' || hash === '#/pending' || hash === '#/completed') {
+		currentRoute = hash;
+	} else {
+		currentRoute = '#/';
+	}
+
+	renderTodo();
+}
+
+window.addEventListener('hashchange', handleRoute);
+window.addEventListener('load', handleRoute);
